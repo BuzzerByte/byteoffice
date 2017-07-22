@@ -33,6 +33,7 @@ mix.combine([
     pluginPath + 'timepicker/jquery.timepicker.js',
     pluginPath + 'summernote/summernote.js',
     pluginPath + 'simplemde/simplemde.min.js',
+    pluginPath + 'prism/prism.js',
     pluginPath + 'Chartjs/Chart.js',
     pluginPath + 'charts/sparkline/jquery.sparkline.js',
     pluginPath + 'charts/amcharts/amcharts.js',
@@ -80,6 +81,7 @@ mix.combine([
 
     .js('resources/assets/admin/js/pages/dashboard.js', 'public/assets/admin/js/pages/')
     .js('resources/assets/admin/js/pages/todos.js', 'public/assets/admin/js/pages/')
+    .js('resources/assets/admin/js/pages/mail.js', 'public/assets/admin/js/settings/')
 
     .sass('resources/assets/admin/sass/laraspace.scss', 'public/assets/admin/css/')
 

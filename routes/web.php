@@ -23,10 +23,12 @@ Route::get('/', [
 
 Route::group([
     'prefix' => 'admin',
-    'middleware' => 'admin'
+//    'middleware' => 'admin'
 ], function () {
 
-    //Main Dashboard
+    // Dashboard
+    //----------------------------------
+
     Route::get('/', [
         'as' => 'admin.dashboard', 'uses' => 'DashboardController@index'
     ]);
@@ -44,6 +46,8 @@ Route::group([
     ]);
 
     // Layouts
+    //----------------------------------
+
     Route::group(['prefix' => 'layouts'], function () {
 
         Route::get('sidebar', [
@@ -60,7 +64,9 @@ Route::group([
 
     });
 
-    //Ui Elements
+    // UI Elements
+    //----------------------------------
+
     Route::group(['prefix' => 'basic-ui'], function () {
 
         Route::get('buttons', [
@@ -93,16 +99,13 @@ Route::group([
 
     });
 
-    //Component Routes
+    // Components
+    //----------------------------------
 
     Route::group(['prefix' => 'components'], function () {
 
         Route::get('notifications', [
             'as' => 'admin.components.notifications', 'uses' => 'Demo\PagesController@notifications'
-        ]);
-
-        Route::get('graphs', [
-            'as' => 'admin.components.graphs', 'uses' => 'Demo\PagesController@graphs'
         ]);
 
         Route::get('datatables', [
@@ -144,8 +147,14 @@ Route::group([
 
     });
 
-    //Charts
+    // Charts
+    //----------------------------------
+
     Route::group(['prefix' => 'charts'], function () {
+
+        Route::get('chartjs', [
+            'as' => 'admin.charts.chartjs', 'uses' => 'Demo\PagesController@chartjs'
+        ]);
 
         Route::get('sparklines', [
             'as' => 'admin.charts.sparklines', 'uses' => 'Demo\PagesController@sparklineCharts'
@@ -165,7 +174,8 @@ Route::group([
 
     });
 
-    //Forms Routes
+    // Form Components
+    //----------------------------------
 
     Route::group(['prefix' => 'forms'], function () {
 
@@ -193,13 +203,15 @@ Route::group([
             'as' => 'admin.forms.wizards', 'uses' => 'Demo\PagesController@wizards'
         ]);
 
-        Route::get('wizard-with-circles', [
-            'as' => 'admin.forms.wizard-with-circles', 'uses' => 'Demo\PagesController@wizardWithCircles'
+        Route::get('wizards-2', [
+            'as' => 'admin.forms.wizards2', 'uses' => 'Demo\PagesController@wizards2'
         ]);
 
     });
 
-    //Gallery
+    // Gallery Components
+    //----------------------------------
+
     Route::group(['prefix' => 'gallery'], function () {
 
         Route::get('grid', [
@@ -211,23 +223,28 @@ Route::group([
         ]);
     });
 
-    //Login Options
+    // Login & Register Pages
+    //----------------------------------
 
-    Route::get('login-simple', [
-        'as' => 'admin.login.simple', 'uses' => 'Demo\PagesController@loginSimple'
+    Route::get('login-2', [
+        'as' => 'admin.login-2', 'uses' => 'Demo\PagesController@login2'
     ]);
 
-    //Todos
-
-    Route::resource('todos', 'Demo\TodosController');
-
-    Route::post('todos/toggleTodo/{id}', [
-        'as' => 'admin.todos.toggle', 'uses' => 'Demo\TodosController@toggleTodo'
+    Route::get('login-3', [
+        'as' => 'admin.login-3', 'uses' => 'Demo\PagesController@login3'
     ]);
 
-    Route::resource('users', 'UsersController');
+    Route::get('register-2', [
+        'as' => 'admin.register-2', 'uses' => 'Demo\PagesController@register2'
+    ]);
 
-    //icons
+    Route::get('register-3', [
+        'as' => 'admin.register-3', 'uses' => 'Demo\PagesController@register3'
+    ]);
+
+    // Icon Preview Pages
+    //----------------------------------
+
     Route::group(['prefix' => 'icons'], function () {
 
         Route::get('/icomoon', [
@@ -256,10 +273,23 @@ Route::group([
 
     });
 
-    //Settings
+    // Todos
+    //----------------------------------
+
+    Route::resource('todos', 'Demo\TodosController');
+
+    Route::post('todos/toggleTodo/{id}', [
+        'as' => 'admin.todos.toggle', 'uses' => 'Demo\TodosController@toggleTodo'
+    ]);
+
+    Route::resource('users', 'UsersController');
+
+    // Settings
+    //----------------------------------
+
     Route::group(['prefix' => 'settings'], function () {
 
-        //social
+
         Route::get('/social', [
             'as' => 'admin.settings.index', 'uses' => 'SettingsController@index'
         ]);
@@ -268,40 +298,35 @@ Route::group([
             'as' => 'admin.settings.social', 'uses' => 'SettingsController@postSocial'
         ]);
 
-        //mailer
         Route::group(['prefix' => 'mail'], function () {
 
             Route::get('/', [
-                'as' => 'admin.mail.index', 'uses' => 'SettingsController@mailIndex'
+                'as' => 'admin.mail.index', 'uses' => 'SettingsController@mail'
             ]);
             Route::post('/create', [
-                'as' => 'admin.mail.create', 'uses' => 'SettingsController@mailCreate'
+                'as' => 'admin.mail.create', 'uses' => 'SettingsController@postMail'
             ]);
 
         });
 
-        //Ace Editor
         Route::group(['prefix' => 'env'], function () {
 
             Route::get('/', [
-                'as' => 'admin.setting.environment', 'uses' => 'SettingsController@envShow'
+                'as' => 'admin.setting.environment', 'uses' => 'SettingsController@environment'
             ]);
 
             Route::post('/create', [
-                'as' => 'admin.setting.environment.create', 'uses' => 'SettingsController@envCreate'
+                'as' => 'admin.setting.environment.create', 'uses' => 'SettingsController@postEnvironment'
             ]);
 
         });
 
-        //notification
         Route::get('/notification', [
             'as' => 'admin.notification.index', 'uses' => 'SettingsController@notification'
         ]);
         Route::post('notification/create', [
-            'as' => 'admin.notification.create', 'uses' => 'SettingsController@notificationCreate'
+            'as' => 'admin.notification.create', 'uses' => 'SettingsController@postNotification'
         ]);
-
-        //
 
     });
 
@@ -317,7 +342,7 @@ Route::group([
 |
 */
 
-Route::group(['middleware' => ['guest', 'setting']], function () {
+Route::group(['middleware' => ['guest','setting']], function () {
 
     Route::get('login', [
         'as' => 'login', 'uses' => 'AuthController@login'
@@ -348,13 +373,13 @@ Route::group(['middleware' => ['guest', 'setting']], function () {
     ]);
 
     Route::get('auth/{provider}', 'AuthController@redirectToProvider');
+
     Route::get('auth/{provider}/callback', 'AuthController@handleProviderCallback');
 });
 
 Route::get('logout', [
     'as' => 'logout', 'uses' => 'AuthController@logout'
 ]);
-
 
 Route::get('install', [
     'as' => 'logout', 'uses' => 'AuthController@logout'
