@@ -34,14 +34,15 @@
 @import "../../plugins/icons/icons.scss";
 @import "../../plugins/calendar/fullcalendar.scss";
 @import "../../plugins/form-wizard/wizard.scss";
+@import "../../plugins/form-wizard/wizard2.scss";
 @import "../../plugins/imageCropper/cropper.scss";
 @import "../../plugins/gallery/image/photoswipe.scss";
 @import "../../plugins/gallery/image/default-skin.scss";
 @import "../../plugins/zoom/zoom.scss";
 @import "../../plugins/bar-rating/bar-rating.scss";
-@import "../../plugins/charts/amcharts/export";
-@import "../../plugins/charts/morris/morris";
-
+@import "../../plugins/charts/amcharts/export.scss";
+@import "../../plugins/charts/morris/morris.scss";
+@import "../../plugins/prism/prism.scss";
 
 // Skins
 //----------------------------------
@@ -71,7 +72,6 @@
 
 @import 'partials/header';
 @import 'partials/sidebar';
-@import 'partials/submenu';
 @import 'partials/footer';
 
 
@@ -93,10 +93,15 @@
 
 @import 'pages/dashboard';
 @import 'pages/login';
-@import 'pages/login-simple';
+@import "pages/login-1";
+@import 'pages/login-2';
+@import 'pages/login-3';
 @import 'pages/user-profile';
 @import 'pages/404';
+@import 'pages/settings';
+
 
 @import "demo";
+
 
 

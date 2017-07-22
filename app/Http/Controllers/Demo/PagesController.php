@@ -103,6 +103,11 @@ class PagesController extends Controller
 
     //Charts
 
+    public function chartjs()
+    {
+        return view('admin.pages.charts.chartjs');
+    }
+
     public function sparklineCharts()
     {
         return view('admin.pages.charts.sparkline');
@@ -122,7 +127,6 @@ class PagesController extends Controller
     {
         return view('admin.pages.charts.gauge');
     }
-
 
     // Forms
     public function general()
@@ -155,9 +159,9 @@ class PagesController extends Controller
         return view('admin.pages.forms.wizards');
     }
 
-    public function wizardWithCircles()
+    public function wizards2()
     {
-        return view('admin.pages.forms.wizard-with-circles');
+        return view('admin.pages.forms.wizards2');
     }
 
     // Gallery
@@ -172,9 +176,25 @@ class PagesController extends Controller
     }
 
     // Login
-    public function loginSimple()
+    public function login2()
     {
-        return view('admin.sessions.login-simple');
+        return view('admin.sessions.login-2');
+    }
+
+    public function login3()
+    {
+        return view('admin.sessions.login-3');
+    }
+
+    // Register
+    public function register2()
+    {
+        return view('admin.sessions.register-2');
+    }
+
+    public function register3()
+    {
+        return view('admin.sessions.register-3');
     }
 
     public function nestableList()
@@ -187,7 +207,7 @@ class PagesController extends Controller
         return view('admin.pages.components.nestable-tree');
     }
 
-    //icons
+    // Icons
     public function icoMoons()
     {
         return view('admin.pages.icons.ico-moon');
