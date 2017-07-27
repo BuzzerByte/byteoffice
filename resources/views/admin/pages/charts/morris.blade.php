@@ -1,7 +1,7 @@
 @extends('admin.layouts.layout-basic')
 
 @section('scripts')
-    <script src="{{asset('assets/admin/js/demo/charts/morris.js')}}"></script>
+    <script src="{{asset('assets/admin/js/pages/charts/morris.js')}}"></script>
 @stop
 
 @section('content')
@@ -10,7 +10,7 @@
             <h3 class="page-title">Morris Charts</h3>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{route('admin.components.graphs')}}">Components</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.charts.morris')}}">Charts</a></li>
                 <li class="breadcrumb-item active">Morris Charts</li>
             </ol>
         </div>
@@ -21,7 +21,7 @@
                         <h6>Line Chart</h6>
                     </div>
                     <div class="card-block">
-                        <div class="amcharts" id="morris-line-chart"></div>
+                        <div class="morris" id="morris-line-chart"></div>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                         <h6>Area Chart</h6>
                     </div>
                     <div class="card-block">
-                        <div class="amcharts" id="morris-area-chart"></div>
+                        <div class="morris" id="morris-area-chart"></div>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                         <h6>Donut Chart</h6>
                     </div>
                     <div class="card-block">
-                        <div class="amcharts" id="morris-donut-chart"></div>
+                        <div class="morris" id="morris-donut-chart"></div>
                     </div>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                         <h6>Bar Chart</h6>
                     </div>
                     <div class="card-block">
-                        <div class="amcharts" id="morris-bar-chart"></div>
+                        <div class="morris" id="morris-bar-chart"></div>
                     </div>
                 </div>
             </div>
