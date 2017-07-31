@@ -1,7 +1,7 @@
 @extends('admin.layouts.layout-basic')
 
 @section('scripts')
-    <script type="text/javascript" src="{{asset('assets/admin/js/demo/rating.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/admin/js/pages/bar-ratings.js')}}"></script>
 @stop
 
 @section('content')
@@ -125,6 +125,41 @@
                             <option value="3">3</option>
                             <option value="2">2</option>
                             <option value="1" selected="selected">1</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row bar-rating">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h6>Font Awesome Stars</h6>
+                    </div>
+                    <div class="card-block">
+                        <select id="br-fontawesome" name="rating" autocomplete="off">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h6>CSS Stars</h6>
+                    </div>
+                    <div class="card-block">
+                        <select id="br-css" name="rating" autocomplete="off">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
                         </select>
                     </div>
                 </div>

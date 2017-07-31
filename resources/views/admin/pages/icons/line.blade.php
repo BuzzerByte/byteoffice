@@ -12,13 +12,25 @@
             </ol>
         </div>
         <div class="row">
-            <div class="col-md-11">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h6>Example Usage</h6>
+                    </div>
+                    <div class="card-block">
+                        <pre class="language-php"><code>&lt;i class="icon-ln icon-ln-music"&gt;&lt;/i&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-block">
                         <div class="icon-container">
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-music"></i>
+                                    <i class="icon-ln icon-ln-music"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-music</span>
@@ -26,7 +38,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-search"></i>
+                                    <i class="icon-ln icon-ln-search"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-search</span>
@@ -34,7 +46,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-mail"></i>
+                                    <i class="icon-ln icon-ln-mail"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-mail</span>
@@ -42,7 +54,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-heart"></i>
+                                    <i class="icon-ln icon-ln-heart"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-heart</span>
@@ -50,7 +62,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-star"></i>
+                                    <i class="icon-ln icon-ln-star"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-star</span>
@@ -58,7 +70,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-user"></i>
+                                    <i class="icon-ln icon-ln-user"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-user</span>
@@ -66,7 +78,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-videocam"></i>
+                                    <i class="icon-ln icon-ln-videocam"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-videocam</span>
@@ -74,7 +86,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-camera"></i>
+                                    <i class="icon-ln icon-ln-camera"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-camera</span>
@@ -82,7 +94,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-photo"></i>
+                                    <i class="icon-ln icon-ln-photo"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-photo</span>
@@ -90,7 +102,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-attach"></i>
+                                    <i class="icon-ln icon-ln-attach"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-attach</span>
@@ -98,7 +110,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-lock"></i>
+                                    <i class="icon-ln icon-ln-lock"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-lock</span>
@@ -106,7 +118,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-eye"></i>
+                                    <i class="icon-ln icon-ln-eye"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-eye</span>
@@ -114,7 +126,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-tag"></i>
+                                    <i class="icon-ln icon-ln-tag"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-tag</span>
@@ -122,7 +134,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-thumbs-up"></i>
+                                    <i class="icon-ln icon-ln-thumbs-up"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-thumbs-up</span>
@@ -130,7 +142,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-pencil"></i>
+                                    <i class="icon-ln icon-ln-pencil"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-pencil</span>
@@ -138,7 +150,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-comment"></i>
+                                    <i class="icon-ln icon-ln-comment"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-comment</span>
@@ -146,7 +158,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-location"></i>
+                                    <i class="icon-ln icon-ln-location"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-location</span>
@@ -154,7 +166,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-cup"></i>
+                                    <i class="icon-ln icon-ln-cup"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-cup</span>
@@ -162,7 +174,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-trash"></i>
+                                    <i class="icon-ln icon-ln-trash"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-trash</span>
@@ -170,7 +182,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-doc"></i>
+                                    <i class="icon-ln icon-ln-doc"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-doc</span>
@@ -178,7 +190,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-note"></i>
+                                    <i class="icon-ln icon-ln-note"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-note</span>
@@ -186,7 +198,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-cog"></i>
+                                    <i class="icon-ln icon-ln-cog"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-cog</span>
@@ -194,7 +206,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-params"></i>
+                                    <i class="icon-ln icon-ln-params"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-params</span>
@@ -202,7 +214,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-calendar"></i>
+                                    <i class="icon-ln icon-ln-calendar"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-calendar</span>
@@ -210,7 +222,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-sound"></i>
+                                    <i class="icon-ln icon-ln-sound"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-sound</span>
@@ -218,7 +230,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-clock"></i>
+                                    <i class="icon-ln icon-ln-clock"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-clock</span>
@@ -226,7 +238,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-lightbulb"></i>
+                                    <i class="icon-ln icon-ln-lightbulb"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-lightbulb</span>
@@ -234,7 +246,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-tv"></i>
+                                    <i class="icon-ln icon-ln-tv"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-tv</span>
@@ -242,7 +254,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-desktop"></i>
+                                    <i class="icon-ln icon-ln-desktop"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-desktop</span>
@@ -250,7 +262,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-mobile"></i>
+                                    <i class="icon-ln icon-ln-mobile"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-mobile</span>
@@ -258,7 +270,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-cd"></i>
+                                    <i class="icon-ln icon-ln-cd"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-cd</span>
@@ -266,7 +278,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-inbox"></i>
+                                    <i class="icon-ln icon-ln-inbox"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-inbox</span>
@@ -274,7 +286,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-globe"></i>
+                                    <i class="icon-ln icon-ln-globe"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-globe</span>
@@ -282,7 +294,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-cloud"></i>
+                                    <i class="icon-ln icon-ln-cloud"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-cloud</span>
@@ -290,7 +302,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-paper-plane"></i>
+                                    <i class="icon-ln icon-ln-paper-plane"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-paper-plane</span>
@@ -298,7 +310,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-fire"></i>
+                                    <i class="icon-ln icon-ln-fire"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-fire</span>
@@ -306,7 +318,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-graduation-cap"></i>
+                                    <i class="icon-ln icon-ln-graduation-cap"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-graduation-cap</span>
@@ -314,7 +326,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-megaphone"></i>
+                                    <i class="icon-ln icon-ln-megaphone"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-megaphone</span>
@@ -322,7 +334,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-database"></i>
+                                    <i class="icon-ln icon-ln-database"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-database</span>
@@ -330,7 +342,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-key"></i>
+                                    <i class="icon-ln icon-ln-key"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-key</span>
@@ -338,7 +350,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-beaker"></i>
+                                    <i class="icon-ln icon-ln-beaker"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-beaker</span>
@@ -346,7 +358,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-truck"></i>
+                                    <i class="icon-ln icon-ln-truck"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-truck</span>
@@ -354,7 +366,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-money"></i>
+                                    <i class="icon-ln icon-ln-money"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-money</span>
@@ -362,7 +374,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-food"></i>
+                                    <i class="icon-ln icon-ln-food"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-food</span>
@@ -370,7 +382,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-shop"></i>
+                                    <i class="icon-ln icon-ln-shop"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-shop</span>
@@ -378,7 +390,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-diamond"></i>
+                                    <i class="icon-ln icon-ln-diamond"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-diamond</span>
@@ -386,7 +398,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-t-shirt"></i>
+                                    <i class="icon-ln icon-ln-t-shirt"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-t-shirt</span>
@@ -394,7 +406,7 @@
                             </div>
                             <div class="demo-icon">
                                 <div class="icon-box">
-                                    <i class="icon-ln-wallet"></i>
+                                    <i class="icon-ln icon-ln-wallet"></i>
                                 </div>
                                 <div class="icon-classname">
                                     <span>icon-ln-wallet</span>

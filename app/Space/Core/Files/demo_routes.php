@@ -37,13 +37,41 @@ Route::group([
     //Settings
     Route::group(['prefix' => 'settings'], function () {
 
-        Route::get('/', [
+        //social
+        Route::get('/social', [
             'as' => 'admin.settings.index', 'uses' => 'SettingsController@index'
         ]);
 
         Route::post('/social', [
             'as' => 'admin.settings.social', 'uses' => 'SettingsController@postSocial'
         ]);
+
+        //mailer
+        Route::group(['prefix' => 'mail'], function () {
+
+            Route::get('/', [
+                'as' => 'admin.mail.index', 'uses' => 'SettingsController@mail'
+            ]);
+            Route::post('/create', [
+                'as' => 'admin.mail.create', 'uses' => 'SettingsController@postMail'
+            ]);
+            Route::post('/send', [
+                'as' => 'admin.mail.send', 'uses' => 'SettingsController@sendMail'
+            ]);
+        });
+
+        //Ace Editor
+        Route::group(['prefix' => 'env'], function () {
+
+            Route::get('/', [
+                'as' => 'admin.setting.environment', 'uses' => 'SettingsController@environment'
+            ]);
+
+            Route::post('/create', [
+                'as' => 'admin.setting.environment.create', 'uses' => 'SettingsController@postEnvironment'
+            ]);
+
+        });
 
     });
 
@@ -59,7 +87,7 @@ Route::group([
 |
 */
 
-Route::group(['middleware' => 'guest'], function () {
+Route::group(['middleware' => ['setting']], function () {
 
     Route::get('login', [
         'as' => 'login', 'uses' => 'AuthController@login'
@@ -71,6 +99,21 @@ Route::group(['middleware' => 'guest'], function () {
 
     Route::post('login', [
         'as' => 'login.post', 'uses' => 'AuthController@postLogin'
+    ]);
+    Route::get('forgot-password', [
+        'as' => 'forgot-password.index', 'uses' => 'ForgotPasswordController@getEmail'
+    ]);
+
+    Route::post('/forgot-password', [
+        'as' => 'send-reset-link', 'uses' => 'ForgotPasswordController@postEmail'
+    ]);
+
+    Route::get('/password/reset/{token}', [
+        'as' => 'password.reset', 'uses' => 'ForgotPasswordController@GetReset'
+    ]);
+
+    Route::post('/password/reset', [
+        'as' => 'reset.password.post', 'uses' => 'ForgotPasswordController@postReset'
     ]);
 
     Route::get('auth/{provider}', 'AuthController@redirectToProvider');

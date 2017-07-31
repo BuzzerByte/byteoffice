@@ -33,6 +33,7 @@ mix.combine([
     pluginPath + 'timepicker/jquery.timepicker.js',
     pluginPath + 'summernote/summernote.js',
     pluginPath + 'simplemde/simplemde.min.js',
+    pluginPath + 'prism/prism.js',
     pluginPath + 'Chartjs/Chart.js',
     pluginPath + 'charts/sparkline/jquery.sparkline.js',
     pluginPath + 'charts/amcharts/amcharts.js',
@@ -78,12 +79,11 @@ mix.combine([
 
 ], 'public/assets/admin/js/core/plugins.js')
 
-    .js('resources/assets/admin/js/pages/dashboard.js', 'public/assets/admin/js/pages/')
-    .js('resources/assets/admin/js/pages/todos.js', 'public/assets/admin/js/pages/')
+.js('resources/assets/admin/js/app.js', 'public/assets/admin/js/core/')
 
-    .sass('resources/assets/admin/sass/laraspace.scss', 'public/assets/admin/css/')
+.sass('resources/assets/admin/sass/laraspace.scss', 'public/assets/admin/css/')
 
-    .version();
+.version();
 
 /*
  |--------------------------------------------------------------------------
@@ -103,6 +103,6 @@ mix.combine([
     pluginPath + 'laraspace/laraspace-notifs.js'
 ], 'public/assets/front/js/plugins.js')
 
-    .sass('resources/assets/front/sass/front.scss', 'public/assets/front/css/')
+.sass('resources/assets/front/sass/front.scss', 'public/assets/front/css/')
 
-    .version();
+.version();
