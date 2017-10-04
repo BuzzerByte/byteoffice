@@ -61,7 +61,6 @@ Route::group([
         Route::get('horizontal-menu', [
             'as' => 'admin.layouts.horizontal', 'uses' => 'Demo\PagesController@horizontalMenu'
         ]);
-
     });
 
     // UI Elements
@@ -96,7 +95,6 @@ Route::group([
         Route::get('progress-bars', [
             'as' => 'admin.ui.progress-bars', 'uses' => 'Demo\PagesController@progressBars'
         ]);
-
     });
 
     // Components
@@ -112,11 +110,11 @@ Route::group([
             'as' => 'admin.components.datatables', 'uses' => 'Demo\PagesController@datatables'
         ]);
 
-        Route::get('nestable-list',[
+        Route::get('nestable-list', [
             'as'=>'admin.components.nestableList', 'uses'=>'Demo\PagesController@nestableList'
         ]);
 
-        Route::get('nestable-tree',[
+        Route::get('nestable-tree', [
             'as'=>'admin.components.nestableTree', 'uses'=>'Demo\PagesController@nestableTree'
         ]);
 
@@ -141,10 +139,7 @@ Route::group([
             Route::get('bar', [
                 'as' => 'admin.components.rating.bar', 'uses' => 'Demo\PagesController@barRatings'
             ]);
-
         });
-
-
     });
 
     // Charts
@@ -171,7 +166,6 @@ Route::group([
         Route::get('gauges', [
             'as' => 'admin.charts.gauges', 'uses' => 'Demo\PagesController@gaugeCharts'
         ]);
-
     });
 
     // Form Components
@@ -207,6 +201,9 @@ Route::group([
             'as' => 'admin.forms.wizards2', 'uses' => 'Demo\PagesController@wizards2'
         ]);
 
+        Route::get('wizards-3', [
+            'as' => 'admin.forms.wizards3', 'uses' => 'Demo\PagesController@wizards3'
+        ]);
     });
 
     // Gallery Components
@@ -270,7 +267,6 @@ Route::group([
         Route::get('/fontawesome', [
             'as' => 'admin.icons.fontawesome', 'uses' => 'Demo\PagesController@fontawesomeIcons'
         ]);
-
     });
 
     // Todos
@@ -311,24 +307,8 @@ Route::group([
             Route::post('/send-test-email', [
                 'as' => 'admin.settings.mail.send', 'uses' => 'SettingsController@sendTestMail'
             ]);
-
         });
-
-        Route::group(['prefix' => 'env'], function () {
-
-            Route::get('/', [
-                'as' => 'admin.settings.environment', 'uses' => 'SettingsController@environment'
-            ]);
-
-            Route::post('/create', [
-                'as' => 'admin.settings.environment.post', 'uses' => 'SettingsController@postEnvironment'
-            ]);
-
-        });
-
     });
-
-
 });
 
 /*

@@ -11,7 +11,7 @@ var pluginPath = 'resources/assets/plugins/';
 mix.combine([
     // ** Required Plugins **
     pluginPath + 'jquery/jquery.js',
-    pluginPath + 'bootstrap/tether.js',
+    pluginPath + 'bootstrap/popper.js',
     pluginPath + 'bootstrap/bootstrap.js',
     pluginPath + 'customScrollBar/customScrollBar.js',
 
@@ -34,7 +34,7 @@ mix.combine([
     pluginPath + 'summernote/summernote.js',
     pluginPath + 'simplemde/simplemde.min.js',
     pluginPath + 'prism/prism.js',
-    pluginPath + 'Chartjs/Chart.js',
+    pluginPath + 'charts/chartjs/Chart.js',
     pluginPath + 'charts/sparkline/jquery.sparkline.js',
     pluginPath + 'charts/amcharts/amcharts.js',
     pluginPath + 'charts/amcharts/serial.js',
