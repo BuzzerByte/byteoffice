@@ -19,7 +19,7 @@ mix.combine([
     pluginPath + 'ladda/spin.js',
     pluginPath + 'ladda/ladda.js',
     pluginPath + 'toastr/toastr.js',
-    // pluginPath + 'notie/notie.js',
+    pluginPath + 'notie/notie.js',
     pluginPath + 'jquery-validate/jquery.validate.js',
     pluginPath + 'jquery-validate/additional-methods.js',
     pluginPath + 'clockpicker/bootstrap-clockpicker.js',
@@ -28,7 +28,6 @@ mix.combine([
     pluginPath + 'datatables/jquery.dataTables.js',
     pluginPath + 'datatables/dataTables.bootstrap4.js',
     pluginPath + 'multiselect/jquery.multi-select.js',
-    pluginPath + 'bootstrapSelect/bootstrap-select.js',
     pluginPath + 'bootstrap-datepicker/bootstrap-datepicker.js',
     pluginPath + 'timepicker/jquery.timepicker.js',
     pluginPath + 'summernote/summernote.js',
@@ -83,8 +82,10 @@ mix.combine([
 .js('resources/assets/admin/js/app.js', 'public/assets/admin/js/core/')
 
 .sass('resources/assets/admin/sass/laraspace.scss', 'public/assets/admin/css/')
-
-.version();
+    .options({
+        processCssUrls: false
+    })
+    .version();
 
 /*
  |--------------------------------------------------------------------------
@@ -95,7 +96,7 @@ mix.combine([
 mix.combine([
     // ** Required Plugins **
     pluginPath + 'jquery/jquery.js',
-    pluginPath + 'bootstrap/tether.js',
+    pluginPath + 'bootstrap/popper.js',
     pluginPath + 'bootstrap/bootstrap.js',
     pluginPath + 'toastr/toastr.js',
     pluginPath + 'notie/notie.js',
@@ -105,5 +106,7 @@ mix.combine([
 ], 'public/assets/front/js/plugins.js')
 
 .sass('resources/assets/front/sass/front.scss', 'public/assets/front/css/')
-
-.version();
+    .options({
+        processCssUrls: false
+    })
+    .version();
