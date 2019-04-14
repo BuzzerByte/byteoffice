@@ -1,6 +1,6 @@
-# Project Title
+# Buzzeroffice
 
-Buzzeroffice
+Office Management System
 
 ### Prerequisites
 
