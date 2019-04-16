@@ -1,7 +1,7 @@
 <form action="{{route('login.post')}}" id="loginForm" method="post">
     {{csrf_field()}}
     <div class="form-group">
-        <input type="email" class="form-control" name="email" placeholder="Enter email">
+        <input type="email" class="form-control autocomplete" name="email" placeholder="Enter email">
     </div>
     <div class="form-group">
         <input type="password" class="form-control" name="password" placeholder="Enter Password">
