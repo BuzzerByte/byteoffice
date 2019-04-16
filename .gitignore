@@ -2,7 +2,6 @@
 /public/hot
 /public/storage
 /storage/*.key
-vendor
 .env
 deploy.php
 .phpunit.result.cache
