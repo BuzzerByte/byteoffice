@@ -8,7 +8,7 @@ set('application', 'buzzeroffice');
 
 // Project repository
 set('repository', 'git@github.com:BuzzerByte/buzzeroffice.git');
-
+set('composer_options', 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true); 
 
