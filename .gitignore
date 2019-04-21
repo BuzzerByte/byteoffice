@@ -5,6 +5,7 @@
 /.env
 /deploy.php
 /vendor
+/~/.vscode-root
 #deploy.php
 .phpunit.result.cache
 Homestead.json
