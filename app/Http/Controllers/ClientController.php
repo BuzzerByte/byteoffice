@@ -11,11 +11,6 @@ use DB;
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $clients = Client::all();
@@ -26,22 +21,6 @@ class ClientController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $client = Client::create([
@@ -145,38 +124,18 @@ class ClientController extends Controller
         return redirect()->route('client.index',['clients'=>$clients]);    
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \buzzeroffice\Client  $client
-     * @return \Illuminate\Http\Response
-     */
     public function show(Client $client)
     {
         $client = Client::where('id',$client->id)->get();
         return response()->json(['client'=>$client]);
     }
 
-    
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \buzzeroffice\Client  $client
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Client $client)
     {
         $data = Client::where('id',$client->id)->get();
         return response()->json(['client'=>$data]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\Client  $client
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Client $client)
     {
         $update = Client::where('id',$client->id)->update([
@@ -200,24 +159,7 @@ class ClientController extends Controller
         $clients = Client::all();
         return redirect()->route('client.index',['clients'=>$clients]);    
     }
-    
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \buzzeroffice\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Client $client)
-    {
 
-
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \buzzeroffice\Client  $client
-     * @return \Illuminate\Http\Response
-     */
     public function delete(Client $client)
     {
         $data = Client::find($client->id);

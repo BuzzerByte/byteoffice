@@ -15,33 +15,13 @@ use DB;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $categories = Category::all();
         return view('admin.category.index',['categories'=>$categories]);  
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         if (Category::where('name', '=', $request->name)->exists()) {
@@ -64,36 +44,12 @@ class CategoryController extends Controller
         return redirect()->route('category.index',['categories'=>$categories]);     
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \buzzeroffice\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \buzzeroffice\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Category $category)
     {
         $data = Category::where('id',$category->id)->get();
         return response()->json(['category'=>$data]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Category $category)
     {
         $update = Category::where('id',$category->id)->update([
@@ -110,24 +66,7 @@ class CategoryController extends Controller
         $categories = Category::all();
         return redirect()->route('category.index',['categories'=>$categories]);  
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \buzzeroffice\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \buzzeroffice\Inventory  $Inventory
-     * @return \Illuminate\Http\Response
-     */
+    
     public function delete(Category $category)
     {
         $data = Category::find($category->id);
