@@ -121,10 +121,6 @@ function init(){
                                                         </tbody>
                                                     </table>
     
-    
-    
-                                                    <!-- End of: Table Footer -->
-    
                                                 </div>
                                             </div>
     
