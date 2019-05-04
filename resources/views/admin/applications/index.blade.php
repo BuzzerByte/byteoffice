@@ -35,10 +35,6 @@
         $('.autocomplete_off').attr('autocomplete','off');
     }
     
-    // $(document.body).on('click','#inp_client_name',function(e){
-    //     e.preventDefault();
-    //     $(this).attr('autocomplete','off');
-    // });
     $('.getEditApplication').click(function () {
         var id = $(this).siblings('input').val();
         $('#form-application').attr('action', '/admin/applications/' + id);

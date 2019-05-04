@@ -11,11 +11,7 @@ use Illuminate\Http\Request;
 
 class EmployeeAwardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         if(Auth::user()->hasRole('admin')){
@@ -31,22 +27,6 @@ class EmployeeAwardController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->month = \Carbon\Carbon::parse($request->month)->format('Y-m-d');
@@ -61,35 +41,16 @@ class EmployeeAwardController extends Controller
         return redirect()->action('EmployeeAwardController@index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \buzzeroffice\EmployeeAward  $employeeAward
-     * @return \Illuminate\Http\Response
-     */
     public function show(EmployeeAward $employeeAward)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \buzzeroffice\EmployeeAward  $employeeAward
-     * @return \Illuminate\Http\Response
-     */
     public function edit(EmployeeAward $employeeAward)
     {
         return response()->json($employeeAward);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\EmployeeAward  $employeeAward
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, EmployeeAward $employeeAward)
     {
         $request->month = \Carbon\Carbon::parse($request->month)->format('Y-m-d');
@@ -104,12 +65,7 @@ class EmployeeAwardController extends Controller
         return redirect()->action('EmployeeAwardController@index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \buzzeroffice\EmployeeAward  $employeeAward
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(EmployeeAward $employeeAward)
     {
         return response()->json($employeeAward);

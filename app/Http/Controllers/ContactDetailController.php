@@ -10,32 +10,6 @@ use Illuminate\Http\Request;
 
 class ContactDetailController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $store = ContactDetail::updateOrCreate([
@@ -56,51 +30,11 @@ class ContactDetailController extends Controller
         return redirect()->action('UserController@contactDetails',['id'=>$request->employee_id]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \buzzeroffice\ContactDetail  $contactDetail
-     * @return \Illuminate\Http\Response
-     */
     public function show(ContactDetail $contactDetail)
     {
         $employee = User::where('id',$contactDetail->employee_id)->first();
         $emergencyContacts = EmergencyContact::where('employee_id',$contactDetail->employee_id)->get();
         
         return view('admin.contactDetails.show',['contactDetail'=>$contactDetail,'employee'=>$employee,'emergencyContacts'=>$emergencyContacts]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \buzzeroffice\ContactDetail  $contactDetail
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ContactDetail $contactDetail)
-    {
-    
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\ContactDetail  $contactDetail
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ContactDetail $contactDetail)
-    {
-    
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \buzzeroffice\ContactDetail  $contactDetail
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ContactDetail $contactDetail)
-    {
-        //
     }
 }

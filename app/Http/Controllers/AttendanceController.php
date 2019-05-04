@@ -18,11 +18,6 @@ use Auth;
 
 class AttendanceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
@@ -36,18 +31,6 @@ class AttendanceController extends Controller
             return view('users.attendances.index',['departments'=>$departments,'id'=>$user_id,'attendances'=>$attendances]);
         }
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-
 
     public function setAttendance(Request $request){
         $department_id = (int)$request->department;
@@ -154,12 +137,6 @@ class AttendanceController extends Controller
         
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $department_id = $request->department_id;
@@ -217,50 +194,11 @@ class AttendanceController extends Controller
         $department_id = $request->department_id;
         return redirect()->route('attendances.attendanceReport',['month'=>$month,'department_id'=>$department_id]);
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  \buzzeroffice\Attendance  $attendance
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Attendance $attendance)
-    {
 
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \buzzeroffice\Attendance  $attendance
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Attendance $attendance)
     {
         //
         return view('admin.attendances.edit',['employees'=>$employees,'department'=>$department,'date'=>$date]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\Attendance  $attendance
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Attendance $attendance)
-    {
-        //
-        
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \buzzeroffice\Attendance  $attendance
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Attendance $attendance)
-    {
-        //
-    }
 }

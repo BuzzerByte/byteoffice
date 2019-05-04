@@ -28,22 +28,12 @@ use DB;
 
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $employees = Employee::where('terminate_status',false)->get();
         return view('admin.employees.index',['employees'=>$employees]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('admin.employees.create');
@@ -146,12 +136,7 @@ class EmployeeController extends Controller
         }
         return redirect()->action('EmployeeController@index'); 
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         
@@ -165,12 +150,7 @@ class EmployeeController extends Controller
         $employees = Employee::where('terminate_status',true)->get();
         return view('admin.employees.terminate',['employees'=>$employees]);
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  \buzzeroffice\Employee  $employee
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Employee $employee)
     {   
         if(DB::table('user_attachments')->where('user_id',$employee->id)->exists()){
@@ -300,6 +280,7 @@ class EmployeeController extends Controller
         }
         return view('admin.employeeLogins.index',['employee'=>$employee,'login'=>$login]);
     }
+    
     /**
      * Show the form for editing the specified resource.
      *
