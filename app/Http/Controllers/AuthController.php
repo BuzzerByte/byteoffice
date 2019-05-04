@@ -41,21 +41,11 @@ class AuthController extends Controller
         return view('admin.sessions.register');
     }
 
-    /**
-     * Redirect the user to the authentication page.
-     *
-     * @return Response
-     */
     public function redirectToProvider($provider)
     {
         return Socialite::driver($provider)->redirect();
     }
 
-    /**
-     * Obtain the user information from GitHub.
-     *
-     * @return Response
-     */
     public function handleProviderCallback($provider)
     {
         $provider_user = Socialite::driver($provider)->user();
