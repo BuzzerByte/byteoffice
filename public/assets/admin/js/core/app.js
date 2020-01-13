@@ -36,6 +36,7 @@
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
+<<<<<<< HEAD
 /******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
 /******/ 	};
@@ -64,6 +65,16 @@
 /******/ 		return ns;
 /******/ 	};
 /******/
+=======
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -77,8 +88,12 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
+<<<<<<< HEAD
 /******/ 	__webpack_require__.p = "/";
 /******/
+=======
+/******/ 	__webpack_require__.p = "";
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 0);
@@ -87,6 +102,7 @@
 /******/ ({
 
 /***/ "./node_modules/axios/index.js":
+<<<<<<< HEAD
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
   \*************************************/
@@ -94,25 +110,43 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(/*! ./lib/axios */ "./node_modules/axios/lib/axios.js");
+=======
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("./node_modules/axios/lib/axios.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /***/ }),
 
 /***/ "./node_modules/axios/lib/adapters/xhr.js":
+<<<<<<< HEAD
 /*!************************************************!*\
   !*** ./node_modules/axios/lib/adapters/xhr.js ***!
   \************************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
 var settle = __webpack_require__(/*! ./../core/settle */ "./node_modules/axios/lib/core/settle.js");
 var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ "./node_modules/axios/lib/helpers/buildURL.js");
 var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ "./node_modules/axios/lib/helpers/parseHeaders.js");
 var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ "./node_modules/axios/lib/helpers/isURLSameOrigin.js");
 var createError = __webpack_require__(/*! ../core/createError */ "./node_modules/axios/lib/core/createError.js");
+=======
+var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+var settle = __webpack_require__("./node_modules/axios/lib/core/settle.js");
+var buildURL = __webpack_require__("./node_modules/axios/lib/helpers/buildURL.js");
+var parseHeaders = __webpack_require__("./node_modules/axios/lib/helpers/parseHeaders.js");
+var isURLSameOrigin = __webpack_require__("./node_modules/axios/lib/helpers/isURLSameOrigin.js");
+var createError = __webpack_require__("./node_modules/axios/lib/core/createError.js");
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__("./node_modules/axios/lib/helpers/btoa.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -124,6 +158,25 @@ module.exports = function xhrAdapter(config) {
     }
 
     var request = new XMLHttpRequest();
+<<<<<<< HEAD
+=======
+    var loadEvent = 'onreadystatechange';
+    var xDomain = false;
+
+    // For IE 8/9 CORS support
+    // Only supports POST and GET calls and doesn't returns the response headers.
+    // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
+    if ("development" !== 'test' &&
+        typeof window !== 'undefined' &&
+        window.XDomainRequest && !('withCredentials' in request) &&
+        !isURLSameOrigin(config.url)) {
+      request = new window.XDomainRequest();
+      loadEvent = 'onload';
+      xDomain = true;
+      request.onprogress = function handleProgress() {};
+      request.ontimeout = function handleTimeout() {};
+    }
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
     // HTTP basic authentication
     if (config.auth) {
@@ -138,8 +191,13 @@ module.exports = function xhrAdapter(config) {
     request.timeout = config.timeout;
 
     // Listen for ready state
+<<<<<<< HEAD
     request.onreadystatechange = function handleLoad() {
       if (!request || request.readyState !== 4) {
+=======
+    request[loadEvent] = function handleLoad() {
+      if (!request || (request.readyState !== 4 && !xDomain)) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         return;
       }
 
@@ -156,8 +214,14 @@ module.exports = function xhrAdapter(config) {
       var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
       var response = {
         data: responseData,
+<<<<<<< HEAD
         status: request.status,
         statusText: request.statusText,
+=======
+        // IE sends 1223 instead of 204 (https://github.com/mzabriskie/axios/issues/201)
+        status: request.status === 1223 ? 204 : request.status,
+        statusText: request.status === 1223 ? 'No Content' : request.statusText,
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         headers: responseHeaders,
         config: config,
         request: request
@@ -169,6 +233,7 @@ module.exports = function xhrAdapter(config) {
       request = null;
     };
 
+<<<<<<< HEAD
     // Handle browser request cancellation (as opposed to a manual cancellation)
     request.onabort = function handleAbort() {
       if (!request) {
@@ -181,6 +246,8 @@ module.exports = function xhrAdapter(config) {
       request = null;
     };
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     // Handle low level network errors
     request.onerror = function handleError() {
       // Real errors are hidden from us by the browser
@@ -204,12 +271,21 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
+<<<<<<< HEAD
       var cookies = __webpack_require__(/*! ./../helpers/cookies */ "./node_modules/axios/lib/helpers/cookies.js");
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
         cookies.read(config.xsrfCookieName) :
         undefined;
+=======
+      var cookies = __webpack_require__("./node_modules/axios/lib/helpers/cookies.js");
+
+      // Add xsrf header
+      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
+          cookies.read(config.xsrfCookieName) :
+          undefined;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
       if (xsrfValue) {
         requestHeaders[config.xsrfHeaderName] = xsrfValue;
@@ -284,20 +360,30 @@ module.exports = function xhrAdapter(config) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/axios.js":
+<<<<<<< HEAD
 /*!*****************************************!*\
   !*** ./node_modules/axios/lib/axios.js ***!
   \*****************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
 var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
 var Axios = __webpack_require__(/*! ./core/Axios */ "./node_modules/axios/lib/core/Axios.js");
 var mergeConfig = __webpack_require__(/*! ./core/mergeConfig */ "./node_modules/axios/lib/core/mergeConfig.js");
 var defaults = __webpack_require__(/*! ./defaults */ "./node_modules/axios/lib/defaults.js");
+=======
+var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+var bind = __webpack_require__("./node_modules/axios/lib/helpers/bind.js");
+var Axios = __webpack_require__("./node_modules/axios/lib/core/Axios.js");
+var defaults = __webpack_require__("./node_modules/axios/lib/defaults.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /**
  * Create an instance of Axios
@@ -326,6 +412,7 @@ axios.Axios = Axios;
 
 // Factory for creating new instances
 axios.create = function create(instanceConfig) {
+<<<<<<< HEAD
   return createInstance(mergeConfig(axios.defaults, instanceConfig));
 };
 
@@ -333,12 +420,25 @@ axios.create = function create(instanceConfig) {
 axios.Cancel = __webpack_require__(/*! ./cancel/Cancel */ "./node_modules/axios/lib/cancel/Cancel.js");
 axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ "./node_modules/axios/lib/cancel/CancelToken.js");
 axios.isCancel = __webpack_require__(/*! ./cancel/isCancel */ "./node_modules/axios/lib/cancel/isCancel.js");
+=======
+  return createInstance(utils.merge(defaults, instanceConfig));
+};
+
+// Expose Cancel & CancelToken
+axios.Cancel = __webpack_require__("./node_modules/axios/lib/cancel/Cancel.js");
+axios.CancelToken = __webpack_require__("./node_modules/axios/lib/cancel/CancelToken.js");
+axios.isCancel = __webpack_require__("./node_modules/axios/lib/cancel/isCancel.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
+<<<<<<< HEAD
 axios.spread = __webpack_require__(/*! ./helpers/spread */ "./node_modules/axios/lib/helpers/spread.js");
+=======
+axios.spread = __webpack_require__("./node_modules/axios/lib/helpers/spread.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 module.exports = axios;
 
@@ -349,10 +449,13 @@ module.exports.default = axios;
 /***/ }),
 
 /***/ "./node_modules/axios/lib/cancel/Cancel.js":
+<<<<<<< HEAD
 /*!*************************************************!*\
   !*** ./node_modules/axios/lib/cancel/Cancel.js ***!
   \*************************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -380,16 +483,23 @@ module.exports = Cancel;
 /***/ }),
 
 /***/ "./node_modules/axios/lib/cancel/CancelToken.js":
+<<<<<<< HEAD
 /*!******************************************************!*\
   !*** ./node_modules/axios/lib/cancel/CancelToken.js ***!
   \******************************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var Cancel = __webpack_require__(/*! ./Cancel */ "./node_modules/axios/lib/cancel/Cancel.js");
+=======
+var Cancel = __webpack_require__("./node_modules/axios/lib/cancel/Cancel.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -449,10 +559,13 @@ module.exports = CancelToken;
 /***/ }),
 
 /***/ "./node_modules/axios/lib/cancel/isCancel.js":
+<<<<<<< HEAD
 /*!***************************************************!*\
   !*** ./node_modules/axios/lib/cancel/isCancel.js ***!
   \***************************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -466,20 +579,32 @@ module.exports = function isCancel(value) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/core/Axios.js":
+<<<<<<< HEAD
 /*!**********************************************!*\
   !*** ./node_modules/axios/lib/core/Axios.js ***!
   \**********************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
 var buildURL = __webpack_require__(/*! ../helpers/buildURL */ "./node_modules/axios/lib/helpers/buildURL.js");
 var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ "./node_modules/axios/lib/core/InterceptorManager.js");
 var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ "./node_modules/axios/lib/core/dispatchRequest.js");
 var mergeConfig = __webpack_require__(/*! ./mergeConfig */ "./node_modules/axios/lib/core/mergeConfig.js");
+=======
+var defaults = __webpack_require__("./node_modules/axios/lib/defaults.js");
+var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+var InterceptorManager = __webpack_require__("./node_modules/axios/lib/core/InterceptorManager.js");
+var dispatchRequest = __webpack_require__("./node_modules/axios/lib/core/dispatchRequest.js");
+var isAbsoluteURL = __webpack_require__("./node_modules/axios/lib/helpers/isAbsoluteURL.js");
+var combineURLs = __webpack_require__("./node_modules/axios/lib/helpers/combineURLs.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /**
  * Create a new instance of Axios
@@ -503,6 +628,7 @@ Axios.prototype.request = function request(config) {
   /*eslint no-param-reassign:0*/
   // Allow for axios('example/url'[, config]) a la fetch API
   if (typeof config === 'string') {
+<<<<<<< HEAD
     config = arguments[1] || {};
     config.url = arguments[0];
   } else {
@@ -511,6 +637,20 @@ Axios.prototype.request = function request(config) {
 
   config = mergeConfig(this.defaults, config);
   config.method = config.method ? config.method.toLowerCase() : 'get';
+=======
+    config = utils.merge({
+      url: arguments[0]
+    }, arguments[1]);
+  }
+
+  config = utils.merge(defaults, this.defaults, { method: 'get' }, config);
+  config.method = config.method.toLowerCase();
+
+  // Support baseURL config
+  if (config.baseURL && !isAbsoluteURL(config.url)) {
+    config.url = combineURLs(config.baseURL, config.url);
+  }
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
   // Hook up interceptors middleware
   var chain = [dispatchRequest, undefined];
@@ -531,11 +671,14 @@ Axios.prototype.request = function request(config) {
   return promise;
 };
 
+<<<<<<< HEAD
 Axios.prototype.getUri = function getUri(config) {
   config = mergeConfig(this.defaults, config);
   return buildURL(config.url, config.params, config.paramsSerializer).replace(/^\?/, '');
 };
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 // Provide aliases for supported request methods
 utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
   /*eslint func-names:0*/
@@ -564,16 +707,23 @@ module.exports = Axios;
 /***/ }),
 
 /***/ "./node_modules/axios/lib/core/InterceptorManager.js":
+<<<<<<< HEAD
 /*!***********************************************************!*\
   !*** ./node_modules/axios/lib/core/InterceptorManager.js ***!
   \***********************************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+=======
+var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 function InterceptorManager() {
   this.handlers = [];
@@ -628,16 +778,23 @@ module.exports = InterceptorManager;
 /***/ }),
 
 /***/ "./node_modules/axios/lib/core/createError.js":
+<<<<<<< HEAD
 /*!****************************************************!*\
   !*** ./node_modules/axios/lib/core/createError.js ***!
   \****************************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var enhanceError = __webpack_require__(/*! ./enhanceError */ "./node_modules/axios/lib/core/enhanceError.js");
+=======
+var enhanceError = __webpack_require__("./node_modules/axios/lib/core/enhanceError.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -658,21 +815,31 @@ module.exports = function createError(message, config, code, request, response) 
 /***/ }),
 
 /***/ "./node_modules/axios/lib/core/dispatchRequest.js":
+<<<<<<< HEAD
 /*!********************************************************!*\
   !*** ./node_modules/axios/lib/core/dispatchRequest.js ***!
   \********************************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
 var transformData = __webpack_require__(/*! ./transformData */ "./node_modules/axios/lib/core/transformData.js");
 var isCancel = __webpack_require__(/*! ../cancel/isCancel */ "./node_modules/axios/lib/cancel/isCancel.js");
 var defaults = __webpack_require__(/*! ../defaults */ "./node_modules/axios/lib/defaults.js");
 var isAbsoluteURL = __webpack_require__(/*! ./../helpers/isAbsoluteURL */ "./node_modules/axios/lib/helpers/isAbsoluteURL.js");
 var combineURLs = __webpack_require__(/*! ./../helpers/combineURLs */ "./node_modules/axios/lib/helpers/combineURLs.js");
+=======
+var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+var transformData = __webpack_require__("./node_modules/axios/lib/core/transformData.js");
+var isCancel = __webpack_require__("./node_modules/axios/lib/cancel/isCancel.js");
+var defaults = __webpack_require__("./node_modules/axios/lib/defaults.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -692,11 +859,14 @@ function throwIfCancellationRequested(config) {
 module.exports = function dispatchRequest(config) {
   throwIfCancellationRequested(config);
 
+<<<<<<< HEAD
   // Support baseURL config
   if (config.baseURL && !isAbsoluteURL(config.url)) {
     config.url = combineURLs(config.baseURL, config.url);
   }
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   // Ensure headers exist
   config.headers = config.headers || {};
 
@@ -756,10 +926,13 @@ module.exports = function dispatchRequest(config) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/core/enhanceError.js":
+<<<<<<< HEAD
 /*!*****************************************************!*\
   !*** ./node_modules/axios/lib/core/enhanceError.js ***!
   \*****************************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -780,6 +953,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
   if (code) {
     error.code = code;
   }
+<<<<<<< HEAD
 
   error.request = request;
   error.response = response;
@@ -803,12 +977,17 @@ module.exports = function enhanceError(error, config, code, request, response) {
       code: this.code
     };
   };
+=======
+  error.request = request;
+  error.response = response;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   return error;
 };
 
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./node_modules/axios/lib/core/mergeConfig.js":
 /*!****************************************************!*\
   !*** ./node_modules/axios/lib/core/mergeConfig.js ***!
@@ -877,12 +1056,19 @@ module.exports = function mergeConfig(config1, config2) {
   !*** ./node_modules/axios/lib/core/settle.js ***!
   \***********************************************/
 /*! no static exports found */
+=======
+/***/ "./node_modules/axios/lib/core/settle.js":
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var createError = __webpack_require__(/*! ./createError */ "./node_modules/axios/lib/core/createError.js");
+=======
+var createError = __webpack_require__("./node_modules/axios/lib/core/createError.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -893,7 +1079,12 @@ var createError = __webpack_require__(/*! ./createError */ "./node_modules/axios
  */
 module.exports = function settle(resolve, reject, response) {
   var validateStatus = response.config.validateStatus;
+<<<<<<< HEAD
   if (!validateStatus || validateStatus(response.status)) {
+=======
+  // Note: status is not exposed by XDomainRequest
+  if (!response.status || !validateStatus || validateStatus(response.status)) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     resolve(response);
   } else {
     reject(createError(
@@ -910,16 +1101,23 @@ module.exports = function settle(resolve, reject, response) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/core/transformData.js":
+<<<<<<< HEAD
 /*!******************************************************!*\
   !*** ./node_modules/axios/lib/core/transformData.js ***!
   \******************************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+=======
+var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /**
  * Transform the data for a request or a response
@@ -942,17 +1140,25 @@ module.exports = function transformData(data, headers, fns) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/defaults.js":
+<<<<<<< HEAD
 /*!********************************************!*\
   !*** ./node_modules/axios/lib/defaults.js ***!
   \********************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
+<<<<<<< HEAD
 var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
 var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ "./node_modules/axios/lib/helpers/normalizeHeaderName.js");
+=======
+var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+var normalizeHeaderName = __webpack_require__("./node_modules/axios/lib/helpers/normalizeHeaderName.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -966,6 +1172,7 @@ function setContentTypeIfUnset(headers, value) {
 
 function getDefaultAdapter() {
   var adapter;
+<<<<<<< HEAD
   // Only Node.JS has a process variable that is of [[Class]] process
   if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
     // For node use HTTP adapter
@@ -973,6 +1180,14 @@ function getDefaultAdapter() {
   } else if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
     adapter = __webpack_require__(/*! ./adapters/xhr */ "./node_modules/axios/lib/adapters/xhr.js");
+=======
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__("./node_modules/axios/lib/adapters/xhr.js");
+  } else if (typeof process !== 'undefined') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__("./node_modules/axios/lib/adapters/xhr.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   }
   return adapter;
 }
@@ -981,7 +1196,10 @@ var defaults = {
   adapter: getDefaultAdapter(),
 
   transformRequest: [function transformRequest(data, headers) {
+<<<<<<< HEAD
     normalizeHeaderName(headers, 'Accept');
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     normalizeHeaderName(headers, 'Content-Type');
     if (utils.isFormData(data) ||
       utils.isArrayBuffer(data) ||
@@ -1016,10 +1234,13 @@ var defaults = {
     return data;
   }],
 
+<<<<<<< HEAD
   /**
    * A timeout in milliseconds to abort a request. If set to 0 (default) a
    * timeout is not created.
    */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   timeout: 0,
 
   xsrfCookieName: 'XSRF-TOKEN',
@@ -1048,15 +1269,22 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
+<<<<<<< HEAD
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../process/browser.js */ "./node_modules/process/browser.js")))
+=======
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/process/browser.js")))
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /***/ }),
 
 /***/ "./node_modules/axios/lib/helpers/bind.js":
+<<<<<<< HEAD
 /*!************************************************!*\
   !*** ./node_modules/axios/lib/helpers/bind.js ***!
   \************************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1075,17 +1303,69 @@ module.exports = function bind(fn, thisArg) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./node_modules/axios/lib/helpers/buildURL.js":
 /*!****************************************************!*\
   !*** ./node_modules/axios/lib/helpers/buildURL.js ***!
   \****************************************************/
 /*! no static exports found */
+=======
+/***/ "./node_modules/axios/lib/helpers/btoa.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+// btoa polyfill for IE<10 courtesy https://github.com/davidchambers/Base64.js
+
+var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+
+function E() {
+  this.message = 'String contains an invalid character';
+}
+E.prototype = new Error;
+E.prototype.code = 5;
+E.prototype.name = 'InvalidCharacterError';
+
+function btoa(input) {
+  var str = String(input);
+  var output = '';
+  for (
+    // initialize result and counter
+    var block, charCode, idx = 0, map = chars;
+    // if the next str index does not exist:
+    //   change the mapping table to "="
+    //   check if d has no fractional digits
+    str.charAt(idx | 0) || (map = '=', idx % 1);
+    // "8 - idx % 1 * 8" generates the sequence 2, 4, 6, 8
+    output += map.charAt(63 & block >> 8 - idx % 1 * 8)
+  ) {
+    charCode = str.charCodeAt(idx += 3 / 4);
+    if (charCode > 0xFF) {
+      throw new E();
+    }
+    block = block << 8 | charCode;
+  }
+  return output;
+}
+
+module.exports = btoa;
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/buildURL.js":
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+<<<<<<< HEAD
 var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+=======
+var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -1126,7 +1406,13 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
       if (utils.isArray(val)) {
         key = key + '[]';
+<<<<<<< HEAD
       } else {
+=======
+      }
+
+      if (!utils.isArray(val)) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         val = [val];
       }
 
@@ -1144,11 +1430,14 @@ module.exports = function buildURL(url, params, paramsSerializer) {
   }
 
   if (serializedParams) {
+<<<<<<< HEAD
     var hashmarkIndex = url.indexOf('#');
     if (hashmarkIndex !== -1) {
       url = url.slice(0, hashmarkIndex);
     }
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
   }
 
@@ -1159,10 +1448,13 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/helpers/combineURLs.js":
+<<<<<<< HEAD
 /*!*******************************************************!*\
   !*** ./node_modules/axios/lib/helpers/combineURLs.js ***!
   \*******************************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1185,21 +1477,29 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/helpers/cookies.js":
+<<<<<<< HEAD
 /*!***************************************************!*\
   !*** ./node_modules/axios/lib/helpers/cookies.js ***!
   \***************************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+=======
+var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
 
   // Standard browser envs support document.cookie
+<<<<<<< HEAD
     (function standardBrowserEnv() {
       return {
         write: function write(name, value, expires, path, domain, secure) {
@@ -1244,16 +1544,65 @@ module.exports = (
         remove: function remove() {}
       };
     })()
+=======
+  (function standardBrowserEnv() {
+    return {
+      write: function write(name, value, expires, path, domain, secure) {
+        var cookie = [];
+        cookie.push(name + '=' + encodeURIComponent(value));
+
+        if (utils.isNumber(expires)) {
+          cookie.push('expires=' + new Date(expires).toGMTString());
+        }
+
+        if (utils.isString(path)) {
+          cookie.push('path=' + path);
+        }
+
+        if (utils.isString(domain)) {
+          cookie.push('domain=' + domain);
+        }
+
+        if (secure === true) {
+          cookie.push('secure');
+        }
+
+        document.cookie = cookie.join('; ');
+      },
+
+      read: function read(name) {
+        var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+        return (match ? decodeURIComponent(match[3]) : null);
+      },
+
+      remove: function remove(name) {
+        this.write(name, '', Date.now() - 86400000);
+      }
+    };
+  })() :
+
+  // Non standard browser env (web workers, react-native) lack needed support.
+  (function nonStandardBrowserEnv() {
+    return {
+      write: function write() {},
+      read: function read() { return null; },
+      remove: function remove() {}
+    };
+  })()
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 );
 
 
 /***/ }),
 
 /***/ "./node_modules/axios/lib/helpers/isAbsoluteURL.js":
+<<<<<<< HEAD
 /*!*********************************************************!*\
   !*** ./node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
   \*********************************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1276,33 +1625,50 @@ module.exports = function isAbsoluteURL(url) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/helpers/isURLSameOrigin.js":
+<<<<<<< HEAD
 /*!***********************************************************!*\
   !*** ./node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
   \***********************************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+=======
+var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
 
   // Standard browser envs have full support of the APIs needed to test
   // whether the request URL is of the same origin as current location.
+<<<<<<< HEAD
     (function standardBrowserEnv() {
       var msie = /(msie|trident)/i.test(navigator.userAgent);
       var urlParsingNode = document.createElement('a');
       var originURL;
 
       /**
+=======
+  (function standardBrowserEnv() {
+    var msie = /(msie|trident)/i.test(navigator.userAgent);
+    var urlParsingNode = document.createElement('a');
+    var originURL;
+
+    /**
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     * Parse a URL to discover it's components
     *
     * @param {String} url The URL to be parsed
     * @returns {Object}
     */
+<<<<<<< HEAD
       function resolveURL(url) {
         var href = url;
 
@@ -1332,11 +1698,43 @@ module.exports = (
       originURL = resolveURL(window.location.href);
 
       /**
+=======
+    function resolveURL(url) {
+      var href = url;
+
+      if (msie) {
+        // IE needs attribute set twice to normalize properties
+        urlParsingNode.setAttribute('href', href);
+        href = urlParsingNode.href;
+      }
+
+      urlParsingNode.setAttribute('href', href);
+
+      // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
+      return {
+        href: urlParsingNode.href,
+        protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
+        host: urlParsingNode.host,
+        search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
+        hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
+        hostname: urlParsingNode.hostname,
+        port: urlParsingNode.port,
+        pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
+                  urlParsingNode.pathname :
+                  '/' + urlParsingNode.pathname
+      };
+    }
+
+    originURL = resolveURL(window.location.href);
+
+    /**
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     * Determine if a URL shares the same origin as the current location
     *
     * @param {String} requestURL The URL to test
     * @returns {boolean} True if URL shares the same origin, otherwise false
     */
+<<<<<<< HEAD
       return function isURLSameOrigin(requestURL) {
         var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
         return (parsed.protocol === originURL.protocol &&
@@ -1350,22 +1748,44 @@ module.exports = (
         return true;
       };
     })()
+=======
+    return function isURLSameOrigin(requestURL) {
+      var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
+      return (parsed.protocol === originURL.protocol &&
+            parsed.host === originURL.host);
+    };
+  })() :
+
+  // Non standard browser envs (web workers, react-native) lack needed support.
+  (function nonStandardBrowserEnv() {
+    return function isURLSameOrigin() {
+      return true;
+    };
+  })()
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 );
 
 
 /***/ }),
 
 /***/ "./node_modules/axios/lib/helpers/normalizeHeaderName.js":
+<<<<<<< HEAD
 /*!***************************************************************!*\
   !*** ./node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
   \***************************************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var utils = __webpack_require__(/*! ../utils */ "./node_modules/axios/lib/utils.js");
+=======
+var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -1380,15 +1800,19 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/helpers/parseHeaders.js":
+<<<<<<< HEAD
 /*!********************************************************!*\
   !*** ./node_modules/axios/lib/helpers/parseHeaders.js ***!
   \********************************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
 
 // Headers whose duplicates are ignored by node
@@ -1399,6 +1823,9 @@ var ignoreDuplicateOf = [
   'last-modified', 'location', 'max-forwards', 'proxy-authorization',
   'referer', 'retry-after', 'user-agent'
 ];
+=======
+var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /**
  * Parse headers into an object
@@ -1427,6 +1854,7 @@ module.exports = function parseHeaders(headers) {
     val = utils.trim(line.substr(i + 1));
 
     if (key) {
+<<<<<<< HEAD
       if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
         return;
       }
@@ -1435,6 +1863,9 @@ module.exports = function parseHeaders(headers) {
       } else {
         parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
       }
+=======
+      parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     }
   });
 
@@ -1445,10 +1876,13 @@ module.exports = function parseHeaders(headers) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/helpers/spread.js":
+<<<<<<< HEAD
 /*!**************************************************!*\
   !*** ./node_modules/axios/lib/helpers/spread.js ***!
   \**************************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1484,17 +1918,25 @@ module.exports = function spread(callback) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/utils.js":
+<<<<<<< HEAD
 /*!*****************************************!*\
   !*** ./node_modules/axios/lib/utils.js ***!
   \*****************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
 var isBuffer = __webpack_require__(/*! is-buffer */ "./node_modules/axios/node_modules/is-buffer/index.js");
+=======
+var bind = __webpack_require__("./node_modules/axios/lib/helpers/bind.js");
+var isBuffer = __webpack_require__("./node_modules/is-buffer/index.js");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /*global toString:true*/
 
@@ -1670,6 +2112,7 @@ function trim(str) {
  *
  * react-native:
  *  navigator.product -> 'ReactNative'
+<<<<<<< HEAD
  * nativescript
  *  navigator.product -> 'NativeScript' or 'NS'
  */
@@ -1677,6 +2120,11 @@ function isStandardBrowserEnv() {
   if (typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' ||
                                            navigator.product === 'NativeScript' ||
                                            navigator.product === 'NS')) {
+=======
+ */
+function isStandardBrowserEnv() {
+  if (typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     return false;
   }
   return (
@@ -1704,7 +2152,11 @@ function forEach(obj, fn) {
   }
 
   // Force an array if not already something iterable
+<<<<<<< HEAD
   if (typeof obj !== 'object') {
+=======
+  if (typeof obj !== 'object' && !isArray(obj)) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     /*eslint no-param-reassign:0*/
     obj = [obj];
   }
@@ -1758,6 +2210,7 @@ function merge(/* obj1, obj2, obj3, ... */) {
 }
 
 /**
+<<<<<<< HEAD
  * Function equal to merge with the difference being that no reference
  * to original objects is kept.
  *
@@ -1784,6 +2237,8 @@ function deepMerge(/* obj1, obj2, obj3, ... */) {
 }
 
 /**
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
  * Extends object a by mutably adding to it the properties of object b.
  *
  * @param {Object} a The object to be extended
@@ -1821,7 +2276,10 @@ module.exports = {
   isStandardBrowserEnv: isStandardBrowserEnv,
   forEach: forEach,
   merge: merge,
+<<<<<<< HEAD
   deepMerge: deepMerge,
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   extend: extend,
   trim: trim
 };
@@ -1829,6 +2287,7 @@ module.exports = {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./node_modules/axios/node_modules/is-buffer/index.js":
 /*!************************************************************!*\
   !*** ./node_modules/axios/node_modules/is-buffer/index.js ***!
@@ -1894,6 +2353,566 @@ module.exports = function isBuffer (obj) {
   var CLONE_DEEP_FLAG = 1,
       CLONE_FLAT_FLAG = 2,
       CLONE_SYMBOLS_FLAG = 4;
+=======
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/admin/js/apps/TodosApp.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  props: {
+    yourTodos: {
+      type: Array,
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      newTodo: {
+        id: '',
+        title: '',
+        completed: false
+      },
+      todos: []
+    };
+  },
+  mounted: function mounted() {
+    this.todos = this.yourTodos;
+  },
+
+  methods: {
+    addTodo: function addTodo() {
+      var vm = this;
+      var url = '/admin/todos';
+
+      if (vm.newTodo.title === '') {
+        return;
+      }
+
+      axios.post(url, vm.newTodo).then(function (request) {
+        // toastr['success'](request.data, "Success");
+
+        vm.todos.push({
+          id: request.data.todo.id,
+          title: request.data.todo.title,
+          completed: false
+        });
+        vm.newTodo = {
+          id: '',
+          title: '',
+          completed: false
+        };
+      }, function (error) {
+        alert(error);
+      });
+    },
+    removeTodo: function removeTodo(todo) {
+      var url = '/admin/todos/' + todo.id;
+      var vm = this;
+
+      axios.post(url, { _method: 'DELETE' }).then(function (request) {
+        var index = vm.todos.indexOf(todo);
+        vm.todos.splice(index, 1);
+      }, function (error) {
+        console.log(error);
+      });
+    },
+    toggleTodoComplete: function toggleTodoComplete(todo) {
+      var url = '/admin/todos/toggleTodo/' + todo.id;
+      var vm = this;
+
+      axios.post(url, { completed: todo.completed }).then(function (request) {
+        console.log(request);
+      }, function (error) {
+        console.log(error);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/admin/js/components/BarChart.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  props: {
+    labels: {
+      type: Array,
+      required: true
+    },
+    values: {
+      type: Array,
+      required: true
+    }
+  },
+
+  mounted: function mounted() {
+    var context = this.$refs.graph.getContext('2d');
+
+    var options = {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      }
+    };
+
+    var data = {
+      labels: this.labels,
+      datasets: [{
+        label: 'My First dataset',
+        backgroundColor: 'rgba(79, 196, 127,0.2)',
+        borderColor: 'rgba(79, 196, 127,1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(79, 196, 127,0.4)',
+        hoverBorderColor: 'rgba(79, 196, 127,1)',
+        data: this.values
+      }]
+    };
+
+    var myBarChart = new Chart(context, {
+      type: 'bar',
+      data: data,
+      options: options
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/admin/js/components/LineChart.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  props: {
+    labels: {
+      type: Array,
+      required: true
+    },
+    values: {
+      type: Array,
+      required: true
+    }
+  },
+
+  mounted: function mounted() {
+    var context = this.$refs.graph.getContext('2d');
+
+    var options = {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      }
+    };
+
+    var data = {
+      labels: this.labels,
+      datasets: [{
+        label: 'Sales',
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: 'rgba(0,125,204,0.4)',
+        borderColor: 'rgba(0,125,204,1)',
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: 'rgba(75,192,192,1)',
+        pointBackgroundColor: '#fff',
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+        pointHoverBorderColor: 'rgba(220,220,220,1)',
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: this.values
+      }]
+    };
+
+    var myLineChart = new Chart(context, {
+      type: 'line',
+      data: data,
+      options: options
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/admin/js/components/MailSettings.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+var mailgunComponent = {
+  template: '#mailgun-template'
+};
+
+var sendgridComponent = {
+  template: '#sendgrid-template'
+};
+
+var sparkPostComponent = {
+  template: '#sparkpost-template'
+};
+
+var smtpComponent = {
+  template: '#smtp-template'
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  components: {
+    mailgun: mailgunComponent,
+    sendgrid: sendgridComponent,
+    sparkpost: sparkPostComponent,
+    smtp: smtpComponent
+  },
+  props: {
+    view: {
+      type: String,
+      required: true
+    }
+  },
+
+  data: function data() {
+    return {
+      currentView: 'mailgun'
+    };
+  },
+  mounted: function mounted() {
+    var views = ['mailgun', 'sendgrid', 'sparkpost', 'smtp'];
+
+    if (this.view && views.indexOf(this.view) > -1) {
+      this.currentView = this.view;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/admin/js/components/PieChart.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  props: {
+    labels: {
+      type: Array,
+      required: true
+    },
+    values: {
+      type: Array,
+      required: true
+    },
+    bgColors: {
+      type: String,
+      required: true
+    },
+    hoverBgColors: {
+      type: String,
+      required: true
+    }
+  },
+
+  mounted: function mounted() {
+    var context = this.$refs.graph.getContext('2d');
+
+    var options = {
+      responsive: true,
+      maintainAspectRatio: false
+    };
+
+    var data = {
+      labels: this.labels,
+      datasets: [{
+        data: this.values,
+        backgroundColor: this.bgColors,
+        hoverBackgroundColor: this.hoverBgColors
+      }]
+    };
+
+    var myPieChart = new Chart(context, {
+      type: 'pie',
+      data: data,
+      options: options
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/admin/js/apps/TodosApp.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.todo-container {\r\n  background-color: #ffde00;\r\n  padding: 50px;\r\n  min-height: 500px;\n}\n.todo-field:focus {\r\n  border: 1px solid #ccc;\n}\n.todo-title {\r\n  font-family: \"Roboto\", sans-serif;\r\n  font-weight: lighter;\r\n  text-align: center;\n}\n.todo-block h6 {\r\n  text-align: center;\r\n  text-transform: uppercase;\r\n  color: gray;\n}\n.remove-link {\r\n  color: #f35a3d;\r\n  position: absolute;\r\n  top: 0;\r\n  line-height: 50px;\r\n  right: 5px;\n}\n.remove-link:hover {\r\n  color: #f35a3d;\n}\n.todo-block {\r\n  background: #fff;\r\n  padding: 0.375rem 0.75rem;\r\n  margin-top: 30px;\r\n  height: 200px;\r\n  overflow: auto;\n}\n.todo-list {\r\n  list-style: none;\r\n  padding: 0;\r\n  font-size: 20px;\n}\n.todo-list li {\r\n  border-bottom: 1px solid #d9d9d9;\r\n  padding: 10px;\r\n  position: relative;\n}\n.todo-list li label {\r\n  padding-left: 70px;\r\n  margin: 0;\r\n  color: #333;\n}\n.todo-list li input[type=\"checkbox\"] {\r\n  outline: none;\r\n  text-align: center;\r\n  width: 40px;\r\n  height: 40px;\r\n  position: absolute;\r\n  top: 0;\r\n  bottom: 0;\r\n  margin: auto 0;\r\n  border: none;\r\n  -webkit-appearance: none;\r\n  -moz-appearance: none;\r\n       appearance: none;\n}\n.todo-list li .toggle:after {\r\n  content: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewBox=\"-10 -18 100 135\"><circle cx=\"50\" cy=\"50\" r=\"50\" fill=\"none\" stroke=\"#333\" stroke-width=\"3\"/></svg>');\n}\n.todo-list li .toggle:checked:after {\r\n  content: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewBox=\"-10 -18 100 135\"><circle cx=\"50\" cy=\"50\" r=\"50\" fill=\"none\" stroke=\"#333\" stroke-width=\"3\"/><path fill=\"#4fc47f\" d=\"M72 25L42 71 27 56l-4 4 20 20 34-52z\"/></svg>');\n}\n@media (max-width: 768px) {\n.todos-container {\r\n    display: none;\n}\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/admin/js/components/BarChart.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.graph-container {\r\n  height: 300px;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/admin/js/components/LineChart.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.graph-container {\r\n  height: 300px;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/admin/js/components/PieChart.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.graph-container {\r\n  height: 300px;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/is-buffer/index.js":
+/***/ (function(module, exports) {
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+// The _isBuffer check is for Safari 5-7 support, because it's missing
+// Object.prototype.constructor. Remove this eventually
+module.exports = function (obj) {
+  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)
+}
+
+function isBuffer (obj) {
+  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+}
+
+// For Node v0.10 support. Remove this eventually.
+function isSlowBuffer (obj) {
+  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/lodash.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * @license
+ * Lodash <https://lodash.com/>
+ * Copyright JS Foundation and other contributors <https://js.foundation/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+;(function() {
+
+  /** Used as a safe reference for `undefined` in pre-ES5 environments. */
+  var undefined;
+
+  /** Used as the semantic version number. */
+  var VERSION = '4.17.10';
+
+  /** Used as the size to enable large array optimizations. */
+  var LARGE_ARRAY_SIZE = 200;
+
+  /** Error message constants. */
+  var CORE_ERROR_TEXT = 'Unsupported core-js use. Try https://npms.io/search?q=ponyfill.',
+      FUNC_ERROR_TEXT = 'Expected a function';
+
+  /** Used to stand-in for `undefined` hash values. */
+  var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+  /** Used as the maximum memoize cache size. */
+  var MAX_MEMOIZE_SIZE = 500;
+
+  /** Used as the internal argument placeholder. */
+  var PLACEHOLDER = '__lodash_placeholder__';
+
+  /** Used to compose bitmasks for cloning. */
+  var CLONE_DEEP_FLAG = 1,
+      CLONE_FLAT_FLAG = 2,
+      CLONE_SYMBOLS_FLAG = 4;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
   /** Used to compose bitmasks for value comparisons. */
   var COMPARE_PARTIAL_FLAG = 1,
@@ -2136,7 +3155,11 @@ module.exports = function isBuffer (obj) {
   var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange  + rsComboRange + rsVarRange + ']');
 
   /** Used to detect strings that need a more robust regexp to match words. */
+<<<<<<< HEAD
   var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
+=======
+  var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2,}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
   /** Used to assign default `context` object properties. */
   var contextProps = [
@@ -2282,7 +3305,11 @@ module.exports = function isBuffer (obj) {
   var root = freeGlobal || freeSelf || Function('return this')();
 
   /** Detect free variable `exports`. */
+<<<<<<< HEAD
   var freeExports =  true && exports && !exports.nodeType && exports;
+=======
+  var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
   /** Detect free variable `module`. */
   var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
@@ -3085,6 +4112,23 @@ module.exports = function isBuffer (obj) {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Gets the value at `key`, unless `key` is "__proto__".
+   *
+   * @private
+   * @param {Object} object The object to query.
+   * @param {string} key The key of the property to get.
+   * @returns {*} Returns the property value.
+   */
+  function safeGet(object, key) {
+    return key == '__proto__'
+      ? undefined
+      : object[key];
+  }
+
+  /**
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
    * Converts `set` to an array of its values.
    *
    * @private
@@ -4531,10 +5575,23 @@ module.exports = function isBuffer (obj) {
         value.forEach(function(subValue) {
           result.add(baseClone(subValue, bitmask, customizer, subValue, value, stack));
         });
+<<<<<<< HEAD
       } else if (isMap(value)) {
         value.forEach(function(subValue, key) {
           result.set(key, baseClone(subValue, bitmask, customizer, key, value, stack));
         });
+=======
+
+        return result;
+      }
+
+      if (isMap(value)) {
+        value.forEach(function(subValue, key) {
+          result.set(key, baseClone(subValue, bitmask, customizer, key, value, stack));
+        });
+
+        return result;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       }
 
       var keysFunc = isFull
@@ -5458,8 +6515,13 @@ module.exports = function isBuffer (obj) {
         return;
       }
       baseFor(source, function(srcValue, key) {
+<<<<<<< HEAD
         stack || (stack = new Stack);
         if (isObject(srcValue)) {
+=======
+        if (isObject(srcValue)) {
+          stack || (stack = new Stack);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
           baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
         }
         else {
@@ -5535,7 +6597,11 @@ module.exports = function isBuffer (obj) {
           if (isArguments(objValue)) {
             newValue = toPlainObject(objValue);
           }
+<<<<<<< HEAD
           else if (!isObject(objValue) || isFunction(objValue)) {
+=======
+          else if (!isObject(objValue) || (srcIndex && isFunction(objValue))) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
             newValue = initCloneObject(srcValue);
           }
         }
@@ -7276,7 +8342,11 @@ module.exports = function isBuffer (obj) {
       return function(number, precision) {
         number = toNumber(number);
         precision = precision == null ? 0 : nativeMin(toInteger(precision), 292);
+<<<<<<< HEAD
         if (precision && nativeIsFinite(number)) {
+=======
+        if (precision) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
           // Shift with exponential notation to avoid floating-point issues.
           // See [MDN](https://mdn.io/round#Examples) for more details.
           var pair = (toString(number) + 'e').split('e'),
@@ -8459,6 +9529,7 @@ module.exports = function isBuffer (obj) {
     }
 
     /**
+<<<<<<< HEAD
      * Gets the value at `key`, unless `key` is "__proto__" or "constructor".
      *
      * @private
@@ -8479,6 +9550,8 @@ module.exports = function isBuffer (obj) {
     }
 
     /**
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
      * Sets metadata for `func`.
      *
      * **Note:** If this function becomes hot, i.e. is invoked a lot in a short
@@ -12271,7 +13344,10 @@ module.exports = function isBuffer (obj) {
           }
           if (maxing) {
             // Handle invocations in a tight loop.
+<<<<<<< HEAD
             clearTimeout(timerId);
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
             timerId = setTimeout(timerExpired, wait);
             return invokeFunc(lastCallTime);
           }
@@ -16658,12 +17734,18 @@ module.exports = function isBuffer (obj) {
       , 'g');
 
       // Use a sourceURL for easier debugging.
+<<<<<<< HEAD
       // The sourceURL gets injected into the source that's eval-ed, so be careful
       // with lookup (in case of e.g. prototype pollution), and strip newlines if any.
       // A newline wouldn't be a valid sourceURL anyway, and it'd enable code injection.
       var sourceURL = '//# sourceURL=' +
         (hasOwnProperty.call(options, 'sourceURL')
           ? (options.sourceURL + '').replace(/[\r\n]/g, ' ')
+=======
+      var sourceURL = '//# sourceURL=' +
+        ('sourceURL' in options
+          ? options.sourceURL
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
           : ('lodash.templateSources[' + (++templateCounter) + ']')
         ) + '\n';
 
@@ -16696,9 +17778,13 @@ module.exports = function isBuffer (obj) {
 
       // If `variable` is not specified wrap a with-statement around the generated
       // code to add the data object to the top of the scope chain.
+<<<<<<< HEAD
       // Like with sourceURL, we take care to not check the option's prototype,
       // as this configuration is a code injection vector.
       var variable = hasOwnProperty.call(options, 'variable') && options.variable;
+=======
+      var variable = options.variable;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       if (!variable) {
         source = 'with (obj) {\n' + source + '\n}\n';
       }
@@ -18903,11 +19989,18 @@ module.exports = function isBuffer (obj) {
     baseForOwn(LazyWrapper.prototype, function(func, methodName) {
       var lodashFunc = lodash[methodName];
       if (lodashFunc) {
+<<<<<<< HEAD
         var key = lodashFunc.name + '';
         if (!hasOwnProperty.call(realNames, key)) {
           realNames[key] = [];
         }
         realNames[key].push({ 'name': methodName, 'func': lodashFunc });
+=======
+        var key = (lodashFunc.name + ''),
+            names = realNames[key] || (realNames[key] = []);
+
+        names.push({ 'name': methodName, 'func': lodashFunc });
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       }
     });
 
@@ -18960,18 +20053,37 @@ module.exports = function isBuffer (obj) {
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
   }
   // Check for `exports` after `define` in case a build optimizer adds it.
+<<<<<<< HEAD
   else {}
 }.call(this));
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+=======
+  else if (freeModule) {
+    // Export for Node.js.
+    (freeModule.exports = _)._ = _;
+    // Export for CommonJS support.
+    freeExports._ = _;
+  }
+  else {
+    // Export to the global object.
+    root._ = _;
+  }
+}.call(this));
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/webpack/buildin/global.js"), __webpack_require__("./node_modules/webpack/buildin/module.js")(module)))
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /***/ }),
 
 /***/ "./node_modules/process/browser.js":
+<<<<<<< HEAD
 /*!*****************************************!*\
   !*** ./node_modules/process/browser.js ***!
   \*****************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -19163,10 +20275,13 @@ process.umask = function() { return 0; };
 /***/ }),
 
 /***/ "./node_modules/setimmediate/setImmediate.js":
+<<<<<<< HEAD
 /*!***************************************************!*\
   !*** ./node_modules/setimmediate/setImmediate.js ***!
   \***************************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -19267,6 +20382,7 @@ process.umask = function() { return 0; };
         }
     }
 
+<<<<<<< HEAD
     function installPostMessageImplementation() {
         // Installs an event handler on `global` for the `message` event: see
         // * https://developer.mozilla.org/en/DOM/window.postMessage
@@ -19432,19 +20548,909 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (this && this.clearImmediate);
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+=======
+    function installPostMessageImplementation() {
+        // Installs an event handler on `global` for the `message` event: see
+        // * https://developer.mozilla.org/en/DOM/window.postMessage
+        // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
+
+        var messagePrefix = "setImmediate$" + Math.random() + "$";
+        var onGlobalMessage = function(event) {
+            if (event.source === global &&
+                typeof event.data === "string" &&
+                event.data.indexOf(messagePrefix) === 0) {
+                runIfPresent(+event.data.slice(messagePrefix.length));
+            }
+        };
+
+        if (global.addEventListener) {
+            global.addEventListener("message", onGlobalMessage, false);
+        } else {
+            global.attachEvent("onmessage", onGlobalMessage);
+        }
+
+        registerImmediate = function(handle) {
+            global.postMessage(messagePrefix + handle, "*");
+        };
+    }
+
+    function installMessageChannelImplementation() {
+        var channel = new MessageChannel();
+        channel.port1.onmessage = function(event) {
+            var handle = event.data;
+            runIfPresent(handle);
+        };
+
+        registerImmediate = function(handle) {
+            channel.port2.postMessage(handle);
+        };
+    }
+
+    function installReadyStateChangeImplementation() {
+        var html = doc.documentElement;
+        registerImmediate = function(handle) {
+            // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
+            // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
+            var script = doc.createElement("script");
+            script.onreadystatechange = function () {
+                runIfPresent(handle);
+                script.onreadystatechange = null;
+                html.removeChild(script);
+                script = null;
+            };
+            html.appendChild(script);
+        };
+    }
+
+    function installSetTimeoutImplementation() {
+        registerImmediate = function(handle) {
+            setTimeout(runIfPresent, 0, handle);
+        };
+    }
+
+    // If supported, we should attach to the prototype of global, since that is where setTimeout et al. live.
+    var attachTo = Object.getPrototypeOf && Object.getPrototypeOf(global);
+    attachTo = attachTo && attachTo.setTimeout ? attachTo : global;
+
+    // Don't get fooled by e.g. browserify environments.
+    if ({}.toString.call(global.process) === "[object process]") {
+        // For Node.js before 0.9
+        installNextTickImplementation();
+
+    } else if (canUsePostMessage()) {
+        // For non-IE10 modern browsers
+        installPostMessageImplementation();
+
+    } else if (global.MessageChannel) {
+        // For web workers, where supported
+        installMessageChannelImplementation();
+
+    } else if (doc && "onreadystatechange" in doc.createElement("script")) {
+        // For IE 6–8
+        installReadyStateChangeImplementation();
+
+    } else {
+        // For older browsers
+        installSetTimeoutImplementation();
+    }
+
+    attachTo.setImmediate = setImmediate;
+    attachTo.clearImmediate = clearImmediate;
+}(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/webpack/buildin/global.js"), __webpack_require__("./node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "./node_modules/timers-browserify/main.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
+            (typeof self !== "undefined" && self) ||
+            window;
+var apply = Function.prototype.apply;
+
+// DOM APIs, for completeness
+
+exports.setTimeout = function() {
+  return new Timeout(apply.call(setTimeout, scope, arguments), clearTimeout);
+};
+exports.setInterval = function() {
+  return new Timeout(apply.call(setInterval, scope, arguments), clearInterval);
+};
+exports.clearTimeout =
+exports.clearInterval = function(timeout) {
+  if (timeout) {
+    timeout.close();
+  }
+};
+
+function Timeout(id, clearFn) {
+  this._id = id;
+  this._clearFn = clearFn;
+}
+Timeout.prototype.unref = Timeout.prototype.ref = function() {};
+Timeout.prototype.close = function() {
+  this._clearFn.call(scope, this._id);
+};
+
+// Does not start the time, just sets up the members needed.
+exports.enroll = function(item, msecs) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = msecs;
+};
+
+exports.unenroll = function(item) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = -1;
+};
+
+exports._unrefActive = exports.active = function(item) {
+  clearTimeout(item._idleTimeoutId);
+
+  var msecs = item._idleTimeout;
+  if (msecs >= 0) {
+    item._idleTimeoutId = setTimeout(function onTimeout() {
+      if (item._onTimeout)
+        item._onTimeout();
+    }, msecs);
+  }
+};
+
+// setimmediate attaches itself to the global object
+__webpack_require__("./node_modules/setimmediate/setImmediate.js");
+// On some exotic environments, it's not clear which object `setimmediate` was
+// able to install onto.  Search each possibility in the same order as the
+// `setimmediate` library.
+exports.setImmediate = (typeof self !== "undefined" && self.setImmediate) ||
+                       (typeof global !== "undefined" && global.setImmediate) ||
+                       (this && this.setImmediate);
+exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
+                         (typeof global !== "undefined" && global.clearImmediate) ||
+                         (this && this.clearImmediate);
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/runtime/component-normalizer.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = normalizeComponent;
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
+) {
+  scriptExports = scriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof scriptExports.default
+  if (type === 'object' || type === 'function') {
+    scriptExports = scriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-1af593a0\",\"hasScoped\":false,\"optionsId\":\"0\",\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/admin/js/components/BarChart.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "graph-container" }, [
+    _c("canvas", { ref: "graph", attrs: { id: "graph" } })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1af593a0", { render: render, staticRenderFns: staticRenderFns })
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-1d750416\",\"hasScoped\":false,\"optionsId\":\"0\",\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/admin/js/components/LineChart.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "graph-container" }, [
+    _c("canvas", { ref: "graph", attrs: { id: "graph" } })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1d750416", { render: render, staticRenderFns: staticRenderFns })
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-63981f7d\",\"hasScoped\":false,\"optionsId\":\"0\",\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/admin/js/apps/TodosApp.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "todo-container mx-auto col-lg-6 " }, [
+    _c("h5", { staticClass: "todo-title" }, [_vm._v("TODOS APP")]),
+    _vm._v(" "),
+    _c("p", { staticClass: "text-sm-center" }, [
+      _vm._v(
+        "This Demo showcases a simple workflow with VueJS, Axios and Laravel. "
+      )
+    ]),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.newTodo.title,
+          expression: "newTodo.title"
+        }
+      ],
+      staticClass: "form-control todo-field",
+      attrs: { type: "text", placeholder: "New Todo" },
+      domProps: { value: _vm.newTodo.title },
+      on: {
+        keyup: function($event) {
+          if (
+            !("button" in $event) &&
+            _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+          ) {
+            return null
+          }
+          return _vm.addTodo($event)
+        },
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.$set(_vm.newTodo, "title", $event.target.value)
+        }
+      }
+    }),
+    _vm._v(" "),
+    _c("div", { staticClass: "todo-block scroll-pane" }, [
+      _c(
+        "ul",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.todos.length,
+              expression: "todos.length"
+            }
+          ],
+          staticClass: "todo-list"
+        },
+        _vm._l(_vm.todos, function(todo, index) {
+          return _c("li", { key: index }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: todo.completed,
+                  expression: "todo.completed"
+                }
+              ],
+              staticClass: "toggle",
+              attrs: {
+                type: "checkbox",
+                id: index,
+                "true-value": 1,
+                "false-value": 0
+              },
+              domProps: {
+                checked: Array.isArray(todo.completed)
+                  ? _vm._i(todo.completed, null) > -1
+                  : _vm._q(todo.completed, 1)
+              },
+              on: {
+                ":change": function($event) {
+                  _vm.toggleTodoComplete(todo)
+                },
+                change: function($event) {
+                  var $$a = todo.completed,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? 1 : 0
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 && _vm.$set(todo, "completed", $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          todo,
+                          "completed",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
+                  } else {
+                    _vm.$set(todo, "completed", $$c)
+                  }
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: index } }, [
+              _vm._v(_vm._s(todo.title))
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "remove-link",
+                attrs: { href: "#" },
+                on: {
+                  ":click": function($event) {
+                    $event.preventDefault()
+                    _vm.removeTodo(todo)
+                  }
+                }
+              },
+              [_c("i", { staticClass: "icon-fa icon-fa-close" })]
+            )
+          ])
+        })
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-63981f7d", { render: render, staticRenderFns: staticRenderFns })
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-c4b1ce52\",\"hasScoped\":false,\"optionsId\":\"0\",\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/admin/js/components/PieChart.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "graph-container" }, [
+    _c("canvas", { ref: "graph", attrs: { id: "graph" } })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-c4b1ce52", { render: render, staticRenderFns: staticRenderFns })
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/admin/js/apps/TodosApp.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/admin/js/apps/TodosApp.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("8c7b4d7c", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TodosApp.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TodosApp.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/admin/js/components/BarChart.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/admin/js/components/BarChart.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("02709204", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BarChart.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BarChart.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/admin/js/components/LineChart.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/admin/js/components/LineChart.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("7b00d250", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LineChart.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LineChart.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/admin/js/components/PieChart.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/admin/js/components/PieChart.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("333b55de", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PieChart.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PieChart.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/lib/addStylesClient.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = addStylesClient;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__listToStyles__ = __webpack_require__("./node_modules/vue-style-loader/lib/listToStyles.js");
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+  Modified by Evan You @yyx990803
+*/
+
+
+
+var hasDocument = typeof document !== 'undefined'
+
+if (typeof DEBUG !== 'undefined' && DEBUG) {
+  if (!hasDocument) {
+    throw new Error(
+    'vue-style-loader cannot be used in a non-browser environment. ' +
+    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
+  ) }
+}
+
+/*
+type StyleObject = {
+  id: number;
+  parts: Array<StyleObjectPart>
+}
+
+type StyleObjectPart = {
+  css: string;
+  media: string;
+  sourceMap: ?string
+}
+*/
+
+var stylesInDom = {/*
+  [id: number]: {
+    id: number,
+    refs: number,
+    parts: Array<(obj?: StyleObjectPart) => void>
+  }
+*/}
+
+var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
+var singletonElement = null
+var singletonCounter = 0
+var isProduction = false
+var noop = function () {}
+var options = null
+var ssrIdKey = 'data-vue-ssr-id'
+
+// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+// tags it will allow on a page
+var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
+
+function addStylesClient (parentId, list, _isProduction, _options) {
+  isProduction = _isProduction
+
+  options = _options || {}
+
+  var styles = Object(__WEBPACK_IMPORTED_MODULE_0__listToStyles__["a" /* default */])(parentId, list)
+  addStylesToDom(styles)
+
+  return function update (newList) {
+    var mayRemove = []
+    for (var i = 0; i < styles.length; i++) {
+      var item = styles[i]
+      var domStyle = stylesInDom[item.id]
+      domStyle.refs--
+      mayRemove.push(domStyle)
+    }
+    if (newList) {
+      styles = Object(__WEBPACK_IMPORTED_MODULE_0__listToStyles__["a" /* default */])(parentId, newList)
+      addStylesToDom(styles)
+    } else {
+      styles = []
+    }
+    for (var i = 0; i < mayRemove.length; i++) {
+      var domStyle = mayRemove[i]
+      if (domStyle.refs === 0) {
+        for (var j = 0; j < domStyle.parts.length; j++) {
+          domStyle.parts[j]()
+        }
+        delete stylesInDom[domStyle.id]
+      }
+    }
+  }
+}
+
+function addStylesToDom (styles /* Array<StyleObject> */) {
+  for (var i = 0; i < styles.length; i++) {
+    var item = styles[i]
+    var domStyle = stylesInDom[item.id]
+    if (domStyle) {
+      domStyle.refs++
+      for (var j = 0; j < domStyle.parts.length; j++) {
+        domStyle.parts[j](item.parts[j])
+      }
+      for (; j < item.parts.length; j++) {
+        domStyle.parts.push(addStyle(item.parts[j]))
+      }
+      if (domStyle.parts.length > item.parts.length) {
+        domStyle.parts.length = item.parts.length
+      }
+    } else {
+      var parts = []
+      for (var j = 0; j < item.parts.length; j++) {
+        parts.push(addStyle(item.parts[j]))
+      }
+      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
+    }
+  }
+}
+
+function createStyleElement () {
+  var styleElement = document.createElement('style')
+  styleElement.type = 'text/css'
+  head.appendChild(styleElement)
+  return styleElement
+}
+
+function addStyle (obj /* StyleObjectPart */) {
+  var update, remove
+  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
+
+  if (styleElement) {
+    if (isProduction) {
+      // has SSR styles and in production mode.
+      // simply do nothing.
+      return noop
+    } else {
+      // has SSR styles but in dev mode.
+      // for some reason Chrome can't handle source map in server-rendered
+      // style tags - source maps in <style> only works if the style tag is
+      // created and inserted dynamically. So we remove the server rendered
+      // styles and inject new ones.
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  if (isOldIE) {
+    // use singleton mode for IE9.
+    var styleIndex = singletonCounter++
+    styleElement = singletonElement || (singletonElement = createStyleElement())
+    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
+    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
+  } else {
+    // use multi-style-tag mode in all other cases
+    styleElement = createStyleElement()
+    update = applyToTag.bind(null, styleElement)
+    remove = function () {
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  update(obj)
+
+  return function updateStyle (newObj /* StyleObjectPart */) {
+    if (newObj) {
+      if (newObj.css === obj.css &&
+          newObj.media === obj.media &&
+          newObj.sourceMap === obj.sourceMap) {
+        return
+      }
+      update(obj = newObj)
+    } else {
+      remove()
+    }
+  }
+}
+
+var replaceText = (function () {
+  var textStore = []
+
+  return function (index, replacement) {
+    textStore[index] = replacement
+    return textStore.filter(Boolean).join('\n')
+  }
+})()
+
+function applyToSingletonTag (styleElement, index, remove, obj) {
+  var css = remove ? '' : obj.css
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = replaceText(index, css)
+  } else {
+    var cssNode = document.createTextNode(css)
+    var childNodes = styleElement.childNodes
+    if (childNodes[index]) styleElement.removeChild(childNodes[index])
+    if (childNodes.length) {
+      styleElement.insertBefore(cssNode, childNodes[index])
+    } else {
+      styleElement.appendChild(cssNode)
+    }
+  }
+}
+
+function applyToTag (styleElement, obj) {
+  var css = obj.css
+  var media = obj.media
+  var sourceMap = obj.sourceMap
+
+  if (media) {
+    styleElement.setAttribute('media', media)
+  }
+  if (options.ssrId) {
+    styleElement.setAttribute(ssrIdKey, obj.id)
+  }
+
+  if (sourceMap) {
+    // https://developer.chrome.com/devtools/docs/javascript-debugging
+    // this makes source maps inside style tags work properly in Chrome
+    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
+    // http://stackoverflow.com/a/26603875
+    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
+  }
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = css
+  } else {
+    while (styleElement.firstChild) {
+      styleElement.removeChild(styleElement.firstChild)
+    }
+    styleElement.appendChild(document.createTextNode(css))
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/lib/listToStyles.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = listToStyles;
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /***/ }),
 
 /***/ "./node_modules/vue/dist/vue.common.js":
+<<<<<<< HEAD
 /*!*********************************************!*\
   !*** ./node_modules/vue/dist/vue.common.js ***!
   \*********************************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
+<<<<<<< HEAD
  * Vue.js v2.5.21
+=======
+ * Vue.js v2.5.16
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
  * (c) 2014-2018 Evan You
  * Released under the MIT License.
  */
@@ -19454,8 +21460,13 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 var emptyObject = Object.freeze({});
 
+<<<<<<< HEAD
 // These helpers produce better VM code in JS engines due to their
 // explicitness and function inlining.
+=======
+// these helpers produces better vm code in JS engines due to their
+// explicitness and function inlining
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 function isUndef (v) {
   return v === undefined || v === null
 }
@@ -19473,7 +21484,11 @@ function isFalse (v) {
 }
 
 /**
+<<<<<<< HEAD
  * Check if value is primitive.
+=======
+ * Check if value is primitive
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
  */
 function isPrimitive (value) {
   return (
@@ -19495,7 +21510,11 @@ function isObject (obj) {
 }
 
 /**
+<<<<<<< HEAD
  * Get the raw type string of a value, e.g., [object Object].
+=======
+ * Get the raw type string of a value e.g. [object Object]
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
  */
 var _toString = Object.prototype.toString;
 
@@ -19535,7 +21554,11 @@ function toString (val) {
 }
 
 /**
+<<<<<<< HEAD
  * Convert an input value to a number for persistence.
+=======
+ * Convert a input value to a number for persistence.
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
  * If the conversion fails, return original string.
  */
 function toNumber (val) {
@@ -19567,12 +21590,20 @@ function makeMap (
 var isBuiltInTag = makeMap('slot,component', true);
 
 /**
+<<<<<<< HEAD
  * Check if an attribute is a reserved attribute.
+=======
+ * Check if a attribute is a reserved attribute.
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
  */
 var isReservedAttribute = makeMap('key,ref,slot,slot-scope,is');
 
 /**
+<<<<<<< HEAD
  * Remove an item from an array.
+=======
+ * Remove an item from an array
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
  */
 function remove (arr, item) {
   if (arr.length) {
@@ -19584,7 +21615,11 @@ function remove (arr, item) {
 }
 
 /**
+<<<<<<< HEAD
  * Check whether an object has the property.
+=======
+ * Check whether the object has the property.
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
  */
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 function hasOwn (obj, key) {
@@ -19626,11 +21661,19 @@ var hyphenate = cached(function (str) {
 });
 
 /**
+<<<<<<< HEAD
  * Simple bind polyfill for environments that do not support it,
  * e.g., PhantomJS 1.x. Technically, we don't need this anymore
  * since native bind is now performant enough in most browsers.
  * But removing it would mean breaking code that was able to run in
  * PhantomJS 1.x, so this must be kept for backward compatibility.
+=======
+ * Simple bind polyfill for environments that do not support it... e.g.
+ * PhantomJS 1.x. Technically we don't need this anymore since native bind is
+ * now more performant in most browsers, but removing it would be breaking for
+ * code that was able to run in PhantomJS 1.x, so this must be kept for
+ * backwards compatibility.
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
  */
 
 /* istanbul ignore next */
@@ -19692,12 +21735,19 @@ function toObject (arr) {
   return res
 }
 
+<<<<<<< HEAD
 /* eslint-disable no-unused-vars */
 
 /**
  * Perform no operation.
  * Stubbing args to make Flow happy without leaving useless transpiled code
  * with ...rest (https://flow.org/blog/2017/05/07/Strict-Function-Call-Arity/).
+=======
+/**
+ * Perform no operation.
+ * Stubbing args to make Flow happy without leaving useless transpiled code
+ * with ...rest (https://flow.org/blog/2017/05/07/Strict-Function-Call-Arity/)
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
  */
 function noop (a, b, c) {}
 
@@ -19706,15 +21756,24 @@ function noop (a, b, c) {}
  */
 var no = function (a, b, c) { return false; };
 
+<<<<<<< HEAD
 /* eslint-enable no-unused-vars */
 
 /**
  * Return the same value.
+=======
+/**
+ * Return same value
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
  */
 var identity = function (_) { return _; };
 
 /**
+<<<<<<< HEAD
  * Generate a string containing static keys from compiler modules.
+=======
+ * Generate a static keys string from compiler modules.
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
  */
 function genStaticKeys (modules) {
   return modules.reduce(function (keys, m) {
@@ -19738,8 +21797,11 @@ function looseEqual (a, b) {
         return a.length === b.length && a.every(function (e, i) {
           return looseEqual(e, b[i])
         })
+<<<<<<< HEAD
       } else if (a instanceof Date && b instanceof Date) {
         return a.getTime() === b.getTime()
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       } else if (!isArrayA && !isArrayB) {
         var keysA = Object.keys(a);
         var keysB = Object.keys(b);
@@ -19761,11 +21823,14 @@ function looseEqual (a, b) {
   }
 }
 
+<<<<<<< HEAD
 /**
  * Return the first index at which a loosely equal value can be
  * found in the array (if value is a plain object, the array must
  * contain an object of the same shape), or -1 if it is not present.
  */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 function looseIndexOf (arr, val) {
   for (var i = 0; i < arr.length; i++) {
     if (looseEqual(arr[i], val)) { return i }
@@ -19810,8 +21875,11 @@ var LIFECYCLE_HOOKS = [
 
 /*  */
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 var config = ({
   /**
    * Option merge strategies (used in core/util/options)
@@ -19895,6 +21963,7 @@ var config = ({
   mustUseProp: no,
 
   /**
+<<<<<<< HEAD
    * Perform updates asynchronously. Intended to be used by Vue Test Utils
    * This will significantly reduce performance if set to false.
    */
@@ -19905,6 +21974,12 @@ var config = ({
    */
   _lifecycleHooks: LIFECYCLE_HOOKS
 });
+=======
+   * Exposed for legacy reasons
+   */
+  _lifecycleHooks: LIFECYCLE_HOOKS
+})
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /*  */
 
@@ -19989,7 +22064,11 @@ var isServerRendering = function () {
     if (!inBrowser && !inWeex && typeof global !== 'undefined') {
       // detect presence of vue-server-renderer and avoid
       // Webpack shimming the process
+<<<<<<< HEAD
       _isServer = global['process'] && global['process'].env.VUE_ENV === 'server';
+=======
+      _isServer = global['process'].env.VUE_ENV === 'server';
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     } else {
       _isServer = false;
     }
@@ -20016,7 +22095,11 @@ if (typeof Set !== 'undefined' && isNative(Set)) {
   _Set = Set;
 } else {
   // a non-standard Set polyfill that only works with primitive keys.
+<<<<<<< HEAD
   _Set = /*@__PURE__*/(function () {
+=======
+  _Set = (function () {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     function Set () {
       this.set = Object.create(null);
     }
@@ -20130,6 +22213,10 @@ if (true) {
 
 /*  */
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 var uid = 0;
 
 /**
@@ -20158,12 +22245,15 @@ Dep.prototype.depend = function depend () {
 Dep.prototype.notify = function notify () {
   // stabilize the subscriber list first
   var subs = this.subs.slice();
+<<<<<<< HEAD
   if ( true && !config.async) {
     // subs aren't sorted in scheduler if not running async
     // we need to sort them now to make sure they fire in correct
     // order
     subs.sort(function (a, b) { return a.id - b.id; });
   }
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   for (var i = 0, l = subs.length; i < l; i++) {
     subs[i].update();
   }
@@ -20175,6 +22265,7 @@ Dep.prototype.notify = function notify () {
 Dep.target = null;
 var targetStack = [];
 
+<<<<<<< HEAD
 function pushTarget (target) {
   targetStack.push(target);
   Dep.target = target;
@@ -20183,6 +22274,15 @@ function pushTarget (target) {
 function popTarget () {
   targetStack.pop();
   Dep.target = targetStack[targetStack.length - 1];
+=======
+function pushTarget (_target) {
+  if (Dep.target) { targetStack.push(Dep.target); }
+  Dep.target = _target;
+}
+
+function popTarget () {
+  Dep.target = targetStack.pop();
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 }
 
 /*  */
@@ -20253,10 +22353,14 @@ function cloneVNode (vnode) {
   var cloned = new VNode(
     vnode.tag,
     vnode.data,
+<<<<<<< HEAD
     // #7975
     // clone children array to avoid mutating original in case of cloning
     // a child.
     vnode.children && vnode.children.slice(),
+=======
+    vnode.children,
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     vnode.text,
     vnode.elm,
     vnode.context,
@@ -20270,7 +22374,10 @@ function cloneVNode (vnode) {
   cloned.fnContext = vnode.fnContext;
   cloned.fnOptions = vnode.fnOptions;
   cloned.fnScopeId = vnode.fnScopeId;
+<<<<<<< HEAD
   cloned.asyncMeta = vnode.asyncMeta;
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   cloned.isCloned = true;
   return cloned
 }
@@ -20348,11 +22455,18 @@ var Observer = function Observer (value) {
   this.vmCount = 0;
   def(value, '__ob__', this);
   if (Array.isArray(value)) {
+<<<<<<< HEAD
     if (hasProto) {
       protoAugment(value, arrayMethods);
     } else {
       copyAugment(value, arrayMethods, arrayKeys);
     }
+=======
+    var augment = hasProto
+      ? protoAugment
+      : copyAugment;
+    augment(value, arrayMethods, arrayKeys);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     this.observeArray(value);
   } else {
     this.walk(value);
@@ -20360,14 +22474,22 @@ var Observer = function Observer (value) {
 };
 
 /**
+<<<<<<< HEAD
  * Walk through all properties and convert them into
+=======
+ * Walk through each property and convert them into
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
  * getter/setters. This method should only be called when
  * value type is Object.
  */
 Observer.prototype.walk = function walk (obj) {
   var keys = Object.keys(obj);
   for (var i = 0; i < keys.length; i++) {
+<<<<<<< HEAD
     defineReactive$$1(obj, keys[i]);
+=======
+    defineReactive(obj, keys[i]);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   }
 };
 
@@ -20383,17 +22505,28 @@ Observer.prototype.observeArray = function observeArray (items) {
 // helpers
 
 /**
+<<<<<<< HEAD
  * Augment a target Object or Array by intercepting
  * the prototype chain using __proto__
  */
 function protoAugment (target, src) {
+=======
+ * Augment an target Object or Array by intercepting
+ * the prototype chain using __proto__
+ */
+function protoAugment (target, src, keys) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   /* eslint-disable no-proto */
   target.__proto__ = src;
   /* eslint-enable no-proto */
 }
 
 /**
+<<<<<<< HEAD
  * Augment a target Object or Array by defining
+=======
+ * Augment an target Object or Array by defining
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
  * hidden properties.
  */
 /* istanbul ignore next */
@@ -20434,7 +22567,11 @@ function observe (value, asRootData) {
 /**
  * Define a reactive property on an Object.
  */
+<<<<<<< HEAD
 function defineReactive$$1 (
+=======
+function defineReactive (
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   obj,
   key,
   val,
@@ -20450,10 +22587,17 @@ function defineReactive$$1 (
 
   // cater for pre-defined getter/setters
   var getter = property && property.get;
+<<<<<<< HEAD
   var setter = property && property.set;
   if ((!getter || setter) && arguments.length === 2) {
     val = obj[key];
   }
+=======
+  if (!getter && arguments.length === 2) {
+    val = obj[key];
+  }
+  var setter = property && property.set;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
   var childOb = !shallow && observe(val);
   Object.defineProperty(obj, key, {
@@ -20479,11 +22623,17 @@ function defineReactive$$1 (
         return
       }
       /* eslint-enable no-self-compare */
+<<<<<<< HEAD
       if ( true && customSetter) {
         customSetter();
       }
       // #7981: for accessor properties without setter
       if (getter && !setter) { return }
+=======
+      if ("development" !== 'production' && customSetter) {
+        customSetter();
+      }
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       if (setter) {
         setter.call(obj, newVal);
       } else {
@@ -20501,7 +22651,11 @@ function defineReactive$$1 (
  * already exist.
  */
 function set (target, key, val) {
+<<<<<<< HEAD
   if ( true &&
+=======
+  if ("development" !== 'production' &&
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     (isUndef(target) || isPrimitive(target))
   ) {
     warn(("Cannot set reactive property on undefined, null, or primitive value: " + ((target))));
@@ -20517,7 +22671,11 @@ function set (target, key, val) {
   }
   var ob = (target).__ob__;
   if (target._isVue || (ob && ob.vmCount)) {
+<<<<<<< HEAD
      true && warn(
+=======
+    "development" !== 'production' && warn(
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       'Avoid adding reactive properties to a Vue instance or its root $data ' +
       'at runtime - declare it upfront in the data option.'
     );
@@ -20527,7 +22685,11 @@ function set (target, key, val) {
     target[key] = val;
     return val
   }
+<<<<<<< HEAD
   defineReactive$$1(ob.value, key, val);
+=======
+  defineReactive(ob.value, key, val);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   ob.dep.notify();
   return val
 }
@@ -20536,7 +22698,11 @@ function set (target, key, val) {
  * Delete a property and trigger change if necessary.
  */
 function del (target, key) {
+<<<<<<< HEAD
   if ( true &&
+=======
+  if ("development" !== 'production' &&
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     (isUndef(target) || isPrimitive(target))
   ) {
     warn(("Cannot delete reactive property on undefined, null, or primitive value: " + ((target))));
@@ -20547,7 +22713,11 @@ function del (target, key) {
   }
   var ob = (target).__ob__;
   if (target._isVue || (ob && ob.vmCount)) {
+<<<<<<< HEAD
      true && warn(
+=======
+    "development" !== 'production' && warn(
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       'Avoid deleting properties on a Vue instance or its root $data ' +
       '- just set it to null.'
     );
@@ -20614,11 +22784,15 @@ function mergeData (to, from) {
     fromVal = from[key];
     if (!hasOwn(to, key)) {
       set(to, key, fromVal);
+<<<<<<< HEAD
     } else if (
       toVal !== fromVal &&
       isPlainObject(toVal) &&
       isPlainObject(fromVal)
     ) {
+=======
+    } else if (isPlainObject(toVal) && isPlainObject(fromVal)) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       mergeData(toVal, fromVal);
     }
   }
@@ -20677,7 +22851,11 @@ strats.data = function (
 ) {
   if (!vm) {
     if (childVal && typeof childVal !== 'function') {
+<<<<<<< HEAD
        true && warn(
+=======
+      "development" !== 'production' && warn(
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         'The "data" option should be a function ' +
         'that returns a per-instance value in component ' +
         'definitions.',
@@ -20727,7 +22905,11 @@ function mergeAssets (
 ) {
   var res = Object.create(parentVal || null);
   if (childVal) {
+<<<<<<< HEAD
      true && assertObjectType(key, childVal, vm);
+=======
+    "development" !== 'production' && assertObjectType(key, childVal, vm);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     return extend(res, childVal)
   } else {
     return res
@@ -20941,6 +23123,7 @@ function mergeOptions (
   normalizeProps(child, vm);
   normalizeInject(child, vm);
   normalizeDirectives(child);
+<<<<<<< HEAD
   
   // Apply extends and mixins on the child options,
   // but only if it is a raw options object that isn't
@@ -20957,6 +23140,17 @@ function mergeOptions (
     }
   }
 
+=======
+  var extendsFrom = child.extends;
+  if (extendsFrom) {
+    parent = mergeOptions(parent, extendsFrom, vm);
+  }
+  if (child.mixins) {
+    for (var i = 0, l = child.mixins.length; i < l; i++) {
+      parent = mergeOptions(parent, child.mixins[i], vm);
+    }
+  }
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   var options = {};
   var key;
   for (key in parent) {
@@ -20998,7 +23192,11 @@ function resolveAsset (
   if (hasOwn(assets, PascalCaseId)) { return assets[PascalCaseId] }
   // fallback to prototype chain
   var res = assets[id] || assets[camelizedId] || assets[PascalCaseId];
+<<<<<<< HEAD
   if ( true && warnMissing && !res) {
+=======
+  if ("development" !== 'production' && warnMissing && !res) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     warn(
       'Failed to resolve ' + type.slice(0, -1) + ': ' + id,
       options
@@ -21009,8 +23207,11 @@ function resolveAsset (
 
 /*  */
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 function validateProp (
   key,
   propOptions,
@@ -21062,7 +23263,11 @@ function getPropDefaultValue (vm, prop, key) {
   }
   var def = prop.default;
   // warn against non-factory defaults for Object & Array
+<<<<<<< HEAD
   if ( true && isObject(def)) {
+=======
+  if ("development" !== 'production' && isObject(def)) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     warn(
       'Invalid default value for prop "' + key + '": ' +
       'Props with type Object/Array must use a factory function ' +
@@ -21118,10 +23323,18 @@ function assertProp (
       valid = assertedType.valid;
     }
   }
+<<<<<<< HEAD
 
   if (!valid) {
     warn(
       getInvalidTypeMessage(name, value, expectedTypes),
+=======
+  if (!valid) {
+    warn(
+      "Invalid prop: type check failed for prop \"" + name + "\"." +
+      " Expected " + (expectedTypes.map(capitalize).join(', ')) +
+      ", got " + (toRawType(value)) + ".",
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       vm
     );
     return
@@ -21188,6 +23401,7 @@ function getTypeIndex (type, expectedTypes) {
   return -1
 }
 
+<<<<<<< HEAD
 function getInvalidTypeMessage (name, value, expectedTypes) {
   var message = "Invalid prop: type check failed for prop \"" + name + "\"." +
     " Expected " + (expectedTypes.map(capitalize).join(', '));
@@ -21231,6 +23445,8 @@ function isBoolean () {
   return args.some(function (elem) { return elem.toLowerCase() === 'boolean'; })
 }
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /*  */
 
 function handleError (err, vm, info) {
@@ -21277,6 +23493,10 @@ function logError (err, vm, info) {
 }
 
 /*  */
+<<<<<<< HEAD
+=======
+/* globals MessageChannel */
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 var callbacks = [];
 var pending = false;
@@ -21354,11 +23574,17 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
 function withMacroTask (fn) {
   return fn._withTask || (fn._withTask = function () {
     useMacroTask = true;
+<<<<<<< HEAD
     try {
       return fn.apply(null, arguments)
     } finally {
       useMacroTask = false;    
     }
+=======
+    var res = fn.apply(null, arguments);
+    useMacroTask = false;
+    return res
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   })
 }
 
@@ -21439,6 +23665,7 @@ if (true) {
     );
   };
 
+<<<<<<< HEAD
   var warnReservedPrefix = function (target, key) {
     warn(
       "Property \"" + key + "\" must be accessed with \"$data." + key + "\" because " +
@@ -21449,6 +23676,8 @@ if (true) {
     );
   };
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   var hasProxy =
     typeof Proxy !== 'undefined' && isNative(Proxy);
 
@@ -21470,11 +23699,17 @@ if (true) {
   var hasHandler = {
     has: function has (target, key) {
       var has = key in target;
+<<<<<<< HEAD
       var isAllowed = allowedGlobals(key) ||
         (typeof key === 'string' && key.charAt(0) === '_' && !(key in target.$data));
       if (!has && !isAllowed) {
         if (key in target.$data) { warnReservedPrefix(target, key); }
         else { warnNonPresent(target, key); }
+=======
+      var isAllowed = allowedGlobals(key) || key.charAt(0) === '_';
+      if (!has && !isAllowed) {
+        warnNonPresent(target, key);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       }
       return has || !isAllowed
     }
@@ -21483,8 +23718,12 @@ if (true) {
   var getHandler = {
     get: function get (target, key) {
       if (typeof key === 'string' && !(key in target)) {
+<<<<<<< HEAD
         if (key in target.$data) { warnReservedPrefix(target, key); }
         else { warnNonPresent(target, key); }
+=======
+        warnNonPresent(target, key);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       }
       return target[key]
     }
@@ -21582,6 +23821,7 @@ function updateListeners (
   oldOn,
   add,
   remove$$1,
+<<<<<<< HEAD
   createOnceHandler,
   vm
 ) {
@@ -21592,6 +23832,18 @@ function updateListeners (
     event = normalizeEvent(name);
     if (isUndef(cur)) {
        true && warn(
+=======
+  vm
+) {
+  var name, def, cur, old, event;
+  for (name in on) {
+    def = cur = on[name];
+    old = oldOn[name];
+    event = normalizeEvent(name);
+    /* istanbul ignore if */
+    if (isUndef(cur)) {
+      "development" !== 'production' && warn(
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         "Invalid handler for event \"" + (event.name) + "\": got " + String(cur),
         vm
       );
@@ -21599,10 +23851,14 @@ function updateListeners (
       if (isUndef(cur.fns)) {
         cur = on[name] = createFnInvoker(cur);
       }
+<<<<<<< HEAD
       if (isTrue(event.once)) {
         cur = on[name] = createOnceHandler(event.name, cur, event.capture);
       }
       add(event.name, cur, event.capture, event.passive, event.params);
+=======
+      add(event.name, cur, event.once, event.capture, event.passive, event.params);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     } else if (cur !== old) {
       old.fns = cur;
       on[name] = old;
@@ -21857,6 +24113,7 @@ function resolveAsyncComponent (
     var contexts = factory.contexts = [context];
     var sync = true;
 
+<<<<<<< HEAD
     var forceRender = function (renderCompleted) {
       for (var i = 0, l = contexts.length; i < l; i++) {
         contexts[i].$forceUpdate();
@@ -21865,6 +24122,12 @@ function resolveAsyncComponent (
       if (renderCompleted) {
         contexts.length = 0;
       }
+=======
+    var forceRender = function () {
+      for (var i = 0, l = contexts.length; i < l; i++) {
+        contexts[i].$forceUpdate();
+      }
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     };
 
     var resolve = once(function (res) {
@@ -21873,18 +24136,30 @@ function resolveAsyncComponent (
       // invoke callbacks only if this is not a synchronous resolve
       // (async resolves are shimmed as synchronous during SSR)
       if (!sync) {
+<<<<<<< HEAD
         forceRender(true);
+=======
+        forceRender();
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       }
     });
 
     var reject = once(function (reason) {
+<<<<<<< HEAD
        true && warn(
+=======
+      "development" !== 'production' && warn(
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         "Failed to resolve async component: " + (String(factory)) +
         (reason ? ("\nReason: " + reason) : '')
       );
       if (isDef(factory.errorComp)) {
         factory.error = true;
+<<<<<<< HEAD
         forceRender(true);
+=======
+        forceRender();
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       }
     });
 
@@ -21911,7 +24186,11 @@ function resolveAsyncComponent (
             setTimeout(function () {
               if (isUndef(factory.resolved) && isUndef(factory.error)) {
                 factory.loading = true;
+<<<<<<< HEAD
                 forceRender(false);
+=======
+                forceRender();
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
               }
             }, res.delay || 200);
           }
@@ -21923,7 +24202,11 @@ function resolveAsyncComponent (
               reject(
                  true
                   ? ("timeout (" + (res.timeout) + "ms)")
+<<<<<<< HEAD
                   : undefined
+=======
+                  : null
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
               );
             }
           }, res.timeout);
@@ -21974,14 +24257,24 @@ function initEvents (vm) {
 
 var target;
 
+<<<<<<< HEAD
 function add (event, fn) {
   target.$on(event, fn);
+=======
+function add (event, fn, once) {
+  if (once) {
+    target.$once(event, fn);
+  } else {
+    target.$on(event, fn);
+  }
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 }
 
 function remove$1 (event, fn) {
   target.$off(event, fn);
 }
 
+<<<<<<< HEAD
 function createOnceHandler (event, fn) {
   var _target = target;
   return function onceHandler () {
@@ -21992,23 +24285,38 @@ function createOnceHandler (event, fn) {
   }
 }
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 function updateComponentListeners (
   vm,
   listeners,
   oldListeners
 ) {
   target = vm;
+<<<<<<< HEAD
   updateListeners(listeners, oldListeners || {}, add, remove$1, createOnceHandler, vm);
+=======
+  updateListeners(listeners, oldListeners || {}, add, remove$1, vm);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   target = undefined;
 }
 
 function eventsMixin (Vue) {
   var hookRE = /^hook:/;
   Vue.prototype.$on = function (event, fn) {
+<<<<<<< HEAD
     var vm = this;
     if (Array.isArray(event)) {
       for (var i = 0, l = event.length; i < l; i++) {
         vm.$on(event[i], fn);
+=======
+    var this$1 = this;
+
+    var vm = this;
+    if (Array.isArray(event)) {
+      for (var i = 0, l = event.length; i < l; i++) {
+        this$1.$on(event[i], fn);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       }
     } else {
       (vm._events[event] || (vm._events[event] = [])).push(fn);
@@ -22033,6 +24341,11 @@ function eventsMixin (Vue) {
   };
 
   Vue.prototype.$off = function (event, fn) {
+<<<<<<< HEAD
+=======
+    var this$1 = this;
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     var vm = this;
     // all
     if (!arguments.length) {
@@ -22042,7 +24355,11 @@ function eventsMixin (Vue) {
     // array of events
     if (Array.isArray(event)) {
       for (var i = 0, l = event.length; i < l; i++) {
+<<<<<<< HEAD
         vm.$off(event[i], fn);
+=======
+        this$1.$off(event[i], fn);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       }
       return vm
     }
@@ -22171,6 +24488,7 @@ function resolveScopedSlots (
 var activeInstance = null;
 var isUpdatingChildComponent = false;
 
+<<<<<<< HEAD
 function setActiveInstance(vm) {
   var prevActiveInstance = activeInstance;
   activeInstance = vm;
@@ -22179,6 +24497,8 @@ function setActiveInstance(vm) {
   }
 }
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 function initLifecycle (vm) {
   var options = vm.$options;
 
@@ -22208,20 +24528,45 @@ function initLifecycle (vm) {
 function lifecycleMixin (Vue) {
   Vue.prototype._update = function (vnode, hydrating) {
     var vm = this;
+<<<<<<< HEAD
     var prevEl = vm.$el;
     var prevVnode = vm._vnode;
     var restoreActiveInstance = setActiveInstance(vm);
+=======
+    if (vm._isMounted) {
+      callHook(vm, 'beforeUpdate');
+    }
+    var prevEl = vm.$el;
+    var prevVnode = vm._vnode;
+    var prevActiveInstance = activeInstance;
+    activeInstance = vm;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     vm._vnode = vnode;
     // Vue.prototype.__patch__ is injected in entry points
     // based on the rendering backend used.
     if (!prevVnode) {
       // initial render
+<<<<<<< HEAD
       vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */);
+=======
+      vm.$el = vm.__patch__(
+        vm.$el, vnode, hydrating, false /* removeOnly */,
+        vm.$options._parentElm,
+        vm.$options._refElm
+      );
+      // no need for the ref nodes after initial patch
+      // this prevents keeping a detached DOM tree in memory (#5851)
+      vm.$options._parentElm = vm.$options._refElm = null;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     } else {
       // updates
       vm.$el = vm.__patch__(prevVnode, vnode);
     }
+<<<<<<< HEAD
     restoreActiveInstance();
+=======
+    activeInstance = prevActiveInstance;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     // update __vue__ reference
     if (prevEl) {
       prevEl.__vue__ = null;
@@ -22318,7 +24663,11 @@ function mountComponent (
 
   var updateComponent;
   /* istanbul ignore if */
+<<<<<<< HEAD
   if ( true && config.performance && mark) {
+=======
+  if ("development" !== 'production' && config.performance && mark) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     updateComponent = function () {
       var name = vm._name;
       var id = vm._uid;
@@ -22344,6 +24693,7 @@ function mountComponent (
   // we set this to vm._watcher inside the watcher's constructor
   // since the watcher's initial patch may call $forceUpdate (e.g. inside child
   // component's mounted hook), which relies on vm._watcher being already defined
+<<<<<<< HEAD
   new Watcher(vm, updateComponent, noop, {
     before: function before () {
       if (vm._isMounted && !vm._isDestroyed) {
@@ -22351,6 +24701,9 @@ function mountComponent (
       }
     }
   }, true /* isRenderWatcher */);
+=======
+  new Watcher(vm, updateComponent, noop, null, true /* isRenderWatcher */);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   hydrating = false;
 
   // manually mounted instance, call mounted on self
@@ -22490,6 +24843,10 @@ function callHook (vm, hook) {
 
 /*  */
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 var MAX_UPDATE_COUNT = 100;
 
 var queue = [];
@@ -22533,14 +24890,21 @@ function flushSchedulerQueue () {
   // as we run existing watchers
   for (index = 0; index < queue.length; index++) {
     watcher = queue[index];
+<<<<<<< HEAD
     if (watcher.before) {
       watcher.before();
     }
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     id = watcher.id;
     has[id] = null;
     watcher.run();
     // in dev build, check and stop circular updates.
+<<<<<<< HEAD
     if ( true && has[id] != null) {
+=======
+    if ("development" !== 'production' && has[id] != null) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       circular[id] = (circular[id] || 0) + 1;
       if (circular[id] > MAX_UPDATE_COUNT) {
         warn(
@@ -22578,7 +24942,11 @@ function callUpdatedHooks (queue) {
   while (i--) {
     var watcher = queue[i];
     var vm = watcher.vm;
+<<<<<<< HEAD
     if (vm._watcher === watcher && vm._isMounted && !vm._isDestroyed) {
+=======
+    if (vm._watcher === watcher && vm._isMounted) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       callHook(vm, 'updated');
     }
   }
@@ -22624,12 +24992,16 @@ function queueWatcher (watcher) {
     }
     // queue the flush
     if (!waiting) {
+<<<<<<< HEAD
       waiting = true;
 
       if ( true && !config.async) {
         flushSchedulerQueue();
         return
       }
+=======
+      waiting = true;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       nextTick(flushSchedulerQueue);
     }
   }
@@ -22637,8 +25009,11 @@ function queueWatcher (watcher) {
 
 /*  */
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 var uid$1 = 0;
 
 /**
@@ -22664,7 +25039,10 @@ var Watcher = function Watcher (
     this.user = !!options.user;
     this.lazy = !!options.lazy;
     this.sync = !!options.sync;
+<<<<<<< HEAD
     this.before = options.before;
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   } else {
     this.deep = this.user = this.lazy = this.sync = false;
   }
@@ -22678,15 +25056,24 @@ var Watcher = function Watcher (
   this.newDepIds = new _Set();
   this.expression =  true
     ? expOrFn.toString()
+<<<<<<< HEAD
     : undefined;
+=======
+    : '';
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   // parse expression for getter
   if (typeof expOrFn === 'function') {
     this.getter = expOrFn;
   } else {
     this.getter = parsePath(expOrFn);
     if (!this.getter) {
+<<<<<<< HEAD
       this.getter = noop;
        true && warn(
+=======
+      this.getter = function () {};
+      "development" !== 'production' && warn(
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         "Failed watching path: \"" + expOrFn + "\" " +
         'Watcher only accepts simple dot-delimited paths. ' +
         'For full control, use a function instead.',
@@ -22744,11 +25131,21 @@ Watcher.prototype.addDep = function addDep (dep) {
  * Clean up for dependency collection.
  */
 Watcher.prototype.cleanupDeps = function cleanupDeps () {
+<<<<<<< HEAD
   var i = this.deps.length;
   while (i--) {
     var dep = this.deps[i];
     if (!this.newDepIds.has(dep.id)) {
       dep.removeSub(this);
+=======
+    var this$1 = this;
+
+  var i = this.deps.length;
+  while (i--) {
+    var dep = this$1.deps[i];
+    if (!this$1.newDepIds.has(dep.id)) {
+      dep.removeSub(this$1);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     }
   }
   var tmp = this.depIds;
@@ -22820,9 +25217,17 @@ Watcher.prototype.evaluate = function evaluate () {
  * Depend on all deps collected by this watcher.
  */
 Watcher.prototype.depend = function depend () {
+<<<<<<< HEAD
   var i = this.deps.length;
   while (i--) {
     this.deps[i].depend();
+=======
+    var this$1 = this;
+
+  var i = this.deps.length;
+  while (i--) {
+    this$1.deps[i].depend();
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   }
 };
 
@@ -22830,6 +25235,11 @@ Watcher.prototype.depend = function depend () {
  * Remove self from all dependencies' subscriber list.
  */
 Watcher.prototype.teardown = function teardown () {
+<<<<<<< HEAD
+=======
+    var this$1 = this;
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   if (this.active) {
     // remove self from vm's watcher list
     // this is a somewhat expensive operation so we skip it
@@ -22839,7 +25249,11 @@ Watcher.prototype.teardown = function teardown () {
     }
     var i = this.deps.length;
     while (i--) {
+<<<<<<< HEAD
       this.deps[i].removeSub(this);
+=======
+      this$1.deps[i].removeSub(this$1);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     }
     this.active = false;
   }
@@ -22904,8 +25318,13 @@ function initProps (vm, propsOptions) {
           vm
         );
       }
+<<<<<<< HEAD
       defineReactive$$1(props, key, value, function () {
         if (!isRoot && !isUpdatingChildComponent) {
+=======
+      defineReactive(props, key, value, function () {
+        if (vm.$parent && !isUpdatingChildComponent) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
           warn(
             "Avoid mutating a prop directly since the value will be " +
             "overwritten whenever the parent component re-renders. " +
@@ -22915,7 +25334,13 @@ function initProps (vm, propsOptions) {
           );
         }
       });
+<<<<<<< HEAD
     } else {}
+=======
+    } else {
+      defineReactive(props, key, value);
+    }
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     // static props are already proxied on the component's prototype
     // during Vue.extend(). We only need to proxy props defined at
     // instantiation here.
@@ -22935,7 +25360,11 @@ function initData (vm) {
     : data || {};
   if (!isPlainObject(data)) {
     data = {};
+<<<<<<< HEAD
      true && warn(
+=======
+    "development" !== 'production' && warn(
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       'data functions should return an object:\n' +
       'https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function',
       vm
@@ -22957,7 +25386,11 @@ function initData (vm) {
       }
     }
     if (props && hasOwn(props, key)) {
+<<<<<<< HEAD
        true && warn(
+=======
+      "development" !== 'production' && warn(
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         "The data property \"" + key + "\" is already declared as a prop. " +
         "Use prop default value instead.",
         vm
@@ -22994,7 +25427,11 @@ function initComputed (vm, computed) {
   for (var key in computed) {
     var userDef = computed[key];
     var getter = typeof userDef === 'function' ? userDef : userDef.get;
+<<<<<<< HEAD
     if ( true && getter == null) {
+=======
+    if ("development" !== 'production' && getter == null) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       warn(
         ("Getter is missing for computed property \"" + key + "\"."),
         vm
@@ -23035,17 +25472,31 @@ function defineComputed (
   if (typeof userDef === 'function') {
     sharedPropertyDefinition.get = shouldCache
       ? createComputedGetter(key)
+<<<<<<< HEAD
       : createGetterInvoker(userDef);
+=======
+      : userDef;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     sharedPropertyDefinition.set = noop;
   } else {
     sharedPropertyDefinition.get = userDef.get
       ? shouldCache && userDef.cache !== false
         ? createComputedGetter(key)
+<<<<<<< HEAD
         : createGetterInvoker(userDef.get)
       : noop;
     sharedPropertyDefinition.set = userDef.set || noop;
   }
   if ( true &&
+=======
+        : userDef.get
+      : noop;
+    sharedPropertyDefinition.set = userDef.set
+      ? userDef.set
+      : noop;
+  }
+  if ("development" !== 'production' &&
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       sharedPropertyDefinition.set === noop) {
     sharedPropertyDefinition.set = function () {
       warn(
@@ -23072,19 +25523,28 @@ function createComputedGetter (key) {
   }
 }
 
+<<<<<<< HEAD
 function createGetterInvoker(fn) {
   return function computedGetter () {
     return fn.call(this, this)
   }
 }
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 function initMethods (vm, methods) {
   var props = vm.$options.props;
   for (var key in methods) {
     if (true) {
+<<<<<<< HEAD
       if (typeof methods[key] !== 'function') {
         warn(
           "Method \"" + key + "\" has type \"" + (typeof methods[key]) + "\" in the component definition. " +
+=======
+      if (methods[key] == null) {
+        warn(
+          "Method \"" + key + "\" has an undefined value in the component definition. " +
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
           "Did you reference the function correctly?",
           vm
         );
@@ -23102,7 +25562,11 @@ function initMethods (vm, methods) {
         );
       }
     }
+<<<<<<< HEAD
     vm[key] = typeof methods[key] !== 'function' ? noop : bind(methods[key], vm);
+=======
+    vm[key] = methods[key] == null ? noop : bind(methods[key], vm);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   }
 }
 
@@ -23144,7 +25608,11 @@ function stateMixin (Vue) {
   var propsDef = {};
   propsDef.get = function () { return this._props };
   if (true) {
+<<<<<<< HEAD
     dataDef.set = function () {
+=======
+    dataDef.set = function (newData) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       warn(
         'Avoid replacing instance root $data. ' +
         'Use nested data properties instead.',
@@ -23174,11 +25642,15 @@ function stateMixin (Vue) {
     options.user = true;
     var watcher = new Watcher(vm, expOrFn, cb, options);
     if (options.immediate) {
+<<<<<<< HEAD
       try {
         cb.call(vm, watcher.value);
       } catch (error) {
         handleError(error, vm, ("callback for immediate watcher \"" + (watcher.expression) + "\""));
       }
+=======
+      cb.call(vm, watcher.value);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     }
     return function unwatchFn () {
       watcher.teardown();
@@ -23204,7 +25676,11 @@ function initInjections (vm) {
     Object.keys(result).forEach(function (key) {
       /* istanbul ignore else */
       if (true) {
+<<<<<<< HEAD
         defineReactive$$1(vm, key, result[key], function () {
+=======
+        defineReactive(vm, key, result[key], function () {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
           warn(
             "Avoid mutating an injected value directly since the changes will be " +
             "overwritten whenever the provided component re-renders. " +
@@ -23212,7 +25688,13 @@ function initInjections (vm) {
             vm
           );
         });
+<<<<<<< HEAD
       } else {}
+=======
+      } else {
+        defineReactive(vm, key, result[key]);
+      }
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     });
     toggleObserving(true);
   }
@@ -23283,10 +25765,16 @@ function renderList (
       ret[i] = render(val[key], key, i);
     }
   }
+<<<<<<< HEAD
   if (!isDef(ret)) {
     ret = [];
   }
   (ret)._isVList = true;
+=======
+  if (isDef(ret)) {
+    (ret)._isVList = true;
+  }
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   return ret
 }
 
@@ -23306,7 +25794,11 @@ function renderSlot (
   if (scopedSlotFn) { // scoped slot
     props = props || {};
     if (bindObject) {
+<<<<<<< HEAD
       if ( true && !isObject(bindObject)) {
+=======
+      if ("development" !== 'production' && !isObject(bindObject)) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         warn(
           'slot v-bind without argument expects an Object',
           this
@@ -23316,7 +25808,23 @@ function renderSlot (
     }
     nodes = scopedSlotFn(props) || fallback;
   } else {
+<<<<<<< HEAD
     nodes = this.$slots[name] || fallback;
+=======
+    var slotNodes = this.$slots[name];
+    // warn duplicate slot usage
+    if (slotNodes) {
+      if ("development" !== 'production' && slotNodes._rendered) {
+        warn(
+          "Duplicate presence of slot \"" + name + "\" found in the same render tree " +
+          "- this will likely cause render errors.",
+          this
+        );
+      }
+      slotNodes._rendered = true;
+    }
+    nodes = slotNodes || fallback;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   }
 
   var target = props && props.slot;
@@ -23382,7 +25890,11 @@ function bindObjectProps (
 ) {
   if (value) {
     if (!isObject(value)) {
+<<<<<<< HEAD
        true && warn(
+=======
+      "development" !== 'production' && warn(
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         'v-bind without argument expects an Object or Array value',
         this
       );
@@ -23404,13 +25916,21 @@ function bindObjectProps (
             ? data.domProps || (data.domProps = {})
             : data.attrs || (data.attrs = {});
         }
+<<<<<<< HEAD
         var camelizedKey = camelize(key);
         if (!(key in hash) && !(camelizedKey in hash)) {
+=======
+        if (!(key in hash)) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
           hash[key] = value[key];
 
           if (isSync) {
             var on = data.on || (data.on = {});
+<<<<<<< HEAD
             on[("update:" + camelizedKey)] = function ($event) {
+=======
+            on[("update:" + key)] = function ($event) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
               value[key] = $event;
             };
           }
@@ -23489,7 +26009,11 @@ function markStaticNode (node, key, isOnce) {
 function bindObjectListeners (data, value) {
   if (value) {
     if (!isPlainObject(value)) {
+<<<<<<< HEAD
        true && warn(
+=======
+      "development" !== 'production' && warn(
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         'v-on without argument expects an Object value',
         this
       );
@@ -23616,27 +26140,42 @@ function createFunctionalComponent (
   var vnode = options.render.call(null, renderContext._c, renderContext);
 
   if (vnode instanceof VNode) {
+<<<<<<< HEAD
     return cloneAndMarkFunctionalResult(vnode, data, renderContext.parent, options, renderContext)
+=======
+    return cloneAndMarkFunctionalResult(vnode, data, renderContext.parent, options)
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   } else if (Array.isArray(vnode)) {
     var vnodes = normalizeChildren(vnode) || [];
     var res = new Array(vnodes.length);
     for (var i = 0; i < vnodes.length; i++) {
+<<<<<<< HEAD
       res[i] = cloneAndMarkFunctionalResult(vnodes[i], data, renderContext.parent, options, renderContext);
+=======
+      res[i] = cloneAndMarkFunctionalResult(vnodes[i], data, renderContext.parent, options);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     }
     return res
   }
 }
 
+<<<<<<< HEAD
 function cloneAndMarkFunctionalResult (vnode, data, contextVm, options, renderContext) {
+=======
+function cloneAndMarkFunctionalResult (vnode, data, contextVm, options) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   // #7817 clone node before setting fnContext, otherwise if the node is reused
   // (e.g. it was from a cached normal slot) the fnContext causes named slots
   // that should not be matched to match.
   var clone = cloneVNode(vnode);
   clone.fnContext = contextVm;
   clone.fnOptions = options;
+<<<<<<< HEAD
   if (true) {
     (clone.devtoolsMeta = clone.devtoolsMeta || {}).renderContext = renderContext;
   }
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   if (data.slot) {
     (clone.data || (clone.data = {})).slot = data.slot;
   }
@@ -23651,15 +26190,42 @@ function mergeProps (to, from) {
 
 /*  */
 
+<<<<<<< HEAD
 /*  */
 
+=======
+
+
+
+// Register the component hook to weex native render engine.
+// The hook will be triggered by native, not javascript.
+
+
+// Updates the state of the component to weex native render engine.
+
+/*  */
+
+// https://github.com/Hanks10100/weex-native-directive/tree/master/component
+
+// listening on native callback
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /*  */
 
 /*  */
 
 // inline hooks to be invoked on component VNodes during patch
 var componentVNodeHooks = {
+<<<<<<< HEAD
   init: function init (vnode, hydrating) {
+=======
+  init: function init (
+    vnode,
+    hydrating,
+    parentElm,
+    refElm
+  ) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     if (
       vnode.componentInstance &&
       !vnode.componentInstance._isDestroyed &&
@@ -23671,7 +26237,13 @@ var componentVNodeHooks = {
     } else {
       var child = vnode.componentInstance = createComponentInstanceForVnode(
         vnode,
+<<<<<<< HEAD
         activeInstance
+=======
+        activeInstance,
+        parentElm,
+        refElm
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       );
       child.$mount(hydrating ? vnode.elm : undefined, hydrating);
     }
@@ -23820,17 +26392,37 @@ function createComponent (
     asyncFactory
   );
 
+<<<<<<< HEAD
+=======
+  // Weex specific: invoke recycle-list optimized @render function for
+  // extracting cell-slot template.
+  // https://github.com/Hanks10100/weex-native-directive/tree/master/component
+  /* istanbul ignore if */
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   return vnode
 }
 
 function createComponentInstanceForVnode (
   vnode, // we know it's MountedComponentVNode but flow doesn't
+<<<<<<< HEAD
   parent // activeInstance in lifecycle state
 ) {
   var options = {
     _isComponent: true,
     _parentVnode: vnode,
     parent: parent
+=======
+  parent, // activeInstance in lifecycle state
+  parentElm,
+  refElm
+) {
+  var options = {
+    _isComponent: true,
+    parent: parent,
+    _parentVnode: vnode,
+    _parentElm: parentElm || null,
+    _refElm: refElm || null
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   };
   // check inline-template render functions
   var inlineTemplate = vnode.data.inlineTemplate;
@@ -23845,6 +26437,7 @@ function installComponentHooks (data) {
   var hooks = data.hook || (data.hook = {});
   for (var i = 0; i < hooksToMerge.length; i++) {
     var key = hooksToMerge[i];
+<<<<<<< HEAD
     var existing = hooks[key];
     var toMerge = componentVNodeHooks[key];
     if (existing !== toMerge && !(existing && existing._merged)) {
@@ -23863,10 +26456,17 @@ function mergeHook$1 (f1, f2) {
   return merged
 }
 
+=======
+    hooks[key] = componentVNodeHooks[key];
+  }
+}
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 // transform component v-model info (value and callback) into
 // prop and event handler respectively.
 function transformModel (options, data) {
   var prop = (options.model && options.model.prop) || 'value';
+<<<<<<< HEAD
   var event = (options.model && options.model.event) || 'input'
   ;(data.props || (data.props = {}))[prop] = data.model.value;
   var on = data.on || (data.on = {});
@@ -23882,6 +26482,14 @@ function transformModel (options, data) {
     }
   } else {
     on[event] = callback;
+=======
+  var event = (options.model && options.model.event) || 'input';(data.props || (data.props = {}))[prop] = data.model.value;
+  var on = data.on || (data.on = {});
+  if (isDef(on[event])) {
+    on[event] = [data.model.callback].concat(on[event]);
+  } else {
+    on[event] = data.model.callback;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   }
 }
 
@@ -23919,7 +26527,11 @@ function _createElement (
   normalizationType
 ) {
   if (isDef(data) && isDef((data).__ob__)) {
+<<<<<<< HEAD
      true && warn(
+=======
+    "development" !== 'production' && warn(
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       "Avoid using observed data object as vnode data: " + (JSON.stringify(data)) + "\n" +
       'Always create fresh vnode data objects in each render!',
       context
@@ -23935,7 +26547,11 @@ function _createElement (
     return createEmptyVNode()
   }
   // warn against non-primitive key
+<<<<<<< HEAD
   if ( true &&
+=======
+  if ("development" !== 'production' &&
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     isDef(data) && isDef(data.key) && !isPrimitive(data.key)
   ) {
     {
@@ -23969,7 +26585,11 @@ function _createElement (
         config.parsePlatformTagName(tag), data, children,
         undefined, undefined, context
       );
+<<<<<<< HEAD
     } else if ((!data || !data.pre) && isDef(Ctor = resolveAsset(context.$options, 'components', tag))) {
+=======
+    } else if (isDef(Ctor = resolveAsset(context.$options, 'components', tag))) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       // component
       vnode = createComponent(Ctor, data, context, children, tag);
     } else {
@@ -24051,6 +26671,7 @@ function initRender (vm) {
 
   /* istanbul ignore else */
   if (true) {
+<<<<<<< HEAD
     defineReactive$$1(vm, '$attrs', parentData && parentData.attrs || emptyObject, function () {
       !isUpdatingChildComponent && warn("$attrs is readonly.", vm);
     }, true);
@@ -24058,6 +26679,18 @@ function initRender (vm) {
       !isUpdatingChildComponent && warn("$listeners is readonly.", vm);
     }, true);
   } else {}
+=======
+    defineReactive(vm, '$attrs', parentData && parentData.attrs || emptyObject, function () {
+      !isUpdatingChildComponent && warn("$attrs is readonly.", vm);
+    }, true);
+    defineReactive(vm, '$listeners', options._parentListeners || emptyObject, function () {
+      !isUpdatingChildComponent && warn("$listeners is readonly.", vm);
+    }, true);
+  } else {
+    defineReactive(vm, '$attrs', parentData && parentData.attrs || emptyObject, null, true);
+    defineReactive(vm, '$listeners', options._parentListeners || emptyObject, null, true);
+  }
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 }
 
 function renderMixin (Vue) {
@@ -24074,6 +26707,17 @@ function renderMixin (Vue) {
     var render = ref.render;
     var _parentVnode = ref._parentVnode;
 
+<<<<<<< HEAD
+=======
+    // reset _rendered flag on slots for duplicate slot check
+    if (true) {
+      for (var key in vm.$slots) {
+        // $flow-disable-line
+        vm.$slots[key]._rendered = false;
+      }
+    }
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     if (_parentVnode) {
       vm.$scopedSlots = _parentVnode.data.scopedSlots || emptyObject;
     }
@@ -24090,11 +26734,23 @@ function renderMixin (Vue) {
       // return error render result,
       // or previous vnode to prevent render error causing blank component
       /* istanbul ignore else */
+<<<<<<< HEAD
       if ( true && vm.$options.renderError) {
         try {
           vnode = vm.$options.renderError.call(vm._renderProxy, vm.$createElement, e);
         } catch (e) {
           handleError(e, vm, "renderError");
+=======
+      if (true) {
+        if (vm.$options.renderError) {
+          try {
+            vnode = vm.$options.renderError.call(vm._renderProxy, vm.$createElement, e);
+          } catch (e) {
+            handleError(e, vm, "renderError");
+            vnode = vm._vnode;
+          }
+        } else {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
           vnode = vm._vnode;
         }
       } else {
@@ -24103,7 +26759,11 @@ function renderMixin (Vue) {
     }
     // return empty vnode in case the render function errored out
     if (!(vnode instanceof VNode)) {
+<<<<<<< HEAD
       if ( true && Array.isArray(vnode)) {
+=======
+      if ("development" !== 'production' && Array.isArray(vnode)) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         warn(
           'Multiple root nodes returned from render function. Render function ' +
           'should return a single root node.',
@@ -24130,7 +26790,11 @@ function initMixin (Vue) {
 
     var startTag, endTag;
     /* istanbul ignore if */
+<<<<<<< HEAD
     if ( true && config.performance && mark) {
+=======
+    if ("development" !== 'production' && config.performance && mark) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       startTag = "vue-perf-start:" + (vm._uid);
       endTag = "vue-perf-end:" + (vm._uid);
       mark(startTag);
@@ -24154,7 +26818,13 @@ function initMixin (Vue) {
     /* istanbul ignore else */
     if (true) {
       initProxy(vm);
+<<<<<<< HEAD
     } else {}
+=======
+    } else {
+      vm._renderProxy = vm;
+    }
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     // expose real self
     vm._self = vm;
     initLifecycle(vm);
@@ -24167,7 +26837,11 @@ function initMixin (Vue) {
     callHook(vm, 'created');
 
     /* istanbul ignore if */
+<<<<<<< HEAD
     if ( true && config.performance && mark) {
+=======
+    if ("development" !== 'production' && config.performance && mark) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       vm._name = formatComponentName(vm, false);
       mark(endTag);
       measure(("vue " + (vm._name) + " init"), startTag, endTag);
@@ -24185,6 +26859,11 @@ function initInternalComponent (vm, options) {
   var parentVnode = options._parentVnode;
   opts.parent = options.parent;
   opts._parentVnode = parentVnode;
+<<<<<<< HEAD
+=======
+  opts._parentElm = options._parentElm;
+  opts._refElm = options._refElm;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
   var vnodeComponentOptions = parentVnode.componentOptions;
   opts.propsData = vnodeComponentOptions.propsData;
@@ -24256,7 +26935,11 @@ function dedupe (latest, extended, sealed) {
 }
 
 function Vue (options) {
+<<<<<<< HEAD
   if ( true &&
+=======
+  if ("development" !== 'production' &&
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     !(this instanceof Vue)
   ) {
     warn('Vue is a constructor and should be called with the `new` keyword');
@@ -24325,7 +27008,11 @@ function initExtend (Vue) {
     }
 
     var name = extendOptions.name || Super.options.name;
+<<<<<<< HEAD
     if ( true && name) {
+=======
+    if ("development" !== 'production' && name) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       validateComponentName(name);
     }
 
@@ -24408,7 +27095,11 @@ function initAssetRegisters (Vue) {
         return this.options[type + 's'][id]
       } else {
         /* istanbul ignore if */
+<<<<<<< HEAD
         if ( true && type === 'component') {
+=======
+        if ("development" !== 'production' && type === 'component') {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
           validateComponentName(id);
         }
         if (type === 'component' && isPlainObject(definition)) {
@@ -24427,8 +27118,11 @@ function initAssetRegisters (Vue) {
 
 /*  */
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 function getComponentName (opts) {
   return opts && (opts.Ctor.options.name || opts.tag)
 }
@@ -24492,8 +27186,15 @@ var KeepAlive = {
   },
 
   destroyed: function destroyed () {
+<<<<<<< HEAD
     for (var key in this.cache) {
       pruneCacheEntry(this.cache, key, this.keys);
+=======
+    var this$1 = this;
+
+    for (var key in this$1.cache) {
+      pruneCacheEntry(this$1.cache, key, this$1.keys);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     }
   },
 
@@ -24553,11 +27254,19 @@ var KeepAlive = {
     }
     return vnode || (slot && slot[0])
   }
+<<<<<<< HEAD
 };
 
 var builtInComponents = {
   KeepAlive: KeepAlive
 };
+=======
+}
+
+var builtInComponents = {
+  KeepAlive: KeepAlive
+}
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /*  */
 
@@ -24581,7 +27290,11 @@ function initGlobalAPI (Vue) {
     warn: warn,
     extend: extend,
     mergeOptions: mergeOptions,
+<<<<<<< HEAD
     defineReactive: defineReactive$$1
+=======
+    defineReactive: defineReactive
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   };
 
   Vue.set = set;
@@ -24623,7 +27336,11 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
+<<<<<<< HEAD
 Vue.version = '2.5.21';
+=======
+Vue.version = '2.5.16';
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /*  */
 
@@ -24832,7 +27549,11 @@ function query (el) {
   if (typeof el === 'string') {
     var selected = document.querySelector(el);
     if (!selected) {
+<<<<<<< HEAD
        true && warn(
+=======
+      "development" !== 'production' && warn(
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         'Cannot find element: ' + el
       );
       return document.createElement('div')
@@ -24901,6 +27622,7 @@ function setStyleScope (node, scopeId) {
   node.setAttribute(scopeId, '');
 }
 
+<<<<<<< HEAD
 var nodeOps = /*#__PURE__*/Object.freeze({
   createElement: createElement$1,
   createElementNS: createElementNS,
@@ -24914,6 +27636,22 @@ var nodeOps = /*#__PURE__*/Object.freeze({
   tagName: tagName,
   setTextContent: setTextContent,
   setStyleScope: setStyleScope
+=======
+
+var nodeOps = Object.freeze({
+	createElement: createElement$1,
+	createElementNS: createElementNS,
+	createTextNode: createTextNode,
+	createComment: createComment,
+	insertBefore: insertBefore,
+	removeChild: removeChild,
+	appendChild: appendChild,
+	parentNode: parentNode,
+	nextSibling: nextSibling,
+	tagName: tagName,
+	setTextContent: setTextContent,
+	setStyleScope: setStyleScope
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 });
 
 /*  */
@@ -24931,7 +27669,11 @@ var ref = {
   destroy: function destroy (vnode) {
     registerRef(vnode, true);
   }
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 function registerRef (vnode, isRemoval) {
   var key = vnode.data.ref;
@@ -25032,6 +27774,7 @@ function createPatchFunction (backend) {
   }
 
   function createRmCb (childElm, listeners) {
+<<<<<<< HEAD
     function remove$$1 () {
       if (--remove$$1.listeners === 0) {
         removeNode(childElm);
@@ -25039,6 +27782,15 @@ function createPatchFunction (backend) {
     }
     remove$$1.listeners = listeners;
     return remove$$1
+=======
+    function remove () {
+      if (--remove.listeners === 0) {
+        removeNode(childElm);
+      }
+    }
+    remove.listeners = listeners;
+    return remove
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   }
 
   function removeNode (el) {
@@ -25122,7 +27874,11 @@ function createPatchFunction (backend) {
         insert(parentElm, vnode.elm, refElm);
       }
 
+<<<<<<< HEAD
       if ( true && data && data.pre) {
+=======
+      if ("development" !== 'production' && data && data.pre) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         creatingElmInVPre--;
       }
     } else if (isTrue(vnode.isComment)) {
@@ -25139,7 +27895,11 @@ function createPatchFunction (backend) {
     if (isDef(i)) {
       var isReactivated = isDef(vnode.componentInstance) && i.keepAlive;
       if (isDef(i = i.hook) && isDef(i = i.init)) {
+<<<<<<< HEAD
         i(vnode, false /* hydrating */);
+=======
+        i(vnode, false /* hydrating */, parentElm, refElm);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       }
       // after calling the init hook, if the vnode is a child component
       // it should've created a child instance and mounted it. the child
@@ -25147,7 +27907,10 @@ function createPatchFunction (backend) {
       // in that case we can just return the element and be done.
       if (isDef(vnode.componentInstance)) {
         initComponent(vnode, insertedVnodeQueue);
+<<<<<<< HEAD
         insert(parentElm, vnode.elm, refElm);
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         if (isTrue(isReactivated)) {
           reactivateComponent(vnode, insertedVnodeQueue, parentElm, refElm);
         }
@@ -25199,7 +27962,11 @@ function createPatchFunction (backend) {
   function insert (parent, elm, ref$$1) {
     if (isDef(parent)) {
       if (isDef(ref$$1)) {
+<<<<<<< HEAD
         if (nodeOps.parentNode(ref$$1) === parent) {
+=======
+        if (ref$$1.parentNode === parent) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
           nodeOps.insertBefore(parent, elm, ref$$1);
         }
       } else {
@@ -25354,6 +28121,7 @@ function createPatchFunction (backend) {
       } else if (isUndef(oldEndVnode)) {
         oldEndVnode = oldCh[--oldEndIdx];
       } else if (sameVnode(oldStartVnode, newStartVnode)) {
+<<<<<<< HEAD
         patchVnode(oldStartVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx);
         oldStartVnode = oldCh[++oldStartIdx];
         newStartVnode = newCh[++newStartIdx];
@@ -25363,11 +28131,26 @@ function createPatchFunction (backend) {
         newEndVnode = newCh[--newEndIdx];
       } else if (sameVnode(oldStartVnode, newEndVnode)) { // Vnode moved right
         patchVnode(oldStartVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx);
+=======
+        patchVnode(oldStartVnode, newStartVnode, insertedVnodeQueue);
+        oldStartVnode = oldCh[++oldStartIdx];
+        newStartVnode = newCh[++newStartIdx];
+      } else if (sameVnode(oldEndVnode, newEndVnode)) {
+        patchVnode(oldEndVnode, newEndVnode, insertedVnodeQueue);
+        oldEndVnode = oldCh[--oldEndIdx];
+        newEndVnode = newCh[--newEndIdx];
+      } else if (sameVnode(oldStartVnode, newEndVnode)) { // Vnode moved right
+        patchVnode(oldStartVnode, newEndVnode, insertedVnodeQueue);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         canMove && nodeOps.insertBefore(parentElm, oldStartVnode.elm, nodeOps.nextSibling(oldEndVnode.elm));
         oldStartVnode = oldCh[++oldStartIdx];
         newEndVnode = newCh[--newEndIdx];
       } else if (sameVnode(oldEndVnode, newStartVnode)) { // Vnode moved left
+<<<<<<< HEAD
         patchVnode(oldEndVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx);
+=======
+        patchVnode(oldEndVnode, newStartVnode, insertedVnodeQueue);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         canMove && nodeOps.insertBefore(parentElm, oldEndVnode.elm, oldStartVnode.elm);
         oldEndVnode = oldCh[--oldEndIdx];
         newStartVnode = newCh[++newStartIdx];
@@ -25381,7 +28164,11 @@ function createPatchFunction (backend) {
         } else {
           vnodeToMove = oldCh[idxInOld];
           if (sameVnode(vnodeToMove, newStartVnode)) {
+<<<<<<< HEAD
             patchVnode(vnodeToMove, newStartVnode, insertedVnodeQueue, newCh, newStartIdx);
+=======
+            patchVnode(vnodeToMove, newStartVnode, insertedVnodeQueue);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
             oldCh[idxInOld] = undefined;
             canMove && nodeOps.insertBefore(parentElm, vnodeToMove.elm, oldStartVnode.elm);
           } else {
@@ -25425,6 +28212,7 @@ function createPatchFunction (backend) {
     }
   }
 
+<<<<<<< HEAD
   function patchVnode (
     oldVnode,
     vnode,
@@ -25433,15 +28221,21 @@ function createPatchFunction (backend) {
     index,
     removeOnly
   ) {
+=======
+  function patchVnode (oldVnode, vnode, insertedVnodeQueue, removeOnly) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     if (oldVnode === vnode) {
       return
     }
 
+<<<<<<< HEAD
     if (isDef(vnode.elm) && isDef(ownerArray)) {
       // clone reused vnode
       vnode = ownerArray[index] = cloneVNode(vnode);
     }
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     var elm = vnode.elm = oldVnode.elm;
 
     if (isTrue(oldVnode.isAsyncPlaceholder)) {
@@ -25482,9 +28276,12 @@ function createPatchFunction (backend) {
       if (isDef(oldCh) && isDef(ch)) {
         if (oldCh !== ch) { updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly); }
       } else if (isDef(ch)) {
+<<<<<<< HEAD
         if (true) {
           checkDuplicateKeys(ch);
         }
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         if (isDef(oldVnode.text)) { nodeOps.setTextContent(elm, ''); }
         addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue);
       } else if (isDef(oldCh)) {
@@ -25556,7 +28353,11 @@ function createPatchFunction (backend) {
           if (isDef(i = data) && isDef(i = i.domProps) && isDef(i = i.innerHTML)) {
             if (i !== elm.innerHTML) {
               /* istanbul ignore if */
+<<<<<<< HEAD
               if ( true &&
+=======
+              if ("development" !== 'production' &&
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
                 typeof console !== 'undefined' &&
                 !hydrationBailed
               ) {
@@ -25582,7 +28383,11 @@ function createPatchFunction (backend) {
             // longer than the virtual children list.
             if (!childrenMatch || childNode) {
               /* istanbul ignore if */
+<<<<<<< HEAD
               if ( true &&
+=======
+              if ("development" !== 'production' &&
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
                 typeof console !== 'undefined' &&
                 !hydrationBailed
               ) {
@@ -25626,7 +28431,11 @@ function createPatchFunction (backend) {
     }
   }
 
+<<<<<<< HEAD
   return function patch (oldVnode, vnode, hydrating, removeOnly) {
+=======
+  return function patch (oldVnode, vnode, hydrating, removeOnly, parentElm, refElm) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     if (isUndef(vnode)) {
       if (isDef(oldVnode)) { invokeDestroyHook(oldVnode); }
       return
@@ -25638,12 +28447,20 @@ function createPatchFunction (backend) {
     if (isUndef(oldVnode)) {
       // empty mount (likely as component), create new root element
       isInitialPatch = true;
+<<<<<<< HEAD
       createElm(vnode, insertedVnodeQueue);
+=======
+      createElm(vnode, insertedVnodeQueue, parentElm, refElm);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     } else {
       var isRealElement = isDef(oldVnode.nodeType);
       if (!isRealElement && sameVnode(oldVnode, vnode)) {
         // patch existing root node
+<<<<<<< HEAD
         patchVnode(oldVnode, vnode, insertedVnodeQueue, null, null, removeOnly);
+=======
+        patchVnode(oldVnode, vnode, insertedVnodeQueue, removeOnly);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       } else {
         if (isRealElement) {
           // mounting to a real element
@@ -25674,7 +28491,11 @@ function createPatchFunction (backend) {
 
         // replacing existing element
         var oldElm = oldVnode.elm;
+<<<<<<< HEAD
         var parentElm = nodeOps.parentNode(oldElm);
+=======
+        var parentElm$1 = nodeOps.parentNode(oldElm);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
         // create new node
         createElm(
@@ -25683,7 +28504,11 @@ function createPatchFunction (backend) {
           // extremely rare edge case: do not insert if old element is in a
           // leaving transition. Only happens when combining transition +
           // keep-alive + HOCs. (#4590)
+<<<<<<< HEAD
           oldElm._leaveCb ? null : parentElm,
+=======
+          oldElm._leaveCb ? null : parentElm$1,
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
           nodeOps.nextSibling(oldElm)
         );
 
@@ -25718,8 +28543,13 @@ function createPatchFunction (backend) {
         }
 
         // destroy old node
+<<<<<<< HEAD
         if (isDef(parentElm)) {
           removeVnodes(parentElm, [oldVnode], 0, 0);
+=======
+        if (isDef(parentElm$1)) {
+          removeVnodes(parentElm$1, [oldVnode], 0, 0);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         } else if (isDef(oldVnode.tag)) {
           invokeDestroyHook(oldVnode);
         }
@@ -25739,7 +28569,11 @@ var directives = {
   destroy: function unbindDirectives (vnode) {
     updateDirectives(vnode, emptyNode);
   }
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 function updateDirectives (oldVnode, vnode) {
   if (oldVnode.data.directives || vnode.data.directives) {
@@ -25850,7 +28684,11 @@ function callHook$1 (dir, hook, vnode, oldVnode, isDestroy) {
 var baseModules = [
   ref,
   directives
+<<<<<<< HEAD
 ];
+=======
+]
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /*  */
 
@@ -25934,7 +28772,11 @@ function baseSetAttr (el, key, value) {
     /* istanbul ignore if */
     if (
       isIE && !isIE9 &&
+<<<<<<< HEAD
       (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') &&
+=======
+      el.tagName === 'TEXTAREA' &&
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       key === 'placeholder' && !el.__ieph
     ) {
       var blocker = function (e) {
@@ -25952,7 +28794,11 @@ function baseSetAttr (el, key, value) {
 var attrs = {
   create: updateAttrs,
   update: updateAttrs
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /*  */
 
@@ -25990,7 +28836,11 @@ function updateClass (oldVnode, vnode) {
 var klass = {
   create: updateClass,
   update: updateClass
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /*  */
 
@@ -26145,7 +28995,11 @@ function addHandler (
   // warn prevent and passive modifier
   /* istanbul ignore if */
   if (
+<<<<<<< HEAD
      true && warn &&
+=======
+    "development" !== 'production' && warn &&
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     modifiers.prevent && modifiers.passive
   ) {
     warn(
@@ -26154,6 +29008,7 @@ function addHandler (
     );
   }
 
+<<<<<<< HEAD
   // normalize click.right and click.middle since they don't actually fire
   // this is technically browser-specific, but at least for now browsers are
   // the only target envs that have right/middle clicks.
@@ -26166,6 +29021,8 @@ function addHandler (
     }
   }
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   // check capture modifier
   if (modifiers.capture) {
     delete modifiers.capture;
@@ -26181,6 +29038,21 @@ function addHandler (
     name = '&' + name; // mark the event as passive
   }
 
+<<<<<<< HEAD
+=======
+  // normalize click.right and click.middle since they don't actually fire
+  // this is technically browser-specific, but at least for now browsers are
+  // the only target envs that have right/middle clicks.
+  if (name === 'click') {
+    if (modifiers.right) {
+      name = 'contextmenu';
+      delete modifiers.right;
+    } else if (modifiers.middle) {
+      name = 'mouseup';
+    }
+  }
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   var events;
   if (modifiers.native) {
     delete modifiers.native;
@@ -26281,7 +29153,11 @@ function genComponentModel (
 
   el.model = {
     value: ("(" + value + ")"),
+<<<<<<< HEAD
     expression: JSON.stringify(value),
+=======
+    expression: ("\"" + value + "\""),
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     callback: ("function (" + baseValueExpression + ") {" + assignment + "}")
   };
 }
@@ -26316,7 +29192,16 @@ function genAssignmentCode (
  *
  */
 
+<<<<<<< HEAD
 var len, str, chr, index$1, expressionPos, expressionEndPos;
+=======
+var len;
+var str;
+var chr;
+var index$1;
+var expressionPos;
+var expressionEndPos;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 
 
@@ -26597,7 +29482,11 @@ function normalizeEvents (on) {
 
 var target$1;
 
+<<<<<<< HEAD
 function createOnceHandler$1 (event, handler, capture) {
+=======
+function createOnceHandler (handler, event, capture) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   var _target = target$1; // save current target element in closure
   return function onceHandler () {
     var res = handler.apply(null, arguments);
@@ -26610,10 +29499,18 @@ function createOnceHandler$1 (event, handler, capture) {
 function add$1 (
   event,
   handler,
+<<<<<<< HEAD
+=======
+  once$$1,
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   capture,
   passive
 ) {
   handler = withMacroTask(handler);
+<<<<<<< HEAD
+=======
+  if (once$$1) { handler = createOnceHandler(handler, event, capture); }
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   target$1.addEventListener(
     event,
     handler,
@@ -26644,14 +29541,22 @@ function updateDOMListeners (oldVnode, vnode) {
   var oldOn = oldVnode.data.on || {};
   target$1 = vnode.elm;
   normalizeEvents(on);
+<<<<<<< HEAD
   updateListeners(on, oldOn, add$1, remove$2, createOnceHandler$1, vnode.context);
+=======
+  updateListeners(on, oldOn, add$1, remove$2, vnode.context);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   target$1 = undefined;
 }
 
 var events = {
   create: updateDOMListeners,
   update: updateDOMListeners
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /*  */
 
@@ -26745,7 +29650,11 @@ function isDirtyWithModifiers (elm, newVal) {
 var domProps = {
   create: updateDOMProps,
   update: updateDOMProps
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /*  */
 
@@ -26906,12 +29815,19 @@ function updateStyle (oldVnode, vnode) {
 var style = {
   create: updateStyle,
   update: updateStyle
+<<<<<<< HEAD
 };
 
 /*  */
 
 var whitespaceRE = /\s+/;
 
+=======
+}
+
+/*  */
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /**
  * Add class with compatibility for SVG since classList is not supported on
  * SVG elements in IE
@@ -26925,7 +29841,11 @@ function addClass (el, cls) {
   /* istanbul ignore else */
   if (el.classList) {
     if (cls.indexOf(' ') > -1) {
+<<<<<<< HEAD
       cls.split(whitespaceRE).forEach(function (c) { return el.classList.add(c); });
+=======
+      cls.split(/\s+/).forEach(function (c) { return el.classList.add(c); });
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     } else {
       el.classList.add(cls);
     }
@@ -26950,7 +29870,11 @@ function removeClass (el, cls) {
   /* istanbul ignore else */
   if (el.classList) {
     if (cls.indexOf(' ') > -1) {
+<<<<<<< HEAD
       cls.split(whitespaceRE).forEach(function (c) { return el.classList.remove(c); });
+=======
+      cls.split(/\s+/).forEach(function (c) { return el.classList.remove(c); });
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     } else {
       el.classList.remove(cls);
     }
@@ -26974,6 +29898,7 @@ function removeClass (el, cls) {
 
 /*  */
 
+<<<<<<< HEAD
 function resolveTransition (def$$1) {
   if (!def$$1) {
     return
@@ -26988,6 +29913,22 @@ function resolveTransition (def$$1) {
     return res
   } else if (typeof def$$1 === 'string') {
     return autoCssTransition(def$$1)
+=======
+function resolveTransition (def) {
+  if (!def) {
+    return
+  }
+  /* istanbul ignore else */
+  if (typeof def === 'object') {
+    var res = {};
+    if (def.css !== false) {
+      extend(res, autoCssTransition(def.name || 'v'));
+    }
+    extend(res, def);
+    return res
+  } else if (typeof def === 'string') {
+    return autoCssTransition(def)
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   }
 }
 
@@ -27090,12 +30031,20 @@ var transformRE = /\b(transform|all)(,|$)/;
 
 function getTransitionInfo (el, expectedType) {
   var styles = window.getComputedStyle(el);
+<<<<<<< HEAD
   // JSDOM may return undefined for transition properties
   var transitionDelays = (styles[transitionProp + 'Delay'] || '').split(', ');
   var transitionDurations = (styles[transitionProp + 'Duration'] || '').split(', ');
   var transitionTimeout = getTimeout(transitionDelays, transitionDurations);
   var animationDelays = (styles[animationProp + 'Delay'] || '').split(', ');
   var animationDurations = (styles[animationProp + 'Duration'] || '').split(', ');
+=======
+  var transitionDelays = styles[transitionProp + 'Delay'].split(', ');
+  var transitionDurations = styles[transitionProp + 'Duration'].split(', ');
+  var transitionTimeout = getTimeout(transitionDelays, transitionDurations);
+  var animationDelays = styles[animationProp + 'Delay'].split(', ');
+  var animationDurations = styles[animationProp + 'Duration'].split(', ');
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   var animationTimeout = getTimeout(animationDelays, animationDurations);
 
   var type;
@@ -27149,12 +30098,17 @@ function getTimeout (delays, durations) {
   }))
 }
 
+<<<<<<< HEAD
 // Old versions of Chromium (below 61.0.3163.100) formats floating pointer numbers
 // in a locale-dependent way, using a comma instead of a dot.
 // If comma is not replaced with a dot, the input will be rounded down (i.e. acting
 // as a floor function) causing unexpected behaviors
 function toMs (s) {
   return Number(s.slice(0, -1).replace(',', '.')) * 1000
+=======
+function toMs (s) {
+  return Number(s.slice(0, -1)) * 1000
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 }
 
 /*  */
@@ -27242,7 +30196,11 @@ function enter (vnode, toggleDisplay) {
       : duration
   );
 
+<<<<<<< HEAD
   if ( true && explicitEnterDuration != null) {
+=======
+  if ("development" !== 'production' && explicitEnterDuration != null) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     checkDuration(explicitEnterDuration, 'enter', vnode);
   }
 
@@ -27350,7 +30308,11 @@ function leave (vnode, rm) {
       : duration
   );
 
+<<<<<<< HEAD
   if ( true && isDef(explicitLeaveDuration)) {
+=======
+  if ("development" !== 'production' && isDef(explicitLeaveDuration)) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     checkDuration(explicitLeaveDuration, 'leave', vnode);
   }
 
@@ -27386,7 +30348,11 @@ function leave (vnode, rm) {
       return
     }
     // record leaving element
+<<<<<<< HEAD
     if (!vnode.data.show && el.parentNode) {
+=======
+    if (!vnode.data.show) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       (el.parentNode._pending || (el.parentNode._pending = {}))[(vnode.key)] = vnode;
     }
     beforeLeave && beforeLeave(el);
@@ -27475,7 +30441,11 @@ var transition = inBrowser ? {
       rm();
     }
   }
+<<<<<<< HEAD
 } : {};
+=======
+} : {}
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 var platformModules = [
   attrs,
@@ -27484,7 +30454,11 @@ var platformModules = [
   domProps,
   style,
   transition
+<<<<<<< HEAD
 ];
+=======
+]
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /*  */
 
@@ -27577,7 +30551,11 @@ function actuallySetSelected (el, binding, vm) {
   var value = binding.value;
   var isMultiple = el.multiple;
   if (isMultiple && !Array.isArray(value)) {
+<<<<<<< HEAD
      true && warn(
+=======
+    "development" !== 'production' && warn(
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       "<select multiple v-model=\"" + (binding.expression) + "\"> " +
       "expects an Array value for its binding, but got " + (Object.prototype.toString.call(value).slice(8, -1)),
       vm
@@ -27695,15 +30673,29 @@ var show = {
       el.style.display = el.__vOriginalDisplay;
     }
   }
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 var platformDirectives = {
   model: directive,
   show: show
+<<<<<<< HEAD
 };
 
 /*  */
 
+=======
+}
+
+/*  */
+
+// Provides transition support for a single element/component.
+// supports transition mode (out-in / in-out)
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 var transitionProps = {
   name: String,
   appear: Boolean,
@@ -27769,10 +30761,13 @@ function isSameChild (child, oldChild) {
   return oldChild.key === child.key && oldChild.tag === child.tag
 }
 
+<<<<<<< HEAD
 var isNotTextNode = function (c) { return c.tag || isAsyncPlaceholder(c); };
 
 var isVShowDirective = function (d) { return d.name === 'show'; };
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 var Transition = {
   name: 'transition',
   props: transitionProps,
@@ -27787,14 +30782,22 @@ var Transition = {
     }
 
     // filter out text nodes (possible whitespaces)
+<<<<<<< HEAD
     children = children.filter(isNotTextNode);
+=======
+    children = children.filter(function (c) { return c.tag || isAsyncPlaceholder(c); });
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     /* istanbul ignore if */
     if (!children.length) {
       return
     }
 
     // warn multiple elements
+<<<<<<< HEAD
     if ( true && children.length > 1) {
+=======
+    if ("development" !== 'production' && children.length > 1) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       warn(
         '<transition> can only be used on a single element. Use ' +
         '<transition-group> for lists.',
@@ -27805,7 +30808,11 @@ var Transition = {
     var mode = this.mode;
 
     // warn invalid mode
+<<<<<<< HEAD
     if ( true &&
+=======
+    if ("development" !== 'production' &&
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       mode && mode !== 'in-out' && mode !== 'out-in'
     ) {
       warn(
@@ -27852,7 +30859,11 @@ var Transition = {
 
     // mark v-show
     // so that the transition module can hand over the control to the directive
+<<<<<<< HEAD
     if (child.data.directives && child.data.directives.some(isVShowDirective)) {
+=======
+    if (child.data.directives && child.data.directives.some(function (d) { return d.name === 'show'; })) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       child.data.show = true;
     }
 
@@ -27890,10 +30901,28 @@ var Transition = {
 
     return rawChild
   }
+<<<<<<< HEAD
 };
 
 /*  */
 
+=======
+}
+
+/*  */
+
+// Provides transition support for list items.
+// supports move transitions using the FLIP technique.
+
+// Because the vdom's children update algorithm is "unstable" - i.e.
+// it doesn't guarantee the relative positioning of removed elements,
+// we force transition-group to update its children into two passes:
+// in the first pass, we remove all nodes that need to be removed,
+// triggering their leaving transition; in the second pass, we insert/move
+// into the final desired state. This way in the second pass removed
+// nodes will remain where they should be.
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 var props = extend({
   tag: String,
   moveClass: String
@@ -27904,6 +30933,7 @@ delete props.mode;
 var TransitionGroup = {
   props: props,
 
+<<<<<<< HEAD
   beforeMount: function beforeMount () {
     var this$1 = this;
 
@@ -27923,6 +30953,8 @@ var TransitionGroup = {
     };
   },
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   render: function render (h) {
     var tag = this.tag || this.$vnode.data.tag || 'span';
     var map = Object.create(null);
@@ -27966,6 +30998,20 @@ var TransitionGroup = {
     return h(tag, null, children)
   },
 
+<<<<<<< HEAD
+=======
+  beforeUpdate: function beforeUpdate () {
+    // force removing pass
+    this.__patch__(
+      this._vnode,
+      this.kept,
+      false, // hydrating
+      true // removeOnly (!important, avoids unnecessary moves)
+    );
+    this._vnode = this.kept;
+  },
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   updated: function updated () {
     var children = this.prevChildren;
     var moveClass = this.moveClass || ((this.name || 'v') + '-move');
@@ -27991,9 +31037,12 @@ var TransitionGroup = {
         addTransitionClass(el, moveClass);
         s.transform = s.WebkitTransform = s.transitionDuration = '';
         el.addEventListener(transitionEndEvent, el._moveCb = function cb (e) {
+<<<<<<< HEAD
           if (e && e.target !== el) {
             return
           }
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
           if (!e || /transform$/.test(e.propertyName)) {
             el.removeEventListener(transitionEndEvent, cb);
             el._moveCb = null;
@@ -28031,7 +31080,11 @@ var TransitionGroup = {
       return (this._hasMove = info.hasTransform)
     }
   }
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 function callPendingCbs (c) {
   /* istanbul ignore if */
@@ -28064,7 +31117,11 @@ function applyTranslation (c) {
 var platformComponents = {
   Transition: Transition,
   TransitionGroup: TransitionGroup
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /*  */
 
@@ -28099,7 +31156,12 @@ if (inBrowser) {
       if (devtools) {
         devtools.emit('init', Vue);
       } else if (
+<<<<<<< HEAD
          true &&
+=======
+        "development" !== 'production' &&
+        "development" !== 'test' &&
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         isChrome
       ) {
         console[console.info ? 'info' : 'log'](
@@ -28108,7 +31170,12 @@ if (inBrowser) {
         );
       }
     }
+<<<<<<< HEAD
     if ( true &&
+=======
+    if ("development" !== 'production' &&
+      "development" !== 'test' &&
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       config.productionTip !== false &&
       typeof console !== 'undefined'
     ) {
@@ -28123,7 +31190,11 @@ if (inBrowser) {
 
 /*  */
 
+<<<<<<< HEAD
 var defaultTagRE = /\{\{((?:.|\r?\n)+?)\}\}/g;
+=======
+var defaultTagRE = /\{\{((?:.|\n)+?)\}\}/g;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 var regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g;
 
 var buildRegex = cached(function (delimiters) {
@@ -28174,7 +31245,11 @@ function parseText (
 function transformNode (el, options) {
   var warn = options.warn || baseWarn;
   var staticClass = getAndRemoveAttr(el, 'class');
+<<<<<<< HEAD
   if ( true && staticClass) {
+=======
+  if ("development" !== 'production' && staticClass) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     var res = parseText(staticClass, options.delimiters);
     if (res) {
       warn(
@@ -28209,7 +31284,11 @@ var klass$1 = {
   staticKeys: ['staticClass'],
   transformNode: transformNode,
   genData: genData
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /*  */
 
@@ -28253,7 +31332,11 @@ var style$1 = {
   staticKeys: ['staticStyle'],
   transformNode: transformNode$1,
   genData: genData$1
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /*  */
 
@@ -28265,7 +31348,11 @@ var he = {
     decoder.innerHTML = html;
     return decoder.textContent
   }
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /*  */
 
@@ -28294,6 +31381,16 @@ var isNonPhrasingTag = makeMap(
  * Not type-checking this file because it's mostly vendor code.
  */
 
+<<<<<<< HEAD
+=======
+/*!
+ * HTML Parser By John Resig (ejohn.org)
+ * Modified by Juriy "kangax" Zaytsev
+ * Original code by Erik Arvidsson, Mozilla Public License
+ * http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
+ */
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 // Regular Expressions for parsing tags and attributes
 var attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
 // could use https://www.w3.org/TR/1999/REC-xml-names-19990114/#NT-QName
@@ -28308,6 +31405,14 @@ var doctype = /^<!DOCTYPE [^>]+>/i;
 var comment = /^<!\--/;
 var conditionalComment = /^<!\[/;
 
+<<<<<<< HEAD
+=======
+var IS_REGEX_CAPTURING_BROKEN = false;
+'x'.replace(/x(.)?/g, function (m, g) {
+  IS_REGEX_CAPTURING_BROKEN = g === '';
+});
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 // Special Elements (can contain anything)
 var isPlainTextElement = makeMap('script,style,textarea', true);
 var reCache = {};
@@ -28388,7 +31493,11 @@ function parseHTML (html, options) {
         var startTagMatch = parseStartTag();
         if (startTagMatch) {
           handleStartTag(startTagMatch);
+<<<<<<< HEAD
           if (shouldIgnoreFirstNewline(startTagMatch.tagName, html)) {
+=======
+          if (shouldIgnoreFirstNewline(lastTag, html)) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
             advance(1);
           }
           continue
@@ -28448,7 +31557,11 @@ function parseHTML (html, options) {
 
     if (html === last) {
       options.chars && options.chars(html);
+<<<<<<< HEAD
       if ( true && !stack.length && options.warn) {
+=======
+      if ("development" !== 'production' && !stack.length && options.warn) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         options.warn(("Mal-formatted tag at end of template: \"" + html + "\""));
       }
       break
@@ -28505,6 +31618,15 @@ function parseHTML (html, options) {
     var attrs = new Array(l);
     for (var i = 0; i < l; i++) {
       var args = match.attrs[i];
+<<<<<<< HEAD
+=======
+      // hackish work around FF bug https://bugzilla.mozilla.org/show_bug.cgi?id=369778
+      if (IS_REGEX_CAPTURING_BROKEN && args[0].indexOf('""') === -1) {
+        if (args[3] === '') { delete args[3]; }
+        if (args[4] === '') { delete args[4]; }
+        if (args[5] === '') { delete args[5]; }
+      }
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       var value = args[3] || args[4] || args[5] || '';
       var shouldDecodeNewlines = tagName === 'a' && args[1] === 'href'
         ? options.shouldDecodeNewlinesForHref
@@ -28530,9 +31652,18 @@ function parseHTML (html, options) {
     if (start == null) { start = index; }
     if (end == null) { end = index; }
 
+<<<<<<< HEAD
     // Find the closest opened tag of the same type
     if (tagName) {
       lowerCasedTagName = tagName.toLowerCase();
+=======
+    if (tagName) {
+      lowerCasedTagName = tagName.toLowerCase();
+    }
+
+    // Find the closest opened tag of the same type
+    if (tagName) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       for (pos = stack.length - 1; pos >= 0; pos--) {
         if (stack[pos].lowerCasedTag === lowerCasedTagName) {
           break
@@ -28546,7 +31677,11 @@ function parseHTML (html, options) {
     if (pos >= 0) {
       // Close all the open elements, up the stack
       for (var i = stack.length - 1; i >= pos; i--) {
+<<<<<<< HEAD
         if ( true &&
+=======
+        if ("development" !== 'production' &&
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
           (i > pos || !tagName) &&
           options.warn
         ) {
@@ -28581,7 +31716,11 @@ function parseHTML (html, options) {
 
 var onRE = /^@|^v-on:/;
 var dirRE = /^v-|^@|^:/;
+<<<<<<< HEAD
 var forAliasRE = /([\s\S]*?)\s+(?:in|of)\s+([\s\S]*)/;
+=======
+var forAliasRE = /([^]*?)\s+(?:in|of)\s+([^]*)/;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 var forIteratorRE = /,([^,\}\]]*)(?:,([^,\}\]]*))?$/;
 var stripParensRE = /^\(|\)$/g;
 
@@ -28692,7 +31831,11 @@ function parse (
 
       if (isForbiddenTag(element) && !isServerRendering()) {
         element.forbidden = true;
+<<<<<<< HEAD
          true && warn$2(
+=======
+        "development" !== 'production' && warn$2(
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
           'Templates should only be responsible for mapping the state to the ' +
           'UI. Avoid placing tags with side-effects in your templates, such as ' +
           "<" + tag + ">" + ', as they will not be parsed.'
@@ -28766,8 +31909,12 @@ function parse (
           processIfConditions(element, currentParent);
         } else if (element.slotScope) { // scoped slot
           currentParent.plain = false;
+<<<<<<< HEAD
           var name = element.slotTarget || '"default"'
           ;(currentParent.scopedSlots || (currentParent.scopedSlots = {}))[name] = element;
+=======
+          var name = element.slotTarget || '"default"';(currentParent.scopedSlots || (currentParent.scopedSlots = {}))[name] = element;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         } else {
           currentParent.children.push(element);
           element.parent = currentParent;
@@ -28891,6 +32038,7 @@ function processElement (element, options) {
 function processKey (el) {
   var exp = getBindingAttr(el, 'key');
   if (exp) {
+<<<<<<< HEAD
     if (true) {
       if (el.tag === 'template') {
         warn$2("<template> cannot be keyed. Place the key on real elements instead.");
@@ -28905,6 +32053,10 @@ function processKey (el) {
           );
         }
       }
+=======
+    if ("development" !== 'production' && el.tag === 'template') {
+      warn$2("<template> cannot be keyed. Place the key on real elements instead.");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     }
     el.key = exp;
   }
@@ -28942,7 +32094,11 @@ function parseFor (exp) {
   var alias = inMatch[1].trim().replace(stripParensRE, '');
   var iteratorMatch = alias.match(forIteratorRE);
   if (iteratorMatch) {
+<<<<<<< HEAD
     res.alias = alias.replace(forIteratorRE, '').trim();
+=======
+    res.alias = alias.replace(forIteratorRE, '');
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     res.iterator1 = iteratorMatch[1].trim();
     if (iteratorMatch[2]) {
       res.iterator2 = iteratorMatch[2].trim();
@@ -28993,7 +32149,11 @@ function findPrevElement (children) {
     if (children[i].type === 1) {
       return children[i]
     } else {
+<<<<<<< HEAD
       if ( true && children[i].text !== ' ') {
+=======
+      if ("development" !== 'production' && children[i].text !== ' ') {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         warn$2(
           "text \"" + (children[i].text.trim()) + "\" between v-if and v-else(-if) " +
           "will be ignored."
@@ -29021,7 +32181,11 @@ function processOnce (el) {
 function processSlot (el) {
   if (el.tag === 'slot') {
     el.slotName = getBindingAttr(el, 'name');
+<<<<<<< HEAD
     if ( true && el.key) {
+=======
+    if ("development" !== 'production' && el.key) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       warn$2(
         "`key` does not work on <slot> because slots are abstract outlets " +
         "and can possibly expand into multiple elements. " +
@@ -29033,7 +32197,11 @@ function processSlot (el) {
     if (el.tag === 'template') {
       slotScope = getAndRemoveAttr(el, 'scope');
       /* istanbul ignore if */
+<<<<<<< HEAD
       if ( true && slotScope) {
+=======
+      if ("development" !== 'production' && slotScope) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         warn$2(
           "the \"scope\" attribute for scoped slots have been deprecated and " +
           "replaced by \"slot-scope\" since 2.5. The new \"slot-scope\" attribute " +
@@ -29045,7 +32213,11 @@ function processSlot (el) {
       el.slotScope = slotScope || getAndRemoveAttr(el, 'slot-scope');
     } else if ((slotScope = getAndRemoveAttr(el, 'slot-scope'))) {
       /* istanbul ignore if */
+<<<<<<< HEAD
       if ( true && el.attrsMap['v-for']) {
+=======
+      if ("development" !== 'production' && el.attrsMap['v-for']) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         warn$2(
           "Ambiguous combined usage of slot-scope and v-for on <" + (el.tag) + "> " +
           "(v-for takes higher priority). Use a wrapper <template> for the " +
@@ -29095,6 +32267,7 @@ function processAttrs (el) {
         name = name.replace(bindRE, '');
         value = parseFilters(value);
         isProp = false;
+<<<<<<< HEAD
         if (
            true &&
           value.trim().length === 0
@@ -29103,6 +32276,8 @@ function processAttrs (el) {
             ("The value for a v-bind expression cannot be empty. Found in \"v-bind:" + name + "\"")
           );
         }
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         if (modifiers) {
           if (modifiers.prop) {
             isProp = true;
@@ -29139,7 +32314,11 @@ function processAttrs (el) {
           name = name.slice(0, -(arg.length + 1));
         }
         addDirective(el, name, rawName, value, arg, modifiers);
+<<<<<<< HEAD
         if ( true && name === 'model') {
+=======
+        if ("development" !== 'production' && name === 'model') {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
           checkForAliasModel(el, value);
         }
       }
@@ -29192,7 +32371,11 @@ function makeAttrsMap (attrs) {
   var map = {};
   for (var i = 0, l = attrs.length; i < l; i++) {
     if (
+<<<<<<< HEAD
        true &&
+=======
+      "development" !== 'production' &&
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       map[attrs[i].name] && !isIE && !isEdge
     ) {
       warn$2('duplicate attribute: ' + attrs[i].name);
@@ -29251,6 +32434,19 @@ function checkForAliasModel (el, value) {
 
 /*  */
 
+<<<<<<< HEAD
+=======
+/**
+ * Expand input[v-model] with dyanmic type bindings into v-if-else chains
+ * Turn this:
+ *   <input v-model="data[type]" :type="type">
+ * into this:
+ *   <input v-if="type === 'checkbox'" type="checkbox" v-model="data[type]">
+ *   <input v-else-if="type === 'radio'" type="radio" v-model="data[type]">
+ *   <input v-else :type="type" v-model="data[type]">
+ */
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 function preTransformNode (el, options) {
   if (el.tag === 'input') {
     var map = el.attrsMap;
@@ -29317,15 +32513,26 @@ function cloneASTElement (el) {
   return createASTElement(el.tag, el.attrsList.slice(), el.parent)
 }
 
+<<<<<<< HEAD
 var model$1 = {
   preTransformNode: preTransformNode
 };
+=======
+var model$2 = {
+  preTransformNode: preTransformNode
+}
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 var modules$1 = [
   klass$1,
   style$1,
+<<<<<<< HEAD
   model$1
 ];
+=======
+  model$2
+]
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /*  */
 
@@ -29347,7 +32554,11 @@ var directives$1 = {
   model: model,
   text: text,
   html: html
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /*  */
 
@@ -29511,19 +32722,30 @@ var keyCodes = {
 
 // KeyboardEvent.key aliases
 var keyNames = {
+<<<<<<< HEAD
   // #7880: IE11 and Edge use `Esc` for Escape key name.
   esc: ['Esc', 'Escape'],
   tab: 'Tab',
   enter: 'Enter',
   // #9112: IE11 uses `Spacebar` for Space key name.
   space: [' ', 'Spacebar'],
+=======
+  esc: 'Escape',
+  tab: 'Tab',
+  enter: 'Enter',
+  space: ' ',
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   // #7806: IE11 uses key names without `Arrow` prefix for arrow keys.
   up: ['Up', 'ArrowUp'],
   left: ['Left', 'ArrowLeft'],
   right: ['Right', 'ArrowRight'],
   down: ['Down', 'ArrowDown'],
+<<<<<<< HEAD
   // #9112: IE11 uses `Del` for Delete key name.
   'delete': ['Backspace', 'Delete', 'Del']
+=======
+  'delete': ['Backspace', 'Delete']
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 };
 
 // #4868: modifiers that prevent the execution of the listener
@@ -29546,7 +32768,12 @@ var modifierCode = {
 
 function genHandlers (
   events,
+<<<<<<< HEAD
   isNative
+=======
+  isNative,
+  warn
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 ) {
   var res = isNative ? 'nativeOn:{' : 'on:{';
   for (var name in events) {
@@ -29574,6 +32801,10 @@ function genHandler (
     if (isMethodPath || isFunctionExpression) {
       return handler.value
     }
+<<<<<<< HEAD
+=======
+    /* istanbul ignore if */
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     return ("function($event){" + (handler.value) + "}") // inline statement
   } else {
     var code = '';
@@ -29610,6 +32841,10 @@ function genHandler (
       : isFunctionExpression
         ? ("return (" + (handler.value) + ")($event)")
         : handler.value;
+<<<<<<< HEAD
+=======
+    /* istanbul ignore if */
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     return ("function($event){" + code + handlerCode + "}")
   }
 }
@@ -29638,7 +32873,11 @@ function genFilterCode (key) {
 /*  */
 
 function on (el, dir) {
+<<<<<<< HEAD
   if ( true && dir.modifiers) {
+=======
+  if ("development" !== 'production' && dir.modifiers) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     warn("v-on without argument does not support modifiers.");
   }
   el.wrapListeners = function (code) { return ("_g(" + code + "," + (dir.value) + ")"); };
@@ -29658,6 +32897,7 @@ var baseDirectives = {
   on: on,
   bind: bind$1,
   cloak: noop
+<<<<<<< HEAD
 };
 
 /*  */
@@ -29666,6 +32906,12 @@ var baseDirectives = {
 
 
 
+=======
+}
+
+/*  */
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 var CodegenState = function CodegenState (options) {
   this.options = options;
   this.warn = options.warn || baseWarn;
@@ -29673,10 +32919,16 @@ var CodegenState = function CodegenState (options) {
   this.dataGenFns = pluckModuleFunction(options.modules, 'genData');
   this.directives = extend(extend({}, baseDirectives), options.directives);
   var isReservedTag = options.isReservedTag || no;
+<<<<<<< HEAD
   this.maybeComponent = function (el) { return !(isReservedTag(el.tag) && !el.component); };
   this.onceId = 0;
   this.staticRenderFns = [];
   this.pre = false;
+=======
+  this.maybeComponent = function (el) { return !isReservedTag(el.tag); };
+  this.onceId = 0;
+  this.staticRenderFns = [];
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 };
 
 
@@ -29694,10 +32946,13 @@ function generate (
 }
 
 function genElement (el, state) {
+<<<<<<< HEAD
   if (el.parent) {
     el.pre = el.pre || el.parent.pre;
   }
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   if (el.staticRoot && !el.staticProcessed) {
     return genStatic(el, state)
   } else if (el.once && !el.onceProcessed) {
@@ -29706,7 +32961,11 @@ function genElement (el, state) {
     return genFor(el, state)
   } else if (el.if && !el.ifProcessed) {
     return genIf(el, state)
+<<<<<<< HEAD
   } else if (el.tag === 'template' && !el.slotTarget && !state.pre) {
+=======
+  } else if (el.tag === 'template' && !el.slotTarget) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     return genChildren(el, state) || 'void 0'
   } else if (el.tag === 'slot') {
     return genSlot(el, state)
@@ -29716,10 +32975,14 @@ function genElement (el, state) {
     if (el.component) {
       code = genComponent(el.component, el, state);
     } else {
+<<<<<<< HEAD
       var data;
       if (!el.plain || (el.pre && state.maybeComponent(el))) {
         data = genData$2(el, state);
       }
+=======
+      var data = el.plain ? undefined : genData$2(el, state);
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
       var children = el.inlineTemplate ? null : genChildren(el, state, true);
       code = "_c('" + (el.tag) + "'" + (data ? ("," + data) : '') + (children ? ("," + children) : '') + ")";
@@ -29735,6 +32998,7 @@ function genElement (el, state) {
 // hoist static sub-trees out
 function genStatic (el, state) {
   el.staticProcessed = true;
+<<<<<<< HEAD
   // Some elements (templates) need to behave differently inside of a v-pre
   // node.  All pre nodes are static roots, so we can use this as a location to
   // wrap a state change and reset it upon exiting the pre node.
@@ -29744,6 +33008,9 @@ function genStatic (el, state) {
   }
   state.staticRenderFns.push(("with(this){return " + (genElement(el, state)) + "}"));
   state.pre = originalPreState;
+=======
+  state.staticRenderFns.push(("with(this){return " + (genElement(el, state)) + "}"));
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   return ("_m(" + (state.staticRenderFns.length - 1) + (el.staticInFor ? ',true' : '') + ")")
 }
 
@@ -29763,7 +33030,11 @@ function genOnce (el, state) {
       parent = parent.parent;
     }
     if (!key) {
+<<<<<<< HEAD
        true && state.warn(
+=======
+      "development" !== 'production' && state.warn(
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         "v-once can only be used inside v-for that is keyed. "
       );
       return genElement(el, state)
@@ -29822,7 +33093,11 @@ function genFor (
   var iterator1 = el.iterator1 ? ("," + (el.iterator1)) : '';
   var iterator2 = el.iterator2 ? ("," + (el.iterator2)) : '';
 
+<<<<<<< HEAD
   if ( true &&
+=======
+  if ("development" !== 'production' &&
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     state.maybeComponent(el) &&
     el.tag !== 'slot' &&
     el.tag !== 'template' &&
@@ -29884,10 +33159,17 @@ function genData$2 (el, state) {
   }
   // event handlers
   if (el.events) {
+<<<<<<< HEAD
     data += (genHandlers(el.events, false)) + ",";
   }
   if (el.nativeEvents) {
     data += (genHandlers(el.nativeEvents, true)) + ",";
+=======
+    data += (genHandlers(el.events, false, state.warn)) + ",";
+  }
+  if (el.nativeEvents) {
+    data += (genHandlers(el.nativeEvents, true, state.warn)) + ",";
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   }
   // slot target
   // only for non-scoped slots
@@ -29948,7 +33230,11 @@ function genDirectives (el, state) {
 
 function genInlineTemplate (el, state) {
   var ast = el.children[0];
+<<<<<<< HEAD
   if ( true && (
+=======
+  if ("development" !== 'production' && (
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     el.children.length !== 1 || ast.type !== 1
   )) {
     state.warn('Inline-template components must have exactly one child element.');
@@ -29979,7 +33265,11 @@ function genScopedSlot (
   var fn = "function(" + (String(el.slotScope)) + "){" +
     "return " + (el.tag === 'template'
       ? el.if
+<<<<<<< HEAD
         ? ("(" + (el.if) + ")?" + (genChildren(el, state) || 'undefined') + ":undefined")
+=======
+        ? ((el.if) + "?" + (genChildren(el, state) || 'undefined') + ":undefined")
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         : genChildren(el, state) || 'undefined'
       : genElement(el, state)) + "}";
   return ("{key:" + key + ",fn:" + fn + "}")
@@ -30017,6 +33307,7 @@ function genChildren (
       el$1.tag !== 'template' &&
       el$1.tag !== 'slot'
     ) {
+<<<<<<< HEAD
       var normalizationType = checkSkip
         ? state.maybeComponent(el$1) ? ",1" : ",0"
         : "";
@@ -30027,6 +33318,15 @@ function genChildren (
       : 0;
     var gen = altGenNode || genNode;
     return ("[" + (children.map(function (c) { return gen(c, state); }).join(',')) + "]" + (normalizationType$1 ? ("," + normalizationType$1) : ''))
+=======
+      return (altGenElement || genElement)(el$1, state)
+    }
+    var normalizationType = checkSkip
+      ? getNormalizationType(children, state.maybeComponent)
+      : 0;
+    var gen = altGenNode || genNode;
+    return ("[" + (children.map(function (c) { return gen(c, state); }).join(',')) + "]" + (normalizationType ? ("," + normalizationType) : ''))
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
   }
 }
 
@@ -30064,7 +33364,11 @@ function needsNormalization (el) {
 function genNode (node, state) {
   if (node.type === 1) {
     return genElement(node, state)
+<<<<<<< HEAD
   } else if (node.type === 3 && node.isComment) {
+=======
+  } if (node.type === 3 && node.isComment) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
     return genComment(node)
   } else {
     return genText(node)
@@ -30237,8 +33541,11 @@ function checkExpression (exp, text, errors) {
 
 /*  */
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 function createFunction (code, errors) {
   try {
     return new Function(code)
@@ -30410,7 +33717,10 @@ var createCompiler = createCompilerCreator(function baseCompile (
 /*  */
 
 var ref$1 = createCompiler(baseOptions);
+<<<<<<< HEAD
 var compile = ref$1.compile;
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 var compileToFunctions = ref$1.compileToFunctions;
 
 /*  */
@@ -30444,7 +33754,11 @@ Vue.prototype.$mount = function (
 
   /* istanbul ignore if */
   if (el === document.body || el === document.documentElement) {
+<<<<<<< HEAD
      true && warn(
+=======
+    "development" !== 'production' && warn(
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
       "Do not mount Vue to <html> or <body> - mount to normal elements instead."
     );
     return this
@@ -30459,7 +33773,11 @@ Vue.prototype.$mount = function (
         if (template.charAt(0) === '#') {
           template = idToTemplate(template);
           /* istanbul ignore if */
+<<<<<<< HEAD
           if ( true && !template) {
+=======
+          if ("development" !== 'production' && !template) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
             warn(
               ("Template element not found or is empty: " + (options.template)),
               this
@@ -30479,7 +33797,11 @@ Vue.prototype.$mount = function (
     }
     if (template) {
       /* istanbul ignore if */
+<<<<<<< HEAD
       if ( true && config.performance && mark) {
+=======
+      if ("development" !== 'production' && config.performance && mark) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         mark('compile');
       }
 
@@ -30495,7 +33817,11 @@ Vue.prototype.$mount = function (
       options.staticRenderFns = staticRenderFns;
 
       /* istanbul ignore if */
+<<<<<<< HEAD
       if ( true && config.performance && mark) {
+=======
+      if ("development" !== 'production' && config.performance && mark) {
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
         mark('compile end');
         measure(("vue " + (this._name) + " compile"), 'compile', 'compile end');
       }
@@ -30522,15 +33848,22 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
+<<<<<<< HEAD
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../../timers-browserify/main.js */ "./node_modules/timers-browserify/main.js").setImmediate))
+=======
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/webpack/buildin/global.js"), __webpack_require__("./node_modules/timers-browserify/main.js").setImmediate))
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 /***/ }),
 
 /***/ "./node_modules/webpack/buildin/global.js":
+<<<<<<< HEAD
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
   \***********************************/
 /*! no static exports found */
+=======
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports) {
 
 var g;
@@ -30542,10 +33875,18 @@ g = (function() {
 
 try {
 	// This works if eval is allowed (see CSP)
+<<<<<<< HEAD
 	g = g || new Function("return this")();
 } catch (e) {
 	// This works if the window reference is available
 	if (typeof window === "object") g = window;
+=======
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 }
 
 // g can still be undefined, but nothing to do about it...
@@ -30558,6 +33899,7 @@ module.exports = g;
 /***/ }),
 
 /***/ "./node_modules/webpack/buildin/module.js":
+<<<<<<< HEAD
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -30570,6 +33912,16 @@ module.exports = function(module) {
 		module.paths = [];
 		// module.parent = undefined by default
 		if (!module.children) module.children = [];
+=======
+/***/ (function(module, exports) {
+
+module.exports = function(module) {
+	if(!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 		Object.defineProperty(module, "loaded", {
 			enumerable: true,
 			get: function() {
@@ -30590,6 +33942,7 @@ module.exports = function(module) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./resources/assets/admin/js/app.js":
 /*!******************************************!*\
   !*** ./resources/assets/admin/js/app.js ***!
@@ -30611,6 +33964,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_MailSettings_vue__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_MailSettings_vue__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _apps_TodosApp_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./apps/TodosApp.vue */ "./resources/assets/admin/js/apps/TodosApp.vue");
 /* harmony import */ var _apps_TodosApp_vue__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_apps_TodosApp_vue__WEBPACK_IMPORTED_MODULE_5__);
+=======
+/***/ "./resources/admin/js/app.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__("./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_BarChart_vue__ = __webpack_require__("./resources/admin/js/components/BarChart.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_LineChart_vue__ = __webpack_require__("./resources/admin/js/components/LineChart.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_PieChart_vue__ = __webpack_require__("./resources/admin/js/components/PieChart.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_MailSettings_vue__ = __webpack_require__("./resources/admin/js/components/MailSettings.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__apps_TodosApp_vue__ = __webpack_require__("./resources/admin/js/apps/TodosApp.vue");
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 
 
@@ -30623,26 +33991,44 @@ __webpack_require__.r(__webpack_exports__);
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+<<<<<<< HEAD
 __webpack_require__(/*! ./bootstrap */ "./resources/assets/admin/js/bootstrap.js");
 
 window.Vue = vue__WEBPACK_IMPORTED_MODULE_0___default.a;
+=======
+__webpack_require__("./resources/admin/js/bootstrap.js");
+
+window.Vue = __WEBPACK_IMPORTED_MODULE_0_vue___default.a;
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+<<<<<<< HEAD
 window.Vue.component('bar-chart', _components_BarChart_vue__WEBPACK_IMPORTED_MODULE_1___default.a);
 window.Vue.component('line-chart', _components_LineChart_vue__WEBPACK_IMPORTED_MODULE_2___default.a);
 window.Vue.component('pie-chart', _components_PieChart_vue__WEBPACK_IMPORTED_MODULE_3___default.a);
 window.Vue.component('mail-settings', _components_MailSettings_vue__WEBPACK_IMPORTED_MODULE_4___default.a);
 window.Vue.component('todos-app', _apps_TodosApp_vue__WEBPACK_IMPORTED_MODULE_5___default.a);
+=======
+window.Vue.component('bar-chart', __WEBPACK_IMPORTED_MODULE_1__components_BarChart_vue__["a" /* default */]);
+window.Vue.component('line-chart', __WEBPACK_IMPORTED_MODULE_2__components_LineChart_vue__["a" /* default */]);
+window.Vue.component('pie-chart', __WEBPACK_IMPORTED_MODULE_3__components_PieChart_vue__["a" /* default */]);
+window.Vue.component('mail-settings', __WEBPACK_IMPORTED_MODULE_4__components_MailSettings_vue__["a" /* default */]);
+
+window.Vue.component('todos-app', __WEBPACK_IMPORTED_MODULE_5__apps_TodosApp_vue__["a" /* default */]);
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 var app = new window.Vue({
   el: '#app'
 });
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./resources/assets/admin/js/apps/TodosApp.vue":
 /*!*****************************************************!*\
   !*** ./resources/assets/admin/js/apps/TodosApp.vue ***!
@@ -30662,14 +34048,88 @@ throw new Error("Module build failed (from ./node_modules/vue-loader/lib/index.j
 /***/ (function(module, exports, __webpack_require__) {
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+=======
+/***/ "./resources/admin/js/apps/TodosApp.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_TodosApp_vue__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/admin/js/apps/TodosApp.vue");
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_63981f7d_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_TodosApp_vue__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-63981f7d\",\"hasScoped\":false,\"optionsId\":\"0\",\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/admin/js/apps/TodosApp.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/component-normalizer.js");
+var disposed = false
+function injectStyle (context) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/admin/js/apps/TodosApp.vue")
+}
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_TodosApp_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_63981f7d_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_TodosApp_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_63981f7d_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_TodosApp_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\admin\\js\\apps\\TodosApp.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-63981f7d", Component.options)
+  } else {
+    hotAPI.reload("data-v-63981f7d", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+
+/***/ "./resources/admin/js/bootstrap.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+
+window._ = __webpack_require__("./node_modules/lodash/lodash.js");
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
+<<<<<<< HEAD
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+=======
+window.axios = __webpack_require__("./node_modules/axios/index.js");
+
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
  * all outgoing HTTP requests automatically have it attached. This is just
@@ -30683,12 +34143,22 @@ if (token) {
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.
  */
+<<<<<<< HEAD
 // import Echo from "laravel-echo"
+=======
+
+// import Echo from "laravel-echo"
+
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 // window.Echo = new Echo({
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
@@ -30696,6 +34166,7 @@ if (token) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./resources/assets/admin/js/components/BarChart.vue":
 /*!***********************************************************!*\
   !*** ./resources/assets/admin/js/components/BarChart.vue ***!
@@ -30756,6 +34227,247 @@ throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\
   !*** ./resources/assets/front/sass/front.scss ***!
   \************************************************/
 /*! no static exports found */
+=======
+/***/ "./resources/admin/js/components/BarChart.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_BarChart_vue__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/admin/js/components/BarChart.vue");
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1af593a0_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_BarChart_vue__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-1af593a0\",\"hasScoped\":false,\"optionsId\":\"0\",\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/admin/js/components/BarChart.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/component-normalizer.js");
+var disposed = false
+function injectStyle (context) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/admin/js/components/BarChart.vue")
+}
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_BarChart_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1af593a0_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_BarChart_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1af593a0_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_BarChart_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\admin\\js\\components\\BarChart.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1af593a0", Component.options)
+  } else {
+    hotAPI.reload("data-v-1af593a0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+
+/***/ "./resources/admin/js/components/LineChart.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_LineChart_vue__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/admin/js/components/LineChart.vue");
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1d750416_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LineChart_vue__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-1d750416\",\"hasScoped\":false,\"optionsId\":\"0\",\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/admin/js/components/LineChart.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/component-normalizer.js");
+var disposed = false
+function injectStyle (context) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/admin/js/components/LineChart.vue")
+}
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_LineChart_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1d750416_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LineChart_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1d750416_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LineChart_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\admin\\js\\components\\LineChart.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1d750416", Component.options)
+  } else {
+    hotAPI.reload("data-v-1d750416", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+
+/***/ "./resources/admin/js/components/MailSettings.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_MailSettings_vue__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/admin/js/components/MailSettings.vue");
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/component-normalizer.js");
+var disposed = false
+/* script */
+
+
+/* template */
+var __vue_render__, __vue_static_render_fns__
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = Object(__WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_MailSettings_vue__["a" /* default */],
+  __vue_render__,
+  __vue_static_render_fns__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\admin\\js\\components\\MailSettings.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-375c50c2", Component.options)
+  } else {
+    hotAPI.reload("data-v-375c50c2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+
+/***/ "./resources/admin/js/components/PieChart.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_PieChart_vue__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/admin/js/components/PieChart.vue");
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_c4b1ce52_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_PieChart_vue__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-c4b1ce52\",\"hasScoped\":false,\"optionsId\":\"0\",\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/admin/js/components/PieChart.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/component-normalizer.js");
+var disposed = false
+function injectStyle (context) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/admin/js/components/PieChart.vue")
+}
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_PieChart_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_c4b1ce52_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_PieChart_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_c4b1ce52_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_PieChart_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\admin\\js\\components\\PieChart.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c4b1ce52", Component.options)
+  } else {
+    hotAPI.reload("data-v-c4b1ce52", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+
+/***/ "./resources/admin/sass/laraspace.scss":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/front/sass/front.scss":
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -30763,6 +34475,7 @@ throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\
 /***/ }),
 
 /***/ 0:
+<<<<<<< HEAD
 /*!**************************************************************************************************************************************!*\
   !*** multi ./resources/assets/admin/js/app.js ./resources/assets/admin/sass/laraspace.scss ./resources/assets/front/sass/front.scss ***!
   \**************************************************************************************************************************************/
@@ -30772,6 +34485,13 @@ throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\
 __webpack_require__(/*! /var/www/html/buzzeroffice/resources/assets/admin/js/app.js */"./resources/assets/admin/js/app.js");
 __webpack_require__(/*! /var/www/html/buzzeroffice/resources/assets/admin/sass/laraspace.scss */"./resources/assets/admin/sass/laraspace.scss");
 module.exports = __webpack_require__(/*! /var/www/html/buzzeroffice/resources/assets/front/sass/front.scss */"./resources/assets/front/sass/front.scss");
+=======
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__("./resources/admin/js/app.js");
+__webpack_require__("./resources/admin/sass/laraspace.scss");
+module.exports = __webpack_require__("./resources/front/sass/front.scss");
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 
 /***/ })

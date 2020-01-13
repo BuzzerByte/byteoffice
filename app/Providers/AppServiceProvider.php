@@ -1,5 +1,5 @@
 <?php
-namespace buzzeroffice\Providers;
+namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

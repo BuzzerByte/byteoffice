@@ -1,5 +1,5 @@
 <?php
-namespace buzzeroffice\Space\Settings;
+namespace App\Space\Settings;
 
 use Illuminate\Database\Eloquent\Model;
 

@@ -1,13 +1,14 @@
 <?php
-namespace buzzeroffice\Http\Controllers;
 
 use Illuminate\Http\Request;
-use buzzeroffice\Http\Requests;
-use buzzeroffice\Order;
-use buzzeroffice\User;
-use buzzeroffice\Inventory;
-use buzzeroffice\Purchase;
-use buzzeroffice\Client;
+use App\Http\Requests;
+use App\Order;
+use App\User;
+use App\Inventory;
+use App\Purchase;
+use App\Client;
+namespace App\Http\Controllers;
+
 
 class DashboardController extends Controller
 {
