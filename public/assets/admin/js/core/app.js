@@ -36,12 +36,32 @@
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -57,7 +77,8 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/";
+/******/
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 0);
@@ -66,25 +87,32 @@
 /******/ ({
 
 /***/ "./node_modules/axios/index.js":
+/*!*************************************!*\
+  !*** ./node_modules/axios/index.js ***!
+  \*************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__("./node_modules/axios/lib/axios.js");
+module.exports = __webpack_require__(/*! ./lib/axios */ "./node_modules/axios/lib/axios.js");
 
 /***/ }),
 
 /***/ "./node_modules/axios/lib/adapters/xhr.js":
+/*!************************************************!*\
+  !*** ./node_modules/axios/lib/adapters/xhr.js ***!
+  \************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
-var settle = __webpack_require__("./node_modules/axios/lib/core/settle.js");
-var buildURL = __webpack_require__("./node_modules/axios/lib/helpers/buildURL.js");
-var parseHeaders = __webpack_require__("./node_modules/axios/lib/helpers/parseHeaders.js");
-var isURLSameOrigin = __webpack_require__("./node_modules/axios/lib/helpers/isURLSameOrigin.js");
-var createError = __webpack_require__("./node_modules/axios/lib/core/createError.js");
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__("./node_modules/axios/lib/helpers/btoa.js");
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var settle = __webpack_require__(/*! ./../core/settle */ "./node_modules/axios/lib/core/settle.js");
+var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ "./node_modules/axios/lib/helpers/buildURL.js");
+var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ "./node_modules/axios/lib/helpers/parseHeaders.js");
+var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ "./node_modules/axios/lib/helpers/isURLSameOrigin.js");
+var createError = __webpack_require__(/*! ../core/createError */ "./node_modules/axios/lib/core/createError.js");
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -96,22 +124,6 @@ module.exports = function xhrAdapter(config) {
     }
 
     var request = new XMLHttpRequest();
-    var loadEvent = 'onreadystatechange';
-    var xDomain = false;
-
-    // For IE 8/9 CORS support
-    // Only supports POST and GET calls and doesn't returns the response headers.
-    // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
-    if ("development" !== 'test' &&
-        typeof window !== 'undefined' &&
-        window.XDomainRequest && !('withCredentials' in request) &&
-        !isURLSameOrigin(config.url)) {
-      request = new window.XDomainRequest();
-      loadEvent = 'onload';
-      xDomain = true;
-      request.onprogress = function handleProgress() {};
-      request.ontimeout = function handleTimeout() {};
-    }
 
     // HTTP basic authentication
     if (config.auth) {
@@ -126,8 +138,8 @@ module.exports = function xhrAdapter(config) {
     request.timeout = config.timeout;
 
     // Listen for ready state
-    request[loadEvent] = function handleLoad() {
-      if (!request || (request.readyState !== 4 && !xDomain)) {
+    request.onreadystatechange = function handleLoad() {
+      if (!request || request.readyState !== 4) {
         return;
       }
 
@@ -144,15 +156,26 @@ module.exports = function xhrAdapter(config) {
       var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
       var response = {
         data: responseData,
-        // IE sends 1223 instead of 204 (https://github.com/mzabriskie/axios/issues/201)
-        status: request.status === 1223 ? 204 : request.status,
-        statusText: request.status === 1223 ? 'No Content' : request.statusText,
+        status: request.status,
+        statusText: request.statusText,
         headers: responseHeaders,
         config: config,
         request: request
       };
 
       settle(resolve, reject, response);
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle browser request cancellation (as opposed to a manual cancellation)
+    request.onabort = function handleAbort() {
+      if (!request) {
+        return;
+      }
+
+      reject(createError('Request aborted', config, 'ECONNABORTED', request));
 
       // Clean up request
       request = null;
@@ -181,12 +204,12 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__("./node_modules/axios/lib/helpers/cookies.js");
+      var cookies = __webpack_require__(/*! ./../helpers/cookies */ "./node_modules/axios/lib/helpers/cookies.js");
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
-          cookies.read(config.xsrfCookieName) :
-          undefined;
+        cookies.read(config.xsrfCookieName) :
+        undefined;
 
       if (xsrfValue) {
         requestHeaders[config.xsrfHeaderName] = xsrfValue;
@@ -261,15 +284,20 @@ module.exports = function xhrAdapter(config) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/axios.js":
+/*!*****************************************!*\
+  !*** ./node_modules/axios/lib/axios.js ***!
+  \*****************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
-var bind = __webpack_require__("./node_modules/axios/lib/helpers/bind.js");
-var Axios = __webpack_require__("./node_modules/axios/lib/core/Axios.js");
-var defaults = __webpack_require__("./node_modules/axios/lib/defaults.js");
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
+var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
+var Axios = __webpack_require__(/*! ./core/Axios */ "./node_modules/axios/lib/core/Axios.js");
+var mergeConfig = __webpack_require__(/*! ./core/mergeConfig */ "./node_modules/axios/lib/core/mergeConfig.js");
+var defaults = __webpack_require__(/*! ./defaults */ "./node_modules/axios/lib/defaults.js");
 
 /**
  * Create an instance of Axios
@@ -298,19 +326,19 @@ axios.Axios = Axios;
 
 // Factory for creating new instances
 axios.create = function create(instanceConfig) {
-  return createInstance(utils.merge(defaults, instanceConfig));
+  return createInstance(mergeConfig(axios.defaults, instanceConfig));
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__("./node_modules/axios/lib/cancel/Cancel.js");
-axios.CancelToken = __webpack_require__("./node_modules/axios/lib/cancel/CancelToken.js");
-axios.isCancel = __webpack_require__("./node_modules/axios/lib/cancel/isCancel.js");
+axios.Cancel = __webpack_require__(/*! ./cancel/Cancel */ "./node_modules/axios/lib/cancel/Cancel.js");
+axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ "./node_modules/axios/lib/cancel/CancelToken.js");
+axios.isCancel = __webpack_require__(/*! ./cancel/isCancel */ "./node_modules/axios/lib/cancel/isCancel.js");
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__("./node_modules/axios/lib/helpers/spread.js");
+axios.spread = __webpack_require__(/*! ./helpers/spread */ "./node_modules/axios/lib/helpers/spread.js");
 
 module.exports = axios;
 
@@ -321,6 +349,10 @@ module.exports.default = axios;
 /***/ }),
 
 /***/ "./node_modules/axios/lib/cancel/Cancel.js":
+/*!*************************************************!*\
+  !*** ./node_modules/axios/lib/cancel/Cancel.js ***!
+  \*************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -348,12 +380,16 @@ module.exports = Cancel;
 /***/ }),
 
 /***/ "./node_modules/axios/lib/cancel/CancelToken.js":
+/*!******************************************************!*\
+  !*** ./node_modules/axios/lib/cancel/CancelToken.js ***!
+  \******************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__("./node_modules/axios/lib/cancel/Cancel.js");
+var Cancel = __webpack_require__(/*! ./Cancel */ "./node_modules/axios/lib/cancel/Cancel.js");
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -413,6 +449,10 @@ module.exports = CancelToken;
 /***/ }),
 
 /***/ "./node_modules/axios/lib/cancel/isCancel.js":
+/*!***************************************************!*\
+  !*** ./node_modules/axios/lib/cancel/isCancel.js ***!
+  \***************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -426,17 +466,20 @@ module.exports = function isCancel(value) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/core/Axios.js":
+/*!**********************************************!*\
+  !*** ./node_modules/axios/lib/core/Axios.js ***!
+  \**********************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var defaults = __webpack_require__("./node_modules/axios/lib/defaults.js");
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
-var InterceptorManager = __webpack_require__("./node_modules/axios/lib/core/InterceptorManager.js");
-var dispatchRequest = __webpack_require__("./node_modules/axios/lib/core/dispatchRequest.js");
-var isAbsoluteURL = __webpack_require__("./node_modules/axios/lib/helpers/isAbsoluteURL.js");
-var combineURLs = __webpack_require__("./node_modules/axios/lib/helpers/combineURLs.js");
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var buildURL = __webpack_require__(/*! ../helpers/buildURL */ "./node_modules/axios/lib/helpers/buildURL.js");
+var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ "./node_modules/axios/lib/core/InterceptorManager.js");
+var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ "./node_modules/axios/lib/core/dispatchRequest.js");
+var mergeConfig = __webpack_require__(/*! ./mergeConfig */ "./node_modules/axios/lib/core/mergeConfig.js");
 
 /**
  * Create a new instance of Axios
@@ -460,18 +503,14 @@ Axios.prototype.request = function request(config) {
   /*eslint no-param-reassign:0*/
   // Allow for axios('example/url'[, config]) a la fetch API
   if (typeof config === 'string') {
-    config = utils.merge({
-      url: arguments[0]
-    }, arguments[1]);
+    config = arguments[1] || {};
+    config.url = arguments[0];
+  } else {
+    config = config || {};
   }
 
-  config = utils.merge(defaults, this.defaults, { method: 'get' }, config);
-  config.method = config.method.toLowerCase();
-
-  // Support baseURL config
-  if (config.baseURL && !isAbsoluteURL(config.url)) {
-    config.url = combineURLs(config.baseURL, config.url);
-  }
+  config = mergeConfig(this.defaults, config);
+  config.method = config.method ? config.method.toLowerCase() : 'get';
 
   // Hook up interceptors middleware
   var chain = [dispatchRequest, undefined];
@@ -490,6 +529,11 @@ Axios.prototype.request = function request(config) {
   }
 
   return promise;
+};
+
+Axios.prototype.getUri = function getUri(config) {
+  config = mergeConfig(this.defaults, config);
+  return buildURL(config.url, config.params, config.paramsSerializer).replace(/^\?/, '');
 };
 
 // Provide aliases for supported request methods
@@ -520,12 +564,16 @@ module.exports = Axios;
 /***/ }),
 
 /***/ "./node_modules/axios/lib/core/InterceptorManager.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/axios/lib/core/InterceptorManager.js ***!
+  \***********************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
 
 function InterceptorManager() {
   this.handlers = [];
@@ -580,12 +628,16 @@ module.exports = InterceptorManager;
 /***/ }),
 
 /***/ "./node_modules/axios/lib/core/createError.js":
+/*!****************************************************!*\
+  !*** ./node_modules/axios/lib/core/createError.js ***!
+  \****************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__("./node_modules/axios/lib/core/enhanceError.js");
+var enhanceError = __webpack_require__(/*! ./enhanceError */ "./node_modules/axios/lib/core/enhanceError.js");
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -606,15 +658,21 @@ module.exports = function createError(message, config, code, request, response) 
 /***/ }),
 
 /***/ "./node_modules/axios/lib/core/dispatchRequest.js":
+/*!********************************************************!*\
+  !*** ./node_modules/axios/lib/core/dispatchRequest.js ***!
+  \********************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
-var transformData = __webpack_require__("./node_modules/axios/lib/core/transformData.js");
-var isCancel = __webpack_require__("./node_modules/axios/lib/cancel/isCancel.js");
-var defaults = __webpack_require__("./node_modules/axios/lib/defaults.js");
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var transformData = __webpack_require__(/*! ./transformData */ "./node_modules/axios/lib/core/transformData.js");
+var isCancel = __webpack_require__(/*! ../cancel/isCancel */ "./node_modules/axios/lib/cancel/isCancel.js");
+var defaults = __webpack_require__(/*! ../defaults */ "./node_modules/axios/lib/defaults.js");
+var isAbsoluteURL = __webpack_require__(/*! ./../helpers/isAbsoluteURL */ "./node_modules/axios/lib/helpers/isAbsoluteURL.js");
+var combineURLs = __webpack_require__(/*! ./../helpers/combineURLs */ "./node_modules/axios/lib/helpers/combineURLs.js");
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -633,6 +691,11 @@ function throwIfCancellationRequested(config) {
  */
 module.exports = function dispatchRequest(config) {
   throwIfCancellationRequested(config);
+
+  // Support baseURL config
+  if (config.baseURL && !isAbsoluteURL(config.url)) {
+    config.url = combineURLs(config.baseURL, config.url);
+  }
 
   // Ensure headers exist
   config.headers = config.headers || {};
@@ -693,6 +756,10 @@ module.exports = function dispatchRequest(config) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/core/enhanceError.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/axios/lib/core/enhanceError.js ***!
+  \*****************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -713,21 +780,109 @@ module.exports = function enhanceError(error, config, code, request, response) {
   if (code) {
     error.code = code;
   }
+
   error.request = request;
   error.response = response;
+  error.isAxiosError = true;
+
+  error.toJSON = function() {
+    return {
+      // Standard
+      message: this.message,
+      name: this.name,
+      // Microsoft
+      description: this.description,
+      number: this.number,
+      // Mozilla
+      fileName: this.fileName,
+      lineNumber: this.lineNumber,
+      columnNumber: this.columnNumber,
+      stack: this.stack,
+      // Axios
+      config: this.config,
+      code: this.code
+    };
+  };
   return error;
 };
 
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/core/settle.js":
+/***/ "./node_modules/axios/lib/core/mergeConfig.js":
+/*!****************************************************!*\
+  !*** ./node_modules/axios/lib/core/mergeConfig.js ***!
+  \****************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__("./node_modules/axios/lib/core/createError.js");
+var utils = __webpack_require__(/*! ../utils */ "./node_modules/axios/lib/utils.js");
+
+/**
+ * Config-specific merge-function which creates a new config-object
+ * by merging two configuration objects together.
+ *
+ * @param {Object} config1
+ * @param {Object} config2
+ * @returns {Object} New object resulting from merging config2 to config1
+ */
+module.exports = function mergeConfig(config1, config2) {
+  // eslint-disable-next-line no-param-reassign
+  config2 = config2 || {};
+  var config = {};
+
+  utils.forEach(['url', 'method', 'params', 'data'], function valueFromConfig2(prop) {
+    if (typeof config2[prop] !== 'undefined') {
+      config[prop] = config2[prop];
+    }
+  });
+
+  utils.forEach(['headers', 'auth', 'proxy'], function mergeDeepProperties(prop) {
+    if (utils.isObject(config2[prop])) {
+      config[prop] = utils.deepMerge(config1[prop], config2[prop]);
+    } else if (typeof config2[prop] !== 'undefined') {
+      config[prop] = config2[prop];
+    } else if (utils.isObject(config1[prop])) {
+      config[prop] = utils.deepMerge(config1[prop]);
+    } else if (typeof config1[prop] !== 'undefined') {
+      config[prop] = config1[prop];
+    }
+  });
+
+  utils.forEach([
+    'baseURL', 'transformRequest', 'transformResponse', 'paramsSerializer',
+    'timeout', 'withCredentials', 'adapter', 'responseType', 'xsrfCookieName',
+    'xsrfHeaderName', 'onUploadProgress', 'onDownloadProgress', 'maxContentLength',
+    'validateStatus', 'maxRedirects', 'httpAgent', 'httpsAgent', 'cancelToken',
+    'socketPath'
+  ], function defaultToConfig2(prop) {
+    if (typeof config2[prop] !== 'undefined') {
+      config[prop] = config2[prop];
+    } else if (typeof config1[prop] !== 'undefined') {
+      config[prop] = config1[prop];
+    }
+  });
+
+  return config;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/settle.js":
+/*!***********************************************!*\
+  !*** ./node_modules/axios/lib/core/settle.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var createError = __webpack_require__(/*! ./createError */ "./node_modules/axios/lib/core/createError.js");
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -738,8 +893,7 @@ var createError = __webpack_require__("./node_modules/axios/lib/core/createError
  */
 module.exports = function settle(resolve, reject, response) {
   var validateStatus = response.config.validateStatus;
-  // Note: status is not exposed by XDomainRequest
-  if (!response.status || !validateStatus || validateStatus(response.status)) {
+  if (!validateStatus || validateStatus(response.status)) {
     resolve(response);
   } else {
     reject(createError(
@@ -756,12 +910,16 @@ module.exports = function settle(resolve, reject, response) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/core/transformData.js":
+/*!******************************************************!*\
+  !*** ./node_modules/axios/lib/core/transformData.js ***!
+  \******************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
 
 /**
  * Transform the data for a request or a response
@@ -784,13 +942,17 @@ module.exports = function transformData(data, headers, fns) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/defaults.js":
+/*!********************************************!*\
+  !*** ./node_modules/axios/lib/defaults.js ***!
+  \********************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
-var normalizeHeaderName = __webpack_require__("./node_modules/axios/lib/helpers/normalizeHeaderName.js");
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
+var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ "./node_modules/axios/lib/helpers/normalizeHeaderName.js");
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -804,12 +966,13 @@ function setContentTypeIfUnset(headers, value) {
 
 function getDefaultAdapter() {
   var adapter;
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = __webpack_require__("./node_modules/axios/lib/adapters/xhr.js");
-  } else if (typeof process !== 'undefined') {
+  // Only Node.JS has a process variable that is of [[Class]] process
+  if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
     // For node use HTTP adapter
-    adapter = __webpack_require__("./node_modules/axios/lib/adapters/xhr.js");
+    adapter = __webpack_require__(/*! ./adapters/http */ "./node_modules/axios/lib/adapters/xhr.js");
+  } else if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(/*! ./adapters/xhr */ "./node_modules/axios/lib/adapters/xhr.js");
   }
   return adapter;
 }
@@ -818,6 +981,7 @@ var defaults = {
   adapter: getDefaultAdapter(),
 
   transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Accept');
     normalizeHeaderName(headers, 'Content-Type');
     if (utils.isFormData(data) ||
       utils.isArrayBuffer(data) ||
@@ -852,6 +1016,10 @@ var defaults = {
     return data;
   }],
 
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
   timeout: 0,
 
   xsrfCookieName: 'XSRF-TOKEN',
@@ -880,11 +1048,15 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/process/browser.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
 /***/ "./node_modules/axios/lib/helpers/bind.js":
+/*!************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/bind.js ***!
+  \************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -903,57 +1075,17 @@ module.exports = function bind(fn, thisArg) {
 
 /***/ }),
 
-/***/ "./node_modules/axios/lib/helpers/btoa.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// btoa polyfill for IE<10 courtesy https://github.com/davidchambers/Base64.js
-
-var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-
-function E() {
-  this.message = 'String contains an invalid character';
-}
-E.prototype = new Error;
-E.prototype.code = 5;
-E.prototype.name = 'InvalidCharacterError';
-
-function btoa(input) {
-  var str = String(input);
-  var output = '';
-  for (
-    // initialize result and counter
-    var block, charCode, idx = 0, map = chars;
-    // if the next str index does not exist:
-    //   change the mapping table to "="
-    //   check if d has no fractional digits
-    str.charAt(idx | 0) || (map = '=', idx % 1);
-    // "8 - idx % 1 * 8" generates the sequence 2, 4, 6, 8
-    output += map.charAt(63 & block >> 8 - idx % 1 * 8)
-  ) {
-    charCode = str.charCodeAt(idx += 3 / 4);
-    if (charCode > 0xFF) {
-      throw new E();
-    }
-    block = block << 8 | charCode;
-  }
-  return output;
-}
-
-module.exports = btoa;
-
-
-/***/ }),
-
 /***/ "./node_modules/axios/lib/helpers/buildURL.js":
+/*!****************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/buildURL.js ***!
+  \****************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -994,9 +1126,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
       if (utils.isArray(val)) {
         key = key + '[]';
-      }
-
-      if (!utils.isArray(val)) {
+      } else {
         val = [val];
       }
 
@@ -1014,6 +1144,11 @@ module.exports = function buildURL(url, params, paramsSerializer) {
   }
 
   if (serializedParams) {
+    var hashmarkIndex = url.indexOf('#');
+    if (hashmarkIndex !== -1) {
+      url = url.slice(0, hashmarkIndex);
+    }
+
     url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
   }
 
@@ -1024,6 +1159,10 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/helpers/combineURLs.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/combineURLs.js ***!
+  \*******************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1046,67 +1185,75 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/helpers/cookies.js":
+/*!***************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/cookies.js ***!
+  \***************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
 
   // Standard browser envs support document.cookie
-  (function standardBrowserEnv() {
-    return {
-      write: function write(name, value, expires, path, domain, secure) {
-        var cookie = [];
-        cookie.push(name + '=' + encodeURIComponent(value));
+    (function standardBrowserEnv() {
+      return {
+        write: function write(name, value, expires, path, domain, secure) {
+          var cookie = [];
+          cookie.push(name + '=' + encodeURIComponent(value));
 
-        if (utils.isNumber(expires)) {
-          cookie.push('expires=' + new Date(expires).toGMTString());
+          if (utils.isNumber(expires)) {
+            cookie.push('expires=' + new Date(expires).toGMTString());
+          }
+
+          if (utils.isString(path)) {
+            cookie.push('path=' + path);
+          }
+
+          if (utils.isString(domain)) {
+            cookie.push('domain=' + domain);
+          }
+
+          if (secure === true) {
+            cookie.push('secure');
+          }
+
+          document.cookie = cookie.join('; ');
+        },
+
+        read: function read(name) {
+          var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+          return (match ? decodeURIComponent(match[3]) : null);
+        },
+
+        remove: function remove(name) {
+          this.write(name, '', Date.now() - 86400000);
         }
-
-        if (utils.isString(path)) {
-          cookie.push('path=' + path);
-        }
-
-        if (utils.isString(domain)) {
-          cookie.push('domain=' + domain);
-        }
-
-        if (secure === true) {
-          cookie.push('secure');
-        }
-
-        document.cookie = cookie.join('; ');
-      },
-
-      read: function read(name) {
-        var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
-        return (match ? decodeURIComponent(match[3]) : null);
-      },
-
-      remove: function remove(name) {
-        this.write(name, '', Date.now() - 86400000);
-      }
-    };
-  })() :
+      };
+    })() :
 
   // Non standard browser env (web workers, react-native) lack needed support.
-  (function nonStandardBrowserEnv() {
-    return {
-      write: function write() {},
-      read: function read() { return null; },
-      remove: function remove() {}
-    };
-  })()
+    (function nonStandardBrowserEnv() {
+      return {
+        write: function write() {},
+        read: function read() { return null; },
+        remove: function remove() {}
+      };
+    })()
 );
 
 
 /***/ }),
 
 /***/ "./node_modules/axios/lib/helpers/isAbsoluteURL.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
+  \*********************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1129,88 +1276,96 @@ module.exports = function isAbsoluteURL(url) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/helpers/isURLSameOrigin.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
+  \***********************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
 
   // Standard browser envs have full support of the APIs needed to test
   // whether the request URL is of the same origin as current location.
-  (function standardBrowserEnv() {
-    var msie = /(msie|trident)/i.test(navigator.userAgent);
-    var urlParsingNode = document.createElement('a');
-    var originURL;
+    (function standardBrowserEnv() {
+      var msie = /(msie|trident)/i.test(navigator.userAgent);
+      var urlParsingNode = document.createElement('a');
+      var originURL;
 
-    /**
+      /**
     * Parse a URL to discover it's components
     *
     * @param {String} url The URL to be parsed
     * @returns {Object}
     */
-    function resolveURL(url) {
-      var href = url;
+      function resolveURL(url) {
+        var href = url;
 
-      if (msie) {
+        if (msie) {
         // IE needs attribute set twice to normalize properties
+          urlParsingNode.setAttribute('href', href);
+          href = urlParsingNode.href;
+        }
+
         urlParsingNode.setAttribute('href', href);
-        href = urlParsingNode.href;
+
+        // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
+        return {
+          href: urlParsingNode.href,
+          protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
+          host: urlParsingNode.host,
+          search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
+          hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
+          hostname: urlParsingNode.hostname,
+          port: urlParsingNode.port,
+          pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
+            urlParsingNode.pathname :
+            '/' + urlParsingNode.pathname
+        };
       }
 
-      urlParsingNode.setAttribute('href', href);
+      originURL = resolveURL(window.location.href);
 
-      // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
-      return {
-        href: urlParsingNode.href,
-        protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
-        host: urlParsingNode.host,
-        search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
-        hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
-        hostname: urlParsingNode.hostname,
-        port: urlParsingNode.port,
-        pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
-                  urlParsingNode.pathname :
-                  '/' + urlParsingNode.pathname
-      };
-    }
-
-    originURL = resolveURL(window.location.href);
-
-    /**
+      /**
     * Determine if a URL shares the same origin as the current location
     *
     * @param {String} requestURL The URL to test
     * @returns {boolean} True if URL shares the same origin, otherwise false
     */
-    return function isURLSameOrigin(requestURL) {
-      var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
-      return (parsed.protocol === originURL.protocol &&
+      return function isURLSameOrigin(requestURL) {
+        var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
+        return (parsed.protocol === originURL.protocol &&
             parsed.host === originURL.host);
-    };
-  })() :
+      };
+    })() :
 
   // Non standard browser envs (web workers, react-native) lack needed support.
-  (function nonStandardBrowserEnv() {
-    return function isURLSameOrigin() {
-      return true;
-    };
-  })()
+    (function nonStandardBrowserEnv() {
+      return function isURLSameOrigin() {
+        return true;
+      };
+    })()
 );
 
 
 /***/ }),
 
 /***/ "./node_modules/axios/lib/helpers/normalizeHeaderName.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
+  \***************************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+var utils = __webpack_require__(/*! ../utils */ "./node_modules/axios/lib/utils.js");
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -1225,12 +1380,25 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/helpers/parseHeaders.js":
+/*!********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/parseHeaders.js ***!
+  \********************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+
+// Headers whose duplicates are ignored by node
+// c.f. https://nodejs.org/api/http.html#http_message_headers
+var ignoreDuplicateOf = [
+  'age', 'authorization', 'content-length', 'content-type', 'etag',
+  'expires', 'from', 'host', 'if-modified-since', 'if-unmodified-since',
+  'last-modified', 'location', 'max-forwards', 'proxy-authorization',
+  'referer', 'retry-after', 'user-agent'
+];
 
 /**
  * Parse headers into an object
@@ -1259,7 +1427,14 @@ module.exports = function parseHeaders(headers) {
     val = utils.trim(line.substr(i + 1));
 
     if (key) {
-      parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+      if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
+        return;
+      }
+      if (key === 'set-cookie') {
+        parsed[key] = (parsed[key] ? parsed[key] : []).concat([val]);
+      } else {
+        parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+      }
     }
   });
 
@@ -1270,6 +1445,10 @@ module.exports = function parseHeaders(headers) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/helpers/spread.js":
+/*!**************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/spread.js ***!
+  \**************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1305,13 +1484,17 @@ module.exports = function spread(callback) {
 /***/ }),
 
 /***/ "./node_modules/axios/lib/utils.js":
+/*!*****************************************!*\
+  !*** ./node_modules/axios/lib/utils.js ***!
+  \*****************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var bind = __webpack_require__("./node_modules/axios/lib/helpers/bind.js");
-var isBuffer = __webpack_require__("./node_modules/is-buffer/index.js");
+var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
+var isBuffer = __webpack_require__(/*! is-buffer */ "./node_modules/axios/node_modules/is-buffer/index.js");
 
 /*global toString:true*/
 
@@ -1487,9 +1670,13 @@ function trim(str) {
  *
  * react-native:
  *  navigator.product -> 'ReactNative'
+ * nativescript
+ *  navigator.product -> 'NativeScript' or 'NS'
  */
 function isStandardBrowserEnv() {
-  if (typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
+  if (typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' ||
+                                           navigator.product === 'NativeScript' ||
+                                           navigator.product === 'NS')) {
     return false;
   }
   return (
@@ -1517,7 +1704,7 @@ function forEach(obj, fn) {
   }
 
   // Force an array if not already something iterable
-  if (typeof obj !== 'object' && !isArray(obj)) {
+  if (typeof obj !== 'object') {
     /*eslint no-param-reassign:0*/
     obj = [obj];
   }
@@ -1571,6 +1758,32 @@ function merge(/* obj1, obj2, obj3, ... */) {
 }
 
 /**
+ * Function equal to merge with the difference being that no reference
+ * to original objects is kept.
+ *
+ * @see merge
+ * @param {Object} obj1 Object to merge
+ * @returns {Object} Result of all merge properties
+ */
+function deepMerge(/* obj1, obj2, obj3, ... */) {
+  var result = {};
+  function assignValue(val, key) {
+    if (typeof result[key] === 'object' && typeof val === 'object') {
+      result[key] = deepMerge(result[key], val);
+    } else if (typeof val === 'object') {
+      result[key] = deepMerge({}, val);
+    } else {
+      result[key] = val;
+    }
+  }
+
+  for (var i = 0, l = arguments.length; i < l; i++) {
+    forEach(arguments[i], assignValue);
+  }
+  return result;
+}
+
+/**
  * Extends object a by mutably adding to it the properties of object b.
  *
  * @param {Object} a The object to be extended
@@ -1608,6 +1821,7 @@ module.exports = {
   isStandardBrowserEnv: isStandardBrowserEnv,
   forEach: forEach,
   merge: merge,
+  deepMerge: deepMerge,
   extend: extend,
   trim: trim
 };
@@ -1615,7 +1829,11 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/is-buffer/index.js":
+/***/ "./node_modules/axios/node_modules/is-buffer/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/axios/node_modules/is-buffer/index.js ***!
+  \************************************************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
 /*!
@@ -1625,31 +1843,25 @@ module.exports = {
  * @license  MIT
  */
 
-// The _isBuffer check is for Safari 5-7 support, because it's missing
-// Object.prototype.constructor. Remove this eventually
-module.exports = function (obj) {
-  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)
-}
-
-function isBuffer (obj) {
-  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
-}
-
-// For Node v0.10 support. Remove this eventually.
-function isSlowBuffer (obj) {
-  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
+module.exports = function isBuffer (obj) {
+  return obj != null && obj.constructor != null &&
+    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
 }
 
 
 /***/ }),
 
 /***/ "./node_modules/lodash/lodash.js":
+/*!***************************************!*\
+  !*** ./node_modules/lodash/lodash.js ***!
+  \***************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
  * @license
  * Lodash <https://lodash.com/>
- * Copyright JS Foundation and other contributors <https://js.foundation/>
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
  * Released under MIT license <https://lodash.com/license>
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
  * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -1660,7 +1872,7 @@ function isSlowBuffer (obj) {
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.11';
+  var VERSION = '4.17.15';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -2070,7 +2282,7 @@ function isSlowBuffer (obj) {
   var root = freeGlobal || freeSelf || Function('return this')();
 
   /** Detect free variable `exports`. */
-  var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
+  var freeExports =  true && exports && !exports.nodeType && exports;
 
   /** Detect free variable `module`. */
   var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
@@ -4319,16 +4531,10 @@ function isSlowBuffer (obj) {
         value.forEach(function(subValue) {
           result.add(baseClone(subValue, bitmask, customizer, subValue, value, stack));
         });
-
-        return result;
-      }
-
-      if (isMap(value)) {
+      } else if (isMap(value)) {
         value.forEach(function(subValue, key) {
           result.set(key, baseClone(subValue, bitmask, customizer, key, value, stack));
         });
-
-        return result;
       }
 
       var keysFunc = isFull
@@ -5252,8 +5458,8 @@ function isSlowBuffer (obj) {
         return;
       }
       baseFor(source, function(srcValue, key) {
+        stack || (stack = new Stack);
         if (isObject(srcValue)) {
-          stack || (stack = new Stack);
           baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
         }
         else {
@@ -7070,7 +7276,7 @@ function isSlowBuffer (obj) {
       return function(number, precision) {
         number = toNumber(number);
         precision = precision == null ? 0 : nativeMin(toInteger(precision), 292);
-        if (precision) {
+        if (precision && nativeIsFinite(number)) {
           // Shift with exponential notation to avoid floating-point issues.
           // See [MDN](https://mdn.io/round#Examples) for more details.
           var pair = (toString(number) + 'e').split('e'),
@@ -8253,7 +8459,7 @@ function isSlowBuffer (obj) {
     }
 
     /**
-     * Gets the value at `key`, unless `key` is "__proto__".
+     * Gets the value at `key`, unless `key` is "__proto__" or "constructor".
      *
      * @private
      * @param {Object} object The object to query.
@@ -8261,6 +8467,10 @@ function isSlowBuffer (obj) {
      * @returns {*} Returns the property value.
      */
     function safeGet(object, key) {
+      if (key === 'constructor' && typeof object[key] === 'function') {
+        return;
+      }
+
       if (key == '__proto__') {
         return;
       }
@@ -12061,6 +12271,7 @@ function isSlowBuffer (obj) {
           }
           if (maxing) {
             // Handle invocations in a tight loop.
+            clearTimeout(timerId);
             timerId = setTimeout(timerExpired, wait);
             return invokeFunc(lastCallTime);
           }
@@ -16447,9 +16658,12 @@ function isSlowBuffer (obj) {
       , 'g');
 
       // Use a sourceURL for easier debugging.
+      // The sourceURL gets injected into the source that's eval-ed, so be careful
+      // with lookup (in case of e.g. prototype pollution), and strip newlines if any.
+      // A newline wouldn't be a valid sourceURL anyway, and it'd enable code injection.
       var sourceURL = '//# sourceURL=' +
-        ('sourceURL' in options
-          ? options.sourceURL
+        (hasOwnProperty.call(options, 'sourceURL')
+          ? (options.sourceURL + '').replace(/[\r\n]/g, ' ')
           : ('lodash.templateSources[' + (++templateCounter) + ']')
         ) + '\n';
 
@@ -16482,7 +16696,9 @@ function isSlowBuffer (obj) {
 
       // If `variable` is not specified wrap a with-statement around the generated
       // code to add the data object to the top of the scope chain.
-      var variable = options.variable;
+      // Like with sourceURL, we take care to not check the option's prototype,
+      // as this configuration is a code injection vector.
+      var variable = hasOwnProperty.call(options, 'variable') && options.variable;
       if (!variable) {
         source = 'with (obj) {\n' + source + '\n}\n';
       }
@@ -18687,10 +18903,11 @@ function isSlowBuffer (obj) {
     baseForOwn(LazyWrapper.prototype, function(func, methodName) {
       var lodashFunc = lodash[methodName];
       if (lodashFunc) {
-        var key = (lodashFunc.name + ''),
-            names = realNames[key] || (realNames[key] = []);
-
-        names.push({ 'name': methodName, 'func': lodashFunc });
+        var key = lodashFunc.name + '';
+        if (!hasOwnProperty.call(realNames, key)) {
+          realNames[key] = [];
+        }
+        realNames[key].push({ 'name': methodName, 'func': lodashFunc });
       }
     });
 
@@ -18743,23 +18960,18 @@ function isSlowBuffer (obj) {
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
   }
   // Check for `exports` after `define` in case a build optimizer adds it.
-  else if (freeModule) {
-    // Export for Node.js.
-    (freeModule.exports = _)._ = _;
-    // Export for CommonJS support.
-    freeExports._ = _;
-  }
-  else {
-    // Export to the global object.
-    root._ = _;
-  }
+  else {}
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/webpack/buildin/global.js"), __webpack_require__("./node_modules/webpack/buildin/module.js")(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
 
 /***/ }),
 
 /***/ "./node_modules/process/browser.js":
+/*!*****************************************!*\
+  !*** ./node_modules/process/browser.js ***!
+  \*****************************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -18951,6 +19163,10 @@ process.umask = function() { return 0; };
 /***/ }),
 
 /***/ "./node_modules/setimmediate/setImmediate.js":
+/*!***************************************************!*\
+  !*** ./node_modules/setimmediate/setImmediate.js ***!
+  \***************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -19140,11 +19356,15 @@ process.umask = function() { return 0; };
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/webpack/buildin/global.js"), __webpack_require__("./node_modules/process/browser.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
 /***/ "./node_modules/timers-browserify/main.js":
+/*!************************************************!*\
+  !*** ./node_modules/timers-browserify/main.js ***!
+  \************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -19200,7 +19420,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__("./node_modules/setimmediate/setImmediate.js");
+__webpack_require__(/*! setimmediate */ "./node_modules/setimmediate/setImmediate.js");
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -19211,11 +19431,15 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/webpack/buildin/global.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
 /***/ "./node_modules/vue/dist/vue.common.js":
+/*!*********************************************!*\
+  !*** ./node_modules/vue/dist/vue.common.js ***!
+  \*********************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19934,7 +20158,7 @@ Dep.prototype.depend = function depend () {
 Dep.prototype.notify = function notify () {
   // stabilize the subscriber list first
   var subs = this.subs.slice();
-  if ("development" !== 'production' && !config.async) {
+  if ( true && !config.async) {
     // subs aren't sorted in scheduler if not running async
     // we need to sort them now to make sure they fire in correct
     // order
@@ -20255,7 +20479,7 @@ function defineReactive$$1 (
         return
       }
       /* eslint-enable no-self-compare */
-      if ("development" !== 'production' && customSetter) {
+      if ( true && customSetter) {
         customSetter();
       }
       // #7981: for accessor properties without setter
@@ -20277,7 +20501,7 @@ function defineReactive$$1 (
  * already exist.
  */
 function set (target, key, val) {
-  if ("development" !== 'production' &&
+  if ( true &&
     (isUndef(target) || isPrimitive(target))
   ) {
     warn(("Cannot set reactive property on undefined, null, or primitive value: " + ((target))));
@@ -20293,7 +20517,7 @@ function set (target, key, val) {
   }
   var ob = (target).__ob__;
   if (target._isVue || (ob && ob.vmCount)) {
-    "development" !== 'production' && warn(
+     true && warn(
       'Avoid adding reactive properties to a Vue instance or its root $data ' +
       'at runtime - declare it upfront in the data option.'
     );
@@ -20312,7 +20536,7 @@ function set (target, key, val) {
  * Delete a property and trigger change if necessary.
  */
 function del (target, key) {
-  if ("development" !== 'production' &&
+  if ( true &&
     (isUndef(target) || isPrimitive(target))
   ) {
     warn(("Cannot delete reactive property on undefined, null, or primitive value: " + ((target))));
@@ -20323,7 +20547,7 @@ function del (target, key) {
   }
   var ob = (target).__ob__;
   if (target._isVue || (ob && ob.vmCount)) {
-    "development" !== 'production' && warn(
+     true && warn(
       'Avoid deleting properties on a Vue instance or its root $data ' +
       '- just set it to null.'
     );
@@ -20453,7 +20677,7 @@ strats.data = function (
 ) {
   if (!vm) {
     if (childVal && typeof childVal !== 'function') {
-      "development" !== 'production' && warn(
+       true && warn(
         'The "data" option should be a function ' +
         'that returns a per-instance value in component ' +
         'definitions.',
@@ -20503,7 +20727,7 @@ function mergeAssets (
 ) {
   var res = Object.create(parentVal || null);
   if (childVal) {
-    "development" !== 'production' && assertObjectType(key, childVal, vm);
+     true && assertObjectType(key, childVal, vm);
     return extend(res, childVal)
   } else {
     return res
@@ -20774,7 +20998,7 @@ function resolveAsset (
   if (hasOwn(assets, PascalCaseId)) { return assets[PascalCaseId] }
   // fallback to prototype chain
   var res = assets[id] || assets[camelizedId] || assets[PascalCaseId];
-  if ("development" !== 'production' && warnMissing && !res) {
+  if ( true && warnMissing && !res) {
     warn(
       'Failed to resolve ' + type.slice(0, -1) + ': ' + id,
       options
@@ -20838,7 +21062,7 @@ function getPropDefaultValue (vm, prop, key) {
   }
   var def = prop.default;
   // warn against non-factory defaults for Object & Array
-  if ("development" !== 'production' && isObject(def)) {
+  if ( true && isObject(def)) {
     warn(
       'Invalid default value for prop "' + key + '": ' +
       'Props with type Object/Array must use a factory function ' +
@@ -21367,7 +21591,7 @@ function updateListeners (
     old = oldOn[name];
     event = normalizeEvent(name);
     if (isUndef(cur)) {
-      "development" !== 'production' && warn(
+       true && warn(
         "Invalid handler for event \"" + (event.name) + "\": got " + String(cur),
         vm
       );
@@ -21654,7 +21878,7 @@ function resolveAsyncComponent (
     });
 
     var reject = once(function (reason) {
-      "development" !== 'production' && warn(
+       true && warn(
         "Failed to resolve async component: " + (String(factory)) +
         (reason ? ("\nReason: " + reason) : '')
       );
@@ -21699,7 +21923,7 @@ function resolveAsyncComponent (
               reject(
                  true
                   ? ("timeout (" + (res.timeout) + "ms)")
-                  : null
+                  : undefined
               );
             }
           }, res.timeout);
@@ -22094,7 +22318,7 @@ function mountComponent (
 
   var updateComponent;
   /* istanbul ignore if */
-  if ("development" !== 'production' && config.performance && mark) {
+  if ( true && config.performance && mark) {
     updateComponent = function () {
       var name = vm._name;
       var id = vm._uid;
@@ -22316,7 +22540,7 @@ function flushSchedulerQueue () {
     has[id] = null;
     watcher.run();
     // in dev build, check and stop circular updates.
-    if ("development" !== 'production' && has[id] != null) {
+    if ( true && has[id] != null) {
       circular[id] = (circular[id] || 0) + 1;
       if (circular[id] > MAX_UPDATE_COUNT) {
         warn(
@@ -22402,7 +22626,7 @@ function queueWatcher (watcher) {
     if (!waiting) {
       waiting = true;
 
-      if ("development" !== 'production' && !config.async) {
+      if ( true && !config.async) {
         flushSchedulerQueue();
         return
       }
@@ -22454,7 +22678,7 @@ var Watcher = function Watcher (
   this.newDepIds = new _Set();
   this.expression =  true
     ? expOrFn.toString()
-    : '';
+    : undefined;
   // parse expression for getter
   if (typeof expOrFn === 'function') {
     this.getter = expOrFn;
@@ -22462,7 +22686,7 @@ var Watcher = function Watcher (
     this.getter = parsePath(expOrFn);
     if (!this.getter) {
       this.getter = noop;
-      "development" !== 'production' && warn(
+       true && warn(
         "Failed watching path: \"" + expOrFn + "\" " +
         'Watcher only accepts simple dot-delimited paths. ' +
         'For full control, use a function instead.',
@@ -22691,9 +22915,7 @@ function initProps (vm, propsOptions) {
           );
         }
       });
-    } else {
-      defineReactive$$1(props, key, value);
-    }
+    } else {}
     // static props are already proxied on the component's prototype
     // during Vue.extend(). We only need to proxy props defined at
     // instantiation here.
@@ -22713,7 +22935,7 @@ function initData (vm) {
     : data || {};
   if (!isPlainObject(data)) {
     data = {};
-    "development" !== 'production' && warn(
+     true && warn(
       'data functions should return an object:\n' +
       'https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function',
       vm
@@ -22735,7 +22957,7 @@ function initData (vm) {
       }
     }
     if (props && hasOwn(props, key)) {
-      "development" !== 'production' && warn(
+       true && warn(
         "The data property \"" + key + "\" is already declared as a prop. " +
         "Use prop default value instead.",
         vm
@@ -22772,7 +22994,7 @@ function initComputed (vm, computed) {
   for (var key in computed) {
     var userDef = computed[key];
     var getter = typeof userDef === 'function' ? userDef : userDef.get;
-    if ("development" !== 'production' && getter == null) {
+    if ( true && getter == null) {
       warn(
         ("Getter is missing for computed property \"" + key + "\"."),
         vm
@@ -22823,7 +23045,7 @@ function defineComputed (
       : noop;
     sharedPropertyDefinition.set = userDef.set || noop;
   }
-  if ("development" !== 'production' &&
+  if ( true &&
       sharedPropertyDefinition.set === noop) {
     sharedPropertyDefinition.set = function () {
       warn(
@@ -22990,9 +23212,7 @@ function initInjections (vm) {
             vm
           );
         });
-      } else {
-        defineReactive$$1(vm, key, result[key]);
-      }
+      } else {}
     });
     toggleObserving(true);
   }
@@ -23086,7 +23306,7 @@ function renderSlot (
   if (scopedSlotFn) { // scoped slot
     props = props || {};
     if (bindObject) {
-      if ("development" !== 'production' && !isObject(bindObject)) {
+      if ( true && !isObject(bindObject)) {
         warn(
           'slot v-bind without argument expects an Object',
           this
@@ -23162,7 +23382,7 @@ function bindObjectProps (
 ) {
   if (value) {
     if (!isObject(value)) {
-      "development" !== 'production' && warn(
+       true && warn(
         'v-bind without argument expects an Object or Array value',
         this
       );
@@ -23269,7 +23489,7 @@ function markStaticNode (node, key, isOnce) {
 function bindObjectListeners (data, value) {
   if (value) {
     if (!isPlainObject(value)) {
-      "development" !== 'production' && warn(
+       true && warn(
         'v-on without argument expects an Object value',
         this
       );
@@ -23699,7 +23919,7 @@ function _createElement (
   normalizationType
 ) {
   if (isDef(data) && isDef((data).__ob__)) {
-    "development" !== 'production' && warn(
+     true && warn(
       "Avoid using observed data object as vnode data: " + (JSON.stringify(data)) + "\n" +
       'Always create fresh vnode data objects in each render!',
       context
@@ -23715,7 +23935,7 @@ function _createElement (
     return createEmptyVNode()
   }
   // warn against non-primitive key
-  if ("development" !== 'production' &&
+  if ( true &&
     isDef(data) && isDef(data.key) && !isPrimitive(data.key)
   ) {
     {
@@ -23837,10 +24057,7 @@ function initRender (vm) {
     defineReactive$$1(vm, '$listeners', options._parentListeners || emptyObject, function () {
       !isUpdatingChildComponent && warn("$listeners is readonly.", vm);
     }, true);
-  } else {
-    defineReactive$$1(vm, '$attrs', parentData && parentData.attrs || emptyObject, null, true);
-    defineReactive$$1(vm, '$listeners', options._parentListeners || emptyObject, null, true);
-  }
+  } else {}
 }
 
 function renderMixin (Vue) {
@@ -23873,7 +24090,7 @@ function renderMixin (Vue) {
       // return error render result,
       // or previous vnode to prevent render error causing blank component
       /* istanbul ignore else */
-      if ("development" !== 'production' && vm.$options.renderError) {
+      if ( true && vm.$options.renderError) {
         try {
           vnode = vm.$options.renderError.call(vm._renderProxy, vm.$createElement, e);
         } catch (e) {
@@ -23886,7 +24103,7 @@ function renderMixin (Vue) {
     }
     // return empty vnode in case the render function errored out
     if (!(vnode instanceof VNode)) {
-      if ("development" !== 'production' && Array.isArray(vnode)) {
+      if ( true && Array.isArray(vnode)) {
         warn(
           'Multiple root nodes returned from render function. Render function ' +
           'should return a single root node.',
@@ -23913,7 +24130,7 @@ function initMixin (Vue) {
 
     var startTag, endTag;
     /* istanbul ignore if */
-    if ("development" !== 'production' && config.performance && mark) {
+    if ( true && config.performance && mark) {
       startTag = "vue-perf-start:" + (vm._uid);
       endTag = "vue-perf-end:" + (vm._uid);
       mark(startTag);
@@ -23937,9 +24154,7 @@ function initMixin (Vue) {
     /* istanbul ignore else */
     if (true) {
       initProxy(vm);
-    } else {
-      vm._renderProxy = vm;
-    }
+    } else {}
     // expose real self
     vm._self = vm;
     initLifecycle(vm);
@@ -23952,7 +24167,7 @@ function initMixin (Vue) {
     callHook(vm, 'created');
 
     /* istanbul ignore if */
-    if ("development" !== 'production' && config.performance && mark) {
+    if ( true && config.performance && mark) {
       vm._name = formatComponentName(vm, false);
       mark(endTag);
       measure(("vue " + (vm._name) + " init"), startTag, endTag);
@@ -24041,7 +24256,7 @@ function dedupe (latest, extended, sealed) {
 }
 
 function Vue (options) {
-  if ("development" !== 'production' &&
+  if ( true &&
     !(this instanceof Vue)
   ) {
     warn('Vue is a constructor and should be called with the `new` keyword');
@@ -24110,7 +24325,7 @@ function initExtend (Vue) {
     }
 
     var name = extendOptions.name || Super.options.name;
-    if ("development" !== 'production' && name) {
+    if ( true && name) {
       validateComponentName(name);
     }
 
@@ -24193,7 +24408,7 @@ function initAssetRegisters (Vue) {
         return this.options[type + 's'][id]
       } else {
         /* istanbul ignore if */
-        if ("development" !== 'production' && type === 'component') {
+        if ( true && type === 'component') {
           validateComponentName(id);
         }
         if (type === 'component' && isPlainObject(definition)) {
@@ -24617,7 +24832,7 @@ function query (el) {
   if (typeof el === 'string') {
     var selected = document.querySelector(el);
     if (!selected) {
-      "development" !== 'production' && warn(
+       true && warn(
         'Cannot find element: ' + el
       );
       return document.createElement('div')
@@ -24907,7 +25122,7 @@ function createPatchFunction (backend) {
         insert(parentElm, vnode.elm, refElm);
       }
 
-      if ("development" !== 'production' && data && data.pre) {
+      if ( true && data && data.pre) {
         creatingElmInVPre--;
       }
     } else if (isTrue(vnode.isComment)) {
@@ -25341,7 +25556,7 @@ function createPatchFunction (backend) {
           if (isDef(i = data) && isDef(i = i.domProps) && isDef(i = i.innerHTML)) {
             if (i !== elm.innerHTML) {
               /* istanbul ignore if */
-              if ("development" !== 'production' &&
+              if ( true &&
                 typeof console !== 'undefined' &&
                 !hydrationBailed
               ) {
@@ -25367,7 +25582,7 @@ function createPatchFunction (backend) {
             // longer than the virtual children list.
             if (!childrenMatch || childNode) {
               /* istanbul ignore if */
-              if ("development" !== 'production' &&
+              if ( true &&
                 typeof console !== 'undefined' &&
                 !hydrationBailed
               ) {
@@ -25930,7 +26145,7 @@ function addHandler (
   // warn prevent and passive modifier
   /* istanbul ignore if */
   if (
-    "development" !== 'production' && warn &&
+     true && warn &&
     modifiers.prevent && modifiers.passive
   ) {
     warn(
@@ -27027,7 +27242,7 @@ function enter (vnode, toggleDisplay) {
       : duration
   );
 
-  if ("development" !== 'production' && explicitEnterDuration != null) {
+  if ( true && explicitEnterDuration != null) {
     checkDuration(explicitEnterDuration, 'enter', vnode);
   }
 
@@ -27135,7 +27350,7 @@ function leave (vnode, rm) {
       : duration
   );
 
-  if ("development" !== 'production' && isDef(explicitLeaveDuration)) {
+  if ( true && isDef(explicitLeaveDuration)) {
     checkDuration(explicitLeaveDuration, 'leave', vnode);
   }
 
@@ -27362,7 +27577,7 @@ function actuallySetSelected (el, binding, vm) {
   var value = binding.value;
   var isMultiple = el.multiple;
   if (isMultiple && !Array.isArray(value)) {
-    "development" !== 'production' && warn(
+     true && warn(
       "<select multiple v-model=\"" + (binding.expression) + "\"> " +
       "expects an Array value for its binding, but got " + (Object.prototype.toString.call(value).slice(8, -1)),
       vm
@@ -27579,7 +27794,7 @@ var Transition = {
     }
 
     // warn multiple elements
-    if ("development" !== 'production' && children.length > 1) {
+    if ( true && children.length > 1) {
       warn(
         '<transition> can only be used on a single element. Use ' +
         '<transition-group> for lists.',
@@ -27590,7 +27805,7 @@ var Transition = {
     var mode = this.mode;
 
     // warn invalid mode
-    if ("development" !== 'production' &&
+    if ( true &&
       mode && mode !== 'in-out' && mode !== 'out-in'
     ) {
       warn(
@@ -27884,8 +28099,7 @@ if (inBrowser) {
       if (devtools) {
         devtools.emit('init', Vue);
       } else if (
-        "development" !== 'production' &&
-        "development" !== 'test' &&
+         true &&
         isChrome
       ) {
         console[console.info ? 'info' : 'log'](
@@ -27894,8 +28108,7 @@ if (inBrowser) {
         );
       }
     }
-    if ("development" !== 'production' &&
-      "development" !== 'test' &&
+    if ( true &&
       config.productionTip !== false &&
       typeof console !== 'undefined'
     ) {
@@ -27961,7 +28174,7 @@ function parseText (
 function transformNode (el, options) {
   var warn = options.warn || baseWarn;
   var staticClass = getAndRemoveAttr(el, 'class');
-  if ("development" !== 'production' && staticClass) {
+  if ( true && staticClass) {
     var res = parseText(staticClass, options.delimiters);
     if (res) {
       warn(
@@ -28235,7 +28448,7 @@ function parseHTML (html, options) {
 
     if (html === last) {
       options.chars && options.chars(html);
-      if ("development" !== 'production' && !stack.length && options.warn) {
+      if ( true && !stack.length && options.warn) {
         options.warn(("Mal-formatted tag at end of template: \"" + html + "\""));
       }
       break
@@ -28333,7 +28546,7 @@ function parseHTML (html, options) {
     if (pos >= 0) {
       // Close all the open elements, up the stack
       for (var i = stack.length - 1; i >= pos; i--) {
-        if ("development" !== 'production' &&
+        if ( true &&
           (i > pos || !tagName) &&
           options.warn
         ) {
@@ -28479,7 +28692,7 @@ function parse (
 
       if (isForbiddenTag(element) && !isServerRendering()) {
         element.forbidden = true;
-        "development" !== 'production' && warn$2(
+         true && warn$2(
           'Templates should only be responsible for mapping the state to the ' +
           'UI. Avoid placing tags with side-effects in your templates, such as ' +
           "<" + tag + ">" + ', as they will not be parsed.'
@@ -28780,7 +28993,7 @@ function findPrevElement (children) {
     if (children[i].type === 1) {
       return children[i]
     } else {
-      if ("development" !== 'production' && children[i].text !== ' ') {
+      if ( true && children[i].text !== ' ') {
         warn$2(
           "text \"" + (children[i].text.trim()) + "\" between v-if and v-else(-if) " +
           "will be ignored."
@@ -28808,7 +29021,7 @@ function processOnce (el) {
 function processSlot (el) {
   if (el.tag === 'slot') {
     el.slotName = getBindingAttr(el, 'name');
-    if ("development" !== 'production' && el.key) {
+    if ( true && el.key) {
       warn$2(
         "`key` does not work on <slot> because slots are abstract outlets " +
         "and can possibly expand into multiple elements. " +
@@ -28820,7 +29033,7 @@ function processSlot (el) {
     if (el.tag === 'template') {
       slotScope = getAndRemoveAttr(el, 'scope');
       /* istanbul ignore if */
-      if ("development" !== 'production' && slotScope) {
+      if ( true && slotScope) {
         warn$2(
           "the \"scope\" attribute for scoped slots have been deprecated and " +
           "replaced by \"slot-scope\" since 2.5. The new \"slot-scope\" attribute " +
@@ -28832,7 +29045,7 @@ function processSlot (el) {
       el.slotScope = slotScope || getAndRemoveAttr(el, 'slot-scope');
     } else if ((slotScope = getAndRemoveAttr(el, 'slot-scope'))) {
       /* istanbul ignore if */
-      if ("development" !== 'production' && el.attrsMap['v-for']) {
+      if ( true && el.attrsMap['v-for']) {
         warn$2(
           "Ambiguous combined usage of slot-scope and v-for on <" + (el.tag) + "> " +
           "(v-for takes higher priority). Use a wrapper <template> for the " +
@@ -28883,7 +29096,7 @@ function processAttrs (el) {
         value = parseFilters(value);
         isProp = false;
         if (
-          "development" !== 'production' &&
+           true &&
           value.trim().length === 0
         ) {
           warn$2(
@@ -28926,7 +29139,7 @@ function processAttrs (el) {
           name = name.slice(0, -(arg.length + 1));
         }
         addDirective(el, name, rawName, value, arg, modifiers);
-        if ("development" !== 'production' && name === 'model') {
+        if ( true && name === 'model') {
           checkForAliasModel(el, value);
         }
       }
@@ -28979,7 +29192,7 @@ function makeAttrsMap (attrs) {
   var map = {};
   for (var i = 0, l = attrs.length; i < l; i++) {
     if (
-      "development" !== 'production' &&
+       true &&
       map[attrs[i].name] && !isIE && !isEdge
     ) {
       warn$2('duplicate attribute: ' + attrs[i].name);
@@ -29425,7 +29638,7 @@ function genFilterCode (key) {
 /*  */
 
 function on (el, dir) {
-  if ("development" !== 'production' && dir.modifiers) {
+  if ( true && dir.modifiers) {
     warn("v-on without argument does not support modifiers.");
   }
   el.wrapListeners = function (code) { return ("_g(" + code + "," + (dir.value) + ")"); };
@@ -29550,7 +29763,7 @@ function genOnce (el, state) {
       parent = parent.parent;
     }
     if (!key) {
-      "development" !== 'production' && state.warn(
+       true && state.warn(
         "v-once can only be used inside v-for that is keyed. "
       );
       return genElement(el, state)
@@ -29609,7 +29822,7 @@ function genFor (
   var iterator1 = el.iterator1 ? ("," + (el.iterator1)) : '';
   var iterator2 = el.iterator2 ? ("," + (el.iterator2)) : '';
 
-  if ("development" !== 'production' &&
+  if ( true &&
     state.maybeComponent(el) &&
     el.tag !== 'slot' &&
     el.tag !== 'template' &&
@@ -29735,7 +29948,7 @@ function genDirectives (el, state) {
 
 function genInlineTemplate (el, state) {
   var ast = el.children[0];
-  if ("development" !== 'production' && (
+  if ( true && (
     el.children.length !== 1 || ast.type !== 1
   )) {
     state.warn('Inline-template components must have exactly one child element.');
@@ -30231,7 +30444,7 @@ Vue.prototype.$mount = function (
 
   /* istanbul ignore if */
   if (el === document.body || el === document.documentElement) {
-    "development" !== 'production' && warn(
+     true && warn(
       "Do not mount Vue to <html> or <body> - mount to normal elements instead."
     );
     return this
@@ -30246,7 +30459,7 @@ Vue.prototype.$mount = function (
         if (template.charAt(0) === '#') {
           template = idToTemplate(template);
           /* istanbul ignore if */
-          if ("development" !== 'production' && !template) {
+          if ( true && !template) {
             warn(
               ("Template element not found or is empty: " + (options.template)),
               this
@@ -30266,7 +30479,7 @@ Vue.prototype.$mount = function (
     }
     if (template) {
       /* istanbul ignore if */
-      if ("development" !== 'production' && config.performance && mark) {
+      if ( true && config.performance && mark) {
         mark('compile');
       }
 
@@ -30282,7 +30495,7 @@ Vue.prototype.$mount = function (
       options.staticRenderFns = staticRenderFns;
 
       /* istanbul ignore if */
-      if ("development" !== 'production' && config.performance && mark) {
+      if ( true && config.performance && mark) {
         mark('compile end');
         measure(("vue " + (this._name) + " compile"), 'compile', 'compile end');
       }
@@ -30309,11 +30522,15 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/webpack/buildin/global.js"), __webpack_require__("./node_modules/timers-browserify/main.js").setImmediate))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../../timers-browserify/main.js */ "./node_modules/timers-browserify/main.js").setImmediate))
 
 /***/ }),
 
 /***/ "./node_modules/webpack/buildin/global.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
 var g;
@@ -30325,11 +30542,10 @@ g = (function() {
 
 try {
 	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
+	g = g || new Function("return this")();
+} catch (e) {
 	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
+	if (typeof window === "object") g = window;
 }
 
 // g can still be undefined, but nothing to do about it...
@@ -30342,14 +30558,18 @@ module.exports = g;
 /***/ }),
 
 /***/ "./node_modules/webpack/buildin/module.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/module.js ***!
+  \***********************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
-	if(!module.webpackPolyfill) {
+	if (!module.webpackPolyfill) {
 		module.deprecate = function() {};
 		module.paths = [];
 		// module.parent = undefined by default
-		if(!module.children) module.children = [];
+		if (!module.children) module.children = [];
 		Object.defineProperty(module, "loaded", {
 			enumerable: true,
 			get: function() {
@@ -30371,23 +30591,26 @@ module.exports = function(module) {
 /***/ }),
 
 /***/ "./resources/assets/admin/js/app.js":
+/*!******************************************!*\
+  !*** ./resources/assets/admin/js/app.js ***!
+  \******************************************/
+/*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__("./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_BarChart_vue__ = __webpack_require__("./resources/assets/admin/js/components/BarChart.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_BarChart_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_BarChart_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_LineChart_vue__ = __webpack_require__("./resources/assets/admin/js/components/LineChart.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_LineChart_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_LineChart_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_PieChart_vue__ = __webpack_require__("./resources/assets/admin/js/components/PieChart.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_PieChart_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_PieChart_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_MailSettings_vue__ = __webpack_require__("./resources/assets/admin/js/components/MailSettings.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_MailSettings_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_MailSettings_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__apps_TodosApp_vue__ = __webpack_require__("./resources/assets/admin/js/apps/TodosApp.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__apps_TodosApp_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__apps_TodosApp_vue__);
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_BarChart_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/BarChart.vue */ "./resources/assets/admin/js/components/BarChart.vue");
+/* harmony import */ var _components_BarChart_vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_BarChart_vue__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_LineChart_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/LineChart.vue */ "./resources/assets/admin/js/components/LineChart.vue");
+/* harmony import */ var _components_LineChart_vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_LineChart_vue__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_PieChart_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/PieChart.vue */ "./resources/assets/admin/js/components/PieChart.vue");
+/* harmony import */ var _components_PieChart_vue__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_PieChart_vue__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_MailSettings_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/MailSettings.vue */ "./resources/assets/admin/js/components/MailSettings.vue");
+/* harmony import */ var _components_MailSettings_vue__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_MailSettings_vue__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _apps_TodosApp_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./apps/TodosApp.vue */ "./resources/assets/admin/js/apps/TodosApp.vue");
+/* harmony import */ var _apps_TodosApp_vue__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_apps_TodosApp_vue__WEBPACK_IMPORTED_MODULE_5__);
 
 
 
@@ -30400,23 +30623,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__("./resources/assets/admin/js/bootstrap.js");
+__webpack_require__(/*! ./bootstrap */ "./resources/assets/admin/js/bootstrap.js");
 
-window.Vue = __WEBPACK_IMPORTED_MODULE_0_vue___default.a;
-
+window.Vue = vue__WEBPACK_IMPORTED_MODULE_0___default.a;
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-window.Vue.component('bar-chart', __WEBPACK_IMPORTED_MODULE_1__components_BarChart_vue__["default"]);
-window.Vue.component('line-chart', __WEBPACK_IMPORTED_MODULE_2__components_LineChart_vue__["default"]);
-window.Vue.component('pie-chart', __WEBPACK_IMPORTED_MODULE_3__components_PieChart_vue__["default"]);
-window.Vue.component('mail-settings', __WEBPACK_IMPORTED_MODULE_4__components_MailSettings_vue__["default"]);
-
-window.Vue.component('todos-app', __WEBPACK_IMPORTED_MODULE_5__apps_TodosApp_vue__["default"]);
-
+window.Vue.component('bar-chart', _components_BarChart_vue__WEBPACK_IMPORTED_MODULE_1___default.a);
+window.Vue.component('line-chart', _components_LineChart_vue__WEBPACK_IMPORTED_MODULE_2___default.a);
+window.Vue.component('pie-chart', _components_PieChart_vue__WEBPACK_IMPORTED_MODULE_3___default.a);
+window.Vue.component('mail-settings', _components_MailSettings_vue__WEBPACK_IMPORTED_MODULE_4___default.a);
+window.Vue.component('todos-app', _apps_TodosApp_vue__WEBPACK_IMPORTED_MODULE_5___default.a);
 var app = new window.Vue({
   el: '#app'
 });
@@ -30424,28 +30644,32 @@ var app = new window.Vue({
 /***/ }),
 
 /***/ "./resources/assets/admin/js/apps/TodosApp.vue":
+/*!*****************************************************!*\
+  !*** ./resources/assets/admin/js/apps/TodosApp.vue ***!
+  \*****************************************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: Error: \n\nVue packages version mismatch:\n\n- vue@2.5.21\n- vue-template-compiler@2.5.16\n\nThis may cause things to work incorrectly. Make sure to use the same version for both.\nIf you are using vue-loader@>=10.0, simply update vue-template-compiler.\nIf you are using vue-loader@<10.0 or vueify, re-installing vue-loader/vueify should bump vue-template-compiler to the latest.\n\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-template-compiler\\index.js:8:9)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)\n    at Module.require (internal/modules/cjs/loader.js:667:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-loader\\lib\\parser.js:1:80)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)\n    at Module.require (internal/modules/cjs/loader.js:667:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-loader\\lib\\loader.js:3:15)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)\n    at Module.require (internal/modules/cjs/loader.js:667:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-loader\\index.js:1:80)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)");
+throw new Error("Module build failed (from ./node_modules/vue-loader/lib/index.js):\nTypeError: Cannot read property 'parseComponent' of undefined\n    at parse (/var/www/html/buzzeroffice/node_modules/@vue/component-compiler-utils/dist/parse.js:14:23)\n    at Object.module.exports (/var/www/html/buzzeroffice/node_modules/vue-loader/lib/index.js:67:22)");
 
 /***/ }),
 
 /***/ "./resources/assets/admin/js/bootstrap.js":
+/*!************************************************!*\
+  !*** ./resources/assets/admin/js/bootstrap.js ***!
+  \************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-window._ = __webpack_require__("./node_modules/lodash/lodash.js");
-
+window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__("./node_modules/axios/index.js");
-
+window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
  * all outgoing HTTP requests automatically have it attached. This is just
@@ -30459,15 +30683,12 @@ if (token) {
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
-
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.
  */
-
 // import Echo from "laravel-echo"
-
 // window.Echo = new Echo({
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
@@ -30476,41 +30697,65 @@ if (token) {
 /***/ }),
 
 /***/ "./resources/assets/admin/js/components/BarChart.vue":
+/*!***********************************************************!*\
+  !*** ./resources/assets/admin/js/components/BarChart.vue ***!
+  \***********************************************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: Error: \n\nVue packages version mismatch:\n\n- vue@2.5.21\n- vue-template-compiler@2.5.16\n\nThis may cause things to work incorrectly. Make sure to use the same version for both.\nIf you are using vue-loader@>=10.0, simply update vue-template-compiler.\nIf you are using vue-loader@<10.0 or vueify, re-installing vue-loader/vueify should bump vue-template-compiler to the latest.\n\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-template-compiler\\index.js:8:9)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)\n    at Module.require (internal/modules/cjs/loader.js:667:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-loader\\lib\\parser.js:1:80)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)\n    at Module.require (internal/modules/cjs/loader.js:667:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-loader\\lib\\loader.js:3:15)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)\n    at Module.require (internal/modules/cjs/loader.js:667:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-loader\\index.js:1:80)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)");
+throw new Error("Module build failed (from ./node_modules/vue-loader/lib/index.js):\nTypeError: Cannot read property 'parseComponent' of undefined\n    at parse (/var/www/html/buzzeroffice/node_modules/@vue/component-compiler-utils/dist/parse.js:14:23)\n    at Object.module.exports (/var/www/html/buzzeroffice/node_modules/vue-loader/lib/index.js:67:22)");
 
 /***/ }),
 
 /***/ "./resources/assets/admin/js/components/LineChart.vue":
+/*!************************************************************!*\
+  !*** ./resources/assets/admin/js/components/LineChart.vue ***!
+  \************************************************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: Error: \n\nVue packages version mismatch:\n\n- vue@2.5.21\n- vue-template-compiler@2.5.16\n\nThis may cause things to work incorrectly. Make sure to use the same version for both.\nIf you are using vue-loader@>=10.0, simply update vue-template-compiler.\nIf you are using vue-loader@<10.0 or vueify, re-installing vue-loader/vueify should bump vue-template-compiler to the latest.\n\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-template-compiler\\index.js:8:9)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)\n    at Module.require (internal/modules/cjs/loader.js:667:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-loader\\lib\\parser.js:1:80)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)\n    at Module.require (internal/modules/cjs/loader.js:667:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-loader\\lib\\loader.js:3:15)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)\n    at Module.require (internal/modules/cjs/loader.js:667:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-loader\\index.js:1:80)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)");
+throw new Error("Module build failed (from ./node_modules/vue-loader/lib/index.js):\nTypeError: Cannot read property 'parseComponent' of undefined\n    at parse (/var/www/html/buzzeroffice/node_modules/@vue/component-compiler-utils/dist/parse.js:14:23)\n    at Object.module.exports (/var/www/html/buzzeroffice/node_modules/vue-loader/lib/index.js:67:22)");
 
 /***/ }),
 
 /***/ "./resources/assets/admin/js/components/MailSettings.vue":
+/*!***************************************************************!*\
+  !*** ./resources/assets/admin/js/components/MailSettings.vue ***!
+  \***************************************************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: Error: \n\nVue packages version mismatch:\n\n- vue@2.5.21\n- vue-template-compiler@2.5.16\n\nThis may cause things to work incorrectly. Make sure to use the same version for both.\nIf you are using vue-loader@>=10.0, simply update vue-template-compiler.\nIf you are using vue-loader@<10.0 or vueify, re-installing vue-loader/vueify should bump vue-template-compiler to the latest.\n\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-template-compiler\\index.js:8:9)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)\n    at Module.require (internal/modules/cjs/loader.js:667:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-loader\\lib\\parser.js:1:80)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)\n    at Module.require (internal/modules/cjs/loader.js:667:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-loader\\lib\\loader.js:3:15)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)\n    at Module.require (internal/modules/cjs/loader.js:667:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-loader\\index.js:1:80)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)");
+throw new Error("Module build failed (from ./node_modules/vue-loader/lib/index.js):\nTypeError: Cannot read property 'parseComponent' of undefined\n    at parse (/var/www/html/buzzeroffice/node_modules/@vue/component-compiler-utils/dist/parse.js:14:23)\n    at Object.module.exports (/var/www/html/buzzeroffice/node_modules/vue-loader/lib/index.js:67:22)");
 
 /***/ }),
 
 /***/ "./resources/assets/admin/js/components/PieChart.vue":
+/*!***********************************************************!*\
+  !*** ./resources/assets/admin/js/components/PieChart.vue ***!
+  \***********************************************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: Error: \n\nVue packages version mismatch:\n\n- vue@2.5.21\n- vue-template-compiler@2.5.16\n\nThis may cause things to work incorrectly. Make sure to use the same version for both.\nIf you are using vue-loader@>=10.0, simply update vue-template-compiler.\nIf you are using vue-loader@<10.0 or vueify, re-installing vue-loader/vueify should bump vue-template-compiler to the latest.\n\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-template-compiler\\index.js:8:9)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)\n    at Module.require (internal/modules/cjs/loader.js:667:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-loader\\lib\\parser.js:1:80)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)\n    at Module.require (internal/modules/cjs/loader.js:667:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-loader\\lib\\loader.js:3:15)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)\n    at Module.require (internal/modules/cjs/loader.js:667:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at Object.<anonymous> (C:\\laragon\\www\\buzzeroffice\\node_modules\\vue-loader\\index.js:1:80)\n    at Module._compile (internal/modules/cjs/loader.js:738:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)\n    at Module.load (internal/modules/cjs/loader.js:630:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:562:3)");
+throw new Error("Module build failed (from ./node_modules/vue-loader/lib/index.js):\nTypeError: Cannot read property 'parseComponent' of undefined\n    at parse (/var/www/html/buzzeroffice/node_modules/@vue/component-compiler-utils/dist/parse.js:14:23)\n    at Object.module.exports (/var/www/html/buzzeroffice/node_modules/vue-loader/lib/index.js:67:22)");
 
 /***/ }),
 
 /***/ "./resources/assets/admin/sass/laraspace.scss":
+/*!****************************************************!*\
+  !*** ./resources/assets/admin/sass/laraspace.scss ***!
+  \****************************************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nSassError: Top-level selectors may not contain the parent selector \"&\".\n    ╷\n125 │     &.has-child > a::before {\n    │     ^^^^^^^^^^^^^^^^^^^^^^^^\n    ╵\n  resources/assets/admin/sass/layouts/layout-horizontal.scss 125:5  @import\n  /var/www/html/buzzeroffice/resources/assets/admin/sass/laraspace.scss 69:9                                                        root stylesheet\n    at /var/www/html/buzzeroffice/node_modules/webpack/lib/NormalModule.js:316:20\n    at /var/www/html/buzzeroffice/node_modules/loader-runner/lib/LoaderRunner.js:367:11\n    at /var/www/html/buzzeroffice/node_modules/loader-runner/lib/LoaderRunner.js:233:18\n    at context.callback (/var/www/html/buzzeroffice/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\n    at /var/www/html/buzzeroffice/node_modules/sass-loader/dist/index.js:73:7\n    at Function.call$2 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:55018:16)\n    at _render_closure1.call$2 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:33885:12)\n    at _RootZone.runBinary$3$3 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:19864:18)\n    at _RootZone.runBinary$3 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:19868:19)\n    at _FutureListener.handleError$1 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:18333:19)\n    at _Future__propagateToListeners_handleError.call$0 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:18621:40)\n    at Object._Future__propagateToListeners (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:3495:88)\n    at _Future._completeError$2 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:18457:9)\n    at _AsyncAwaitCompleter.completeError$2 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:17856:12)\n    at Object._asyncRethrow (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:3251:17)\n    at /var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:10539:20\n    at _wrapJsFunctionForAsync_closure.$protected (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:3274:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:17877:12)\n    at _awaitOnObject_closure0.call$2 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:17869:25)\n    at _RootZone.runBinary$3$3 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:19864:18)\n    at _RootZone.runBinary$3 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:19868:19)\n    at _FutureListener.handleError$1 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:18333:19)\n    at _Future__propagateToListeners_handleError.call$0 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:18621:40)\n    at Object._Future__propagateToListeners (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:3495:88)\n    at _Future._completeError$2 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:18457:9)\n    at _AsyncAwaitCompleter.completeError$2 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:17856:12)\n    at Object._asyncRethrow (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:3251:17)\n    at /var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:12263:20\n    at _wrapJsFunctionForAsync_closure.$protected (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:3274:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:17877:12)\n    at _awaitOnObject_closure0.call$2 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:17869:25)\n    at _RootZone.runBinary$3$3 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:19864:18)\n    at _RootZone.runBinary$3 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:19868:19)\n    at _FutureListener.handleError$1 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:18333:19)\n    at _Future__propagateToListeners_handleError.call$0 (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:18621:40)\n    at Object._Future__propagateToListeners (/var/www/html/buzzeroffice/node_modules/sass/sass.dart.js:3495:88)");
 
 /***/ }),
 
 /***/ "./resources/assets/front/sass/front.scss":
+/*!************************************************!*\
+  !*** ./resources/assets/front/sass/front.scss ***!
+  \************************************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -30518,11 +30763,15 @@ throw new Error("Module build failed: Error: \n\nVue packages version mismatch:\
 /***/ }),
 
 /***/ 0:
+/*!**************************************************************************************************************************************!*\
+  !*** multi ./resources/assets/admin/js/app.js ./resources/assets/admin/sass/laraspace.scss ./resources/assets/front/sass/front.scss ***!
+  \**************************************************************************************************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__("./resources/assets/admin/js/app.js");
-__webpack_require__("./resources/assets/admin/sass/laraspace.scss");
-module.exports = __webpack_require__("./resources/assets/front/sass/front.scss");
+__webpack_require__(/*! /var/www/html/buzzeroffice/resources/assets/admin/js/app.js */"./resources/assets/admin/js/app.js");
+__webpack_require__(/*! /var/www/html/buzzeroffice/resources/assets/admin/sass/laraspace.scss */"./resources/assets/admin/sass/laraspace.scss");
+module.exports = __webpack_require__(/*! /var/www/html/buzzeroffice/resources/assets/front/sass/front.scss */"./resources/assets/front/sass/front.scss");
 
 
 /***/ })
