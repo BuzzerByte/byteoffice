@@ -67,8 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => buzzeroffice\User::class,
-            'table' => 'users',
+            'model' => App\User::class,
         ],
 
         // 'users' => [

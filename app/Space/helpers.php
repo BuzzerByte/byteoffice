@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
 use buzzeroffice\Space\Settings\Setting;
+=======
+use App\Space\Settings\Setting;
+>>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 function set_active($path, $active = 'active')
 {
