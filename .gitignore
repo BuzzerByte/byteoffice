@@ -1,5 +1,4 @@
 /node_modules
-<<<<<<< HEAD
 /public/hot
 /public/storage
 /public/employeeAttachments
@@ -18,7 +17,6 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 
-=======
 /public/storage
 /public/hot
 /storage/*.key
@@ -32,4 +30,3 @@ Homestead.yaml
 .idea
 .vscode
 .DS_Store
->>>>>>> 9364050604be82bb21bf77314501118a9268d954
