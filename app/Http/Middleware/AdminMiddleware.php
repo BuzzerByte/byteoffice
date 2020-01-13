@@ -1,9 +1,5 @@
 <?php
-<<<<<<< HEAD
-namespace buzzeroffice\Http\Middleware;
-=======
 namespace App\Http\Middleware;
->>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 use Auth;
 use Closure;

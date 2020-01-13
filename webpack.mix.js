@@ -6,11 +6,7 @@ let mix = require('laravel-mix')
 |--------------------------------------------------------------------------
 */
 
-<<<<<<< HEAD
-var pluginPath = 'resources/assets/plugins/'
-=======
 var pluginPath = 'resources/plugins/'
->>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 mix.combine([
   // ** Required Plugins **
@@ -84,15 +80,9 @@ mix.combine([
 
 ], 'public/assets/admin/js/core/plugins.js')
 
-<<<<<<< HEAD
-.js('resources/assets/admin/js/app.js', 'public/assets/admin/js/core/')
-
-.sass('resources/assets/admin/sass/laraspace.scss', 'public/assets/admin/css/')
-=======
 .js('resources/admin/js/app.js', 'public/assets/admin/js/core/')
 
 .sass('resources/admin/sass/laraspace.scss', 'public/assets/admin/css/')
->>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 .options({
     processCssUrls: false
@@ -118,11 +108,7 @@ mix.combine([
   pluginPath + 'laraspace/laraspace-notifs.js'
 ], 'public/assets/front/js/plugins.js')
 
-<<<<<<< HEAD
-.sass('resources/assets/front/sass/front.scss', 'public/assets/front/css/')
-=======
 .sass('resources/front/sass/front.scss', 'public/assets/front/css/')
->>>>>>> 9364050604be82bb21bf77314501118a9268d954
 
 .options({
     processCssUrls: false
