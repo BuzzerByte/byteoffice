@@ -95,21 +95,12 @@ Highcharts.chart('salesChart', {
         <div class="row">
             <div class="col-md-12 col-lg-6 col-xl-3">
                 <a class="dashbox" href="#">
-<<<<<<< HEAD
                     <i class="icon-fa icon-fa-users text-primary"></i>
                     <span class="title">
                       {{ $users }}
                     </span>
                     <span class="desc">
                       Users
-=======
-                    <i class="icon-fa icon-fa-envelope text-primary"></i>
-                    <span class="title">
-                      35
-                    </span>
-                    <span class="desc">
-                      Mails
->>>>>>> 9364050604be82bb21bf77314501118a9268d954
                     </span>
                 </a>
             </div>
@@ -117,17 +108,10 @@ Highcharts.chart('salesChart', {
                 <a class="dashbox" href="#">
                     <i class="icon-fa icon-fa-ticket text-success"></i>
                     <span class="title">
-<<<<<<< HEAD
                       {{ $purchases }}
                     </span>
                     <span class="desc">
                       Purchase(s)
-=======
-                      200
-                    </span>
-                    <span class="desc">
-                      Pending Tickets
->>>>>>> 9364050604be82bb21bf77314501118a9268d954
                     </span>
                 </a>
             </div>
@@ -135,37 +119,21 @@ Highcharts.chart('salesChart', {
                 <a class="dashbox" href="#">
                     <i class="icon-fa icon-fa-shopping-cart text-danger"></i>
                     <span class="title">
-<<<<<<< HEAD
                       {{ $orders }}
                     </span>
                     <span class="desc">
                       Order(s)
-=======
-                      100
-                    </span>
-                    <span class="desc">
-                      New Orders
->>>>>>> 9364050604be82bb21bf77314501118a9268d954
                     </span>
                 </a>
             </div>
             <div class="col-md-12 col-lg-6 col-xl-3">
                 <a class="dashbox" href="#">
-<<<<<<< HEAD
                     <i class="icon-fa icon-fa-cubes text-info"></i>
                     <span class="title">
                       {{ $products }}
                     </span>
                     <span class="desc">
                       Inventories
-=======
-                    <i class="icon-fa icon-fa-comments text-info"></i>
-                    <span class="title">
-                      59
-                    </span>
-                    <span class="desc">
-                      Comments
->>>>>>> 9364050604be82bb21bf77314501118a9268d954
                     </span>
                 </a>
             </div>
@@ -177,11 +145,7 @@ Highcharts.chart('salesChart', {
                         <h6><i class="icon-fa icon-fa-line-chart text-warning"></i> Traffic Stats</h6>
                     </div>
                     <div class="card-body">
-<<<<<<< HEAD
-                        {{-- <line-chart :labels="['Jan','Feb','Mar','June']" :values="[20,30,40,60]"></line-chart> --}}
-=======
                         <line-chart :labels="['Jan','Feb','Mar','June']" :values="[20,30,40,60]"></line-chart>
->>>>>>> 9364050604be82bb21bf77314501118a9268d954
                     </div>
                 </div>
             </div>
@@ -191,12 +155,7 @@ Highcharts.chart('salesChart', {
                         <h6><i class="icon-fa icon-fa-bar-chart text-success"></i> Sales Chart</h6>
                     </div>
                     <div class="card-body">
-<<<<<<< HEAD
-                        <div id="salesChart"></div>
-                        {{-- <bar-chart :labels="['Jan','Feb','Mar','June']" :values="[20,30,40,60]"></bar-chart> --}}
-=======
                         <bar-chart :labels="['Jan','Feb','Mar','June']" :values="[20,30,40,60]"></bar-chart>
->>>>>>> 9364050604be82bb21bf77314501118a9268d954
                     </div>
                 </div>
             </div>
@@ -218,7 +177,6 @@ Highcharts.chart('salesChart', {
                             </tr>
                             </thead>
                             <tbody>
-<<<<<<< HEAD
                                     @if($AllOrder != [])
                                     @foreach($AllOrder as $order)
                                     <tr>
@@ -236,20 +194,6 @@ Highcharts.chart('salesChart', {
                                     No Orders in database
                                     @endif
                             
-=======
-                            <tr>
-                                <td>Walter White</td>
-                                <td>05/12/2016</td>
-                                <td>555$</td>
-                                <td><a href="#" class="btn btn-default btn-xs">View</a></td>
-                            </tr>
-                            <tr>
-                                <td>Hank Hill</td>
-                                <td>05/12/2016</td>
-                                <td>222$</td>
-                                <td><a href="#" class="btn btn-default btn-xs">View</a></td>
-                            </tr>
->>>>>>> 9364050604be82bb21bf77314501118a9268d954
                             </tbody>
                         </table>
                     </div>
@@ -271,7 +215,6 @@ Highcharts.chart('salesChart', {
                             </tr>
                             </thead>
                             <tbody>
-<<<<<<< HEAD
                                     @if($clients != [])
                                     @foreach($clients as $client)
                                     <tr>
@@ -288,20 +231,6 @@ Highcharts.chart('salesChart', {
                                     @else
                                     No Clients in database
                                     @endif
-=======
-                            <tr>
-                                <td>Walter White</td>
-                                <td>05/12/2016</td>
-                                <td>555$</td>
-                                <td><a href="#" class="btn btn-default btn-xs">View</a></td>
-                            </tr>
-                            <tr>
-                                <td>Hank Hill</td>
-                                <td>05/12/2016</td>
-                                <td>222$</td>
-                                <td><a href="#" class="btn btn-default btn-xs">View</a></td>
-                            </tr>
->>>>>>> 9364050604be82bb21bf77314501118a9268d954
                             </tbody>
                         </table>
                     </div>
@@ -309,11 +238,8 @@ Highcharts.chart('salesChart', {
             </div>
         </div>
     </div>
-<<<<<<< HEAD
 <div class="modal fade" id="modal-view" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
     aria-hidden="true">
     @include('admin.clients.show')
 </div>
-=======
->>>>>>> 9364050604be82bb21bf77314501118a9268d954
 @stop
