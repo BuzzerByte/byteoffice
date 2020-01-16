@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 9364050604be82bb21bf77314501118a9268d954
 <?php
 
 /*
@@ -374,7 +370,3 @@ Route::get('logout', [
 Route::get('install', [
     'as' => 'logout', 'uses' => 'AuthController@logout'
 ]);
-<<<<<<< HEAD
-
-=======
->>>>>>> 9364050604be82bb21bf77314501118a9268d954
