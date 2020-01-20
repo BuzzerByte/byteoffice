@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\PayGrade;
+use App\PayGrade;
 use Illuminate\Http\Request;
 
 class PayGradeController extends Controller
@@ -49,7 +49,7 @@ class PayGradeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\PayGrade  $payGrade
+     * @param  \App\PayGrade  $payGrade
      * @return \Illuminate\Http\Response
      */
     public function show(PayGrade $payGrade)
@@ -60,7 +60,7 @@ class PayGradeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\PayGrade  $payGrade
+     * @param  \App\PayGrade  $payGrade
      * @return \Illuminate\Http\Response
      */
     public function edit(PayGrade $paygrade)
@@ -73,7 +73,7 @@ class PayGradeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\PayGrade  $payGrade
+     * @param  \App\PayGrade  $payGrade
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, PayGrade $paygrade)
@@ -90,7 +90,7 @@ class PayGradeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\PayGrade  $payGrade
+     * @param  \App\PayGrade  $payGrade
      * @return \Illuminate\Http\Response
      */
     public function destroy(PayGrade $payGrade)

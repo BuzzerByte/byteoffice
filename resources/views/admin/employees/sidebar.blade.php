@@ -40,7 +40,7 @@
         </div>
         <br>
         <div class="profile-userbuttons">
-            <form action="{{ route('employeeTerminations.unterminate',\buzzeroffice\EmployeeTermination::where('employee_id',$employee->id)->first()->id) }}" method="post"
+            <form action="{{ route('employeeTerminations.unterminate',\App\EmployeeTermination::where('employee_id',$employee->id)->first()->id) }}" method="post"
                 accept-charset="utf-8" enctype="multipart/form-data">
                 @csrf
                 <button type="submit" onclick="return confirm('Are you sure to Re Join Employment ?');" class="btn bg-navy btn-sm">Re
@@ -48,7 +48,7 @@
             </form>
         </div>
         <br>
-        <a href="{{ route('employeeTerminations.show',\buzzeroffice\EmployeeTermination::where('employee_id',$employee->id)->first()->id) }}"
+        <a href="{{ route('employeeTerminations.show',\App\EmployeeTermination::where('employee_id',$employee->id)->first()->id) }}"
             class="btn btn-block btn-flat bg-maroon text-left">Termination Note</a>
         @endif
     </div>

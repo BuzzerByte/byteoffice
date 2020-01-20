@@ -89,7 +89,7 @@
                                 <td>
                                     {{ $order->id }} </td>
                                 <td>
-                                    {{ \buzzeroffice\Client::where('id',$order->client_id)->first()->name }} </td>
+                                    {{ \App\Client::where('id',$order->client_id)->first()->name }} </td>
                                 <td>
                                     {{ $order->due_date }} </td>
 

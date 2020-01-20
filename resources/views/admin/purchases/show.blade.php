@@ -237,7 +237,7 @@
                                         <tr>
                                             <td>{{ $index+1 }} <input type="hidden" class="inventory_id" value="{{ $product->inventory_id }}"></td>
                                             <td>{{
-                                                \buzzeroffice\Inventory::where('id',$product->inventory_id)->first()->name
+                                                \App\Inventory::where('id',$product->inventory_id)->first()->name
                                                 }}</td>
 
                                             <td>{{ $product->description }}</td>

@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\Holiday;
+use App\Holiday;
 use Illuminate\Http\Request;
 
 class HolidayController extends Controller
@@ -50,7 +50,7 @@ class HolidayController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\Holiday  $holiday
+     * @param  \App\Holiday  $holiday
      * @return \Illuminate\Http\Response
      */
     public function show(Holiday $holiday)
@@ -61,7 +61,7 @@ class HolidayController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\Holiday  $holiday
+     * @param  \App\Holiday  $holiday
      * @return \Illuminate\Http\Response
      */
     public function edit(Holiday $holiday)
@@ -74,7 +74,7 @@ class HolidayController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\Holiday  $holiday
+     * @param  \App\Holiday  $holiday
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Holiday $holiday)
@@ -92,7 +92,7 @@ class HolidayController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\Holiday  $holiday
+     * @param  \App\Holiday  $holiday
      * @return \Illuminate\Http\Response
      */
     public function destroy(Holiday $holiday)

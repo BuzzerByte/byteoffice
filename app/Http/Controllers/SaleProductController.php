@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\SaleProduct;
+use App\SaleProduct;
 use Illuminate\Http\Request;
 
 class SaleProductController extends Controller
@@ -41,7 +41,7 @@ class SaleProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\SaleProduct  $saleProduct
+     * @param  \App\SaleProduct  $saleProduct
      * @return \Illuminate\Http\Response
      */
     public function show(SaleProduct $saleProduct)
@@ -52,7 +52,7 @@ class SaleProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\SaleProduct  $saleProduct
+     * @param  \App\SaleProduct  $saleProduct
      * @return \Illuminate\Http\Response
      */
     public function edit(SaleProduct $saleProduct)
@@ -64,7 +64,7 @@ class SaleProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\SaleProduct  $saleProduct
+     * @param  \App\SaleProduct  $saleProduct
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, SaleProduct $saleProduct)
@@ -75,7 +75,7 @@ class SaleProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\SaleProduct  $saleProduct
+     * @param  \App\SaleProduct  $saleProduct
      * @return \Illuminate\Http\Response
      */
     public function destroy(SaleProduct $saleProduct)

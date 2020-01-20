@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\EmployeeDeposit;
+use App\EmployeeDeposit;
 use Illuminate\Http\Request;
 
 class EmployeeDepositController extends Controller
@@ -51,7 +51,7 @@ class EmployeeDepositController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\EmployeeDeposit  $employeeDeposit
+     * @param  \App\EmployeeDeposit  $employeeDeposit
      * @return \Illuminate\Http\Response
      */
     public function show(EmployeeDeposit $employeeDeposit)
@@ -62,7 +62,7 @@ class EmployeeDepositController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\EmployeeDeposit  $employeeDeposit
+     * @param  \App\EmployeeDeposit  $employeeDeposit
      * @return \Illuminate\Http\Response
      */
     public function edit(EmployeeDeposit $employeeDeposit)
@@ -74,7 +74,7 @@ class EmployeeDepositController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\EmployeeDeposit  $employeeDeposit
+     * @param  \App\EmployeeDeposit  $employeeDeposit
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, EmployeeDeposit $employeeDeposit)
@@ -92,7 +92,7 @@ class EmployeeDepositController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\EmployeeDeposit  $employeeDeposit
+     * @param  \App\EmployeeDeposit  $employeeDeposit
      * @return \Illuminate\Http\Response
      */
     public function destroy(EmployeeDeposit $employeeDeposit)

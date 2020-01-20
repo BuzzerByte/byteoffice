@@ -1,9 +1,9 @@
 <?php
 
-namespace buzzeroffice;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use buzzeroffice\LeaveType;
+use App\LeaveType;
 use Carbon\Carbon;
 
 class Application extends Model

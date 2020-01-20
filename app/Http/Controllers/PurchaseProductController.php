@@ -1,10 +1,10 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\PurchaseProduct;
-use buzzeroffice\Inventory;
-use buzzeroffice\Purchase;
+use App\PurchaseProduct;
+use App\Inventory;
+use App\Purchase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Session;
@@ -63,7 +63,7 @@ class PurchaseProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\PurchaseProduct  $purchaseProduct
+     * @param  \App\PurchaseProduct  $purchaseProduct
      * @return \Illuminate\Http\Response
      */
     public function show(PurchaseProduct $purchaseProduct)
@@ -74,7 +74,7 @@ class PurchaseProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\PurchaseProduct  $purchaseProduct
+     * @param  \App\PurchaseProduct  $purchaseProduct
      * @return \Illuminate\Http\Response
      */
     public function edit(PurchaseProduct $purchaseProduct)
@@ -86,7 +86,7 @@ class PurchaseProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\PurchaseProduct  $purchaseProduct
+     * @param  \App\PurchaseProduct  $purchaseProduct
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, PurchaseProduct $purchaseProduct)
@@ -174,7 +174,7 @@ class PurchaseProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\PurchaseProduct  $purchaseProduct
+     * @param  \App\PurchaseProduct  $purchaseProduct
      * @return \Illuminate\Http\Response
      */
     public function destroy(PurchaseProduct $purchaseProduct)

@@ -1,9 +1,9 @@
 <?php
 
-namespace buzzeroffice;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use buzzeroffice\Client;
+use App\Client;
 
 class Order extends Model
 {
@@ -30,7 +30,7 @@ class Order extends Model
     ];
 
     public function product(){
-        return $this->belongsTo('buzzeroffice\Inventory');
+        return $this->belongsTo('App\Inventory');
     }
 
     public function timeFormat($dateTime){

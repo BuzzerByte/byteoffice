@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\WorkShift;
+use App\WorkShift;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -52,7 +52,7 @@ class WorkShiftController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\WorkShift  $workShift
+     * @param  \App\WorkShift  $workShift
      * @return \Illuminate\Http\Response
      */
     public function show(WorkShift $workShift)
@@ -63,7 +63,7 @@ class WorkShiftController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\WorkShift  $workShift
+     * @param  \App\WorkShift  $workShift
      * @return \Illuminate\Http\Response
      */
     public function edit(WorkShift $workshift)
@@ -75,7 +75,7 @@ class WorkShiftController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\WorkShift  $workShift
+     * @param  \App\WorkShift  $workShift
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, WorkShift $workshift)
@@ -94,7 +94,7 @@ class WorkShiftController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\WorkShift  $workShift
+     * @param  \App\WorkShift  $workShift
      * @return \Illuminate\Http\Response
      */
     public function destroy(WorkShift $workShift)

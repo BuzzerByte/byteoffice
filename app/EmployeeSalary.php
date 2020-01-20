@@ -1,11 +1,11 @@
 <?php
 
-namespace buzzeroffice;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use buzzeroffice\User;
-use buzzeroffice\JobHistory;
-use buzzeroffice\JobTitle;
+use App\User;
+use App\JobHistory;
+use App\JobTitle;
 
 class EmployeeSalary extends Model
 {

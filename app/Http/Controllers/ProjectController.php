@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\Project;
+use App\Project;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -41,7 +41,7 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\Project  $project
+     * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
     public function show(Project $project)
@@ -52,7 +52,7 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\Project  $project
+     * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
     public function edit(Project $project)
@@ -64,7 +64,7 @@ class ProjectController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\Project  $project
+     * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Project $project)
@@ -75,7 +75,7 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\Project  $project
+     * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
     public function destroy(Project $project)

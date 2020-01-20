@@ -69,9 +69,9 @@ Route::group([
         'as' => 'admin.dashboard', 'uses' => 'DashboardController@index'
     ]);
 
-    // Route::get('/dashboard', [
-    //     'as' => 'admin.dashboard.basic', 'uses' => 'DashboardController@basic'
-    // ]);
+    Route::get('/dashboard', [
+        'as' => 'admin.dashboard.basic', 'uses' => 'DashboardController@basic'
+    ]);
 
     // Route::get('/dashboard/ecommerce', [
     //     'as' => 'admin.dashboard.ecommerce', 'uses' => 'DashboardController@ecommerce'

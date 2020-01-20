@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\EmployeeSubordinate;
+use App\EmployeeSubordinate;
 use Illuminate\Http\Request;
 
 class EmployeeSubordinateController extends Controller
@@ -46,7 +46,7 @@ class EmployeeSubordinateController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\EmployeeSubordinate  $employeeSubordinate
+     * @param  \App\EmployeeSubordinate  $employeeSubordinate
      * @return \Illuminate\Http\Response
      */
     public function show(EmployeeSubordinate $employeeSubordinate)
@@ -57,7 +57,7 @@ class EmployeeSubordinateController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\EmployeeSubordinate  $employeeSubordinate
+     * @param  \App\EmployeeSubordinate  $employeeSubordinate
      * @return \Illuminate\Http\Response
      */
     public function edit(EmployeeSubordinate $employeeSubordinate)
@@ -69,7 +69,7 @@ class EmployeeSubordinateController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\EmployeeSubordinate  $employeeSubordinate
+     * @param  \App\EmployeeSubordinate  $employeeSubordinate
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, EmployeeSubordinate $employeeSubordinate)
@@ -85,7 +85,7 @@ class EmployeeSubordinateController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\EmployeeSubordinate  $employeeSubordinate
+     * @param  \App\EmployeeSubordinate  $employeeSubordinate
      * @return \Illuminate\Http\Response
      */
     public function destroy(EmployeeSubordinate $employeeSubordinate)

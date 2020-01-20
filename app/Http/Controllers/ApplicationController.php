@@ -1,13 +1,13 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\Application;
-use buzzeroffice\Leavetype;
-use buzzeroffice\Employee;
+use App\Application;
+use App\Leavetype;
+use App\Employee;
 use Illuminate\Http\Request;
 use Auth;
-use buzzeroffice\User;
+use App\User;
 
 class ApplicationController extends Controller
 {

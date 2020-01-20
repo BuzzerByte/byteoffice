@@ -1,10 +1,10 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\EmployeeTermination;
-use buzzeroffice\Employee;
-use buzzeroffice\User;
+use App\EmployeeTermination;
+use App\Employee;
+use App\User;
 use Illuminate\Http\Request;
 
 class EmployeeTerminationController extends Controller
@@ -62,7 +62,7 @@ class EmployeeTerminationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\EmployeeTermination  $employeeTermination
+     * @param  \App\EmployeeTermination  $employeeTermination
      * @return \Illuminate\Http\Response
      */
     public function show(EmployeeTermination $employeeTermination)
@@ -74,7 +74,7 @@ class EmployeeTerminationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\EmployeeTermination  $employeeTermination
+     * @param  \App\EmployeeTermination  $employeeTermination
      * @return \Illuminate\Http\Response
      */
     public function edit(EmployeeTermination $employeeTermination)
@@ -86,7 +86,7 @@ class EmployeeTerminationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\EmployeeTermination  $employeeTermination
+     * @param  \App\EmployeeTermination  $employeeTermination
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, EmployeeTermination $employeeTermination)
@@ -102,7 +102,7 @@ class EmployeeTerminationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\EmployeeTermination  $employeeTermination
+     * @param  \App\EmployeeTermination  $employeeTermination
      * @return \Illuminate\Http\Response
      */
     public function destroy(EmployeeTermination $employeeTermination)

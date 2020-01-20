@@ -153,11 +153,11 @@
                             @endif
                             @foreach($applications as $application)
                             <tr>
-                                <td>{{ \buzzeroffice\User::where('id',$application->employee_id)->first()->id_number }}</td>
-                                <td>{{ \buzzeroffice\User::where('id',$application->employee_id)->first()->f_name }} {{ \buzzeroffice\User::where('id',$application->employee_id)->first()->l_name }}</td>
+                                <td>{{ \App\User::where('id',$application->employee_id)->first()->id_number }}</td>
+                                <td>{{ \App\User::where('id',$application->employee_id)->first()->f_name }} {{ \App\User::where('id',$application->employee_id)->first()->l_name }}</td>
                                 <td>{{ Carbon\Carbon::parse( $application->start)->format('d M Y') }}</td>
                                 <td>{{ Carbon\Carbon::parse( $application->end)->format('d M Y') }}</td>
-                                <td>{{ \buzzeroffice\LeaveType::where('id',$application->type_id)->first()->name }}</td>
+                                <td>{{ \App\LeaveType::where('id',$application->type_id)->first()->name }}</td>
                                 <td>{{ Carbon\Carbon::parse( $application->date)->format('d M Y') }}</td>
                                 <td>{{ $application->status }}</td>
                                 <td>

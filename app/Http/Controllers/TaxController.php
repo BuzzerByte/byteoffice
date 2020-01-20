@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\Tax;
+use App\Tax;
 use Illuminate\Http\Request;
 
 class TaxController extends Controller
@@ -49,7 +49,7 @@ class TaxController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\Tax  $tax
+     * @param  \App\Tax  $tax
      * @return \Illuminate\Http\Response
      */
     public function show(Tax $tax)
@@ -60,7 +60,7 @@ class TaxController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\Tax  $tax
+     * @param  \App\Tax  $tax
      * @return \Illuminate\Http\Response
      */
     public function edit(Tax $tax)
@@ -74,7 +74,7 @@ class TaxController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\Tax  $tax
+     * @param  \App\Tax  $tax
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Tax $tax)
@@ -91,7 +91,7 @@ class TaxController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\Tax  $tax
+     * @param  \App\Tax  $tax
      * @return \Illuminate\Http\Response
      */
     public function destroy(Tax $tax)

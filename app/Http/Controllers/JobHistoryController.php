@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\JobHistory;
+use App\JobHistory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -52,7 +52,7 @@ class JobHistoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\JobHistory  $jobHistory
+     * @param  \App\JobHistory  $jobHistory
      * @return \Illuminate\Http\Response
      */
     public function show(JobHistory $jobHistory)
@@ -63,7 +63,7 @@ class JobHistoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\JobHistory  $jobHistory
+     * @param  \App\JobHistory  $jobHistory
      * @return \Illuminate\Http\Response
      */
     public function edit(JobHistory $jobHistory)
@@ -75,7 +75,7 @@ class JobHistoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\JobHistory  $jobHistory
+     * @param  \App\JobHistory  $jobHistory
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, JobHistory $jobHistory)
@@ -94,7 +94,7 @@ class JobHistoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\JobHistory  $jobHistory
+     * @param  \App\JobHistory  $jobHistory
      * @return \Illuminate\Http\Response
      */
     public function destroy(JobHistory $jobHistory)

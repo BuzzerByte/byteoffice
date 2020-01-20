@@ -1,6 +1,6 @@
 <?php
 
-namespace buzzeroffice;
+namespace App;
 
 use Zizaco\Entrust\EntrustPermission;
 
@@ -13,6 +13,6 @@ class Permission extends EntrustPermission
     ];
     public function roles()
     {
-        return $this->belongsToMany('buzzeroffice\Role');
+        return $this->belongsToMany('App\Role');
     }
 }

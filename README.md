@@ -1,4 +1,4 @@
-# Buzzeroffice
+# App
 
 Office Management System
 
@@ -24,7 +24,7 @@ The project is develop using laravel.
 
 2. Go to your development environment root directory, (e.g /var/www/html/ for apache).
 
-3. "git clone https://github.com/RuJyi/buzzeroffice.git < folder name >".
+3. "git clone https://github.com/RuJyi/App.git < folder name >".
 
 4. "cd < folder name >".
 

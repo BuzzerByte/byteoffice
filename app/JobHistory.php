@@ -1,9 +1,9 @@
 <?php
 
-namespace buzzeroffice;
-use buzzeroffice\User;
-use buzzeroffice\Department;
-use buzzeroffice\JobCategory;
+namespace App;
+use App\User;
+use App\Department;
+use App\JobCategory;
 use Illuminate\Database\Eloquent\Model;
 
 class JobHistory extends Model

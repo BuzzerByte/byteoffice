@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\JobCategory;
+use App\JobCategory;
 use Illuminate\Http\Request;
 
 class JobCategoryController extends Controller
@@ -47,7 +47,7 @@ class JobCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\JobCategory  $jobCategory
+     * @param  \App\JobCategory  $jobCategory
      * @return \Illuminate\Http\Response
      */
     public function show(JobCategory $jobCategory)
@@ -58,7 +58,7 @@ class JobCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\JobCategory  $jobCategory
+     * @param  \App\JobCategory  $jobCategory
      * @return \Illuminate\Http\Response
      */
     public function edit(JobCategory $jobCategory)
@@ -71,7 +71,7 @@ class JobCategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\JobCategory  $jobCategory
+     * @param  \App\JobCategory  $jobCategory
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, JobCategory $jobCategory)
@@ -85,7 +85,7 @@ class JobCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\JobCategory  $jobCategory
+     * @param  \App\JobCategory  $jobCategory
      * @return \Illuminate\Http\Response
      */
     public function destroy(JobCategory $jobCategory)

@@ -1,7 +1,7 @@
 
 <header class="site-header">
   <a href="#" class="brand-main">
-    <img src="{{asset('/assets/admin/img/logo-desk.png')}}" id="logo-desk" alt="buzzeroffice Logo" class="hidden-sm-down">
+    <img src="{{asset('/assets/admin/img/logo-desk.png')}}" id="logo-desk" alt="App Logo" class="hidden-sm-down">
   </a>
 
   <ul class="action-list">

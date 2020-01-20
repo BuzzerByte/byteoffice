@@ -169,13 +169,13 @@ $(document).ready(function(){
                             {{ \Carbon\Carbon::parse($reimbursement->date)->format('Y-m-d') }} </td>
                         <td>
                             {{
-                            \buzzeroffice\User::where('id',$reimbursement->employee_id)->first()->f_name
+                            \App\User::where('id',$reimbursement->employee_id)->first()->f_name
                             }} {{
-                            \buzzeroffice\User::where('id',$reimbursement->employee_id)->first()->l_name
+                            \App\User::where('id',$reimbursement->employee_id)->first()->l_name
                             }}</td>
                         <td>
                             {{
-                            \buzzeroffice\Department::where('id',$reimbursement->department_id)->first()->name
+                            \App\Department::where('id',$reimbursement->department_id)->first()->name
                             }} </td>
                         <td>
                             {{$reimbursement->amount}} </td>

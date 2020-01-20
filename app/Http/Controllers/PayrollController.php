@@ -1,14 +1,14 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-use buzzeroffice\User;
-use buzzeroffice\Department;
-use buzzeroffice\JobTitle;
-use buzzeroffice\JobHistory;
-use buzzeroffice\EmployeeSalary;
+use App\User;
+use App\Department;
+use App\JobTitle;
+use App\JobHistory;
+use App\EmployeeSalary;
 
 class PayrollController extends Controller
 {

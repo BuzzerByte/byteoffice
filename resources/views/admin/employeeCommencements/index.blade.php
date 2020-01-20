@@ -265,20 +265,20 @@
                                                     Carbon\Carbon::parse($job->effective_from)->format('d M
                                                     Y') }}</td>
                                                 <td>{{
-                                                    \buzzeroffice\Department::where('id',$job->department_id)->first()->name
+                                                    \App\Department::where('id',$job->department_id)->first()->name
                                                     }}</td>
                                                 <td>{{
-                                                    \buzzeroffice\JobTitle::where('id',$job->title_id)->first()->title
+                                                    \App\JobTitle::where('id',$job->title_id)->first()->title
                                                     }}</td>
                                                 <td>{{
-                                                    \buzzeroffice\JobCategory::where('id',$job->category_id)->first()->category
+                                                    \App\JobCategory::where('id',$job->category_id)->first()->category
                                                     }}</td>
                                                 <td>{{
-                                                    \buzzeroffice\WorkShift::where('id',$job->shift_id)->first()->name
+                                                    \App\WorkShift::where('id',$job->shift_id)->first()->name
                                                     }}</td>
                                                 <td>
                                                     <a type="button" class="btn btn-success btn-xs">{{
-                                                        \buzzeroffice\EmployeeStatus::where('id',$job->status_id)->first()->status
+                                                        \App\EmployeeStatus::where('id',$job->status_id)->first()->status
                                                         }}</a>
                                                 </td>
                                                 <td>
