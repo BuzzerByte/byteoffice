@@ -30,6 +30,10 @@ class User extends Authenticatable
         return ($this->role == 'admin');
     }
 
+    public function hasRole(){
+        return $this->role;
+    }
+
     public static function login($request)
     {
         $remember = $request->remember;

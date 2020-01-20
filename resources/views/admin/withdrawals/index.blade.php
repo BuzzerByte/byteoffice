@@ -111,10 +111,10 @@
                                 <td>{{ Carbon\Carbon::parse( $withdrawal->updated_at)->format('d M Y h:m')
                                     }}</td>
                                 <td>{{
-                                    \buzzeroffice\Inventory::where('id',$withdrawal->inventory_id)->first()->name
+                                    \App\Inventory::where('id',$withdrawal->inventory_id)->first()->name
                                     }}</td>
                                 <td>{{
-                                    \buzzeroffice\Inventory::where('id',$withdrawal->inventory_id)->first()->quantity
+                                    \App\Inventory::where('id',$withdrawal->inventory_id)->first()->quantity
                                     }}</td>
                                 <td>{{ $withdrawal->w_quantity }}</td>
                                 <td>{{ $withdrawal->withdrawer }}</td>

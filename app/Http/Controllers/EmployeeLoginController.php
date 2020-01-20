@@ -1,11 +1,11 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\EmployeeLogin;
+use App\EmployeeLogin;
 use Session;
 use Illuminate\Http\Request;
-use buzzeroffice\User;
+use App\User;
 
 class EmployeeLoginController extends Controller
 {
@@ -43,7 +43,7 @@ class EmployeeLoginController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\EmployeeLogin  $employeeLogin
+     * @param  \App\EmployeeLogin  $employeeLogin
      * @return \Illuminate\Http\Response
      */
     public function show(EmployeeLogin $employeeLogin)
@@ -54,7 +54,7 @@ class EmployeeLoginController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\EmployeeLogin  $employeeLogin
+     * @param  \App\EmployeeLogin  $employeeLogin
      * @return \Illuminate\Http\Response
      */
     public function edit(EmployeeLogin $employeeLogin)
@@ -66,7 +66,7 @@ class EmployeeLoginController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\EmployeeLogin  $employeeLogin
+     * @param  \App\EmployeeLogin  $employeeLogin
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, EmployeeLogin $employeeLogin)
@@ -89,7 +89,7 @@ class EmployeeLoginController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\EmployeeLogin  $employeeLogin
+     * @param  \App\EmployeeLogin  $employeeLogin
      * @return \Illuminate\Http\Response
      */
     public function destroy(EmployeeLogin $employeeLogin)

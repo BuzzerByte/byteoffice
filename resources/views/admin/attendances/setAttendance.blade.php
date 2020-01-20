@@ -101,8 +101,8 @@ $(document.body).on('change', '#parentLeaveCheckbox', function () {
 
                 <div class="card-header bg-info">
                     <div class="caption">
-                        @if(\buzzeroffice\Department::where('id',$department_id)->exists())
-                        <h6 class="box-title">{{ \buzzeroffice\Department::where('id',$department_id)->first()->name }}
+                        @if(\App\Department::where('id',$department_id)->exists())
+                        <h6 class="box-title">{{ \App\Department::where('id',$department_id)->first()->name }}
                             Department Attendance</h6>
                         @else
                         <h6>No Selected Department</h6>
@@ -132,17 +132,17 @@ $(document.body).on('change', '#parentLeaveCheckbox', function () {
                                         @foreach($attendances as $attendance)
                                         <tr>
                                             <td>{{
-                                                \buzzeroffice\User::where('id',$attendance->employee_id)->first()->id_number
+                                                \App\User::where('id',$attendance->employee_id)->first()->id_number
                                                 }}
                                                 <input type="hidden" value="{{$attendance->employee_id}}" name="employee_id[]"></td>
                                             <td>{{
-                                                \buzzeroffice\User::where('id',$attendance->employee_id)->first()->f_name
+                                                \App\User::where('id',$attendance->employee_id)->first()->f_name
                                                 }}
                                                 {{
-                                                \buzzeroffice\User::where('id',$attendance->employee_id)->first()->l_name
+                                                \App\User::where('id',$attendance->employee_id)->first()->l_name
                                                 }}</td>
                                             <td>{{
-                                                \buzzeroffice\JobTitle::where('id',\buzzeroffice\JobHistory::where('employee_id',$attendance->employee_id)->first()->title_id)->first()->title
+                                                \App\JobTitle::where('id',\App\JobHistory::where('employee_id',$attendance->employee_id)->first()->title_id)->first()->title
                                                 }}</td>
                                             <td>
                                                 <div class="col-sm-2">

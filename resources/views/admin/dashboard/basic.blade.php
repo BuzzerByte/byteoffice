@@ -180,7 +180,7 @@ Highcharts.chart('salesChart', {
                                     @if($AllOrder != [])
                                     @foreach($AllOrder as $order)
                                     <tr>
-                                    <td>{{ \buzzeroffice\Client::where('id',$order->client_id)->first()->name }}</td>
+                                    <td>{{ \App\Client::where('id',$order->client_id)->first()->name }}</td>
                                     <td>{{ $order->invoice_date }}</td>
                                     <td>{{ $order->g_total}}</td>
                                     <td>

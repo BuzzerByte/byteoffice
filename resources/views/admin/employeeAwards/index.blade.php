@@ -105,12 +105,12 @@
                             @foreach($awards as $award)
                             <tr role="row" class="odd">
                                 <td>{{
-                                    \buzzeroffice\User::where('id',$award->employee_id)->first()->id_number
+                                    \App\User::where('id',$award->employee_id)->first()->id_number
                                     }}</td>
                                 <td>{{
-                                    \buzzeroffice\User::where('id',$award->employee_id)->first()->f_name
+                                    \App\User::where('id',$award->employee_id)->first()->f_name
                                     }} {{
-                                    \buzzeroffice\User::where('id',$award->employee_id)->first()->l_name
+                                    \App\User::where('id',$award->employee_id)->first()->l_name
                                     }}</td>
                                 <td class="sorting_1">{{ $award->award }}</td>
                                 <td>{{ $award->gift }}</td>

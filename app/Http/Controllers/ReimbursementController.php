@@ -1,16 +1,16 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\Reimbursement;
-use buzzeroffice\Employee;
-use buzzeroffice\Department;
+use App\Reimbursement;
+use App\Employee;
+use App\Department;
 use Excel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Auth;
-use buzzeroffice\User;
-use buzzeroffice\JobHistory;
+use App\User;
+use App\JobHistory;
 
 class ReimbursementController extends Controller
 {
@@ -98,7 +98,7 @@ class ReimbursementController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\Reimbursement  $reimbursement
+     * @param  \App\Reimbursement  $reimbursement
      * @return \Illuminate\Http\Response
      */
     public function show(Reimbursement $reimbursement)
@@ -110,7 +110,7 @@ class ReimbursementController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\Reimbursement  $reimbursement
+     * @param  \App\Reimbursement  $reimbursement
      * @return \Illuminate\Http\Response
      */
     public function edit(Reimbursement $reimbursement)
@@ -122,7 +122,7 @@ class ReimbursementController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\Reimbursement  $reimbursement
+     * @param  \App\Reimbursement  $reimbursement
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Reimbursement $reimbursement)
@@ -176,7 +176,7 @@ class ReimbursementController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\Reimbursement  $reimbursement
+     * @param  \App\Reimbursement  $reimbursement
      * @return \Illuminate\Http\Response
      */
     public function destroy(Reimbursement $reimbursement)

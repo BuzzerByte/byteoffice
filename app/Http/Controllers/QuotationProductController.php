@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\QuotationProduct;
+use App\QuotationProduct;
 use Illuminate\Http\Request;
 
 class QuotationProductController extends Controller
@@ -41,7 +41,7 @@ class QuotationProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\QuotationProduct  $quotationProduct
+     * @param  \App\QuotationProduct  $quotationProduct
      * @return \Illuminate\Http\Response
      */
     public function show(QuotationProduct $quotationProduct)
@@ -52,7 +52,7 @@ class QuotationProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\QuotationProduct  $quotationProduct
+     * @param  \App\QuotationProduct  $quotationProduct
      * @return \Illuminate\Http\Response
      */
     public function edit(QuotationProduct $quotationProduct)
@@ -64,7 +64,7 @@ class QuotationProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\QuotationProduct  $quotationProduct
+     * @param  \App\QuotationProduct  $quotationProduct
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, QuotationProduct $quotationProduct)
@@ -75,7 +75,7 @@ class QuotationProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\QuotationProduct  $quotationProduct
+     * @param  \App\QuotationProduct  $quotationProduct
      * @return \Illuminate\Http\Response
      */
     public function destroy(QuotationProduct $quotationProduct)

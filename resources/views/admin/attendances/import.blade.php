@@ -102,12 +102,12 @@ function init(){
                                                                 <td>{{ $employee->id_number }}</td>
                                                                 <td>{{ $employee->f_name }}</td>
                                                                 <td>{{ $employee->l_name }}</td>
-                                                                @if(\buzzeroffice\JobHistory::where('employee_id',$employee->id)->exists())
+                                                                @if(\App\JobHistory::where('employee_id',$employee->id)->exists())
                                                                 <td>{{
-                                                                    \buzzeroffice\Department::where('id',\buzzeroffice\JobHistory::where('employee_id',$employee->id)->first()->department_id)->first()->name
+                                                                    \App\Department::where('id',\App\JobHistory::where('employee_id',$employee->id)->first()->department_id)->first()->name
                                                                     }}</td>
                                                                 <td>{{
-                                                                    \buzzeroffice\JobTitle::where('id',\buzzeroffice\JobHistory::where('employee_id',$employee->id)->first()->title_id)->first()->title
+                                                                    \App\JobTitle::where('id',\App\JobHistory::where('employee_id',$employee->id)->first()->title_id)->first()->title
                                                                     }}</td>
     
                                                                 @else

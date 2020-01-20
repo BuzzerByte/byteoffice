@@ -1,9 +1,9 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 use Session;
 use Response;
-use buzzeroffice\Client;
+use App\Client;
 use Excel;
 use File;
 use Illuminate\Http\Request;

@@ -169,14 +169,14 @@
                                                     </label>
                                                 </td>
                                                 <td>{{
-                                                    \buzzeroffice\User::where('id',$supervisor->employee_id)->first()->f_name
+                                                    \App\User::where('id',$supervisor->employee_id)->first()->f_name
                                                     }} {{
-                                                    \buzzeroffice\User::where('id',$supervisor->employee_id)->first()->l_name
+                                                    \App\User::where('id',$supervisor->employee_id)->first()->l_name
                                                     }}</td>
                                                 <td>{{
-                                                    \buzzeroffice\User::where('id',$supervisor->supervisor_id)->first()->f_name
+                                                    \App\User::where('id',$supervisor->supervisor_id)->first()->f_name
                                                     }} {{
-                                                    \buzzeroffice\User::where('id',$supervisor->supervisor_id)->first()->l_name
+                                                    \App\User::where('id',$supervisor->supervisor_id)->first()->l_name
                                                     }}</td>
                                                 <td>
 
@@ -268,13 +268,13 @@
                                                     </label>
                                                 </td>
                                                 <td>{{
-                                                    \buzzeroffice\User::where('id',$subordinate->employee_id)->first()->f_name}}
+                                                    \App\User::where('id',$subordinate->employee_id)->first()->f_name}}
                                                     {{
-                                                    \buzzeroffice\User::where('id',$subordinate->employee_id)->first()->l_name}}</td>
+                                                    \App\User::where('id',$subordinate->employee_id)->first()->l_name}}</td>
                                                 <td>{{
-                                                    \buzzeroffice\User::where('id',$subordinate->subordinate_id)->first()->f_name}}
+                                                    \App\User::where('id',$subordinate->subordinate_id)->first()->f_name}}
                                                     {{
-                                                    \buzzeroffice\User::where('id',$subordinate->subordinate_id)->first()->l_name}}</td>
+                                                    \App\User::where('id',$subordinate->subordinate_id)->first()->l_name}}</td>
                                                 <td>
 
                                                     <div class="btn-group mr-2" role="group" aria-label="First group">

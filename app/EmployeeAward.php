@@ -1,9 +1,9 @@
 <?php
 
-namespace buzzeroffice;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use buzzeroffice\User;
+use App\User;
 
 class EmployeeAward extends Model
 {

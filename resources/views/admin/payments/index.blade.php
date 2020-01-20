@@ -126,8 +126,8 @@
                                     <td>
                                         <div class="row">
                                             <input type="text" class="invoice_id" value="{{ $pay->order_id }}" hidden>
-                                            @if(isset(\buzzeroffice\Order::where('id',$pay->order_id)->first()->client_id))
-                                            <input type="text" class="client_id" value="{{ \buzzeroffice\Order::where('id',$pay->order_id)->first()->client_id }}"
+                                            @if(isset(\App\Order::where('id',$pay->order_id)->first()->client_id))
+                                            <input type="text" class="client_id" value="{{ \App\Order::where('id',$pay->order_id)->first()->client_id }}"
                                                 hidden>
                                             @else
                                             @endif
@@ -170,8 +170,8 @@
                                         <div class="row">
                                             <input type="text" class="purchase_id" value="{{ $pay->purchase_id }}"
                                                 hidden>
-                                            @if(isset(\buzzeroffice\Purchase::where('id',$pay->purchase_id)->first()->vendor_id))
-                                            <input type="text" class="vendor_id" value="{{ \buzzeroffice\Purchase::where('id',$pay->purchase_id)->first()->vendor_id }}"
+                                            @if(isset(\App\Purchase::where('id',$pay->purchase_id)->first()->vendor_id))
+                                            <input type="text" class="vendor_id" value="{{ \App\Purchase::where('id',$pay->purchase_id)->first()->vendor_id }}"
                                                 hidden>
 
                                             @else

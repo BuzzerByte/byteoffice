@@ -1,23 +1,23 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\Employee;
-use buzzeroffice\UserAttachment;
-use buzzeroffice\ContactDetail;
-use buzzeroffice\EmployeeDependent;
-use buzzeroffice\EmployeeCommencement;
-use buzzeroffice\JobHistory;
-use buzzeroffice\EmployeeSalary;
-use buzzeroffice\EmployeeSupervisor;
-use buzzeroffice\EmployeeSubordinate;
-use buzzeroffice\EmployeeDeposit;
-use buzzeroffice\EmployeeLogin;
-use buzzeroffice\Department;
-use buzzeroffice\EmployeeStatus;
-use buzzeroffice\JobCategory;
-use buzzeroffice\JobTitle;
-use buzzeroffice\WorkShift;
+use App\Employee;
+use App\UserAttachment;
+use App\ContactDetail;
+use App\EmployeeDependent;
+use App\EmployeeCommencement;
+use App\JobHistory;
+use App\EmployeeSalary;
+use App\EmployeeSupervisor;
+use App\EmployeeSubordinate;
+use App\EmployeeDeposit;
+use App\EmployeeLogin;
+use App\Department;
+use App\EmployeeStatus;
+use App\JobCategory;
+use App\JobTitle;
+use App\WorkShift;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
@@ -284,7 +284,7 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\Employee  $employee
+     * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
     public function edit(Employee $employee)
@@ -296,7 +296,7 @@ class EmployeeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\Employee  $employee
+     * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Employee $employee)
@@ -327,7 +327,7 @@ class EmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\Employee  $employee
+     * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
     public function destroy(Employee $employee)

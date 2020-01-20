@@ -70,18 +70,18 @@ $('.delete').click(function () {
                             <tr>
                                 <td>{{ $employee->id_number }}</td>
                                 <td>{{ $employee->f_name }} {{ $employee->l_name }}</td>
-                                @if(\buzzeroffice\JobHistory::where('employee_id',$employee->id)->exists())
+                                @if(\App\JobHistory::where('employee_id',$employee->id)->exists())
                                 <td>{{
-                                    \buzzeroffice\Department::where('id',\buzzeroffice\JobHistory::where('employee_id',$employee->id)->first()->department_id)->first()->name
+                                    \App\Department::where('id',\App\JobHistory::where('employee_id',$employee->id)->first()->department_id)->first()->name
                                     }}</td>
                                 <td>{{
-                                    \buzzeroffice\JobTitle::where('id',\buzzeroffice\JobHistory::where('employee_id',$employee->id)->first()->title_id)->first()->title
+                                    \App\JobTitle::where('id',\App\JobHistory::where('employee_id',$employee->id)->first()->title_id)->first()->title
                                     }}</td>
                                 <td>{{
-                                    \buzzeroffice\EmployeeStatus::where('id',\buzzeroffice\JobHistory::where('employee_id',$employee->id)->first()->status_id)->first()->status
+                                    \App\EmployeeStatus::where('id',\App\JobHistory::where('employee_id',$employee->id)->first()->status_id)->first()->status
                                     }}</td>
                                 <td>{{
-                                    \buzzeroffice\WorkShift::where('id',\buzzeroffice\JobHistory::where('employee_id',$employee->id)->first()->shift_id)->first()->name
+                                    \App\WorkShift::where('id',\App\JobHistory::where('employee_id',$employee->id)->first()->shift_id)->first()->name
                                     }}</td>
                                 @else
                                 <td>-</td>

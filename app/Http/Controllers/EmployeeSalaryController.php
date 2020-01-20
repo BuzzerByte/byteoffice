@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\EmployeeSalary;
+use App\EmployeeSalary;
 use Illuminate\Http\Request;
 
 class EmployeeSalaryController extends Controller
@@ -41,7 +41,7 @@ class EmployeeSalaryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\EmployeeSalary  $employeeSalary
+     * @param  \App\EmployeeSalary  $employeeSalary
      * @return \Illuminate\Http\Response
      */
     public function show(EmployeeSalary $employeeSalary)
@@ -52,7 +52,7 @@ class EmployeeSalaryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\EmployeeSalary  $employeeSalary
+     * @param  \App\EmployeeSalary  $employeeSalary
      * @return \Illuminate\Http\Response
      */
     public function edit(EmployeeSalary $employeeSalary)
@@ -64,7 +64,7 @@ class EmployeeSalaryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\EmployeeSalary  $employeeSalary
+     * @param  \App\EmployeeSalary  $employeeSalary
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, EmployeeSalary $employeeSalary)
@@ -92,7 +92,7 @@ class EmployeeSalaryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\EmployeeSalary  $employeeSalary
+     * @param  \App\EmployeeSalary  $employeeSalary
      * @return \Illuminate\Http\Response
      */
     public function destroy(EmployeeSalary $employeeSalary)

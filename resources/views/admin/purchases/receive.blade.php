@@ -73,10 +73,10 @@
                                     {{ $product->purchase_id }} </td>
                                 <td>
                                     {{
-                                    \buzzeroffice\Vendor::where('id',\buzzeroffice\Purchase::where('id',$product->purchase_id)->first()->vendor_id)->first()->name
+                                    \App\Vendor::where('id',\App\Purchase::where('id',$product->purchase_id)->first()->vendor_id)->first()->name
                                     }} </td>
                                 <td>
-                                    {{ \buzzeroffice\Inventory::where('id',$product->inventory_id)->first()->name }}</td>
+                                    {{ \App\Inventory::where('id',$product->inventory_id)->first()->name }}</td>
                                 <td>
                                     {{ $product->quantity }} </td>
                                 <td>
