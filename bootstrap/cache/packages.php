@@ -6,6 +6,13 @@
       0 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
     ),
   ),
+  'beyondcode/laravel-dump-server' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'BeyondCode\\DumpServer\\DumpServerServiceProvider',
+    ),
+  ),
   'fideloper/proxy' => 
   array (
     'providers' => 
@@ -13,26 +20,36 @@
       0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     ),
   ),
-  'laravel/socialite' => 
+  'laracasts/flash' => 
   array (
     'providers' => 
     array (
-      0 => 'Laravel\\Socialite\\SocialiteServiceProvider',
+      0 => 'Laracasts\\Flash\\FlashServiceProvider',
     ),
     'aliases' => 
     array (
-      'Socialite' => 'Laravel\\Socialite\\Facades\\Socialite',
+      'Flash' => 'Laracasts\\Flash\\Flash',
     ),
   ),
-  'maatwebsite/excel' => 
+  'laravel/telescope' => 
   array (
     'providers' => 
     array (
-      0 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+      0 => 'Laravel\\Telescope\\TelescopeServiceProvider',
     ),
-    'aliases' => 
+  ),
+  'nesbot/carbon' => 
+  array (
+    'providers' => 
     array (
-      'Excel' => 'Maatwebsite\\Excel\\Facades\\Excel',
+      0 => 'Carbon\\Laravel\\ServiceProvider',
+    ),
+  ),
+  'nunomaduro/collision' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     ),
   ),
 );
