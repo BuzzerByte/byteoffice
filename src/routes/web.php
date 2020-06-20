@@ -1,0 +1,372 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Frontend Routes
+|--------------------------------------------------------------------------
+| Define the routes for your Frontend pages here
+|
+*/
+
+Route::get('/', [
+    //'as' => 'home', 'uses' => 'FrontendController@home'
+    'as'=>'home', 'uses'=>'AuthController@login'
+]);
+
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+| Route group for Backend prefixed with "admin".
+| To Enable Authentication just remove the comment from Admin Middleware
+|
+*/
+Route::group([
+    'prefix' => 'users'
+],function(){
+    Route::get('/', [
+        'as' => 'users.dashboard', 'uses' => 'DashboardController@index'
+    ]);
+
+    // Route::get('/dashboard/basic', [
+    //     'as' => 'admin.dashboard.basic', 'uses' => 'DashboardController@basic'
+    // ]);
+
+    // Route::get('/dashboard/ecommerce', [
+    //     'as' => 'admin.dashboard.ecommerce', 'uses' => 'DashboardController@ecommerce'
+    // ]);
+
+    // Route::get('/dashboard/finance', [
+    //     'as' => 'admin.dashboard.finance', 'uses' => 'DashboardController@finance'
+    // ]);
+    //Profile
+    Route::get('/profiles/showAttendances','UserController@showAttendances')->name('profiles.showAttendances');
+    Route::post('/profiles/setAttendanceYear','UserController@setAttendanceYear')->name('profiles.setAttendanceYear');
+    Route::resource('profiles','UserController');
+    //Leave Application
+    Route::resource('applications','ApplicationController');
+    //Reimbursement
+    Route::get('/reimbursements/approvals','ReimbursementController@approval')->name('reimbursements.approval');
+    Route::resource('reimbursements','ReimbursementController');
+    //Payroll
+    Route::resource('payrolls','PayrollController');
+    //Attendance
+   
+    Route::resource('attendances','AttendanceController');
+    //Awards
+    Route::resource('awards','EmployeeAwardController');
+});
+
+Route::group([
+    'prefix' => 'admin',
+//    'middleware' => 'admin'
+], function () {
+
+    // Dashboard
+    //----------------------------------
+
+    Route::get('/', [
+        'as' => 'admin.dashboard', 'uses' => 'DashboardController@index'
+    ]);
+
+    Route::get('/dashboard', [
+        'as' => 'admin.dashboard.basic', 'uses' => 'DashboardController@basic'
+    ]);
+
+    // Route::get('/dashboard/ecommerce', [
+    //     'as' => 'admin.dashboard.ecommerce', 'uses' => 'DashboardController@ecommerce'
+    // ]);
+
+    // Route::get('/dashboard/finance', [
+    //     'as' => 'admin.dashboard.finance', 'uses' => 'DashboardController@finance'
+    // ]);
+
+    //Routes for role
+    Route::resource('roles','RoleController');
+
+    //Routes for permission
+    Route::resource('permissions','PermissionController');
+
+    //Routes for payment
+    Route::post('/payment/{payment}/delete','PaymentController@delete')->name('payments.delete');
+    Route::post('/payments/add','PaymentController@add')->name('payments.add');
+    Route::resource('payments','PaymentController');
+    
+    //Routes for purchases
+    Route::get('/purchases/export','PurchaseController@export')->name('purchases.export');
+    Route::get('/purchases/receive','PurchaseController@receive')->name('purchases.receive');
+    Route::post('/purchases/{purchase}/delete','PurchaseController@delete')->name('purchases.delete');
+    Route::get('/purchases/{vendor}/createWithVendor','PurchaseController@createWithVendor')->name('purchases.createWithVendor');
+    Route::get('/purchases/{purchase}/getBalance','PurchaseController@getBalance')->name('purchases.getBalance');
+    Route::resource('purchases','PurchaseController');
+
+    //Routes for inventory
+    Route::post('/inventory/importInventory','InventoryController@importInventory')->name('inventory.importInventory');
+    Route::get('/inventory/import','InventoryController@import')->name('inventory.import');
+    Route::post('/inventory/delete','InventoryController@delete')->name('inventory.delete');
+    Route::get('/inventory/download','InventoryController@downloadInventorySample')->name('inventory.download');
+    Route::resource('inventory','InventoryController');
+
+    //Routes for orders
+    Route::get('/orders/exportOrder','OrderController@exportOrder')->name('orders.export');
+    Route::get('/orders/processing','OrderController@process')->name('orders.process');
+    Route::get('/orders/pending','OrderController@pending')->name('orders.pending');
+    Route::get('/orders/deliver','OrderController@deliver')->name('orders.deliver');
+    Route::get('/orders/exportQuotation','OrderController@exportQuotation')->name('orders.exportQuotation');
+    Route::get('/orders/quotation','OrderController@quotation')->name('orders.quotation');
+    Route::get('/orders/all_quotation','OrderController@all_quotation')->name('orders.all_quotation');
+    Route::post('/orders/{order}/delete','OrderController@delete')->name('orders.delete');
+    Route::post('/orders/{order}/updateStatusToShipping','OrderController@updateStatusToShipping')->name('orders.updateStatusToShipping');
+    Route::post('/orders/{order}/updateStatusToShipped','OrderController@updateStatusToShipped')->name('orders.updateStatusToShipped');
+    Route::get('/orders/{client}/createWithClient','OrderController@createWithClient')->name('orders.createWithClient');
+    Route::resource('orders','OrderController');
+
+    Route::get('/user/import','UserController@import')->name('users.import');
+    Route::post('/user/importEmployee','UserController@importEmployee')->name('users.importEmployee');
+    Route::get('/user/downloadEmployeeSample','UserController@downloadEmployeeSample')->name('users.downloadEmployeeSample');
+    Route::get('/user/terminate','UserController@terminate')->name('users.terminate');
+    Route::get('/user/terminateList','UserController@terminateList')->name('users.terminateList');
+    Route::get('/user/award','UserController@award')->name('users.award');
+    Route::get('/user/set_attendance','UserController@set_attendance')->name('users.set_attendance');
+    Route::get('/user/import_attendance','UserController@import_attendance')->name('users.import_attendance');
+    Route::get('/user/attendance_report','UserController@attendance_report')->name('users.attendance_report');
+    Route::get('/user/application_list','UserController@application_list')->name('users.application_list');
+    Route::get('/user/reimbursement','UserController@reimbursement')->name('users.reimbursement');
+    Route::post('/user/add','UserController@add')->name('users.add');
+    Route::get('/user/index','UserController@index')->name('users.index');
+    Route::get('/user/create','UserController@create')->name('users.create');
+    Route::get('/user/{user}/show','UserController@show')->name('users.show');
+    Route::get('/user/{user}','UserController@destroy')->name('users.destroy');
+    Route::get('/user/{user}/contactDetails','UserController@contactDetails')->name('users.contactDetails');
+    Route::get('/user/{user}/employeeDependents','UserController@employeeDependents')->name('users.employeeDependents');
+    Route::get('/user/{user}/employeeCommencements','UserController@employeeCommencements')->name('users.employeeCommencements');
+    Route::get('/user/{user}/employeeSalaries','UserController@employeeSalaries')->name('users.employeeSalaries');
+    Route::get('/user/{user}/reportTo','UserController@reportTo')->name('users.reportTo');
+    Route::get('/user/{user}/directDeposit','UserController@directDeposit')->name('users.directDeposit');
+    Route::get('/user/{user}/employeeLogin','UserController@employeeLogin')->name('users.employeeLogin');
+    Route::post('/user/{user}/delete','UserController@delete')->name('users.delete');
+    Route::put('/user/{user}','UserController@update')->name('users.update');
+    Route::post('/user/storeSkin','UserController@storeSkin')->name('users.storeSkin');
+    Route::get('/user/getSkin','UserController@getSkin')->name('users.getSkin');
+    // Route::resource('users','UserController');
+
+    Route::get('/email/inbox','EmailController@inbox')->name('email.inbox');
+    Route::get('/email/compose','EmailController@compose')->name('email.compose');
+    Route::get('/email/read','EmailController@read')->name('email.read');
+    Route::resource('email','EmailController');
+    //Client
+    Route::post('/vendor/import','VendorController@import')->name('vendor.import');
+    Route::get('/vendor/download','VendorController@downloadVendorSample')->name('vendor.download');
+    Route::post('/vendor/{vendor}/delete','VendorController@delete')->name('vendor.delete');
+    Route::resource('vendor','VendorController');
+
+    Route::post('/client/import','ClientController@import')->name('client.import');
+    Route::get('/client/download','ClientController@downloadClientSample')->name('client.download');
+    Route::post('/client/{client}/delete','ClientController@delete')->name('client.delete');
+    Route::resource('client','ClientController');
+    //Vendor
+    Route::get('/transaction/chart_of_accounts','TransactionController@chart_of_accounts')->name('transaction.chart_of_accounts');
+    Route::get('/transaction/income_categories','TransactionController@income_categories')->name('transaction.income_categories');
+    Route::get('/transaction/expense_categories','TransactionController@expense_categories')->name('transaction.expense_categories');
+    Route::resource('transaction','TransactionController');
+
+    Route::resource('depreciation','DepreciationController');
+
+    Route::get('/payroll/make_payment','PayrollController@make_payment')->name('payroll.make_payment');
+    Route::resource('payroll','PayrollController');
+
+    Route::resource('report','ReportController');
+    Route::resource('noticeboard','NoticeBoardController');
+    Route::resource('admin','AdminController');
+
+    Route::get('/officesetting/work_shifts','OfficeSettingController@work_shifts')->name('officesetting.work_shifts');
+    Route::get('/officesetting/working_days','OfficeSettingController@working_days')->name('officesetting.working_days');
+    Route::get('/officesetting/holiday_lists','OfficeSettingController@holiday_lists')->name('officesetting.holiday_lists');
+    Route::get('/officesetting/leave_type','OfficeSettingController@leave_type')->name('officesetting.leave_type');
+    Route::get('/officesetting/pay_grades','OfficeSettingController@pay_grades')->name('officesetting.pay_grades');
+    Route::get('/officesetting/salary_component','OfficeSettingController@salary_component')->name('officesetting.salary_component');
+    Route::get('/officesetting/employment_status','OfficeSettingController@employment_status')->name('officesetting.employment_status');
+    Route::get('/officesetting/tax','OfficeSettingController@tax')->name('officesetting.tax');
+    Route::resource('officesetting ','OfficeSettingController');
+    
+    Route::resource('setting','SettingController');
+
+    Route::post('/category/{category}/delete','CategoryController@delete')->name('category.delete');
+    Route::resource('category','CategoryController');
+    
+    
+    Route::post('/purchaseProduct/{purchase}/updateReceivedAmt','PurchaseProductController@updateReceivedAmt')->name('purchaseProduct.updateReceivedAmt');
+    Route::post('/purchaseProduct/{purchase}/updateReturnAmt','PurchaseProductController@updateReturnAmt')->name('purchaseProduct.updateReturnAmt');
+    Route::get('/purchaseProduct/{purchaseProduct}/getName','PurchaseProductController@getName')->name('purchaseProduct.getName');
+    Route::resource('purchaseProduct','PurchaseProductController');
+
+    
+
+    Route::post('/quotation/{quotation}/delete','QuotationController@delete')->name('quotation.delete');
+    Route::get('/quotation/{client}/createWithClient','QuotationController@createWithClient')->name('quotation.createWithClient');
+    Route::resource('quotations','QuotationController');
+
+    Route::post('/withdrawals/{withdrawal}/delete','WithdrawalController@delete')->name('withdrawals.delete');
+    Route::resource('withdrawals','WithdrawalController');
+
+    Route::post('/userAttachments/delete','UserAttachmentController@delete')->name('userAttachments.delete');
+    Route::resource('userAttachments','UserAttachmentController');
+
+    Route::post('/employeeTerminations/{employeeTermination}/unterminate','EmployeeTerminationController@unterminate')->name('employeeTerminations.unterminate');
+    Route::resource('employeeTerminations','EmployeeTerminationController');
+    Route::resource('contactDetails','ContactDetailController');
+
+    Route::post('/emergencyContacts/delete','EmergencyContactController@delete')->name('emergencyContacts.delete');
+    Route::resource('emergencyContacts','EmergencyContactController');
+
+    Route::post('/employeeDependents/delete','EmployeeDependentController@delete')->name('employeeDependents.delete');
+    Route::resource('employeeDependents','EmployeeDependentController');
+    Route::resource('employeeCommencements','EmployeeCommencementController');
+
+    Route::post('/jobHistories/delete','JobHistoryController@delete')->name('jobHistories.delete');
+    Route::resource('jobHistories','JobHistoryController');
+    Route::resource('employeeSalaries','EmployeeSalaryController');
+
+    Route::post('/employeeSupervisors/delete','EmployeeSupervisorController@delete')->name('employeeSupervisors.delete');
+    Route::resource('employeeSupervisors','EmployeeSupervisorController');
+    
+    Route::post('/employeeSubordinates/delete','EmployeeSubordinateController@delete')->name('employeeSubordinates.delete');
+    Route::resource('employeeSubordinates','EmployeeSubordinateController');
+
+    Route::resource('employeeDirectDeposits','EmployeeDepositController');
+
+    Route::resource('employeeLogins','EmployeeLoginController');
+
+    Route::post('/employeeAwards/{employeeAward}/delete','EmployeeAwardController@delete')->name('employeeAwards.delete');
+    Route::resource('employeeAwards','EmployeeAwardController');
+
+    Route::post('/departments/{department}/delete','DepartmentController@delete')->name('departments.delete');
+    Route::resource('departments','DepartmentController');
+
+    Route::post('/jobtitles/{jobtitle}/delete','JobTitleController@delete')->name('jobtitles.delete');
+    Route::resource('jobtitles','JobTitleController');
+
+    Route::post('/jobCategories/{jobCategory}/delete','JobCategoryController@delete')->name('jobCategories.delete');
+    Route::resource('jobCategories','JobCategoryController');
+
+    Route::post('/workshifts/{workshift}/delete','WorkShiftController@delete')->name('workshifts.delete');
+    Route::resource('workshifts','WorkShiftController');
+
+    Route::resource('workingdays','WorkingDayController');
+
+    Route::post('/holidays/{holiday}/delete','HolidayController@delete')->name('holidays.delete');
+    Route::resource('holidays','HolidayController');
+
+    Route::post('/leavetypes/{leavetype}/delete','LeaveTypeController@delete')->name('leavetypes.delete');
+    Route::resource('leavetypes','LeaveTypeController');
+    
+    Route::post('/paygrades/{paygrade}/delete','PayGradeController@delete')->name('paygrades.delete');
+    Route::resource('paygrades','PayGradeController');
+
+    Route::post('/salarycomponents/{salarycomponent}/delete','SalaryComponentController@delete')->name('salarycomponents.delete');
+    Route::resource('salarycomponents','SalaryComponentController');
+    
+    Route::post('/employeestatus/{employeestatus}/delete','EmployeeStatusController@delete')->name('employeestatus.delete');
+    Route::resource('employeestatus','EmployeeStatusController');
+
+    Route::post('/taxes/{tax}/delete','TaxController@delete')->name('taxes.delete');
+    Route::resource('taxes','TaxController');
+
+    Route::get('/attendances/setAttendance','AttendanceController@setAttendance')->name('attendances.setAttendance');
+    Route::post('/attendances/updateAttendance','AttendanceController@updateAttendance')->name('attendances.updateAttendance');
+    // Route::post('/attendances/attendance','AttendanceController@attendance')->name('attendances.attendance');
+    Route::get('/attendances/import','AttendanceController@import')->name('attendances.import');
+    Route::get('/attendances/download','AttendanceController@download')->name('attendances.download');
+    Route::post('/attendances/importAttendance','AttendanceController@importAttendance')->name('attendances.importAttendance');
+    Route::get('/attendances/attendanceReport','AttendanceController@attendanceReport')->name('attendances.attendanceReport');
+    Route::post('/attendances/setReport','AttendanceController@setReport')->name('attendances.setReport');
+    Route::resource('attendances','AttendanceController');
+
+    Route::get('/reimbursements/export','ReimbursementController@export')->name('reimbursements.export');
+    Route::post('/reimbursements/{reimbursement}/delete','ReimbursementController@delete')->name('reimbursements.delete');
+    Route::resource('reimbursements','ReimbursementController');
+    
+    Route::post('/applications/{application}/delete','ApplicationController@delete')->name('applications.delete');
+    Route::resource('applications','ApplicationController');
+    // Settings
+    //----------------------------------
+
+    Route::group(['prefix' => 'settings'], function () {
+
+
+        Route::get('/social', [
+            'as' => 'admin.settings.index', 'uses' => 'SettingsController@index'
+        ]);
+
+        Route::post('/social', [
+            'as' => 'admin.settings.social', 'uses' => 'SettingsController@postSocial'
+        ]);
+
+        Route::group(['prefix' => 'mail'], function () {
+
+            Route::get('/', [
+                'as' => 'admin.settings.mail.index', 'uses' => 'SettingsController@mail'
+            ]);
+
+            Route::post('/', [
+                'as' => 'admin.settings.mail.post', 'uses' => 'SettingsController@postMail'
+            ]);
+
+            Route::post('/send-test-email', [
+                'as' => 'admin.settings.mail.send', 'uses' => 'SettingsController@sendTestMail'
+            ]);
+        });
+    });
+});
+
+/*
+|--------------------------------------------------------------------------
+| Guest Routes
+|--------------------------------------------------------------------------
+| Guest routes cannot be accessed if the user is already logged in.
+| He will be redirected to '/" if he's logged in.
+|
+*/
+
+Route::group(['middleware' => ['guest']], function () {
+
+    Route::get('login', [
+        'as' => 'login', 'uses' => 'AuthController@login'
+    ]);
+
+    Route::get('register', [
+        'as' => 'register', 'uses' => 'AuthController@register'
+    ]);
+
+    Route::post('login', [
+        'as' => 'login.post', 'uses' => 'AuthController@postLogin'
+    ]);
+
+    Route::get('forgot-password', [
+        'as' => 'forgot-password.index', 'uses' => 'ForgotPasswordController@getEmail'
+    ]);
+
+    Route::post('/forgot-password', [
+        'as' => 'send-reset-link', 'uses' => 'ForgotPasswordController@postEmail'
+    ]);
+
+    Route::get('/password/reset/{token}', [
+        'as' => 'password.reset', 'uses' => 'ForgotPasswordController@GetReset'
+    ]);
+
+    Route::post('/password/reset', [
+        'as' => 'reset.password.post', 'uses' => 'ForgotPasswordController@postReset'
+    ]);
+
+    Route::get('auth/{provider}', 'AuthController@redirectToProvider');
+
+    Route::get('auth/{provider}/callback', 'AuthController@handleProviderCallback');
+});
+
+Route::get('logout', [
+    'as' => 'logout', 'uses' => 'AuthController@logout'
+]);
+
+Route::get('install', [
+    'as' => 'logout', 'uses' => 'AuthController@logout'
+]);

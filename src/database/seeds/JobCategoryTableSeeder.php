@@ -1,0 +1,63 @@
+<?php
+
+use Illuminate\Database\Seeder;
+use Carbon\Carbon;
+class JobCategoryTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        //
+        DB::table('job_categories')->insert([
+            [
+                'category' => 'Craft Workers',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now(),
+            ],[
+                'category' => 'Laborers and Helpers',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now(),
+            ],[
+                'category' => 'Office and Clerical Workers',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now(),
+            ],[
+                'category' => 'Officials and Managers',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now(),
+            ],[
+                'category' => 'Operatives',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now(),
+            ],[
+                'category' => 'Professionals',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now(),
+            ],[
+                'category' => 'Sales Workers',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now(),
+            ],[
+                'category' => 'Service Workers',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now(),
+            ],[
+                'category' => 'Software Developer',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now(),
+            ],[
+                'category' => 'Technical Officer',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now(),
+            ],[
+                'category' => 'Technicians',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now(),
+            ]
+        ]);
+    }
+}
