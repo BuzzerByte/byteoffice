@@ -6,7 +6,7 @@ networks:
 services:
   nginx:
     image: nginx:stable-alpine
-    container_name: nginx
+    container_name: buzzeroffice_nginx
     ports:
       - "8080:80"
     volumes:
@@ -20,7 +20,7 @@ services:
 
   mysql:
     image: mysql:5.7.29
-    container_name: mysql
+    container_name: buzzeroffice_mysql
     restart: unless-stopped
     tty: true
     ports:
@@ -39,7 +39,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: php
+    container_name: buzzeroffice_php
     volumes:
       - ./src:/var/www/html
     ports:
