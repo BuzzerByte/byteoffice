@@ -50,14 +50,11 @@
                         <h6>Pay Grades</h6>
                     </div>
                     <div class="actions">
-                        @permission('payGrade-create')
                         <button class="btn btn-primary btn-sm" data-target="#addPayGradeModal" data-placement="top"
                             data-toggle="modal"> <i class="icon-fa icon-fa-plus"></i>Add Pay Grades</button>
-                        @endpermission
                     </div>
                 </div>
                 <div class="card-body">
-                    @permission('payGrade-list')
                     <div class="table-responsive">
                         <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
@@ -99,14 +96,11 @@
 
                                         <div class="btn-group mr-2" role="group" aria-label="First group">
                                             <input type="hidden" value="{{ $paygrade->id }}">
-                                            @permission('payGrade-edit')
                                             <button type="button" class="btn btn-icon btn-outline-info getEditPayGrade"
                                                 data-target="#editPayGradeModal" data-placement="top" data-toggle="modal"><i
                                                     class="icon-fa icon-fa-pencil"></i></button>
-                                            @endpermission
-                                            @permission('payGrade-delete')
                                             <button type="button" class="btn btn-icon btn-outline-danger getDeletePayGrade" data-target="#deletePayGradeModal" data-placement="top" data-toggle="modal"><i class="icon-fa icon-fa-trash"></i></button>
-                                            @endpermission
+                                         
                                             </div>
                                     </td>
                                 </tr>
@@ -126,7 +120,6 @@
                             </tbody>
                         </table>
                     </div>
-                    @endpermission
                 </div>
             </div>
         </div>

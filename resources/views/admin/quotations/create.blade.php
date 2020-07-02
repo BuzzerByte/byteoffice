@@ -205,7 +205,6 @@
                         <h6>Create Quotation</h6>
                     </div>
                 </div>
-                @permission('quotation-create')
                 <form action="{{ route('quotations.store') }}" id="from-invoice" enctype="multipart/form-data" method="post"
                     accept-charset="utf-8">
                     @csrf
@@ -547,7 +546,6 @@
 
                     </div>
                 </form>
-                @endpermission
             </div>
 
            

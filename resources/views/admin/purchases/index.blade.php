@@ -201,7 +201,6 @@
                     </div>
                 </div>
                 <div class="card-body table-responsive">
-                    @permission('purchase-list')
                     <table id="responsive-datatable" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -305,14 +304,10 @@
                                                 data-toggle="modal">Received Product</a>
                                             <a class="dropdown-item return_prod_edit" href="#" data-target="#return_product"
                                                 data-toggle="modal">Return Purchase</a>
-                                            @permission('payment-create')
                                                 <a class="dropdown-item add_payment" href="#" data-target="#modal-create-payment"
                                                 data-toggle="modal">Add Payment</a>
-                                            @endpermission
-                                            @permission('purchase-delete')
                                             <a class="dropdown-item del_purchase" href="#" data-target="#delete_purchase"
                                                 data-toggle="modal">Delete</a>
-                                            @endpermission
                                         </div>
                                     </div>
                                     @endif
@@ -357,7 +352,6 @@
 
 
                     </table>
-                    @endpermission
                 </div>
             </div>
         </div>

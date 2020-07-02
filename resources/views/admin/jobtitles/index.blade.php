@@ -49,15 +49,12 @@ $(document.body).on('click','.getDeleteJobTitle',function(){
                         <h6>Job Titles</h6>
                     </div>
                     <div class="actions">
-                        @permission('jobTitle-create')
                         <button class="btn btn-primary btn-sm" data-target="#addJobTitle" data-placement="top"
                             data-toggle="modal"> <i class="icon-fa icon-fa-plus"></i>Add Job Title</button>
-                        @endpermission
                         </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        @permission('jobTitle-list')
                         <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
@@ -94,14 +91,11 @@ $(document.body).on('click','.getDeleteJobTitle',function(){
 
                                         <div class="btn-group mr-2" role="group" aria-label="First group">
                                             <input type="hidden" value="{{ $jobtitle->id }}">
-                                            @permission('jobTitle-edit')
                                             <button type="button" class="btn btn-icon btn-outline-info getEditJobTitle"
                                                 data-target="#editJobTitle" data-placement="top" data-toggle="modal"><i
                                                     class="icon-fa icon-fa-pencil"></i></button>
-                                            @endpermission
-                                            @permission('jobTitle-delete')
                                                     <button type="button" class="btn btn-icon btn-outline-danger getDeleteJobTitle" data-target="#deleteJobTitle" data-placement="top" data-toggle="modal"><i class="icon-fa icon-fa-trash"></i></button>
-                                            @endpermission
+                                            
                                                 </div>
                                     </td>
                                 </tr>
@@ -117,7 +111,6 @@ $(document.body).on('click','.getDeleteJobTitle',function(){
                                 @endif
                             </tbody>
                         </table>
-                        @endpermission
                     </div>
                 </div>
             </div>

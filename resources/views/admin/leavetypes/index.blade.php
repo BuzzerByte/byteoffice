@@ -48,16 +48,12 @@
                         <h6>Leave Types</h6>
                     </div>
                     <div class="actions">
-                        @permission('leaveType-create')
                         <button class="btn btn-primary btn-sm" data-target="#addLeaveTypeModal" data-placement="top"
                             data-toggle="modal"> <i class="icon-fa icon-fa-plus"></i>Add Leave Type</button>
-                        @endpermission
-
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        @permission('leaveType-list')
                         <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
 
                             <thead>
@@ -94,14 +90,10 @@
                                     <td>
                                         <div class="btn-group mr-2" role="group" aria-label="First group">
                                             <input type="hidden" value="{{ $leavetype->id }}">
-                                            @permission('leaveType-edit')
                                             <button type="button" class="btn btn-icon btn-outline-info getEditLeaveType"
                                                 data-target="#editLeaveTypeModal" data-placement="top" data-toggle="modal"><i
                                                     class="icon-fa icon-fa-pencil"></i></button>
-                                            @endpermission
-                                            @permission('leaveType-delete')
                                                     <button type="button" class="btn btn-icon btn-outline-danger getDeleteJobTitle" data-target="#deleteLeaveTypeModal" data-placement="top" data-toggle="modal"><i class="icon-fa icon-fa-trash"></i></button>
-                                            @endpermission
                                                 </div>
                                     </td>
                                 </tr>
@@ -120,7 +112,6 @@
                                 @endif
                             </tbody>
                         </table>
-                        @endpermission
                     </div>
                 </div>
             </div>

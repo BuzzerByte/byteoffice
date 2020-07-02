@@ -48,14 +48,11 @@
                         <h6>Work Shift</h6>
                     </div>
                     <div class="actions">
-                        @permission('workShift-create')
                         <button class="btn btn-primary btn-sm" data-target="#addWorkShift" data-placement="top"
                             data-toggle="modal"> <i class="icon-fa icon-fa-plus"></i>Add Work Shift</button>
-                        @endpermission
                     </div>
                 </div>
                 <div class="card-body table-responsive">
-                    @permission('workShift-list')
                     <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
 
                         <thead>
@@ -96,14 +93,11 @@
 
                                     <div class="btn-group mr-2" role="group" aria-label="First group">
                                         <input type="hidden" value="{{ $workshift->id }}">
-                                        @permission('workShift-edit')
                                         <button type="button" class="btn btn-icon btn-outline-info getEditWorkShift"
                                             data-target="#editWorkShift" data-placement="top" data-toggle="modal"><i
                                                 class="icon-fa icon-fa-pencil"></i></button>
-                                        @endpermission
-                                        @permission('workShift-delete')
                                                 <button type="button" class="btn btn-icon btn-outline-danger getDeleteWorkShift" data-target="#deleteWorkShift" data-placement="top" data-toggle="modal"><i class="icon-fa icon-fa-trash"></i></button>
-                                        @endpermission
+                                       
                                             </div>
                                 </td>
                             </tr>
@@ -122,7 +116,6 @@
                             @endif
                         </tbody>
                     </table>
-                    @endpermission
                 </div>
             </div>
         </div>

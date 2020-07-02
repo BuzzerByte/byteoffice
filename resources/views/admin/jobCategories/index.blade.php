@@ -48,14 +48,11 @@
                         <h6>Job Category</h6>
                     </div>
                     <div class="actions">
-                        @permission('jobCategory-create')
                         <button class="btn btn-primary btn-sm" data-target="#addJobCategory" data-placement="top"
                             data-toggle="modal"> <i class="icon-fa icon-fa-plus"></i>Add Job Category</button>
-                        @endpermission
                     </div>
                 </div>
                 <div class="card-body table-responsive">
-                    @permission('jobCategory-list')
                     <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                             <tr>
@@ -91,14 +88,11 @@
                                 <td>
                                     <div class="btn-group mr-2" role="group" aria-label="First group">
                                         <input type="hidden" value="{{ $jobcategory->id }}">
-                                        @permission('jobCategory-edit')
                                         <button type="button" class="btn btn-icon btn-outline-info getEditJobCategory"
                                             data-target="#editJobCategory" data-placement="top" data-toggle="modal"><i
                                                 class="icon-fa icon-fa-pencil"></i></button>
-                                        @endpermission
-                                        @permission('jobCategory-delete')
                                                 <button type="button" class="btn btn-icon btn-outline-danger getDeleteJobCategory" data-target="#deleteJobCategory" data-placement="top" data-toggle="modal"><i class="icon-fa icon-fa-trash"></i></button>
-                                        @endpermission
+                                     
                                             </div>
 
 
@@ -119,7 +113,6 @@
                             @endif
                         </tbody>
                     </table>
-                    @endpermission
                 </div>
             </div>
         </div>

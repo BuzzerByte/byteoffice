@@ -39,7 +39,6 @@ $('.delete').click(function () {
                     </div>
                 </div>
                 <div class="card-body table-responsive">
-                    @permission('termination-list')
                     <table id="responsive-datatable" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -95,9 +94,9 @@ $('.delete').click(function () {
                                         <input type="hidden" class="employee_id" id="{{ $employee->id }}">
                                         <button type="button" class="btn btn-icon btn-outline-info" onclick="location.href='{{ route('users.show',$employee->id) }}'"><i
                                                 class="icon-fa icon-fa-search"></i></button>
-                                        @permission('termination-delete')
+                                        
                                         <button type="button" class="btn btn-icon btn-outline-danger delete" href="#" data-toggle="modal" data-target="#modal-delete"><i class="icon-fa icon-fa-trash"></i></button>
-                                        @endpermission
+                                        
                                     </div>
                                 </td>
                             </tr>
@@ -107,7 +106,6 @@ $('.delete').click(function () {
 
                         </tbody>
                     </table>
-                    @endpermission
                 </div>
             </div>
         </div>
