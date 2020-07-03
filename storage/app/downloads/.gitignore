@@ -1,2 +1,4 @@
 !downloads/
 !.gitignore
+!client.csv
+!vendor.csv
