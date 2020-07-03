@@ -1,5 +1,5 @@
 <?php
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
 class FrontendController extends Controller
 {

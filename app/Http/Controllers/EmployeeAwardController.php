@@ -1,11 +1,11 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\EmployeeAward;
-use buzzeroffice\Employee;
-use buzzeroffice\Department;
-use buzzeroffice\User;
+use App\EmployeeAward;
+use App\Employee;
+use App\Department;
+use App\User;
 use Auth;
 use Illuminate\Http\Request;
 

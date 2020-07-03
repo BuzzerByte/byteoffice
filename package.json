@@ -11,21 +11,20 @@
     "laravel-mix": "2.1.0"
   },
   "dependencies": {
-    "axios": "^0.16.2",
-    "babel-eslint": "^8.2.6",
-    "chart.js": "^2.7.3",
+    "axios": "^0.19.1",
+    "babel-eslint": "^8.2.3",
+    "chart.js": "^2.1.2",
     "cross-env": "^5.0.1",
     "eslint": "3.x",
     "eslint-config-standard": "^11.0.0-beta.0",
-    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
-    "eslint-plugin-vue": "^4.7.1",
+    "eslint-plugin-vue": "^4.0.1",
     "jquery": "^3.4.1",
-    "lodash": "^4.17.11",
-    "vee-validate": "^2.1.4",
-    "vue": "^2.5.21",
-    "vue-template-compiler": "^2.5.16"
+    "lodash": "^4.17.15",
+    "vee-validate": "^2.0.0-beta.18",
+    "vue": "^2.5.16"
   }
 }

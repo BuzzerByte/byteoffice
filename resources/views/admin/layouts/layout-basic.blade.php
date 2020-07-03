@@ -12,7 +12,7 @@
     @include('admin.layouts.partials.favicons')
     @yield('styles')
 </head>
-<body class="layout-default">
+<body class="layout-default skin-default">
     @include('admin.layouts.partials.laraspace-notifs')
 
     <div id="app" class="site-wrapper">
@@ -23,49 +23,14 @@
         @yield('content')
 
         @include('admin.layouts.partials.footer')
-        {{-- @if(config('laraspace.skintools'))
+        @if(config('laraspace.skintools'))
             @include('admin.layouts.partials.skintools')
-        @endif --}}
+        @endif
     </div>
 
     <script src="{{mix('/assets/admin/js/core/plugins.js')}}"></script>
     <script src="{{asset('/assets/admin/js/demo/skintools.js')}}"></script>
     <script src="{{mix('/assets/admin/js/core/app.js')}}"></script>
-    <script>
-    $(document).ready(function(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        // getSkin();
-        // function getSkin(){
-        //     $.get('/admin/users/getSkin',function(data){
-        //         $(document.body).attr('class','layout-default skin-'+data);
-                
-        //         $('.skin-tools-content .skin-radio').each(function(){
-        //             // console.log($(this).attr('data-skin'));
-        //             if($(this).attr('data-skin') == data){
-        //                 $(this).attr('class','skin-radio active');
-        //             }else{
-        //                 $(this).attr('class','skin-radio');
-        //             }
-        //         });
-        //     });
-        // }
-         
-        // $(document.body).on('click','.skin-radio',function(){
-        //     var skin = $(this).attr('data-skin');
-        //     $.post( "/admin/users/storeSkin", { bodySkin: skin })
-        //     .done(function( data ) {
-        //         console.log(data);
-        //     });
-        // });
-    });
-    </script>   
-    <script src="{{mix('/assets/admin/js/core/app.js')}}"></script>
     @yield('scripts')
-
-    
 </body>
 </html>

@@ -1,17 +1,16 @@
 <?php
-namespace buzzeroffice\Http\Controllers;
-
+namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use buzzeroffice\Http\Requests;
-use buzzeroffice\Order;
-use buzzeroffice\User;
-use buzzeroffice\Inventory;
-use buzzeroffice\Purchase;
-use buzzeroffice\Client;
+use App\Inventory;
+use App\Purchase;
+use App\Client;
+use App\Http\Requests;
+use App\Order;
+use App\User;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index() 
     {
         $users = User::All();
         $totalUser = $users->count();
@@ -27,11 +26,52 @@ class DashboardController extends Controller
 
         $clients = Client::All();
         $allOrders = Order::All();
-        
-        return view('admin.dashboard.basic',['orders'=>$totalOrder,'users'=>$totalUser,'products'=>$totalProduct,'purchases'=>$totalPurchase,'clients'=>$clients,'AllOrder'=> $allOrders]);
+       
+        return redirect()->route('admin.dashboard.basic',
+            [   "orders"=> $totalOrder,
+                "users"=> $totalUser,
+                "products"=> $totalProduct,
+                "purchases"=> $totalPurchase,
+                "clients"=>$clients,
+                "AllOrder"=> $allOrders
+            ]);
     }
 
-    public function basic(){
-        return redirect()->action('DashboardController@index');
+    public function basic() 
+    {
+        $users = User::All();
+        $totalUser = $users->count();
+
+        $orders = Order::All();
+        $totalOrder = $orders->count();
+
+        $products = Inventory::All();
+        $totalProduct = $products->count();
+
+        $purchases = Purchase::All();
+        $totalPurchase = $purchases->count();
+
+        $clients = Client::All();
+        $allOrders = Order::All();
+       
+         return view('admin.dashboard.basic',
+         [   
+             "orders"=> $totalOrder,
+             "users"=> $totalUser,
+             "products"=> $totalProduct,
+             "purchases"=> $totalPurchase,
+             "clients"=>$clients,
+             "AllOrder"=> $allOrders
+         ]);
+    }
+
+    public function ecommerce() 
+    {
+        return view('admin.dashboard.ecommerce');
+    }
+
+    public function finance() 
+    {
+        return view('admin.dashboard.finance');
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\Order;
-use buzzeroffice\Client;
-use buzzeroffice\Inventory;
-use buzzeroffice\SaleProduct;
-use buzzeroffice\Payment;
-use buzzeroffice\Quotation;
+use App\Order;
+use App\Client;
+use App\Inventory;
+use App\SaleProduct;
+use App\Payment;
+use App\Quotation;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -184,7 +184,7 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\Order  $order
+     * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
     public function show(Order $order)
@@ -199,7 +199,7 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\Order  $order
+     * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
     public function edit(Order $order)
@@ -215,7 +215,7 @@ class OrderController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\Order  $order
+     * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Order $order)
@@ -362,7 +362,7 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\Order  $order
+     * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
     public function destroy(Order $order)

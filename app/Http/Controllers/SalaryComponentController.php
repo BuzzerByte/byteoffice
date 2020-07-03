@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\SalaryComponent;
+use App\SalaryComponent;
 use Illuminate\Http\Request;
 
 class SalaryComponentController extends Controller
@@ -51,7 +51,7 @@ class SalaryComponentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\SalaryComponent  $salaryComponent
+     * @param  \App\SalaryComponent  $salaryComponent
      * @return \Illuminate\Http\Response
      */
     public function show(SalaryComponent $salaryComponent)
@@ -62,7 +62,7 @@ class SalaryComponentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\SalaryComponent  $salaryComponent
+     * @param  \App\SalaryComponent  $salaryComponent
      * @return \Illuminate\Http\Response
      */
     public function edit(SalaryComponent $salarycomponent)
@@ -75,7 +75,7 @@ class SalaryComponentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\SalaryComponent  $salaryComponent
+     * @param  \App\SalaryComponent  $salaryComponent
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, SalaryComponent $salarycomponent)
@@ -94,7 +94,7 @@ class SalaryComponentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\SalaryComponent  $salaryComponent
+     * @param  \App\SalaryComponent  $salaryComponent
      * @return \Illuminate\Http\Response
      */
     public function destroy(SalaryComponent $salaryComponent)

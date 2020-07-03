@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\UserAttachment;
+use App\UserAttachment;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Auth;
 use Auth;
@@ -57,7 +57,7 @@ class UserAttachmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\UserAttachment  $userAttachment
+     * @param  \App\UserAttachment  $userAttachment
      * @return \Illuminate\Http\Response
      */
     public function show(UserAttachment $userAttachment)
@@ -68,7 +68,7 @@ class UserAttachmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\UserAttachment  $userAttachment
+     * @param  \App\UserAttachment  $userAttachment
      * @return \Illuminate\Http\Response
      */
     public function edit(UserAttachment $userAttachment)
@@ -80,7 +80,7 @@ class UserAttachmentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\UserAttachment  $userAttachment
+     * @param  \App\UserAttachment  $userAttachment
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, UserAttachment $userAttachment)
@@ -91,7 +91,7 @@ class UserAttachmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\UserAttachment  $userAttachment
+     * @param  \App\UserAttachment  $userAttachment
      * @return \Illuminate\Http\Response
      */
     public function destroy(UserAttachment $userAttachment)

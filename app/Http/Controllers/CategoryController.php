@@ -1,9 +1,9 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\Category;
-use buzzeroffice\Inventory;
+use App\Category;
+use App\Inventory;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;

@@ -1,9 +1,9 @@
 <?php
 
-namespace buzzeroffice;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use buzzeroffice\JobHistory;
+use App\JobHistory;
 
 class Department extends Model
 {

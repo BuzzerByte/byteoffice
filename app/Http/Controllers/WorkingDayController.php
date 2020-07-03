@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\WorkingDay;
+use App\WorkingDay;
 use Illuminate\Http\Request;
 
 class WorkingDayController extends Controller
@@ -70,7 +70,7 @@ class WorkingDayController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\WorkingDay  $workingDay
+     * @param  \App\WorkingDay  $workingDay
      * @return \Illuminate\Http\Response
      */
     public function show(WorkingDay $workingDay)
@@ -81,7 +81,7 @@ class WorkingDayController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\WorkingDay  $workingDay
+     * @param  \App\WorkingDay  $workingDay
      * @return \Illuminate\Http\Response
      */
     public function edit(WorkingDay $workingDay)
@@ -93,7 +93,7 @@ class WorkingDayController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\WorkingDay  $workingDay
+     * @param  \App\WorkingDay  $workingDay
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, WorkingDay $workingDay)
@@ -104,7 +104,7 @@ class WorkingDayController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\WorkingDay  $workingDay
+     * @param  \App\WorkingDay  $workingDay
      * @return \Illuminate\Http\Response
      */
     public function destroy(WorkingDay $workingDay)

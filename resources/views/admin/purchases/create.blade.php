@@ -220,7 +220,6 @@
                         <h6>Create Purchase</h6>
                     </div>
                 </div>
-                @permission('purchase-create')
                 <form action="{{ route('purchases.store') }}" id="from-purchase" enctype="multipart/form-data" method="post"
                     accept-charset="utf-8">
                     @csrf
@@ -489,7 +488,6 @@
                         </button>
                     </div>
                 </form>
-                @endpermission
             </div>
         </div>
     </div>

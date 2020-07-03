@@ -1,14 +1,15 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\Vendor;
+use App\Vendor;
 use Illuminate\Http\Request;
 use Session;
 use Response;
 use Excel;
 use File;
 use DB;
+use App\Imports\VendorsImport;
 
 class VendorController extends Controller
 {
@@ -93,8 +94,8 @@ class VendorController extends Controller
             $extension = File::extension($request->import_file->getClientOriginalName());
             if ($extension == "csv") {
                 $path = $request->import_file->getRealPath();
-                $data = Excel::load($path, function($reader) {})->get();
-                if(!empty($data) && $data->count()){
+                $data = Excel::import(new VendorsImport, $request->import_file);
+                if(!empty($data)){
                     foreach($data as $record){
                         if(in_array($record->vendor_name,$vendor_name)){
                             continue;   
@@ -138,7 +139,7 @@ class VendorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\Vendor  $vendor
+     * @param  \App\Vendor  $vendor
      * @return \Illuminate\Http\Response
      */
     public function show(Vendor $vendor)
@@ -150,7 +151,7 @@ class VendorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\Vendor  $vendor
+     * @param  \App\Vendor  $vendor
      * @return \Illuminate\Http\Response
      */
     public function edit(Vendor $vendor)
@@ -163,7 +164,7 @@ class VendorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\Vendor  $vendor
+     * @param  \App\Vendor  $vendor
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Vendor $vendor)
@@ -190,7 +191,7 @@ class VendorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\Vendor  $vendor
+     * @param  \App\Vendor  $vendor
      * @return \Illuminate\Http\Response
      */
     public function destroy(Vendor $vendor)

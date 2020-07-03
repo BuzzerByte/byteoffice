@@ -1,6 +1,6 @@
 <?php
 
-namespace buzzeroffice;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,7 +20,6 @@ class Vendor extends Model
         'email',
         'website',
         'billing_address',
-        'shipping_address',
         'note',
         'created_at',
         'updated_at',
@@ -28,6 +27,6 @@ class Vendor extends Model
 
 
     public function purchase(){
-        return $this->hasMany('buzzeroffice\Purchase');
+        return $this->hasMany('App\Purchase');
     }
 }

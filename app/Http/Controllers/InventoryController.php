@@ -1,12 +1,12 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\Inventory;
-use buzzeroffice\Purchase;
-use buzzeroffice\Supplier;
-use buzzeroffice\Category;
-use buzzeroffice\Tax;
+use App\Inventory;
+use App\Purchase;
+use App\Supplier;
+use App\Category;
+use App\Tax;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -114,7 +114,7 @@ class InventoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\Inventory  $inventory
+     * @param  \App\Inventory  $inventory
      * @return \Illuminate\Http\Response
      */
     public function show(Inventory $inventory)
@@ -126,7 +126,7 @@ class InventoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\Inventory  $inventory
+     * @param  \App\Inventory  $inventory
      * @return \Illuminate\Http\Response
      */
     public function edit(Inventory $inventory)
@@ -139,7 +139,7 @@ class InventoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\Inventory  $inventory
+     * @param  \App\Inventory  $inventory
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Inventory $inventory)
@@ -271,7 +271,7 @@ class InventoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *  
-     * @param  \buzzeroffice\Inventory  $inventory
+     * @param  \App\Inventory  $inventory
      * @return \Illuminate\Http\Response
      */
     public function destroy(Inventory $inventory)
@@ -283,7 +283,7 @@ class InventoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\Inventory  $Inventory
+     * @param  \App\Inventory  $Inventory
      * @return \Illuminate\Http\Response
      */
     public function delete(Request $request)

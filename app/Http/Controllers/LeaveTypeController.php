@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\LeaveType;
+use App\LeaveType;
 use Illuminate\Http\Request;
 
 class LeaveTypeController extends Controller
@@ -47,7 +47,7 @@ class LeaveTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\LeaveType  $leaveType
+     * @param  \App\LeaveType  $leaveType
      * @return \Illuminate\Http\Response
      */
     public function show(LeaveType $leaveType)
@@ -58,7 +58,7 @@ class LeaveTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\LeaveType  $leaveType
+     * @param  \App\LeaveType  $leaveType
      * @return \Illuminate\Http\Response
      */
     public function edit(LeaveType $leavetype)
@@ -71,7 +71,7 @@ class LeaveTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\LeaveType  $leaveType
+     * @param  \App\LeaveType  $leaveType
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, LeaveType $leavetype)
@@ -86,7 +86,7 @@ class LeaveTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\LeaveType  $leaveType
+     * @param  \App\LeaveType  $leaveType
      * @return \Illuminate\Http\Response
      */
     public function destroy(LeaveType $leaveType)

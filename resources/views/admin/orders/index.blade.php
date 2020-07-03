@@ -100,7 +100,6 @@
                     </div>
                 </div>
                 <div class="card-body table-responsive">
-                    @permission('invoice-list')
                     <table id="responsive-datatable" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -180,18 +179,12 @@
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                             <a class="dropdown-item" href="/admin/orders/{{ $order->id }}">View</a>
-                                            @permission('invoice-edit')
                                             <a class="dropdown-item" href="/admin/orders/{{ $order->id }}/edit">Edit</a>
-                                            @endpermission
-                                            @permission('payment-create')
                                             <a class="dropdown-item add_payment" href="#"
                                                 data-target="#modal-create-payment" data-toggle="modal">Add Payment</a>
-                                            @endpermission
                                             {{-- <a class="dropdown-item" href="#" data-target="#modal-index-payment" data-toggle="modal">View Payment</a> --}}
-                                            @permission('invoice-delete')
                                             <a class="dropdown-item delete_order" href="#" data-target="#delete_order"
                                                 data-toggle="modal">Delete</a>
-                                            @endpermission
                                         </div>
                                     </div>
 
@@ -227,7 +220,6 @@
                             </tr>
                         </tfoot>
                     </table>
-                    @endpermission
                 </div>
             </div>
         </div>

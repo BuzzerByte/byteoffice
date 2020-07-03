@@ -1,5 +1,5 @@
 <?php
-namespace buzzeroffice\Http\Requests;
+namespace App\Http\Requests;
 
 class LoginRequest extends Request
 {

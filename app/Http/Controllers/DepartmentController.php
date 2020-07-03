@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\Department;
+use App\Department;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller

@@ -1,13 +1,14 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 use Session;
 use Response;
-use buzzeroffice\Client;
+use App\Client;
 use Excel;
 use File;
 use Illuminate\Http\Request;
 use DB;
+use App\Imports\ClientsImport;
 
 class ClientController extends Controller
 {
@@ -47,21 +48,16 @@ class ClientController extends Controller
     }
 
     public function downloadClientSample(){
-        // Check if file exists in app/storage/file folder
         $file_path = storage_path() . "/app/downloads/client.csv";
         $headers = array(
             'Content-Type: csv',
             'Content-Disposition: attachment; filename=client.csv',
         );
         if (file_exists($file_path)) {
-            // Send Download
             flash()->success('File Downloaded');
-            // Session::flash('success', 'File Downloaded');
             return Response::download($file_path, 'client.csv', $headers);
         } else {
-            // Error
             flash()->error('Something went wrong!');
-            // Session::flash('failure', 'Something went wrong!');
         }
         $clients = Client::all();
         return redirect()->route('client.index',['clients'=>$clients]);
@@ -69,15 +65,15 @@ class ClientController extends Controller
 
     public function import(Request $request){
         $this->validate($request, array(
-            'import_file'      => 'required'
+            'import_file' => 'required'
         ));
         $client_name = [];
         if ($request->hasFile('import_file')) {
             $extension = File::extension($request->import_file->getClientOriginalName());
             if ($extension == "csv") {
                 $path = $request->import_file->getRealPath();
-                $data = Excel::load($path, function($reader) {})->get();
-                if(!empty($data) && $data->count()){
+                $data = Excel::import(new ClientsImport, $request->import_file);
+                if(!empty($data)){
                     foreach($data as $record){
                         if(in_array($record->client_name,$client_name)){
                             continue;   
@@ -103,22 +99,17 @@ class ClientController extends Controller
                     if(!empty($insert_client_data)){
                         $insert_client = DB::table('clients')->insert($insert_client_data);
                         flash()->success('Clients Data Imported!');
-                        // Session::flash('success', 'Clients Data Imported!');
                     }else{
                         flash()->warning('Duplicated record, please check your csv file!');
-                        // Session::flash('warning', 'Duplicated record, please check your csv file!');
                     }
                 }else{
                     flash()->warning('There is no data in csv file!');
-                    // Session::flash('warning', 'There is no data in csv file!');
                 }
             }else{
                 flash()->warning('Selected file is not csv!');
-                // Session::flash('warning', 'Selected file is not csv!');
             }
         }else{
             flash()->error('Something went wrong!');
-            // Session::flash('failure', 'Something went wrong!');
         }
         $clients = Client::all();
         return redirect()->route('client.index',['clients'=>$clients]);    

@@ -1,10 +1,10 @@
 <?php
 
-namespace buzzeroffice;
+namespace App;
 
-use Zizaco\Entrust\EntrustPermission;
+// use Zizaco\Entrust\EntrustPermission;
 
-class Permission extends EntrustPermission
+class Permission
 {
     protected $fillable = [
         'name',
@@ -13,6 +13,6 @@ class Permission extends EntrustPermission
     ];
     public function roles()
     {
-        return $this->belongsToMany('buzzeroffice\Role');
+        return $this->belongsToMany('App\Role');
     }
 }

@@ -1,5 +1,5 @@
 <?php
-use buzzeroffice\Space\Settings\Setting;
+use App\Space\Settings\Setting;
 
 function set_active($path, $active = 'active')
 {

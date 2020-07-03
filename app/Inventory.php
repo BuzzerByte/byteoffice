@@ -1,6 +1,6 @@
 <?php
 
-namespace buzzeroffice;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,11 +28,11 @@ class Inventory extends Model
     ];
 
     public function purchases(){
-        return $this->hasMany('buzzeroffice\Purchase');
+        return $this->hasMany('App\Purchase');
     }
 
     public function orders(){
-        return $this->hasMany('buzzeroffice\Order');
+        return $this->hasMany('App\Order');
     }
 
     public function category($id){

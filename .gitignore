@@ -17,3 +17,16 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 
+/public/storage
+/public/hot
+/storage/*.key
+/vendor
+/.idea
+Homestead.json
+Homestead.yaml
+.env
+
+# Editor directories and files
+.idea
+.vscode
+.DS_Store

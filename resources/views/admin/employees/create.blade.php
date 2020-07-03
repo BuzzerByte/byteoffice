@@ -37,7 +37,6 @@
                             <i class="icon-fa icon-fa-plus"></i> Import</button>
                     </div>
                 </div>
-                @permission('employee-create')
                 <form action="{{ route('users.add') }}" enctype="multipart/form-data" method="post" accept-charset="utf-8">
                     @csrf
                     <div class="card-body">
@@ -223,7 +222,6 @@
                             Save Employee</button>
                     </div>
                 </form>
-                @endpermission
             </div>
         </div>
     </div>

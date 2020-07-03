@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\EmployeeCommencement;
+use App\EmployeeCommencement;
 use Illuminate\Http\Request;
 
 class EmployeeCommencementController extends Controller

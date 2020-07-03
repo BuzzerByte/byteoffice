@@ -1,9 +1,9 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\Withdrawal;
-use buzzeroffice\Inventory;
+use App\Withdrawal;
+use App\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Session;
@@ -60,7 +60,7 @@ class WithdrawalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\Withdrawal  $withdrawal
+     * @param  \App\Withdrawal  $withdrawal
      * @return \Illuminate\Http\Response
      */
     public function show(Withdrawal $withdrawal)
@@ -71,7 +71,7 @@ class WithdrawalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\Withdrawal  $withdrawal
+     * @param  \App\Withdrawal  $withdrawal
      * @return \Illuminate\Http\Response
      */
     public function edit(Withdrawal $withdrawal)
@@ -86,7 +86,7 @@ class WithdrawalController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\Withdrawal  $withdrawal
+     * @param  \App\Withdrawal  $withdrawal
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Withdrawal $withdrawal)
@@ -117,7 +117,7 @@ class WithdrawalController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\Withdrawal  $withdrawal
+     * @param  \App\Withdrawal  $withdrawal
      * @return \Illuminate\Http\Response
      */
     public function destroy(Withdrawal $withdrawal)

@@ -1,13 +1,13 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\Attendance;
-use buzzeroffice\Department;
-use buzzeroffice\Employee;
-use buzzeroffice\JobHistory;
-use buzzeroffice\LeaveType;
-use buzzeroffice\User;
+use App\Attendance;
+use App\Department;
+use App\Employee;
+use App\JobHistory;
+use App\LeaveType;
+use App\User;
 use Carbon\Carbon;
 use Session;
 use Response;

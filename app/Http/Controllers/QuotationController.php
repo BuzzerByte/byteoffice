@@ -1,11 +1,11 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\Quotation;
-use buzzeroffice\Client;
-use buzzeroffice\Inventory;
-use buzzeroffice\QuotationProduct;
+use App\Quotation;
+use App\Client;
+use App\Inventory;
+use App\QuotationProduct;
 use DB;
 use Carbon\Carbon;  
 use Session;
@@ -126,7 +126,7 @@ class QuotationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\Quotation  $quotation
+     * @param  \App\Quotation  $quotation
      * @return \Illuminate\Http\Response
      */
     public function show(Quotation $quotation)
@@ -140,7 +140,7 @@ class QuotationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\Quotation  $quotation
+     * @param  \App\Quotation  $quotation
      * @return \Illuminate\Http\Response
      */
     public function edit(Quotation $quotation)
@@ -156,7 +156,7 @@ class QuotationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\Quotation  $quotation
+     * @param  \App\Quotation  $quotation
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Quotation $quotation)
@@ -251,7 +251,7 @@ class QuotationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\Quotation  $quotation
+     * @param  \App\Quotation  $quotation
      * @return \Illuminate\Http\Response
      */
     public function destroy(Quotation $quotation)

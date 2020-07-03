@@ -14,7 +14,7 @@
                 <h6>Easy Site Settings API</h6>
             </div>
             <div class="card-body">
-                <p>buzzeroffice provides easy way to store and retrieve your Site Settings</p>
+                <p>App provides easy way to store and retrieve your Site Settings</p>
                 <p><code>Setting::setSetting('key','value')</code></p>
                 <p><code>Setting::getSetting('key')</code></p>
             </div>

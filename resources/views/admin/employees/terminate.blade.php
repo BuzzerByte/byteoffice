@@ -39,7 +39,6 @@ $('.delete').click(function () {
                     </div>
                 </div>
                 <div class="card-body table-responsive">
-                    @permission('termination-list')
                     <table id="responsive-datatable" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -70,18 +69,18 @@ $('.delete').click(function () {
                             <tr>
                                 <td>{{ $employee->id_number }}</td>
                                 <td>{{ $employee->f_name }} {{ $employee->l_name }}</td>
-                                @if(\buzzeroffice\JobHistory::where('employee_id',$employee->id)->exists())
+                                @if(\App\JobHistory::where('employee_id',$employee->id)->exists())
                                 <td>{{
-                                    \buzzeroffice\Department::where('id',\buzzeroffice\JobHistory::where('employee_id',$employee->id)->first()->department_id)->first()->name
+                                    \App\Department::where('id',\App\JobHistory::where('employee_id',$employee->id)->first()->department_id)->first()->name
                                     }}</td>
                                 <td>{{
-                                    \buzzeroffice\JobTitle::where('id',\buzzeroffice\JobHistory::where('employee_id',$employee->id)->first()->title_id)->first()->title
+                                    \App\JobTitle::where('id',\App\JobHistory::where('employee_id',$employee->id)->first()->title_id)->first()->title
                                     }}</td>
                                 <td>{{
-                                    \buzzeroffice\EmployeeStatus::where('id',\buzzeroffice\JobHistory::where('employee_id',$employee->id)->first()->status_id)->first()->status
+                                    \App\EmployeeStatus::where('id',\App\JobHistory::where('employee_id',$employee->id)->first()->status_id)->first()->status
                                     }}</td>
                                 <td>{{
-                                    \buzzeroffice\WorkShift::where('id',\buzzeroffice\JobHistory::where('employee_id',$employee->id)->first()->shift_id)->first()->name
+                                    \App\WorkShift::where('id',\App\JobHistory::where('employee_id',$employee->id)->first()->shift_id)->first()->name
                                     }}</td>
                                 @else
                                 <td>-</td>
@@ -95,9 +94,9 @@ $('.delete').click(function () {
                                         <input type="hidden" class="employee_id" id="{{ $employee->id }}">
                                         <button type="button" class="btn btn-icon btn-outline-info" onclick="location.href='{{ route('users.show',$employee->id) }}'"><i
                                                 class="icon-fa icon-fa-search"></i></button>
-                                        @permission('termination-delete')
+                                        
                                         <button type="button" class="btn btn-icon btn-outline-danger delete" href="#" data-toggle="modal" data-target="#modal-delete"><i class="icon-fa icon-fa-trash"></i></button>
-                                        @endpermission
+                                        
                                     </div>
                                 </td>
                             </tr>
@@ -107,7 +106,6 @@ $('.delete').click(function () {
 
                         </tbody>
                     </table>
-                    @endpermission
                 </div>
             </div>
         </div>

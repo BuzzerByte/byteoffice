@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\EmergencyContact;
+use App\EmergencyContact;
 use Illuminate\Http\Request;
 
 class EmergencyContactController extends Controller

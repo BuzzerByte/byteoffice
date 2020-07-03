@@ -1,28 +1,28 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\User;
+use App\User;
 use Auth;
 use Illuminate\Http\Request;
-use buzzeroffice\Employee;
-use buzzeroffice\UserAttachment;
-use buzzeroffice\ContactDetail;
-use buzzeroffice\EmployeeDependent;
-use buzzeroffice\EmployeeCommencement;
-use buzzeroffice\JobHistory;
-use buzzeroffice\EmployeeSalary;
-use buzzeroffice\EmployeeSupervisor;
-use buzzeroffice\EmployeeSubordinate;
-use buzzeroffice\EmployeeDeposit;
-use buzzeroffice\EmployeeLogin;
-use buzzeroffice\Department;
-use buzzeroffice\EmployeeStatus;
-use buzzeroffice\JobCategory;
-use buzzeroffice\JobTitle;
-use buzzeroffice\WorkShift;
-use buzzeroffice\Attendance;
-use buzzeroffice\Role;
+use App\Employee;
+use App\UserAttachment;
+use App\ContactDetail;
+use App\EmployeeDependent;
+use App\EmployeeCommencement;
+use App\JobHistory;
+use App\EmployeeSalary;
+use App\EmployeeSupervisor;
+use App\EmployeeSubordinate;
+use App\EmployeeDeposit;
+use App\EmployeeLogin;
+use App\Department;
+use App\EmployeeStatus;
+use App\JobCategory;
+use App\JobTitle;
+use App\WorkShift;
+use App\Attendance;
+use App\Role;
 use Carbon\Carbon;
 use Session;
 use Response;
@@ -361,7 +361,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\User  $user
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -373,7 +373,7 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\User  $user
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
@@ -418,7 +418,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\User  $user
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)

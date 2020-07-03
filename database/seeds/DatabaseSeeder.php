@@ -5,7 +5,7 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call(WorkShiftTableSeeder::class);
         $this->call(LeaveTypeTableSeeder::class);
         $this->call(WorkingDaysTableSeeder::class);
-        $this->call(PermissionTableSeeder::class);
-        $this->call(RoleTableSeeder::class);
-        $this->call(RoleUserTableSeeder::class);
+        // $this->call(PermissionTableSeeder::class);
+        // $this->call(RoleTableSeeder::class);
+        // $this->call(RoleUserTableSeeder::class);
     }
 }

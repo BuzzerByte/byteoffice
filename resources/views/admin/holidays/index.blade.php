@@ -53,11 +53,9 @@
                     <div class="actions">
                         <div class="row">
                             <div class="col-md-5">
-                                @permission('holiday-create')
                                 <button class="btn btn-primary btn-sm" data-target="#addHolidayModal"
                                     title="View" data-placement="top" data-toggle="modal" href="#"> <i class="icon-fa icon-fa-plus"></i>Add
                                     Holiday</button>
-                                @endpermission
                                 </div>
                             <div class="col-md-7">
                                 <form action="#" class="form-inline" method="post" accept-charset="utf-8">
@@ -90,7 +88,6 @@
                             <br>
                             <br>
                             <div class="table-responsive">
-                                @permission('holiday-list')
                                 <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                     <thead>
                                         <!-- Table head -->
@@ -122,16 +119,13 @@
 
                                                 <div class="btn-group mr-2" role="group" aria-label="First group">
                                                     <input type="hidden" value="{{ $holiday->id }}">
-                                                    @permission('holiday-edit')
                                                     <button type="button" class="btn btn-icon btn-outline-info editHolidayModal"
                                                         data-target="#editHolidayModal" data-placement="top"
                                                         data-toggle="modal"><i class="icon-fa icon-fa-pencil"></i></button>
-                                                    @endpermission
-                                                    @permission('holiday-delete')
+                                    
                                                         <button type="button" class="btn btn-icon btn-outline-danger getDeleteHoliday"
                                                     data-target="#deleteHolidayModal" data-placement="top"
                                                     data-toggle="modal"><i class="icon-fa icon-fa-trash"></i></button>
-                                                    @endpermission
                                                 </div>
                                             </td>
 
@@ -139,7 +133,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                @endpermission
                             </div>
                         </div>
 

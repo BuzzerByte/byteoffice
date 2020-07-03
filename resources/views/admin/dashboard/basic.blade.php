@@ -145,7 +145,7 @@ Highcharts.chart('salesChart', {
                         <h6><i class="icon-fa icon-fa-line-chart text-warning"></i> Traffic Stats</h6>
                     </div>
                     <div class="card-body">
-                        {{-- <line-chart :labels="['Jan','Feb','Mar','June']" :values="[20,30,40,60]"></line-chart> --}}
+                        <line-chart :labels="['Jan','Feb','Mar','June']" :values="[20,30,40,60]"></line-chart>
                     </div>
                 </div>
             </div>
@@ -155,8 +155,7 @@ Highcharts.chart('salesChart', {
                         <h6><i class="icon-fa icon-fa-bar-chart text-success"></i> Sales Chart</h6>
                     </div>
                     <div class="card-body">
-                        <div id="salesChart"></div>
-                        {{-- <bar-chart :labels="['Jan','Feb','Mar','June']" :values="[20,30,40,60]"></bar-chart> --}}
+                        <bar-chart :labels="['Jan','Feb','Mar','June']" :values="[20,30,40,60]"></bar-chart>
                     </div>
                 </div>
             </div>
@@ -181,7 +180,7 @@ Highcharts.chart('salesChart', {
                                     @if($AllOrder != [])
                                     @foreach($AllOrder as $order)
                                     <tr>
-                                    <td>{{ \buzzeroffice\Client::where('id',$order->client_id)->first()->name }}</td>
+                                    <td>{{ \App\Client::where('id',$order->client_id)->first()->name }}</td>
                                     <td>{{ $order->invoice_date }}</td>
                                     <td>{{ $order->g_total}}</td>
                                     <td>

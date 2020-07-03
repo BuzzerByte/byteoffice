@@ -155,17 +155,17 @@ return [
         /*
          * Application Service Providers...
          */
-        buzzeroffice\Providers\AppServiceProvider::class,
-        buzzeroffice\Providers\AuthServiceProvider::class,
-        // buzzeroffice\Providers\BroadcastServiceProvider::class,
-        buzzeroffice\Providers\EventServiceProvider::class,
-        buzzeroffice\Providers\RouteServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
+        App\Providers\TelescopeServiceProvider::class,
 
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-        Zizaco\Entrust\EntrustServiceProvider::class,
-        // Barryvdh\DomPDF\ServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -215,8 +215,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Flash' => Laracasts\Flash\Flash::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
-        // 'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

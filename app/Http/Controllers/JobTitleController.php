@@ -1,8 +1,8 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\JobTitle;
+use App\JobTitle;
 use Illuminate\Http\Request;
 
 class JobTitleController extends Controller
@@ -46,7 +46,7 @@ class JobTitleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \buzzeroffice\JobTitle  $jobTitle
+     * @param  \App\JobTitle  $jobTitle
      * @return \Illuminate\Http\Response
      */
     public function show(JobTitle $jobTitle)
@@ -57,7 +57,7 @@ class JobTitleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \buzzeroffice\JobTitle  $jobTitle
+     * @param  \App\JobTitle  $jobTitle
      * @return \Illuminate\Http\Response
      */
     public function edit(JobTitle $jobtitle)
@@ -69,7 +69,7 @@ class JobTitleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \buzzeroffice\JobTitle  $jobTitle
+     * @param  \App\JobTitle  $jobTitle
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, JobTitle $jobtitle)
@@ -84,7 +84,7 @@ class JobTitleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \buzzeroffice\JobTitle  $jobTitle
+     * @param  \App\JobTitle  $jobTitle
      * @return \Illuminate\Http\Response
      */
     public function destroy(JobTitle $jobTitle)

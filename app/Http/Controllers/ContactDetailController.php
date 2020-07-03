@@ -1,11 +1,11 @@
 <?php
 
-namespace buzzeroffice\Http\Controllers;
+namespace App\Http\Controllers;
 
-use buzzeroffice\ContactDetail;
-use buzzeroffice\EmergencyContact;
-use buzzeroffice\Employee;
-use buzzeroffice\User;
+use App\ContactDetail;
+use App\EmergencyContact;
+use App\Employee;
+use App\User;
 use Illuminate\Http\Request;
 
 class ContactDetailController extends Controller
