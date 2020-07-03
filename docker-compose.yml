@@ -49,7 +49,7 @@ services:
 
   composer:
     image: composer:latest
-    container_name: composer
+    container_name: buzzeroffice_composer
     volumes:
       - ./:/var/www/html
     working_dir: /var/www/html
@@ -60,7 +60,7 @@ services:
 
   npm:
     image: node:13.7
-    container_name: npm
+    container_name: buzzeroffice_npm
     volumes:
       - ./:/var/www/html
     working_dir: /var/www/html
@@ -70,7 +70,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: artisan
+    container_name: buzzeroffice_artisan
     volumes:
       - ./:/var/www/html
     depends_on:
