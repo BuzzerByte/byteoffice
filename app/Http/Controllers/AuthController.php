@@ -5,6 +5,7 @@ use Auth;
 use App\Http\Requests;
 use App\User;
 use Socialite;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -57,7 +58,9 @@ class AuthController extends Controller
      */
     public function handleProviderCallback($provider)
     {
+        Log::info('handle provider call back');
         $provider_user = Socialite::driver($provider)->user();
+        Log::info($provider_user);
         $user = $this->findUserByProviderOrCreate($provider, $provider_user);
         auth()->login($user);
         flash('Welcome to Laraspace.')->success();
@@ -67,16 +70,19 @@ class AuthController extends Controller
 
     private function findUserByProviderOrCreate($provider, $provider_user)
     {
+        Log::info('start find user');
         $user = User::where($provider . '_id', $provider_user->token)
             ->orWhere('email', $provider_user->email)
             ->first();
         if (!$user) {
+            Log::info('create user');
             $user = User::create([
                 'name' => $provider_user->name,
                 'email' => $provider_user->email,
                 $provider . '_id' => $provider_user->token
             ]);
         } else {
+            Log::info('update token');
             // Update the token on each login request
             $user[$provider . '_id'] = $provider_user->token;
             $user->save();
@@ -86,6 +92,7 @@ class AuthController extends Controller
     }
 
     private function redirectToFacebook(){
+        Log::info('redirect to fb');
         return Socialite::driver('facebook')->redirect();
     }
 
