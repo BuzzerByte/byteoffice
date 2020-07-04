@@ -59,7 +59,7 @@ class AuthController extends Controller
     public function handleProviderCallback($provider)
     {
         Log::info('handle provider call back');
-        $provider_user = Socialite::driver($provider)->user();
+        $provider_user = Socialite::driver($provider)->stateless()->user();
         Log::info($provider_user);
         $user = $this->findUserByProviderOrCreate($provider, $provider_user);
         auth()->login($user);
