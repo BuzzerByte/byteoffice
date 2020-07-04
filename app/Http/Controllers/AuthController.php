@@ -95,7 +95,7 @@ class AuthController extends Controller
             $finduser = User::where('facebook_id', $user->id)->first();
             if ($finduser) {
                 Auth::login($finduser);
-                return redirect('/home');
+                return redirect('/admin');
             } else {
                 $newUser = User::create(['name' => $user->name, 'email' => $user->email, 'facebook_id' => $user->id]);
                 Auth::login($newUser);
