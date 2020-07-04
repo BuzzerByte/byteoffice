@@ -366,7 +366,8 @@ Route::group(['middleware' => ['guest']], function () {
 Route::get('logout', [
     'as' => 'logout', 'uses' => 'AuthController@logout'
 ]);
-
+Route::get('auth/facebook', 'AuthController@redirectToFacebook');
+Route::get('auth/facebook/callback', 'AuthController@handleFacebookCallback'); 
 // Route::get('install', [
 //     'as' => 'logout', 'uses' => 'AuthController@logout'
 // ]);
