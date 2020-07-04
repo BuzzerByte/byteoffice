@@ -59,29 +59,13 @@ class AuthController extends Controller
     public function handleProviderCallback($provider)
     {
         Log::info('handle provider call back');
-        // $provider_user = Socialite::driver($provider)->user();
-        // Log::info($provider_user);
-        // $user = $this->findUserByProviderOrCreate($provider, $provider_user);
-        // auth()->login($user);
-        // flash('Welcome to Laraspace.')->success();
+        $provider_user = Socialite::driver($provider)->user();
+        Log::info($provider_user);
+        $user = $this->findUserByProviderOrCreate($provider, $provider_user);
+        auth()->login($user);
+        flash('Welcome to Laraspace.')->success();
 
-        // return redirect()->to('/admin');
-
-        try {
-            $user = Socialite::driver('facebook')->stateless()->user();
-            $finduser = User::where('facebook_id', $user->id)->first();
-            if ($finduser) {
-                Auth::login($finduser);
-                return redirect('/admin');
-            } else {
-                $newUser = User::create(['name' => $user->name, 'email' => $user->email, 'facebook_id' => $user->id]);
-                Auth::login($newUser);
-                return redirect()->back();
-            }
-        }
-        catch(Exception $e) {
-            return redirect('auth/facebook');
-        }
+        return redirect()->to('/admin');
     }
 
     private function findUserByProviderOrCreate($provider, $provider_user)
@@ -106,27 +90,4 @@ class AuthController extends Controller
 
         return $user;
     }
-
-    // private function redirectToFacebook(){
-    //     Log::info('redirect to fb');
-    //     return Socialite::driver('facebook')->redirect();
-    // }
-
-    // private function handleFacebookCallback(){
-    //     try {
-    //         $user = Socialite::driver('facebook')->user();
-    //         $finduser = User::where('facebook_id', $user->id)->first();
-    //         if ($finduser) {
-    //             Auth::login($finduser);
-    //             return redirect('/admin');
-    //         } else {
-    //             $newUser = User::create(['name' => $user->name, 'email' => $user->email, 'facebook_id' => $user->id]);
-    //             Auth::login($newUser);
-    //             return redirect()->back();
-    //         }
-    //     }
-    //     catch(Exception $e) {
-    //         return redirect('auth/facebook');
-    //     }
-    // }
 }
