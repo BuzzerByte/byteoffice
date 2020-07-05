@@ -6,7 +6,7 @@ use App\Http\Requests;
 use App\User;
 use Socialite;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Http\Request;
 class AuthController extends Controller
 {
     public function login()
@@ -60,8 +60,12 @@ class AuthController extends Controller
     public function handleProviderCallback($provider)
     {
         Log::info('handle provider call back');
+        // if (!$request->has('code') || $request->has('denied')) {
+        //     Log::info('Request: '.$request);
+        //     return redirect('/');
+        // }
         $provider_user = Socialite::driver($provider)->stateless()->user();
-        Log::info($provider_user);
+        Log::info(json_encode($provider_user));
         $user = $this->findUserByProviderOrCreate($provider, $provider_user);
         auth()->login($user);
         flash('Welcome to Laraspace.')->success();
