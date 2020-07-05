@@ -7,6 +7,7 @@ use App\User;
 use Socialite;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+
 class AuthController extends Controller
 {
     public function login()
@@ -57,14 +58,20 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function handleProviderCallback($provider)
+    public function handleProviderCallback($provider,Request $request)
     {
         Log::info('handle provider call back');
-        // if (!$request->has('code') || $request->has('denied')) {
-        //     Log::info('Request: '.$request);
-        //     return redirect('/');
-        // }
-        $provider_user = Socialite::driver($provider)->stateless()->user();
+        if (!$request->has('code') || $request->has('denied')) {
+            Log::info('Request: '.$request);
+            return redirect('/');
+        }
+        try{
+            $provider_user = Socialite::driver($provider)->stateless()->user();
+        }catch(Exception $e){
+            Log::info($e);
+        }
+
+        
         Log::info(json_encode($provider_user));
         $user = $this->findUserByProviderOrCreate($provider, $provider_user);
         auth()->login($user);
