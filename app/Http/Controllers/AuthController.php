@@ -17,7 +17,7 @@ class AuthController extends Controller
 
     public function postLogin(Requests\LoginRequest $request)
     {
-        // return response()->json($request);
+        Log::info($request);
         if (User::login($request)) {
             flash('Welcome to Laraspace.')->success();
             if (Auth::user()->isAdmin()) {
