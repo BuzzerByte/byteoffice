@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call(WorkShiftTableSeeder::class);
         $this->call(LeaveTypeTableSeeder::class);
         $this->call(WorkingDaysTableSeeder::class);
-        $this->call(PermissionTableSeeder::class);
-        $this->call(RoleTableSeeder::class);
-        $this->call(RoleUserTableSeeder::class);
+        // $this->call(PermissionTableSeeder::class);
+        // $this->call(RoleTableSeeder::class);
+        // $this->call(RoleUserTableSeeder::class);
     }
 }

@@ -31,11 +31,50 @@
       'Flash' => 'Laracasts\\Flash\\Flash',
     ),
   ),
-  'laravel/telescope' => 
+  'laracasts/generators' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laracasts\\Generators\\GeneratorsServiceProvider',
+    ),
+  ),
+  'laravel/socialite' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laracasts\\Flash\\FlashServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Flash' => 'Laracasts\\Flash\\Flash',
+    ),
+  ),
+  'laravel/tinker' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laravel\\Tinker\\TinkerServiceProvider',
+    ),
+  ),
+  'maatwebsite/excel' => 
   array (
     'providers' => 
     array (
       0 => 'Laravel\\Telescope\\TelescopeServiceProvider',
+    ),
+  ),
+  'nesbot/carbon' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Carbon\\Laravel\\ServiceProvider',
+    ),
+  ),
+  'nunomaduro/collision' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     ),
   ),
   'nesbot/carbon' => 

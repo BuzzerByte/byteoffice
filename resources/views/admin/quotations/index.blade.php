@@ -48,7 +48,6 @@
                     </div>
                 </div>
                 <div class="card-body table-responsive">
-                    @permission('quotation-list')
                     <table id="responsive-datatable" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -105,13 +104,11 @@
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                             <a class="dropdown-item" href="/admin/quotations/{{ $quotation->id }}">View</a>
-                                            @permission('quotation-edit')
+                                            
                                             <a class="dropdown-item" href="/admin/quotations/{{ $quotation->id }}/edit">Edit</a>
-                                            @endpermission
-                                            @permission('quotation-delete')
+                                            
                                             <a class="dropdown-item del_quotation" href="#" data-target="#delete_quotation"
                                                 data-toggle="modal">Delete</a>
-                                            @endpermission
                                         </div>
                                     </div>
 
@@ -143,7 +140,6 @@
                             </tr>
                         </tfoot>
                     </table>
-                    @endpermission
                 </div>
             </div>
         </div>

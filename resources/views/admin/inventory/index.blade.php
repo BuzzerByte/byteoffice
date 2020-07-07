@@ -116,7 +116,6 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            @permission('product-create')
                             <div class="btn-group" role="group">
                                 <button id="btnGroupDrop1" type="button" class="btn btn-outline-default dropdown-toggle"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -130,17 +129,14 @@
                                     <a class="dropdown-item service" href="#" data-toggle="modal" data-target="#modal-create">Service</a>
                                 </div>
                             </div>
-                            @endpermission
-                            @permission('product-delete')
                             <button type="submit" onclick="return confirm('Are you sure want to delete selected inventories?');"
                                 class="btn btn-danger btn-md btn-flat" id="deleteInventories"><i class="fa fa-trash"></i>Delete</button>
-                            @endpermission
+                            
                         </div>
                     </div>
                 </div>
                 
                 <div class="card-body table-responsive">
-                    @permission('product-list')
                     <table id="responsive-datatable" class="table table-bordered table-striped">
                         <thead>
                             <tr role="row">
@@ -209,9 +205,8 @@
                                             <input type="hidden" class="inventory_id" id="{{ $inventory->id }}">
                                             <a class="dropdown-item withdraw" href="#" data-toggle="modal"
                                                 data-target="#modal-withdraw">Withdraw</a>
-                                            @permission('product-edit')
                                             <a class="dropdown-item edit" href="#" data-toggle="modal" data-target="#modal-edit">Edit</a>
-                                            @endpermission
+                                       
                                         </div>
                                     </div>
                                 </td>
@@ -233,7 +228,6 @@
 
 
                     </table>
-                    @endpermission
                 </div>
                 </form>
             </div>

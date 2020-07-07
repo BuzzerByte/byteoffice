@@ -55,14 +55,11 @@
                         <h6>Taxes</h6>
                     </div>
                     <div class="actions">
-                        @permission('tax-create')
                         <button class="btn btn-primary btn-sm" data-target="#addTaxModel" data-placement="top"
                             data-toggle="modal"> <i class="icon-fa icon-fa-plus"></i>Add Tax</button>
-                        @endpermission
                     </div>
                 </div>
                 <div class="card-body">
-                    @permission('tax-list')
                     <div class="table-responsive">
                         <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
@@ -107,14 +104,11 @@
 
                                         <div class="btn-group mr-2" role="group" aria-label="First group">
                                             <input type="hidden" value="{{ $tax->id }}">
-                                            @permission('tax-edit')
                                             <button type="button" class="btn btn-icon btn-outline-info getEditTax"
                                                 data-target="#editTaxModel" data-placement="top" data-toggle="modal"><i
                                                     class="icon-fa icon-fa-pencil"></i></button>
-                                            @endpermission
-                                            @permission('tax-delete')
                                                     <button type="button" class="btn btn-icon btn-outline-danger getDeleteTax" data-target="#deleteTaxModel" data-placement="top" data-toggle="modal"><i class="icon-fa icon-fa-trash"></i></button>
-                                            @endpermission
+                                           
                                                 </div>
 
                                     </td>
@@ -135,7 +129,6 @@
                             </tbody>
                         </table>
                     </div>
-                    @endpermission
                 </div>
             </div>
         </div>

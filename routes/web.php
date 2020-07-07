@@ -44,22 +44,22 @@ Route::group([
     Route::post('/profiles/setAttendanceYear','UserController@setAttendanceYear')->name('profiles.setAttendanceYear');
     Route::resource('profiles','UserController');
     //Leave Application
-    Route::resource('applications','ApplicationController');
+    //Route::resource('applications','ApplicationController');
     //Reimbursement
     Route::get('/reimbursements/approvals','ReimbursementController@approval')->name('reimbursements.approval');
-    Route::resource('reimbursements','ReimbursementController');
+    //Route::resource('reimbursements','ReimbursementController');
     //Payroll
     Route::resource('payrolls','PayrollController');
     //Attendance
    
-    Route::resource('attendances','AttendanceController');
+    //Route::resource('attendances','AttendanceController');
     //Awards
     Route::resource('awards','EmployeeAwardController');
 });
 
 Route::group([
     'prefix' => 'admin',
-//    'middleware' => 'admin'
+//   'middleware' => 'admin'
 ], function () {
 
     // Dashboard
@@ -357,9 +357,7 @@ Route::group(['middleware' => ['guest']], function () {
     Route::post('/password/reset', [
         'as' => 'reset.password.post', 'uses' => 'ForgotPasswordController@postReset'
     ]);
-
     Route::get('auth/{provider}', 'AuthController@redirectToProvider');
-
     Route::get('auth/{provider}/callback', 'AuthController@handleProviderCallback');
 });
 
@@ -367,6 +365,8 @@ Route::get('logout', [
     'as' => 'logout', 'uses' => 'AuthController@logout'
 ]);
 
-Route::get('install', [
-    'as' => 'logout', 'uses' => 'AuthController@logout'
-]);
+// Route::get('auth/facebook', 'AuthController@redirectToFacebook');
+// Route::get('auth/facebook/callback', 'AuthController@handleFacebookCallback'); 
+// Route::get('install', [
+//     'as' => 'logout', 'uses' => 'AuthController@logout'
+// ]);

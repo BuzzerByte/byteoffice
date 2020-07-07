@@ -20,7 +20,6 @@ class Vendor extends Model
         'email',
         'website',
         'billing_address',
-        'shipping_address',
         'note',
         'created_at',
         'updated_at',

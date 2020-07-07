@@ -1,5 +1,6 @@
 <?php
 
+namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Order;
@@ -7,7 +8,6 @@ use App\User;
 use App\Inventory;
 use App\Purchase;
 use App\Client;
-namespace App\Http\Controllers;
 
 
 class DashboardController extends Controller

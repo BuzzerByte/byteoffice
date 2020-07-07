@@ -23,10 +23,8 @@
         </div>
         <br>
         <div class="profile-userbuttons">
-            @permission('temination-create')
             <a data-target="#addTerminationModal" data-placement="top" data-toggle="modal" href="#" class="btn btn-danger btn-sm">
                 Termination </a>
-            @endpermission
         </div>
         @else
 

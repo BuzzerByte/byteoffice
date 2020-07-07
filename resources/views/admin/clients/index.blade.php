@@ -89,16 +89,13 @@
                         <h6>Client List</h6>
                     </div>
                     <div class="actions">
-                        @permission('client-create')
                         <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-create"> <i
                                 class="icon-fa icon-fa-plus"></i> Add new client</button>
                         <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-import"> <i class="icon-fa icon-fa-cloud-upload"></i>
                             Import</button>
-                        @endpermission
                     </div>
                 </div>
                 <div class="card-body">
-                    @permission('client-list')
                     <table id="responsive-datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                             <tr>
@@ -162,12 +159,11 @@
                                             <a class="dropdown-item" href="/admin/orders/{{ $client->id }}/createWithClient">Create
                                                 Invoice</a>
                                             <a class="dropdown-item" href="/admin/quotation/{{ $client->id }}/createWithClient">Quotation</a>
-                                            @permission('client-edit')
+                                            
                                             <a class="dropdown-item edit" href="#" data-toggle="modal" data-target="#modal-edit">Edit</a>
-                                            @endpermission
-                                            @permission('client-delete')
+                                            
                                             <a class="dropdown-item delete" href="#" data-toggle="modal" data-target="#modal-delete">Delete</a>
-                                            @endpermission
+                                            
                                         </div>
                                     </div>
                                 </td>
@@ -189,7 +185,6 @@
                         @endif
                         </tbody>
                     </table>
-                    @endpermission
                 </div>
 
             </div>
