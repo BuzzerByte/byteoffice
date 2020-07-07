@@ -28,9 +28,9 @@
     24 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     25 => 'Laracasts\\Flash\\FlashServiceProvider',
     26 => 'Laracasts\\Generators\\GeneratorsServiceProvider',
-    27 => 'Laravel\\Socialite\\SocialiteServiceProvider',
+    27 => 'Laracasts\\Flash\\FlashServiceProvider',
     28 => 'Laravel\\Tinker\\TinkerServiceProvider',
-    29 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    29 => 'Laravel\\Telescope\\TelescopeServiceProvider',
     30 => 'Carbon\\Laravel\\ServiceProvider',
     31 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     32 => 'App\\Providers\\AppServiceProvider',
@@ -60,17 +60,18 @@
     12 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     13 => 'Laracasts\\Flash\\FlashServiceProvider',
     14 => 'Laracasts\\Generators\\GeneratorsServiceProvider',
-    15 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
-    16 => 'Carbon\\Laravel\\ServiceProvider',
-    17 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    18 => 'App\\Providers\\AppServiceProvider',
-    19 => 'App\\Providers\\AuthServiceProvider',
-    20 => 'App\\Providers\\EventServiceProvider',
-    21 => 'App\\Providers\\RouteServiceProvider',
-    22 => 'App\\Providers\\TelescopeServiceProvider',
-    23 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
-    24 => 'Laracasts\\Flash\\FlashServiceProvider',
-    25 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    15 => 'Laracasts\\Flash\\FlashServiceProvider',
+    16 => 'Laravel\\Telescope\\TelescopeServiceProvider',
+    17 => 'Carbon\\Laravel\\ServiceProvider',
+    18 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    19 => 'App\\Providers\\AppServiceProvider',
+    20 => 'App\\Providers\\AuthServiceProvider',
+    21 => 'App\\Providers\\EventServiceProvider',
+    22 => 'App\\Providers\\RouteServiceProvider',
+    23 => 'App\\Providers\\TelescopeServiceProvider',
+    24 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
+    25 => 'Laracasts\\Flash\\FlashServiceProvider',
+    26 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
   ),
   'deferred' => 
   array (
@@ -179,8 +180,8 @@
     'translation.loader' => 'Illuminate\\Translation\\TranslationServiceProvider',
     'validator' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'validation.presence' => 'Illuminate\\Validation\\ValidationServiceProvider',
-    'Laravel\\Socialite\\Contracts\\Factory' => 'Laravel\\Socialite\\SocialiteServiceProvider',
     'command.tinker' => 'Laravel\\Tinker\\TinkerServiceProvider',
+    'Laravel\\Socialite\\Contracts\\Factory' => 'Laravel\\Socialite\\SocialiteServiceProvider',
   ),
   'when' => 
   array (
@@ -220,10 +221,10 @@
     'Illuminate\\Validation\\ValidationServiceProvider' => 
     array (
     ),
-    'Laravel\\Socialite\\SocialiteServiceProvider' => 
+    'Laravel\\Tinker\\TinkerServiceProvider' => 
     array (
     ),
-    'Laravel\\Tinker\\TinkerServiceProvider' => 
+    'Laravel\\Socialite\\SocialiteServiceProvider' => 
     array (
     ),
   ),
