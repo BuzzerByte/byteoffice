@@ -7,39 +7,53 @@ use App\User;
 use Socialite;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Providers\RouteServiceProvider;
 
 class AuthController extends Controller
 {
-    public function login()
-    {
-        return view('admin.sessions.login');
-    }
+    use AuthenticatesUsers;
+    // public function login()
+    // {
+    //     return view('admin.sessions.login');
+    // }
 
-    public function postLogin(Requests\LoginRequest $request)
-    {
-        Log::info($request);
-        if (User::login($request)) {
-            flash('Welcome to Laraspace.')->success();
-            if (Auth::user()->isAdmin()) {
-                return redirect()->to('/admin');
-            } else {
-                return redirect()->to('/');
-            }
-        }
-        flash('Invalid Login Credentials')->error();
+    // public function postLogin(Requests\LoginRequest $request)
+    // {
+    //     Log::info($request);
+    //     if (User::login($request)) {
+    //         flash('Welcome to Laraspace.')->success();
+    //         if (Auth::user()->isAdmin()) {
+    //             return redirect()->to('/admin');
+    //         } else {
+    //             return redirect()->to('/');
+    //         }
+    //     }
+    //     flash('Invalid Login Credentials')->error();
         
-        return redirect()->back();
-    }
+    //     return redirect()->back();
+    // }
 
-    public function logOut()
-    {
-        Auth::logout();
-        return redirect()->to('/login');
-    }
+    // public function logOut()
+    // {
+    //     Auth::logout();
+    //     return redirect()->to('/login');
+    // }
 
-    public function register()
+    // public function register()
+    // {
+    //     return view('admin.sessions.register');
+    // }
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = RouteServiceProvider::HOME;
+
+    public function __construct()
     {
-        return view('admin.sessions.register');
+        $this->middleware('guest')->except('logout');
     }
 
     /**
@@ -54,7 +68,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Obtain the user information from GitHub.
+     * Obtain the user information from GitHub, Facebook, Google.
      *
      * @return Response
      */
