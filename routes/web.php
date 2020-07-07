@@ -359,11 +359,12 @@ Route::group(['middleware' => ['guest']], function () {
     ]);
     Route::get('auth/{provider}', 'AuthController@redirectToProvider');
     Route::get('auth/{provider}/callback', 'AuthController@handleProviderCallback');
+    Route::get('logout', [
+        'as' => 'logout', 'uses' => 'AuthController@logout'
+    ]);
 });
 
-Route::get('logout', [
-    'as' => 'logout', 'uses' => 'AuthController@logout'
-]);
+
 
 // Route::get('auth/facebook', 'AuthController@redirectToFacebook');
 // Route::get('auth/facebook/callback', 'AuthController@handleFacebookCallback'); 
