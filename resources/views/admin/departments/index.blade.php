@@ -50,14 +50,11 @@
                         <h6>Department</h6>
                     </div>
                     <div class="actions">
-                        @permission('department-create')
                         <button class="btn btn-primary btn-sm" data-target="#addDepartment" data-placement="top"
                             data-toggle="modal"> <i class="icon-fa icon-fa-plus"></i>Add Department</button>
-                        @endpermission
                     </div>
                 </div>
                 <div class="card-body">
-                    @permission('department-list')
                     <div class="table-responsive">
                         <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
 
@@ -94,14 +91,12 @@
                                     <td>
                                         <div class="btn-group mr-2" role="group" aria-label="First group">
                                             <input type="hidden" value="{{ $department->id }}">
-                                            @permission('department-edit')
                                             <button type="button" class="btn btn-icon btn-outline-info getEditDepartment"
                                                 data-target="#editDepartmentModal" data-toggle="modal"><i class="icon-fa icon-fa-pencil"></i></button>
-                                            @endpermission
-                                            @permission('department-delete')
+                                            
                                                 <button type="button" class="btn btn-icon btn-outline-danger getDeleteDepartment"
                                             data-target="#deleteDepartmentModal" data-toggle="modal"><i class="icon-fa icon-fa-trash"></i></button>
-                                            @endpermission
+                                            
                                         </div>
                                     </td>
                                 </tr>
@@ -122,7 +117,6 @@
                         </table>
 
                     </div>
-                    @endpermission
                 </div>
             </div>
         </div>

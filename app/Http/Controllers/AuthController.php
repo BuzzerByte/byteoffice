@@ -5,6 +5,8 @@ use Auth;
 use App\Http\Requests;
 use App\User;
 use Socialite;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -15,7 +17,7 @@ class AuthController extends Controller
 
     public function postLogin(Requests\LoginRequest $request)
     {
-        return response()->json($request);
+        Log::info($request);
         if (User::login($request)) {
             flash('Welcome to Laraspace.')->success();
             if (Auth::user()->isAdmin()) {
@@ -47,6 +49,7 @@ class AuthController extends Controller
      */
     public function redirectToProvider($provider)
     {
+        Log::info('redirect to provider');
         return Socialite::driver($provider)->redirect();
     }
 
@@ -55,9 +58,21 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function handleProviderCallback($provider)
+    public function handleProviderCallback($provider,Request $request)
     {
-        $provider_user = Socialite::driver($provider)->user();
+        Log::info('handle provider call back');
+        if (!$request->has('code') || $request->has('denied')) {
+            Log::info('Request: '.$request);
+            return redirect('/');
+        }
+        try{
+            $provider_user = Socialite::driver($provider)->stateless()->user();
+        }catch(Exception $e){
+            Log::info($e);
+        }
+
+        
+        Log::info(json_encode($provider_user));
         $user = $this->findUserByProviderOrCreate($provider, $provider_user);
         auth()->login($user);
         flash('Welcome to Laraspace.')->success();
@@ -67,16 +82,19 @@ class AuthController extends Controller
 
     private function findUserByProviderOrCreate($provider, $provider_user)
     {
+        Log::info('start find user');
         $user = User::where($provider . '_id', $provider_user->token)
             ->orWhere('email', $provider_user->email)
             ->first();
         if (!$user) {
+            Log::info('create user');
             $user = User::create([
                 'name' => $provider_user->name,
                 'email' => $provider_user->email,
                 $provider . '_id' => $provider_user->token
             ]);
         } else {
+            Log::info('update token');
             // Update the token on each login request
             $user[$provider . '_id'] = $provider_user->token;
             $user->save();

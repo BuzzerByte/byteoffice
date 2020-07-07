@@ -306,28 +306,22 @@
                             <button id="print_purchase" class="btn btn-secondary btn-rounded">
                                 Print
                             </button>
-                            @permission('purchase-delete')
                             <button class="btn btn-danger btn-rounded del_purchase" data-target="#delete_purchase" data-toggle="modal">
                                 Delete
                             </button>
-                            @endpermission
                             <button class="btn btn-warning btn-rounded return_prod_edit" data-target="#return_product" data-toggle="modal">
                                 Return Purchase
                             </button>
                             <button class="btn btn-warning btn-rounded received_prod_edit" data-target="#receive_product" data-toggle="modal">
                                 Received Product
                             </button>
-                            @permission('payment-list')
                             <button class="btn btn-info btn-rounded" data-target="#modal-index-payment" data-toggle="modal">
                                 View Payment
                             </button>
-                            @endpermission
-                            @permission('payment-create')
                             <button class="btn btn-primary btn-rounded add_payment" data-target="#modal-create-payment"
                                 data-toggle="modal">
                                 Add Payment
                             </button>
-                            @endpermission
                         </div>
                     </div>
                 </div>

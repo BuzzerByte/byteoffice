@@ -9,6 +9,7 @@ use Response;
 use Excel;
 use File;
 use DB;
+use App\Imports\VendorsImport;
 
 class VendorController extends Controller
 {
@@ -93,8 +94,8 @@ class VendorController extends Controller
             $extension = File::extension($request->import_file->getClientOriginalName());
             if ($extension == "csv") {
                 $path = $request->import_file->getRealPath();
-                $data = Excel::load($path, function($reader) {})->get();
-                if(!empty($data) && $data->count()){
+                $data = Excel::import(new VendorsImport, $request->import_file);
+                if(!empty($data)){
                     foreach($data as $record){
                         if(in_array($record->vendor_name,$vendor_name)){
                             continue;   

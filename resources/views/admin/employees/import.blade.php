@@ -35,7 +35,6 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    @permission('employee-create')
                     <form action="{{ route('users.importEmployee') }}" enctype="multipart/form-data" method="post"
                         accept-charset="utf-8">
                         @csrf
@@ -83,7 +82,6 @@
                                 Import Employee</button>
                         </div>
                     </form>
-                    @endpermission
                 </div>
             </div>
         </div>

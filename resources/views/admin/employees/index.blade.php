@@ -40,7 +40,6 @@
                     </div>
                 </div>
                 <div class="card-body table-responsive">
-                    @permission('employee-list')
                     <table id="responsive-datatable" class="table table-bordered table-striped">
 
 
@@ -107,9 +106,8 @@
                                         
                                         <button type="button" class="btn btn-icon btn-outline-info" onclick="location.href='{{ route('users.show',$employee->id) }}'"><i
                                                 class="icon-fa icon-fa-search"></i></button>
-                                        @permission('employee-delete')
                                         <button type="button" class="btn btn-icon btn-outline-danger delete" href="#" data-toggle="modal" data-target="#modal-delete"><i class="icon-fa icon-fa-trash"></i></button>
-                                        @endpermission
+                                        
                                     </div>
                                 </td>
                             </tr>
@@ -128,7 +126,6 @@
                         @endif
 
                     </table>
-                    @endpermission
                 </div>
             </div>
         </div>

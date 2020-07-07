@@ -28,7 +28,6 @@
                     </div>
 
                 </div>
-                @permission('workingDays-list')
                 <form action="{{ route('workingdays.store') }}" method="post" accept-charset="utf-8">
                     @csrf
                     <div class="card-body">
@@ -118,7 +117,6 @@
                             Save</button>
                     </div>
                 </form>
-                @endpermission
             </div>
         </div>
     </div>

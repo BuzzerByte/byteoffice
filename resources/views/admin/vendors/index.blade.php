@@ -83,16 +83,13 @@
                         <h6>Vendor List</h6>
                     </div>
                     <div class="actions">
-                        @permission('vendor-create')
                         <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-create"> <i
                                 class="icon-fa icon-fa-plus"></i> Add new vendor</button>
                         <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-import"> <i class="icon-fa icon-fa-cloud-upload"></i>
                             Import</button>
-                        @endpermission
                     </div>
                 </div>
                 <div class="card-body">
-                    @permission('vendor-list')
                     <table id="responsive-datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                             <tr>
@@ -153,12 +150,10 @@
                                             <input type="hidden" class="vendor_id" id="{{ $vendor->id }}">
                                             <a class="dropdown-item" href="/admin/purchases/{{ $vendor->id }}/createWithVendor">Create
                                                 Bill</a>
-                                            @permission('vendor-edit')
                                             <a class="dropdown-item edit" href="#" data-toggle="modal" data-target="#modal-edit">Edit</a>
-                                            @endpermission
-                                            @permission('vendor-delete')
+                                            
                                             <a class="dropdown-item delete" href="#" data-toggle="modal" data-target="#modal-delete">Delete</a>
-                                            @endpermission
+                                          
                                         </div>
 
 
@@ -184,7 +179,6 @@
                         @endif
                         </tbody>
                     </table>
-                    @endpermission
                 </div>
 
             </div>

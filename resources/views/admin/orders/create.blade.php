@@ -207,7 +207,6 @@
                         <h6>Create Sales Invoice</h6>
                     </div>
                 </div>
-                @permission('invoice-create')
                 <form action="{{ route('orders.store') }}" id="from-invoice" enctype="multipart/form-data" method="post"
                     accept-charset="utf-8">
                     @csrf
@@ -579,7 +578,6 @@
                         <button type="submit" class="btn bg-navy btn-flat" id="saveInvoice">Save </button>
                     </div>
                 </form>
-                @endpermission
             </div>
         </div>
     </div>
