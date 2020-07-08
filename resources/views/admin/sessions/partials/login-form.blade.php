@@ -1,4 +1,4 @@
-<form action="{{route('login.post')}}" id="loginForm" method="post">
+<form action="{{ route('login') }}" id="loginForm" method="post">
     {{csrf_field()}}
     <div class="form-group">
         <input type="email" class="form-control autocomplete" name="email" placeholder="Enter email">
@@ -15,7 +15,8 @@
             </div>
         </div>
         <div class="col-6 text-right">
-            <a href="{{route('forgot-password.index')}}" class="forgot-link">Forgot Password?</a>
+            <!-- forgot-password.index (origninal route)-->
+            <a href="{{route('password.request')}}" class="forgot-link">Forgot Password?</a>
         </div>
     </div>
     <button class="btn btn-theme btn-full">Login</button>

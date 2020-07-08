@@ -13,37 +13,6 @@ use App\Providers\RouteServiceProvider;
 class AuthController extends Controller
 {
     use AuthenticatesUsers;
-    // public function login()
-    // {
-    //     return view('admin.sessions.login');
-    // }
-
-    // public function postLogin(Requests\LoginRequest $request)
-    // {
-    //     Log::info($request);
-    //     if (User::login($request)) {
-    //         flash('Welcome to Laraspace.')->success();
-    //         if (Auth::user()->isAdmin()) {
-    //             return redirect()->to('/admin');
-    //         } else {
-    //             return redirect()->to('/');
-    //         }
-    //     }
-    //     flash('Invalid Login Credentials')->error();
-        
-    //     return redirect()->back();
-    // }
-
-    // public function logOut()
-    // {
-    //     Auth::logout();
-    //     return redirect()->to('/login');
-    // }
-
-    // public function register()
-    // {
-    //     return view('admin.sessions.register');
-    // }
     /**
      * Where to redirect users after login.
      *
