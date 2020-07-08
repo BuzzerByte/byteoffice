@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Frontend Routes
@@ -7,12 +6,10 @@
 | Define the routes for your Frontend pages here
 |
 */
-
-Route::get('/', [
-    //'as' => 'home', 'uses' => 'FrontendController@home'
-    'as'=>'home', 'uses'=>'AuthController@login'
-]);
-
+Auth::routes();
+Route::get('/', 'Auth\LoginController@showLoginForm')->name('loginForm.get');
+Route::post('/logout', 'Auth\LoginController@logout')->name('logoutForm.post');
+Route::get('/home', 'HomeController@index')->name('home');
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
@@ -21,45 +18,45 @@ Route::get('/', [
 | To Enable Authentication just remove the comment from Admin Middleware
 |
 */
-Route::group([
-    'prefix' => 'users'
-],function(){
-    Route::get('/', [
-        'as' => 'users.dashboard', 'uses' => 'DashboardController@index'
-    ]);
+// Route::group([
+//     'prefix' => 'users'
+// ],function(){
+//     Route::get('/', [
+//         'as' => 'users.dashboard', 'uses' => 'DashboardController@index'
+//     ]);
 
-    // Route::get('/dashboard/basic', [
-    //     'as' => 'admin.dashboard.basic', 'uses' => 'DashboardController@basic'
-    // ]);
+//     // Route::get('/dashboard/basic', [
+//     //     'as' => 'admin.dashboard.basic', 'uses' => 'DashboardController@basic'
+//     // ]);
 
-    // Route::get('/dashboard/ecommerce', [
-    //     'as' => 'admin.dashboard.ecommerce', 'uses' => 'DashboardController@ecommerce'
-    // ]);
+//     // Route::get('/dashboard/ecommerce', [
+//     //     'as' => 'admin.dashboard.ecommerce', 'uses' => 'DashboardController@ecommerce'
+//     // ]);
 
-    // Route::get('/dashboard/finance', [
-    //     'as' => 'admin.dashboard.finance', 'uses' => 'DashboardController@finance'
-    // ]);
-    //Profile
-    Route::get('/profiles/showAttendances','UserController@showAttendances')->name('profiles.showAttendances');
-    Route::post('/profiles/setAttendanceYear','UserController@setAttendanceYear')->name('profiles.setAttendanceYear');
-    Route::resource('profiles','UserController');
-    //Leave Application
-    //Route::resource('applications','ApplicationController');
-    //Reimbursement
-    Route::get('/reimbursements/approvals','ReimbursementController@approval')->name('reimbursements.approval');
-    //Route::resource('reimbursements','ReimbursementController');
-    //Payroll
-    Route::resource('payrolls','PayrollController');
-    //Attendance
+//     // Route::get('/dashboard/finance', [
+//     //     'as' => 'admin.dashboard.finance', 'uses' => 'DashboardController@finance'
+//     // ]);
+//     //Profile
+//     Route::get('/profiles/showAttendances','UserController@showAttendances')->name('profiles.showAttendances');
+//     Route::post('/profiles/setAttendanceYear','UserController@setAttendanceYear')->name('profiles.setAttendanceYear');
+//     Route::resource('profiles','UserController');
+//     //Leave Application
+//     //Route::resource('applications','ApplicationController');
+//     //Reimbursement
+//     Route::get('/reimbursements/approvals','ReimbursementController@approval')->name('reimbursements.approval');
+//     //Route::resource('reimbursements','ReimbursementController');
+//     //Payroll
+//     Route::resource('payrolls','PayrollController');
+//     //Attendance
    
-    //Route::resource('attendances','AttendanceController');
-    //Awards
-    Route::resource('awards','EmployeeAwardController');
-});
+//     //Route::resource('attendances','AttendanceController');
+//     //Awards
+//     Route::resource('awards','EmployeeAwardController');
+// });
 
 Route::group([
-    'prefix' => 'admin',
-//   'middleware' => 'admin'
+   'prefix' => 'admin',
+   'middleware' => 'auth'
 ], function () {
 
     // Dashboard
@@ -328,46 +325,39 @@ Route::group([
 |
 */
 
-Route::group(['middleware' => ['guest']], function () {
+// Route::group(['middleware' => ['guest']], function () {
 
-    Route::get('login', [
-        'as' => 'login', 'uses' => 'AuthController@login'
-    ]);
+//     Route::get('login', [
+//         'as' => 'login', 'uses' => 'AuthController@showLoginForm'
+//     ]);
 
-    Route::get('register', [
-        'as' => 'register', 'uses' => 'AuthController@register'
-    ]);
+//     Route::get('register', [
+//         'as' => 'register', 'uses' => 'AuthController@register'
+//     ]);
 
-    Route::post('login', [
-        'as' => 'login.post', 'uses' => 'AuthController@postLogin'
-    ]);
+//     Route::post('login', [
+//         'as' => 'login.post', 'uses' => 'AuthController@login'
+//     ]);
 
-    Route::get('forgot-password', [
-        'as' => 'forgot-password.index', 'uses' => 'ForgotPasswordController@getEmail'
-    ]);
+//     Route::get('forgot-password', [
+//         'as' => 'forgot-password.index', 'uses' => 'ForgotPasswordController@getEmail'
+//     ]);
 
-    Route::post('/forgot-password', [
-        'as' => 'send-reset-link', 'uses' => 'ForgotPasswordController@postEmail'
-    ]);
+//     Route::post('/forgot-password', [
+//         'as' => 'send-reset-link', 'uses' => 'ForgotPasswordController@postEmail'
+//     ]);
 
-    Route::get('/password/reset/{token}', [
-        'as' => 'password.reset', 'uses' => 'ForgotPasswordController@GetReset'
-    ]);
+//     Route::get('/password/reset/{token}', [
+//         'as' => 'password.reset', 'uses' => 'ForgotPasswordController@GetReset'
+//     ]);
 
-    Route::post('/password/reset', [
-        'as' => 'reset.password.post', 'uses' => 'ForgotPasswordController@postReset'
-    ]);
-    Route::get('auth/{provider}', 'AuthController@redirectToProvider');
-    Route::get('auth/{provider}/callback', 'AuthController@handleProviderCallback');
-    Route::get('logout', [
-        'as' => 'logout', 'uses' => 'AuthController@logout'
-    ]);
-});
+//     Route::post('/password/reset', [
+//         'as' => 'reset.password.post', 'uses' => 'ForgotPasswordController@postReset'
+//     ]);
+//     Route::get('auth/{provider}', 'AuthController@redirectToProvider');
+//     Route::get('auth/{provider}/callback', 'AuthController@handleProviderCallback');
+//     Route::get('logout', [
+//         'as' => 'logout', 'uses' => 'AuthController@logout'
+//     ]);
+// });
 
-
-
-// Route::get('auth/facebook', 'AuthController@redirectToFacebook');
-// Route::get('auth/facebook/callback', 'AuthController@handleFacebookCallback'); 
-// Route::get('install', [
-//     'as' => 'logout', 'uses' => 'AuthController@logout'
-// ]);
