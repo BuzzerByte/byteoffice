@@ -11,6 +11,7 @@ Route::get('/', 'Auth\LoginController@showLoginForm')->name('loginForm.get');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logoutForm.post');
 Route::get('auth/{provider}', 'AuthController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'AuthController@handleProviderCallback');
+Route::post('/forgot-password', 'ForgotPasswordController@postEmail')->name('send-reset-link');
 Route::get('/home', 'HomeController@index')->name('home');
 /*
 |--------------------------------------------------------------------------
