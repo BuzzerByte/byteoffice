@@ -28,7 +28,7 @@
     24 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     25 => 'Laracasts\\Flash\\FlashServiceProvider',
     26 => 'Laracasts\\Generators\\GeneratorsServiceProvider',
-    27 => 'Laracasts\\Flash\\FlashServiceProvider',
+    27 => 'Laravel\\Socialite\\SocialiteServiceProvider',
     28 => 'Laravel\\Tinker\\TinkerServiceProvider',
     29 => 'Laravel\\Ui\\UiServiceProvider',
     30 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
@@ -61,13 +61,8 @@
     12 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     13 => 'Laracasts\\Flash\\FlashServiceProvider',
     14 => 'Laracasts\\Generators\\GeneratorsServiceProvider',
-<<<<<<< HEAD
-    15 => 'Laracasts\\Flash\\FlashServiceProvider',
-    16 => 'Laravel\\Telescope\\TelescopeServiceProvider',
-=======
     15 => 'Laravel\\Ui\\UiServiceProvider',
     16 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
->>>>>>> 142a3bde3a02fa2e50c32c06d95d61427d42c337
     17 => 'Carbon\\Laravel\\ServiceProvider',
     18 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     19 => 'App\\Providers\\AppServiceProvider',
@@ -186,8 +181,8 @@
     'translation.loader' => 'Illuminate\\Translation\\TranslationServiceProvider',
     'validator' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'validation.presence' => 'Illuminate\\Validation\\ValidationServiceProvider',
-    'command.tinker' => 'Laravel\\Tinker\\TinkerServiceProvider',
     'Laravel\\Socialite\\Contracts\\Factory' => 'Laravel\\Socialite\\SocialiteServiceProvider',
+    'command.tinker' => 'Laravel\\Tinker\\TinkerServiceProvider',
   ),
   'when' => 
   array (
@@ -227,10 +222,10 @@
     'Illuminate\\Validation\\ValidationServiceProvider' => 
     array (
     ),
-    'Laravel\\Tinker\\TinkerServiceProvider' => 
+    'Laravel\\Socialite\\SocialiteServiceProvider' => 
     array (
     ),
-    'Laravel\\Socialite\\SocialiteServiceProvider' => 
+    'Laravel\\Tinker\\TinkerServiceProvider' => 
     array (
     ),
   ),
