@@ -147,7 +147,7 @@ Highcharts.chart('salesChart', {
                         <h6><i class="icon-fa icon-fa-line-chart text-warning"></i> Traffic Stats</h6>
                     </div>
                     <div class="card-body">
-                        
+                        <line-chart :labels="['Jan','Feb','Mar','June']" :values="[20,30,40,60]"></line-chart>
                     </div>
                 </div>
             </div>
@@ -157,8 +157,7 @@ Highcharts.chart('salesChart', {
                         <h6><i class="icon-fa icon-fa-bar-chart text-success"></i> Sales Chart</h6>
                     </div>
                     <div class="card-body">
-                        <div id="salesChart"></div>
-                        
+                        <bar-chart :labels="['Jan','Feb','Mar','June']" :values="[20,30,40,60]"></bar-chart>
                     </div>
                 </div>
             </div>
@@ -183,7 +182,7 @@ Highcharts.chart('salesChart', {
                                     <?php if($AllOrder != []): ?>
                                     <?php $__currentLoopData = $AllOrder; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
-                                    <td><?php echo e(\buzzeroffice\Client::where('id',$order->client_id)->first()->name); ?></td>
+                                    <td><?php echo e(\App\Client::where('id',$order->client_id)->first()->name); ?></td>
                                     <td><?php echo e($order->invoice_date); ?></td>
                                     <td><?php echo e($order->g_total); ?></td>
                                     <td>
