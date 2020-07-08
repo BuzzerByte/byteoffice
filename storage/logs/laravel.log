@@ -8,3 +8,19 @@
 [2020-07-08 12:39:02] local.INFO: array (
   '_token' => 'N2yYvmTYTbojtrSkvX350zBrSd8NTe8UGD5JfR6o',
 )  
+[2020-07-08 14:27:30] local.ERROR: Class 'Laravel\Telescope\TelescopeApplicationServiceProvider' not found {"exception":"[object] (Error(code: 0): Class 'Laravel\\Telescope\\TelescopeApplicationServiceProvider' not found at /Users/jyichong/Desktop/buzzeroffice/app/Providers/TelescopeServiceProvider.php:10)
+[stacktrace]
+#0 /Users/jyichong/Desktop/buzzeroffice/vendor/composer/ClassLoader.php(444): include()
+#1 /Users/jyichong/Desktop/buzzeroffice/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile('/Users/jyichong...')
+#2 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('App\\\\Providers\\\\T...')
+#3 /Users/jyichong/Desktop/buzzeroffice/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php(208): spl_autoload_call('App\\\\Providers\\\\T...')
+#4 /Users/jyichong/Desktop/buzzeroffice/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php(144): Illuminate\\Foundation\\ProviderRepository->createProvider('App\\\\Providers\\\\T...')
+#5 /Users/jyichong/Desktop/buzzeroffice/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php(61): Illuminate\\Foundation\\ProviderRepository->compileManifest(Array)
+#6 /Users/jyichong/Desktop/buzzeroffice/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(604): Illuminate\\Foundation\\ProviderRepository->load(Array)
+#7 /Users/jyichong/Desktop/buzzeroffice/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterProviders.php(17): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#8 /Users/jyichong/Desktop/buzzeroffice/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(230): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap(Object(Illuminate\\Foundation\\Application))
+#9 /Users/jyichong/Desktop/buzzeroffice/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(310): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#10 /Users/jyichong/Desktop/buzzeroffice/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(127): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#11 /Users/jyichong/Desktop/buzzeroffice/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#12 {main}
+"} 
