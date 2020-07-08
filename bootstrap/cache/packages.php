@@ -42,11 +42,11 @@
   array (
     'providers' => 
     array (
-      0 => 'Laracasts\\Flash\\FlashServiceProvider',
+      0 => 'Laravel\\Socialite\\SocialiteServiceProvider',
     ),
     'aliases' => 
     array (
-      'Flash' => 'Laracasts\\Flash\\Flash',
+      'Socialite' => 'Laravel\\Socialite\\Facades\\Socialite',
     ),
   ),
   'laravel/tinker' => 
@@ -56,25 +56,22 @@
       0 => 'Laravel\\Tinker\\TinkerServiceProvider',
     ),
   ),
+  'laravel/ui' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laravel\\Ui\\UiServiceProvider',
+    ),
+  ),
   'maatwebsite/excel' => 
   array (
     'providers' => 
     array (
-      0 => 'Laravel\\Telescope\\TelescopeServiceProvider',
+      0 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
     ),
-  ),
-  'nesbot/carbon' => 
-  array (
-    'providers' => 
+    'aliases' => 
     array (
-      0 => 'Carbon\\Laravel\\ServiceProvider',
-    ),
-  ),
-  'nunomaduro/collision' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+      'Excel' => 'Maatwebsite\\Excel\\Facades\\Excel',
     ),
   ),
   'nesbot/carbon' => 
