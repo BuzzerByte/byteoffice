@@ -24,3 +24,6 @@
 #11 /Users/jyichong/Desktop/buzzeroffice/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #12 {main}
 "} 
+[2020-07-08 15:39:45] local.INFO: array (
+  '_token' => 'Tzc7yHhVbDQibtVvN6fVj4F23zMrQYuxduR5i6Ii',
+)  
