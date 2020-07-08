@@ -32,7 +32,6 @@ class AuthController extends Controller
      */
     public function redirectToProvider($provider)
     {
-        Log::info('redirect to provider');
         return Socialite::driver($provider)->redirect();
     }
 
@@ -43,7 +42,6 @@ class AuthController extends Controller
      */
     public function handleProviderCallback($provider,Request $request)
     {
-        Log::info('handle provider call back');
         if (!$request->has('code') || $request->has('denied')) {
             Log::info('Request: '.$request);
             return redirect('/');
