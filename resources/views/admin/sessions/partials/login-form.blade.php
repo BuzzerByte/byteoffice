@@ -1,16 +1,16 @@
 <form action="{{ route('login') }}" id="loginForm" method="post">
     {{csrf_field()}}
     <div class="form-group">
-        <input type="email" class="form-control autocomplete" name="email" placeholder="Enter email">
+        <input id="email" type="email" class="form-control autocomplete" name="email" placeholder="Enter email" value="{{ old('email') }}">
     </div>
     <div class="form-group">
-        <input type="password" class="form-control" name="password" placeholder="Enter Password">
+        <input id="password" type="password" class="form-control" name="password" placeholder="Enter Password">
     </div>
 
     <div class="other-actions row">
         <div class="col-6">
             <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="rememberMe" name="remember">
+                <input class="form-check-input" type="checkbox" name="remember" id="rememberMe" {{ old('remember') ? 'checked' : '' }}>
                 <label class="form-check-label" for="rememberMe">Remember Me</label>
             </div>
         </div>
