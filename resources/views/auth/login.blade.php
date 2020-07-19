@@ -11,5 +11,5 @@
 @stop
 
 @section('content')
-    @include('admin.sessions.partials.login-form')
+    @include('auth.partials.login-form')
 @stop

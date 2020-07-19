@@ -12,50 +12,7 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logoutForm.post');
 Route::get('auth/{provider}', 'AuthController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'AuthController@handleProviderCallback');
 Route::post('/forgot-password', 'ForgotPasswordController@postEmail')->name('send-reset-link');
-Route::get('/home', 'HomeController@index')->name('home');
-/*
-|--------------------------------------------------------------------------
-| Admin Routes
-|--------------------------------------------------------------------------
-| Route group for Backend prefixed with "admin".
-| To Enable Authentication just remove the comment from Admin Middleware
-|
-*/
-// Route::group([
-//     'prefix' => 'users'
-// ],function(){
-//     Route::get('/', [
-//         'as' => 'users.dashboard', 'uses' => 'DashboardController@index'
-//     ]);
-
-//     // Route::get('/dashboard/basic', [
-//     //     'as' => 'admin.dashboard.basic', 'uses' => 'DashboardController@basic'
-//     // ]);
-
-//     // Route::get('/dashboard/ecommerce', [
-//     //     'as' => 'admin.dashboard.ecommerce', 'uses' => 'DashboardController@ecommerce'
-//     // ]);
-
-//     // Route::get('/dashboard/finance', [
-//     //     'as' => 'admin.dashboard.finance', 'uses' => 'DashboardController@finance'
-//     // ]);
-//     //Profile
-//     Route::get('/profiles/showAttendances','UserController@showAttendances')->name('profiles.showAttendances');
-//     Route::post('/profiles/setAttendanceYear','UserController@setAttendanceYear')->name('profiles.setAttendanceYear');
-//     Route::resource('profiles','UserController');
-//     //Leave Application
-//     //Route::resource('applications','ApplicationController');
-//     //Reimbursement
-//     Route::get('/reimbursements/approvals','ReimbursementController@approval')->name('reimbursements.approval');
-//     //Route::resource('reimbursements','ReimbursementController');
-//     //Payroll
-//     Route::resource('payrolls','PayrollController');
-//     //Attendance
-   
-//     //Route::resource('attendances','AttendanceController');
-//     //Awards
-//     Route::resource('awards','EmployeeAwardController');
-// });
+// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group([
    'prefix' => 'admin',
@@ -288,79 +245,5 @@ Route::group([
     
     Route::post('/applications/{application}/delete','ApplicationController@delete')->name('applications.delete');
     Route::resource('applications','ApplicationController');
-    // Settings
-    //----------------------------------
 
-    Route::group(['prefix' => 'settings'], function () {
-
-
-        Route::get('/social', [
-            'as' => 'admin.settings.index', 'uses' => 'SettingsController@index'
-        ]);
-
-        Route::post('/social', [
-            'as' => 'admin.settings.social', 'uses' => 'SettingsController@postSocial'
-        ]);
-
-        Route::group(['prefix' => 'mail'], function () {
-
-            Route::get('/', [
-                'as' => 'admin.settings.mail.index', 'uses' => 'SettingsController@mail'
-            ]);
-
-            Route::post('/', [
-                'as' => 'admin.settings.mail.post', 'uses' => 'SettingsController@postMail'
-            ]);
-
-            Route::post('/send-test-email', [
-                'as' => 'admin.settings.mail.send', 'uses' => 'SettingsController@sendTestMail'
-            ]);
-        });
-    });
 });
-
-/*
-|--------------------------------------------------------------------------
-| Guest Routes
-|--------------------------------------------------------------------------
-| Guest routes cannot be accessed if the user is already logged in.
-| He will be redirected to '/" if he's logged in.
-|
-*/
-
-// Route::group(['middleware' => ['guest']], function () {
-
-//     Route::get('login', [
-//         'as' => 'login', 'uses' => 'AuthController@showLoginForm'
-//     ]);
-
-//     Route::get('register', [
-//         'as' => 'register', 'uses' => 'AuthController@register'
-//     ]);
-
-//     Route::post('login', [
-//         'as' => 'login.post', 'uses' => 'AuthController@login'
-//     ]);
-
-//     Route::get('forgot-password', [
-//         'as' => 'forgot-password.index', 'uses' => 'ForgotPasswordController@getEmail'
-//     ]);
-
-//     Route::post('/forgot-password', [
-//         'as' => 'send-reset-link', 'uses' => 'ForgotPasswordController@postEmail'
-//     ]);
-
-//     Route::get('/password/reset/{token}', [
-//         'as' => 'password.reset', 'uses' => 'ForgotPasswordController@GetReset'
-//     ]);
-
-//     Route::post('/password/reset', [
-//         'as' => 'reset.password.post', 'uses' => 'ForgotPasswordController@postReset'
-//     ]);
-//     Route::get('auth/{provider}', 'AuthController@redirectToProvider');
-//     Route::get('auth/{provider}/callback', 'AuthController@handleProviderCallback');
-//     Route::get('logout', [
-//         'as' => 'logout', 'uses' => 'AuthController@logout'
-//     ]);
-// });
-
