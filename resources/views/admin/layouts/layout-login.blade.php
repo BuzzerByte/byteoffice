@@ -12,8 +12,11 @@
     <div class="login-box">
         @include('admin.layouts.partials.laraspace-notifs')
         <div class="logo-main">
-            <a href="/"><img src="/assets/admin/img/logo-large.png" alt="Laraspace Logo"></a>
+            Office Management System
         </div>
+        <!-- <div class="logo-main">
+            <a href="/"><img src="/assets/admin/img/logo-large.png" alt="Laraspace Logo"></a>
+        </div> -->
         @yield('content')
         <div class="page-copyright">
             <p>Powered by <a href="#" target="_blank">BuzzerByte</a></p>
