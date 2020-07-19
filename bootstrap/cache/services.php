@@ -38,11 +38,10 @@
     34 => 'App\\Providers\\AuthServiceProvider',
     35 => 'App\\Providers\\EventServiceProvider',
     36 => 'App\\Providers\\RouteServiceProvider',
-    37 => 'App\\Providers\\TelescopeServiceProvider',
-    38 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
-    39 => 'Laracasts\\Flash\\FlashServiceProvider',
-    40 => 'Laravel\\Socialite\\SocialiteServiceProvider',
-    41 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    37 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
+    38 => 'Laracasts\\Flash\\FlashServiceProvider',
+    39 => 'Laravel\\Socialite\\SocialiteServiceProvider',
+    40 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
   ),
   'eager' => 
   array (
@@ -69,10 +68,9 @@
     20 => 'App\\Providers\\AuthServiceProvider',
     21 => 'App\\Providers\\EventServiceProvider',
     22 => 'App\\Providers\\RouteServiceProvider',
-    23 => 'App\\Providers\\TelescopeServiceProvider',
-    24 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
-    25 => 'Laracasts\\Flash\\FlashServiceProvider',
-    26 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    23 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
+    24 => 'Laracasts\\Flash\\FlashServiceProvider',
+    25 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
   ),
   'deferred' => 
   array (
