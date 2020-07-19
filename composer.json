@@ -19,8 +19,7 @@
         "laravel/socialite": "^4.4",
         "laravel/helpers": "^1.2",
         "maatwebsite/excel": "^3.1",
-        "laravel/ui": "^2.1",
-        "laravel/telescope": "^3.5"
+        "laravel/ui": "^2.1"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.4",
@@ -67,7 +66,7 @@
     "extra": {
         "laravel": {
             "dont-discover": [
-                "laravel/telescope"
+
             ]
         }
     },
