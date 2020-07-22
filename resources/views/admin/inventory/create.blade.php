@@ -99,7 +99,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Sales price/rate</label>
-                            <input type="text" name="sales_cost" class="form-control input-md" value="">
+                            <input type="number" min="0.00" step="0.01" name="sales_cost" placeholder="0.00" class="form-control input-md" value="">
                         </div>
                     </div>
 
@@ -117,7 +117,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Cost</label>
-                            <input type="text" name="buying_cost" class="form-control input-md" value="">
+                            <input type="number" min="0.00" step="0.01" name="buying_cost" placeholder="0.00" class="form-control input-md" value="">
                         </div>
                     </div>
 
