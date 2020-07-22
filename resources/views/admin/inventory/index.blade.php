@@ -110,7 +110,7 @@
                         @csrf
                 <div class="card-header bg-info">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <div class="caption">
                                 <h6>Inventories</h6>
                             </div>
@@ -129,9 +129,10 @@
                                     <a class="dropdown-item service" href="#" data-toggle="modal" data-target="#modal-create">Service</a>
                                 </div>
                             </div>
-                            <button type="submit" onclick="return confirm('Are you sure want to delete selected inventories?');"
+                        </div>
+                        <div class="col-md-1">
+                        <button type="submit" onclick="return confirm('Are you sure want to delete selected inventories?');"
                                 class="btn btn-danger btn-md btn-flat" id="deleteInventories"><i class="fa fa-trash"></i>Delete</button>
-                            
                         </div>
                     </div>
                 </div>
