@@ -109,30 +109,25 @@
                 <form action="{{ route('inventory.delete') }}" method="post" accept-charset="utf-8">
                         @csrf
                 <div class="card-header bg-info">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="caption">
-                                <h6>Inventories</h6>
+                    <div class="caption">
+                        <h6>Inventories</h6>
+                    </div>
+                    <div class="actions">
+                        <div class="btn-group" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-outline-default dropdown-toggle btn-sm"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Add Product and Services
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <a class="dropdown-item inventory" href="#" data-toggle="modal" data-target="#modal-create">
+                                    Inventory
+                                    Product</a>
+                                <a class="dropdown-item n_inventory" href="#" data-toggle="modal" data-target="#modal-create">Non-Inventory</a>
+                                <a class="dropdown-item service" href="#" data-toggle="modal" data-target="#modal-create">Service</a>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="btn-group" role="group">
-                                <button id="btnGroupDrop1" type="button" class="btn btn-outline-default dropdown-toggle"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Add Product and Services
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                    <a class="dropdown-item inventory" href="#" data-toggle="modal" data-target="#modal-create">
-                                        Inventory
-                                        Product</a>
-                                    <a class="dropdown-item n_inventory" href="#" data-toggle="modal" data-target="#modal-create">Non-Inventory</a>
-                                    <a class="dropdown-item service" href="#" data-toggle="modal" data-target="#modal-create">Service</a>
-                                </div>
-                            </div>
-                            <button type="submit" onclick="return confirm('Are you sure want to delete selected inventories?');"
-                                class="btn btn-danger btn-md btn-flat" id="deleteInventories"><i class="fa fa-trash"></i>Delete</button>
-                            
-                        </div>
+                        <button type="submit" onclick="return confirm('Are you sure want to delete selected inventories?');"
+                        class="btn btn-danger btn-md btn-flat btn-sm" id="deleteInventories"><i class="fa fa-trash"></i>Delete</button>
                     </div>
                 </div>
                 
@@ -197,7 +192,7 @@
                                 <td>{{ $inventory->type }}</td>
                                 <td>
                                     <div class="btn-group" role="group">
-                                        <button id="btnGroupDrop1" type="button" class="btn btn-outline-default dropdown-toggle"
+                                        <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-outline-default dropdown-toggle"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Action
                                         </button>
