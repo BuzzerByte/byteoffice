@@ -165,6 +165,7 @@ class OrderController extends Controller
                 'updated_at'=>Carbon::now()
             ]
         );
+
         $number_of_sales = count($inv_id);
         for($i=0;$i<$number_of_sales;$i++){
             SaleProduct::create([
@@ -176,9 +177,10 @@ class OrderController extends Controller
                 'invoice_id'=>$invoice_id
             ]);
         }
-        return redirect()->action(
-            'OrderController@show', ['id' => $invoice_id]
-        );
+        return redirect()->route('orders.show',$invoice_id);
+        // return redirect()->action(
+        //     'OrderController@show', ['id' => $invoice_id]
+        // );
     }
 
     /**
@@ -189,6 +191,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
+        
         $invoice = Order::where('id',$order->id)->get();
         $sale_product = SaleProduct::where('invoice_id',$order->id)->get();
         $client = Client::where('id',$invoice[0]['client_id'])->get();
