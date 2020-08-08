@@ -42,14 +42,13 @@
                                     <label>Category <span class="required" aria-required="true">*</span></label>
                                     <select id="inp_category" class="form-control input-md ls-select2" name="category"
                                         style="width: 50%;">
-                                        <option value="">Please Select..</option>
                                         @if (!$categories->isEmpty())
                                         @foreach($categories as $category)
                                         <option value="{{ $category->id}}">
                                             {{ $category->name }}</option>
                                         @endforeach
                                         @else
-
+                                        <option value="">Please Select</option>
                                         @endif
                                     </select>
                                 </div>
@@ -94,7 +93,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Sales price/rate</label>
-                            <input id="inp_s_cost" type="text" name="sales_cost" class="form-control input-md" value="">
+                            <input id="inp_s_cost" type="number" min="0.01" step="0.01" name="sales_cost" class="form-control input-md" value="">
                         </div>
                     </div>
 
@@ -112,7 +111,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Cost</label>
-                            <input id="inp_p_cost" type="text" name="buying_cost" class="form-control input-md" value="">
+                            <input id="inp_p_cost" type="number" min="0.01" step="0.01" name="buying_cost" class="form-control input-md" value="">
                         </div>
                     </div>
 
@@ -129,14 +128,13 @@
                     <label>Tax <span class="required" aria-required="true">*</span></label>
 
                     <select id="inp_tax" class="form-control input-md ls-select2" name="tax" style="width: 30%;">
-                        <option value="">Please Select..</option>
                         @if (!$taxes->isEmpty())
                         @foreach($taxes as $tax)
                         <option value="{{ $tax->id}}">
                             {{ $tax->rate }}</option>
                         @endforeach
                         @else
-
+                            <option value="">Please Select..</option>
                         @endif
                     </select>
                 </div>
