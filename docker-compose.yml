@@ -6,7 +6,7 @@ networks:
 services:
   nginx:
     image: nginx:stable-alpine
-    container_name: buzzeroffice_nginx
+    container_name: bo_nginx
     ports:
       - "8080:80"
     volumes:
@@ -20,7 +20,7 @@ services:
 
   mysql:
     image: mysql:5.7.29
-    container_name: buzzeroffice_mysql
+    container_name: bo_mysql
     restart: unless-stopped
     tty: true
     ports:
@@ -39,7 +39,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: buzzeroffice_php
+    container_name: bo_php
     volumes:
       - ./:/var/www/html
     ports:
@@ -49,7 +49,7 @@ services:
 
   composer:
     image: composer:latest
-    container_name: buzzeroffice_composer
+    container_name: bo_composer
     volumes:
       - ./:/var/www/html
     working_dir: /var/www/html
@@ -60,7 +60,7 @@ services:
 
   npm:
     image: node:13.7
-    container_name: buzzeroffice_npm
+    container_name: bo_npm
     volumes:
       - ./:/var/www/html
     working_dir: /var/www/html
@@ -70,7 +70,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: buzzeroffice_artisan
+    container_name: bo_artisan
     volumes:
       - ./:/var/www/html
     depends_on:

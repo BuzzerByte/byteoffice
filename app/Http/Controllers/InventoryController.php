@@ -15,6 +15,7 @@ use Response;
 use Excel;
 use File;
 use DB;
+use App\Imports\InventoryImport;
 
 
 class InventoryController extends Controller
@@ -189,19 +190,15 @@ class InventoryController extends Controller
 
     public function downloadInventorySample(){
         // Check if file exists in app/storage/file folder
-        $file_path = storage_path() . "\app\downloads\inventory.csv";
+        $file_path = storage_path() . "/app/downloads/inventory.csv";
         $headers = array(
             'Content-Type: csv',
             'Content-Disposition: attachment; filename=inventory.csv',
         );
         if (file_exists($file_path)) {
-            // Send Download
-            // Session::flash('success', 'File Downloaded');
             flash()->success('File Downloaded!');
             return Response::download($file_path, 'inventory.csv', $headers);
         } else {
-            // Error
-            // Session::flash('failure', 'Something went wrong!');
             flash()->error('Something went wrong!');
         }
         $inventories = Inventory::all();
@@ -215,8 +212,9 @@ class InventoryController extends Controller
             $extension = File::extension($request->import_file->getClientOriginalName());
             if ($extension == "csv") {
                 $path = $request->import_file->getRealPath();
-                $data = Excel::load($path, function($reader) {})->get();
-                if(!empty($data) && $data->count()){
+                // $data = Excel::load($path, function($reader) {})->get();
+                $data = Excel::import(new InventoryImport, $request->import_file);
+                if(!empty($data)){
                     foreach($data as $record){   
                         if(in_array($record->product_name,$product_name)){
                             continue;   
@@ -245,22 +243,17 @@ class InventoryController extends Controller
                     }
                     if(!empty($insert_inventory_data)){
                         $insert_inventory = DB::table('inventories')->insert($insert_inventory_data);
-                        // Session::flash('success', 'Inventories Data Imported!');
                         flash()->success('Inventories Data Imported!');
                     }else{
-                        // Session::flash('warning', 'Duplicated record, please check your csv file!');
                         flash()->warning('Duplicated record, Please check your csv file!');
                     }
                 }else{
-                    // Session::flash('warning', 'There is no data in csv file!');
                     flash()->warning('There is no data in csv file!');
                 }
             }else{
-                // Session::flash('warning', 'Selected file is not csv!');
                 flash()->warning('Selected file is not csv!');
             }
         }else{
-            // Session::flash('failure', 'Something went wrong!');
             flash()->error('Something went wrong');
         }
         $inventories = Inventory::all();
