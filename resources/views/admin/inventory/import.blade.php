@@ -28,27 +28,20 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-
                             <div class="row">
                                 <div class="col-md-12">
-
                                     <div class="row">
-
                                         <div class="col-md-10">
-
                                             <strong>Download Sample CSV File</strong><br>
                                             <a href="{{ route('inventory.download') }}"><i class="fa fa-download"
                                                     aria-hidden="true"></i> Sample CSV
                                                 File</a>
-
                                             <br>
                                             <br>
                                             <p>Product Type:</p>
                                             <p>Inventory Product Type use -&gt; '<strong>Inventory</strong>'</p>
                                             <p>Non Inventory Product Type use -&gt; '<strong>Non-Inventory</strong>'</p>
                                             <p>Service Product Type use -&gt; '<strong>Service</strong>'</p>
-
-
                                         </div>
 
                                     </div>
@@ -60,9 +53,9 @@
                                 <form action="{{ route('inventory.importInventory') }}" class="form-horizontal" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
-                                    <h4><label for="import_file">Please Select File (CSV only):</label>
-                                        <input type="file" id="import_file" name="import_file" /></h4>
-                                    <h4><input class="btn bg-navy" type="submit" name="upload" value="Import" /></h4>
+                                    <h6><label for="import_file">Please Select File (CSV only):</label>
+                                        <input type="file" id="import_file" name="import_file" /></h6>
+                                    <h6><input class="btn bg-navy btn-sm" type="submit" name="upload" value="Import" /></h6>
                                 </form>
                             </div>
 
@@ -72,8 +65,6 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <h5>Use Product Category ID and Tax ID when prepare CSV file.</h5>
-                                    <br>
-                                    <br>
                                 </div>
                                 <div class="col-md-6">
                                     <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
