@@ -11,8 +11,8 @@ class Kernel extends ConsoleKernel
      *
      * @var array
      */
-    protected $commands = [
-        Commands\LaraspaceClean::class,
+    protected $commands = [ 
+        
     ];
 
     /**

@@ -30,3 +30,4 @@ Homestead.yaml
 .idea
 .vscode
 .DS_Store
+storage/logs/laravel.log
