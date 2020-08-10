@@ -16,6 +16,7 @@ use Response;
 use Excel;
 use File;
 use DB;
+use App\Exports\OrderExport;
 
 class OrderController extends Controller
 {
@@ -297,39 +298,7 @@ class OrderController extends Controller
     }
 
     public function exportOrder(){
-        Excel::create('Order List', function($excel) {   
-            $excel->sheet('List', function($sheet) {      
-                $data = array();
-                $arr = Order::all();
-                $temp = array();
-                $sheet->row(1, array(
-                    'Client','Invoice Date','Due Date','Total','Grand Total','Tax','Discount','Paid','Balance','Receive Amount','Amount Due','Tracking No','Delivery Person','Status','Order Note','Order Activities','Created At','Updated At'
-                ));
-                foreach($arr as $index=>$row){
-                    $vendor = Client::find($row['client_id']);
-                    array_push($temp, $vendor->name);
-                    array_push($temp, $row['invoice_date']);
-                    array_push($temp, $row['due_date']);
-                    array_push($temp, $row['total']);
-                    array_push($temp, $row['g_total']);
-                    array_push($temp, $row['tax']);
-                    array_push($temp, $row['discount']);
-                    array_push($temp, $row['paid']);
-                    array_push($temp, $row['balance']);
-                    array_push($temp, $row['receive_amt']);
-                    array_push($temp, $row['amt_due']);
-                    array_push($temp, $row['tracking_no']);
-                    array_push($temp, $row['delivery_person']);
-                    array_push($temp, $row['status']);
-                    array_push($temp, $row['order_note']);
-                    array_push($temp, $row['order_activities']);
-                    array_push($temp, $row['created_at']);
-                    array_push($temp, $row['updated_at']);
-                    $sheet->appendRow($temp);
-                    $temp = array();
-                } 
-            });
-        })->export('csv');
+        return (new OrderExport)->download('invoices.csv');
     }
 
     public function exportQuotation(){
