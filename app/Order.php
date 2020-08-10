@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Client;
 use Carbon\Carbon;
+use App\Order;
 
 class Order extends Model
 {
@@ -39,7 +40,6 @@ class Order extends Model
     }
 
     public function orderClient($id){
-        $clientId = Order::where('id',$id)->first()->client_id;
-        return Client::where('id',$clientId)->first()->name;
+        return Client::select('name')->where('id',Order::select('client_id')->where('id',$id)->first()->client_id)->first()->name;
     }
 }
