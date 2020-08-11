@@ -117,10 +117,10 @@ class QuotationController extends Controller
                 'quotation_id'=>$quotation_id
             ]);
         }
-        
-        return redirect()->action(
-            'QuotationController@index'
-        );
+        return redirect()->route('quotations.index');
+        // return redirect()->action(
+        //     'QuotationController@index'
+        // );
     }
 
     /**
@@ -243,9 +243,10 @@ class QuotationController extends Controller
                 $remove->delete();
             }
         }
-        return redirect()->action(
-            'QuotationController@index'
-        );
+        return redirect()->route('quotations.show',$quotation->id);
+        // return redirect()->action(
+        //     'QuotationController@index'
+        // );
     }
 
     /**
@@ -268,7 +269,7 @@ class QuotationController extends Controller
         }else{
             Session::flash('failure', 'Something went wrong!');
         }
-        
-        return redirect()->action('QuotationController@index');    
+        return redirect()->route('quotations.index');
+        // return redirect()->action('QuotationController@index');    
     }
 }

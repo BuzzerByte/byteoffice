@@ -224,6 +224,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
+        // return response()->json($request);
         $sale_id = $request->sale_id;
 
         $inv_id = $request->inventory_id;
@@ -284,6 +285,7 @@ class OrderController extends Controller
             }
         }
         $sale_items = SaleProduct::where('invoice_id',$order->id)->get();
+        // return response()->json($sale_items);
         foreach($sale_items as $item){
             if(!in_array($item->inventory_id,$inv_id)){
                 $remove = SaleProduct::find($item->id);
