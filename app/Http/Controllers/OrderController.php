@@ -264,7 +264,6 @@ class OrderController extends Controller
         for($i=0;$i<$number_of_sales;$i++){
             if(!array_key_exists($i, $sale_id)){
                 SaleProduct::create(
-                    
                     ['inventory_id'=>$inv_id[$i],
                     'description'=>$inv_desc[$i],
                     'quantity'=>(int)$inv_qty[$i],
