@@ -302,36 +302,6 @@ class OrderController extends Controller
         return (new OrderExport)->download('invoices.csv');
     }
 
-    public function exportQuotation(){
-        Excel::create('Quotation List', function($excel) {   
-            $excel->sheet('List', function($sheet) {      
-                $data = array();
-                $arr = Quotation::all();
-                $temp = array();
-                $sheet->row(1, array(
-                    'Client','Invoice Date','Due Date','Total','Grand Total','Tax','Discount','Paid','Balance','Receive Amount','Amount Due','Tracking No','Delivery Person','Status','Order Note','Order Activities','Created At','Updated At'
-                ));
-                foreach($arr as $index=>$row){
-                    $vendor = Client::find($row['client_id']);
-                    array_push($temp, $vendor->name);
-                    array_push($temp, $row['estimate_date']);
-                    array_push($temp, $row['expiration_date']);
-                    array_push($temp, $row['total']);
-                    array_push($temp, $row['g_total']);
-                    array_push($temp, $row['tax']);
-                    array_push($temp, $row['discount']);
-                    array_push($temp, $row['status']);
-                    array_push($temp, $row['order_note']);
-                    array_push($temp, $row['order_activities']);
-                    array_push($temp, $row['created_at']);
-                    array_push($temp, $row['updated_at']);
-                    $sheet->appendRow($temp);
-                    $temp = array();
-                } 
-            });
-        })->export('csv');
-    }
-
     /**
      * Remove the specified resource from storage.
      *

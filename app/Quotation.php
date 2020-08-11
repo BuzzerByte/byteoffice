@@ -22,8 +22,8 @@ class Quotation extends Model
         return Carbon::parse($dateTime)->format('d M Y');
     }
 
+
     public function client($id){
-        $clientId = Quotation::where('id',$id)->first()->client_id;
-        return Client::where('id',$clientId)->first()->name;
+        return Client::where('id',Quotation::where('id',$id)->first()->client_id)->first()->name;
     }
 }

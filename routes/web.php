@@ -69,7 +69,6 @@ Route::group([
     Route::get('/orders/processing','OrderController@process')->name('orders.process');
     Route::get('/orders/pending','OrderController@pending')->name('orders.pending');
     Route::get('/orders/deliver','OrderController@deliver')->name('orders.deliver');
-    Route::get('/orders/exportQuotation','OrderController@exportQuotation')->name('orders.exportQuotation');
     Route::get('/orders/quotation','OrderController@quotation')->name('orders.quotation');
     Route::get('/orders/all_quotation','OrderController@all_quotation')->name('orders.all_quotation');
     Route::post('/orders/{order}/delete','OrderController@delete')->name('orders.delete');
@@ -158,7 +157,7 @@ Route::group([
     Route::resource('purchaseProduct','PurchaseProductController');
 
     
-
+    Route::get('/quotation/exportQuotation','QuotationController@exportQuotation')->name('quotation.exportQuotation');
     Route::post('/quotation/{quotation}/delete','QuotationController@delete')->name('quotation.delete');
     Route::get('/quotation/{client}/createWithClient','QuotationController@createWithClient')->name('quotation.createWithClient');
     Route::resource('quotations','QuotationController');
