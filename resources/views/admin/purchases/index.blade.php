@@ -139,7 +139,7 @@
             <li class="breadcrumb-item active"><a href="{{ route('orders.index') }}">Purchase List</a></li>
         </ol>
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12 col-lg-6 col-xl-3">
             <a class="dashbox" href="#">
                 <div class="icon-box"><i class="icon-im icon-im-calendar"></i></div>
@@ -185,7 +185,7 @@
             </a>
         </div>
 
-    </div>
+    </div> -->
     <div class="row">
         <div class="col-lg-12 col-xs-12">
             <div class="card">
