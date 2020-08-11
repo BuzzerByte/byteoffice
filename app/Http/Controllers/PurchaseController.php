@@ -132,10 +132,10 @@ class PurchaseController extends Controller
                 'purchase_id'=>$purchase_id
             ]);
         }
-        
-        return redirect()->action(
-            'PurchaseController@show', ['id' => $purchase_id]
-        );
+        return redirect()->route('purchases.show',$purchase_id);
+        // return redirect()->action(
+        //     'PurchaseController@show', ['id' => $purchase_id]
+        // );
     }
 
     public function getBalance(Purchase $purchase){
