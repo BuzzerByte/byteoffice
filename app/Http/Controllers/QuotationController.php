@@ -10,6 +10,7 @@ use DB;
 use Carbon\Carbon;  
 use Session;
 use Illuminate\Http\Request;
+use App\Exports\QuotationExport;
 
 class QuotationController extends Controller
 {
@@ -117,10 +118,10 @@ class QuotationController extends Controller
                 'quotation_id'=>$quotation_id
             ]);
         }
-        
-        return redirect()->action(
-            'QuotationController@index'
-        );
+        return redirect()->route('quotations.index');
+        // return redirect()->action(
+        //     'QuotationController@index'
+        // );
     }
 
     /**
@@ -243,9 +244,10 @@ class QuotationController extends Controller
                 $remove->delete();
             }
         }
-        return redirect()->action(
-            'QuotationController@index'
-        );
+        return redirect()->route('quotations.show',$quotation->id);
+        // return redirect()->action(
+        //     'QuotationController@index'
+        // );
     }
 
     /**
@@ -268,7 +270,38 @@ class QuotationController extends Controller
         }else{
             Session::flash('failure', 'Something went wrong!');
         }
-        
-        return redirect()->action('QuotationController@index');    
+        return redirect()->route('quotations.index');
+        // return redirect()->action('QuotationController@index');    
+    }
+
+    public function exportQuotation(){
+        return (new QuotationExport)->download('quotations.csv');
+        // Excel::create('Quotation List', function($excel) {   
+        //     $excel->sheet('List', function($sheet) {      
+        //         $data = array();
+        //         $arr = Quotation::all();
+        //         $temp = array();
+        //         $sheet->row(1, array(
+        //             'Client','Invoice Date','Due Date','Total','Grand Total','Tax','Discount','Paid','Balance','Receive Amount','Amount Due','Tracking No','Delivery Person','Status','Order Note','Order Activities','Created At','Updated At'
+        //         ));
+        //         foreach($arr as $index=>$row){
+        //             $vendor = Client::find($row['client_id']);
+        //             array_push($temp, $vendor->name);
+        //             array_push($temp, $row['estimate_date']);
+        //             array_push($temp, $row['expiration_date']);
+        //             array_push($temp, $row['total']);
+        //             array_push($temp, $row['g_total']);
+        //             array_push($temp, $row['tax']);
+        //             array_push($temp, $row['discount']);
+        //             array_push($temp, $row['status']);
+        //             array_push($temp, $row['order_note']);
+        //             array_push($temp, $row['order_activities']);
+        //             array_push($temp, $row['created_at']);
+        //             array_push($temp, $row['updated_at']);
+        //             $sheet->appendRow($temp);
+        //             $temp = array();
+        //         } 
+        //     });
+        // })->export('csv');
     }
 }

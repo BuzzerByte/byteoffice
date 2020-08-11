@@ -3,7 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Vendor;
+use App\Purchase;
+use App\Quotation;
+use Carbon\Carbon;
 
 class Purchase extends Model
 {
@@ -37,7 +39,6 @@ class Purchase extends Model
     }
 
     public function vendor($id){
-        $vendorId = Quotation::where('id',$id)->first()->client_id;
-        return Vendor::where('id',$vendorId)->first()->name;
+        return Vendor::where('id',Purchase::where('id',$id)->first()->vendor_id)->first()->name;
     }
 }

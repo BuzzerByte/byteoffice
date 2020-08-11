@@ -79,9 +79,10 @@ class PaymentController extends Controller
             }else{
                 Session::flash('failure', 'Something went wrong');
             }
-            return redirect()->action(
-                'OrderController@show', ['id' => $request->invoiceId]
-            );
+            return redirect()->route('orders.show',$request->invoiceId);
+            // return redirect()->action(
+            //     'OrderController@show', ['id' => $request->invoiceId]
+            // );
         }else{
             $stored = Payment::create([
                 'date' => $request->payment_date,
@@ -117,7 +118,8 @@ class PaymentController extends Controller
             }else{
                 Session::flash('failure', 'Something went wrong');
             }
-            return redirect()->action('PurchaseController@show',['id'=>$request->purchaseId]);
+            return redirect()->route('purchases.show',$request->purchaseId);
+            // return redirect()->action('PurchaseController@show',['id'=>$request->purchaseId]);
         }
     }
     /**
@@ -128,10 +130,6 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        
-        
-        
-
         
     }
 
@@ -212,9 +210,10 @@ class PaymentController extends Controller
             }else{
                 Session::flash('failure', 'Something went wrong!');
             }
-            return redirect()->action(
-                'PurchaseController@show', ['id' => $payment->purchase_id]
-            );
+            return redirect()->route('purchases.show',$payment->purchase_id);
+            // return redirect()->action(
+            //     'PurchaseController@show', ['id' => $payment->purchase_id]
+            // );
         }else{
             $payments = Payment::where('order_id',$payment->order_id)->get();
             foreach($payments as $payment){
@@ -230,9 +229,10 @@ class PaymentController extends Controller
             }else{
                 Session::flash('failure', 'Something went wrong!');
             }
-            return redirect()->action(
-                'OrderController@show', ['id' => $payment->order_id]
-            );
+            return redirect()->route('orders.show',$payment->order_id);
+            // return redirect()->action(
+            //     'OrderController@show', ['id' => $payment->order_id]
+            // );
         }
     }
 
@@ -261,9 +261,10 @@ class PaymentController extends Controller
             }else{
                 Session::flash('failure', 'Something went wrong!');
             }
-            return redirect()->action(
-                'PurchaseController@show', ['id' => $payment->purchase_id]
-            );
+            return redirect()->route('purchases.show',$payment->purchase_id);
+            // return redirect()->action(
+            //     'PurchaseController@show', ['id' => $payment->purchase_id]
+            // );
         }else{
             $invoice_id = $payment->order_id;
             $order = Order::where('id',$invoice_id)->get();
@@ -278,10 +279,10 @@ class PaymentController extends Controller
             }else{
                 Session::flash('failure', 'Something went wrong!');
             }
-    
-            return redirect()->action(
-                'OrderController@show', ['id' => $invoice_id]
-            );
+            return redirect()->route('orders.show',$invoice_id);
+            // return redirect()->action(
+            //     'OrderController@show', ['id' => $invoice_id]
+            // );
         }
         
     }

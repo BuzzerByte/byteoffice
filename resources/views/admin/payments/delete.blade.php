@@ -1,14 +1,15 @@
-<div class="modal-dialog">
+<div class="modal-dialog modal-sm modal-dialog-centered">
     <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header bg-danger">
+            <h5 class="modal-title">Delete Confirmation</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Delete Confirmation</h4>
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
+        <form action="" id="form-d-payment" enctype="multipart/form-data" method="post">
+        @csrf
         <div class="modal-body">
-            <form action="" id="form-d-payment" enctype="multipart/form-data" method="post">
-                @csrf
-                <!--                -->
+            
                 <div class="box-body">
                     <b>Are you sure?</b>
                 </div>
@@ -19,9 +20,5 @@
         </div>
         </form>
     </div>
-    <!-- /.box-body -->
-
-
-    </form>
 </div>
 

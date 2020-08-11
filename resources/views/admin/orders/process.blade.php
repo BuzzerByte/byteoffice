@@ -109,8 +109,7 @@
                                     <form action="{{ route('orders.updateStatusToShipping',$order->id) }}" method="post"
                                         enctype="multipart/form-data">
                                         @csrf
-                                        <button type="submit" class="btn btn-default"><i class="fa fa-arrow-right"></i>Move
-                                            to Shipping</button>
+                                        <button type="submit" class="btn btn-sm btn-default"><i class="fa fa-arrow-right"></i>Move to Shipping</button>
                                     </form>
                                 </td>
 
