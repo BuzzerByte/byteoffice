@@ -291,10 +291,10 @@ class OrderController extends Controller
                 $remove->delete();
             }
         }
-        
-        return redirect()->action(
-            'OrderController@show', ['id' => $order->id]
-        );
+        return redirect()->route('orders.show',$order->id);
+        // return redirect()->action(
+        //     'OrderController@show', ['id' => $order->id]
+        // );
     }
 
     public function exportOrder(){
@@ -352,7 +352,7 @@ class OrderController extends Controller
         }
         $inventories = Inventory::all();
         $clients = Client::all();
-        
+        // return redirect()->route('orders.i',$invoice_id);
         return redirect()->action('OrderController@index',['inventories'=>$inventories,'clients'=>$clients]);    
     }
 }
