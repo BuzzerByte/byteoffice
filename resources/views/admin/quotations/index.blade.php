@@ -41,7 +41,7 @@
                         <h6>Quotation List</h6>
                     </div>
                     <div class="actions">
-                    <button class="btn btn-primary btn-sm" onclick="location.href='{{route('orders.exportQuotation')}}'"> <i
+                    <button class="btn btn-primary btn-sm" onclick="location.href='{{route('quotation.exportQuotation')}}'"> <i
                                 class="icon-fa icon-fa-plus"></i> Export</button>
                         <!-- <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-import"> <i class="icon-fa icon-fa-cloud-upload"></i>
                             Print</button> -->
