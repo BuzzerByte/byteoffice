@@ -3,7 +3,7 @@
 @endsection
 @section('scripts')
 <script src="{{ asset('/assets/admin/js/jquery.PrintArea.js') }}"></script>
-<script src="/assets/admin/js/pages/datatables.js"></script>
+<script src="{{ asset('/assets/admin/js/pages/datatables.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"
     integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous">
 </script>
@@ -35,7 +35,7 @@
             <li class="breadcrumb-item active"><a href="{{ route('orders.index') }}">Order List</a></li>
         </ol>
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12 col-lg-6 col-xl-3">
             <a class="dashbox" href="#">
                 <div class="icon-box"><i class="icon-im icon-im-calendar"></i></div>
@@ -81,7 +81,7 @@
             </a>
         </div>
 
-    </div>
+    </div> -->
     <div class="row">
         <div class="col-lg-12 col-xs-12">
             <div class="card">
@@ -90,13 +90,8 @@
                         <h6>Order List</h6>
                     </div>
                     <div class="actions">
-                        {{-- @if(Auth::user()->role == 'admin') --}}
                         <button class="btn btn-primary btn-sm" onclick="location.href='{{ route('orders.export') }}'">
                             <i class="icon-fa icon-fa-plus"></i> Export</button>
-                        {{-- @endif --}}
-                        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-import"> <i
-                                class="icon-fa icon-fa-cloud-upload"></i>
-                            Print</button>
                     </div>
                 </div>
                 <div class="card-body table-responsive">
@@ -173,7 +168,7 @@
                                 <td>
                                     <div class="btn-group" role="group">
                                         <button id="btnGroupDrop1" type="button"
-                                            class="btn btn-outline-default dropdown-toggle" data-toggle="dropdown"
+                                            class="btn btn-sm btn-outline-default dropdown-toggle" data-toggle="dropdown"
                                             aria-haspopup="true" aria-expanded="false">
                                             Action
                                         </button>
@@ -229,21 +224,6 @@
 <div class="modal fade" id="modal-create-payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
     aria-hidden="true">
     @include('admin.payments.create')
-</div>
-<div class="modal fade" id="modal-index-payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-    aria-hidden="true">
-    @include('admin.payments.index')
-</div>
-<div class="modal fade" id="payments_show" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle">
-    @include('admin.payments.show')
-</div>
-<div class="modal fade" id="payments_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-    aria-hidden="true">
-    @include('admin.payments.edit')
-</div>
-<div class="modal fade" id="payments_delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-    aria-hidden="true">
-    @include('admin.payments.delete')
 </div>
 <div class="modal fade" id="delete_order" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
     aria-hidden="true">

@@ -1,8 +1,10 @@
-<div id="modal" class="modal-dialog">
+<div id="modal" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title" id="myModalLabel">Edit Payment</h4>
+        <div class="modal-header bg-info">
+            <h5 class="modal-title" id="myModalLabel">Edit Payment</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
 
         <div class="modal-body">
