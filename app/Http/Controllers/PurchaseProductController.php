@@ -131,7 +131,8 @@ class PurchaseProductController extends Controller
         }else{
             Session::flash('failure', 'Something went wrong!');
         }
-        return redirect()->action('PurchaseController@show',['id'=>$request->purchaseId]);
+        return redirect()->route('purchases.show',$request->purchaseId);
+        // return redirect()->action('PurchaseController@show',['id'=>$request->purchaseId]);
     }
 
     public function updateReturnAmt(Request $request){
@@ -165,7 +166,8 @@ class PurchaseProductController extends Controller
         }else{
             Session::flash('failure','Something went wrong!');
         }
-        return redirect()->action('PurchaseController@show',['id'=>$request->purchaseId]);
+        return redirect()->route('purchases.show',$request->purchaseId);
+        // return redirect()->action('PurchaseController@show',['id'=>$request->purchaseId]);
     }
 
     public function getName(PurchaseProduct $purchaseProduct){

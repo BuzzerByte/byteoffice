@@ -1,14 +1,14 @@
-<div class="modal-dialog">
+<div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title" id="myModalLabel">View Payment</h4>
+        <div class="modal-header bg-info">
+            <h5 class="modal-title" id="myModalLabel">View Payment</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-lable="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-
         <div class="modal-body">
-
             <div class="printPayment" id="printPayment">
-                <table width="100%" border="0" cellpadding="10" cellspacing="15">
+                <table width="100%" cellpadding="10" cellspacing="15">
                     <tbody>
                         <tr>
                             <td width="50%"><img src="" style="height: 100px; width: 150px"></td>
@@ -19,7 +19,6 @@
                                 @elseif(isset($purchase))
                                 <h4>Purchase Ref: <b id="purchase_ref"></b></h4>
                                 @endif
-                                
                                 <h4>Payment Ref: <b id="payment_ref"></b></h4>
                             </td>
                         </tr>
@@ -116,6 +115,7 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
+        console.log('show payment');
         $("#print_payment").click(function () {
             var prtContent = document.getElementById("printPayment");
             var WinPrint = window.open('', '',

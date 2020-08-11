@@ -106,14 +106,14 @@
                                 <td>
 
                                     <div class="btn-group" role="group" aria-label="...">
-                                        <a href="#" type="button" class="btn btn-success">Packing List</a>
+                                        <a href="#" type="button" class="btn btn-sm btn-success">Packing List</a>
                                     </div>
                                 </td>
                                 <td>
                                     <form action="{{ route('orders.updateStatusToShipped',$order->id) }}" method="post"
                                         enctype="multipart/form-data">
                                         @csrf
-                                        <button type="submit" class="btn btn-default"><i class="fa fa-truck"></i>Mark
+                                        <button type="submit" class="btn btn-sm btn-default"><i class="fa fa-truck"></i>Mark
                                             Shipped</button>
                                     </form>
                                 </td>

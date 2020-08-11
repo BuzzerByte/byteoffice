@@ -6,6 +6,7 @@
 <script src="{{ asset('/assets/admin/js/jquery.PrintArea.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs"
     crossorigin="anonymous"></script>
+<script src="{{ asset('/assets/admin/js/payments/index.js') }}"></script>
 <script>
     $(document).ready(function () {
         $.ajaxSetup({
@@ -15,7 +16,6 @@
         });
         $('.autocomplete_off').attr('autocomplete','off');
         $('.empty_input').hide();
-
         $(document.body).on('click', '.add_payment', function () {
             var invoice_id = $('.invoice_id').val();
             $('.invoiceId').val(invoice_id);
@@ -75,9 +75,6 @@
             $('#form-d-order').attr('action', '/admin/orders/' + invoice_id + '/delete');
         });
 
-
-        // doubleValidator();
-
         $(document.body).on('keyup','#addAmount',function(){
             $('#save_payment').removeAttr('disabled');
             var regex = /(?:\d*\.\d{1,2}|\d+)$/;
@@ -89,7 +86,6 @@
                 $('#amt_msg').text('Invalid inputs');
             }
         }); 
-        
     });
 </script>
 @stop
@@ -299,7 +295,6 @@
 <div class="modal fade" id="payments_delete" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     @include('admin.payments.delete')
 </div>
-
 <div class="modal fade" id="del_order" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     @include('admin.orders.delete')
 </div>

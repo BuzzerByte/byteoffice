@@ -2,3 +2,4 @@
 !.gitignore
 !client.csv
 !vendor.csv
+!inventory.csv

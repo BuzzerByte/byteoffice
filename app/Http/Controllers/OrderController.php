@@ -16,6 +16,7 @@ use Response;
 use Excel;
 use File;
 use DB;
+use App\Exports\OrderExport;
 
 class OrderController extends Controller
 {
@@ -165,6 +166,7 @@ class OrderController extends Controller
                 'updated_at'=>Carbon::now()
             ]
         );
+
         $number_of_sales = count($inv_id);
         for($i=0;$i<$number_of_sales;$i++){
             SaleProduct::create([
@@ -176,9 +178,10 @@ class OrderController extends Controller
                 'invoice_id'=>$invoice_id
             ]);
         }
-        return redirect()->action(
-            'OrderController@show', ['id' => $invoice_id]
-        );
+        return redirect()->route('orders.show',$invoice_id);
+        // return redirect()->action(
+        //     'OrderController@show', ['id' => $invoice_id]
+        // );
     }
 
     /**
@@ -189,6 +192,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
+        
         $invoice = Order::where('id',$order->id)->get();
         $sale_product = SaleProduct::where('invoice_id',$order->id)->get();
         $client = Client::where('id',$invoice[0]['client_id'])->get();
@@ -220,6 +224,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
+        // return response()->json($request);
         $sale_id = $request->sale_id;
 
         $inv_id = $request->inventory_id;
@@ -260,7 +265,6 @@ class OrderController extends Controller
         for($i=0;$i<$number_of_sales;$i++){
             if(!array_key_exists($i, $sale_id)){
                 SaleProduct::create(
-                    
                     ['inventory_id'=>$inv_id[$i],
                     'description'=>$inv_desc[$i],
                     'quantity'=>(int)$inv_qty[$i],
@@ -281,82 +285,21 @@ class OrderController extends Controller
             }
         }
         $sale_items = SaleProduct::where('invoice_id',$order->id)->get();
+        // return response()->json($sale_items);
         foreach($sale_items as $item){
             if(!in_array($item->inventory_id,$inv_id)){
                 $remove = SaleProduct::find($item->id);
                 $remove->delete();
             }
         }
-        
-        return redirect()->action(
-            'OrderController@show', ['id' => $order->id]
-        );
+        return redirect()->route('orders.show',$order->id);
+        // return redirect()->action(
+        //     'OrderController@show', ['id' => $order->id]
+        // );
     }
 
     public function exportOrder(){
-        Excel::create('Order List', function($excel) {   
-            $excel->sheet('List', function($sheet) {      
-                $data = array();
-                $arr = Order::all();
-                $temp = array();
-                $sheet->row(1, array(
-                    'Client','Invoice Date','Due Date','Total','Grand Total','Tax','Discount','Paid','Balance','Receive Amount','Amount Due','Tracking No','Delivery Person','Status','Order Note','Order Activities','Created At','Updated At'
-                ));
-                foreach($arr as $index=>$row){
-                    $vendor = Client::find($row['client_id']);
-                    array_push($temp, $vendor->name);
-                    array_push($temp, $row['invoice_date']);
-                    array_push($temp, $row['due_date']);
-                    array_push($temp, $row['total']);
-                    array_push($temp, $row['g_total']);
-                    array_push($temp, $row['tax']);
-                    array_push($temp, $row['discount']);
-                    array_push($temp, $row['paid']);
-                    array_push($temp, $row['balance']);
-                    array_push($temp, $row['receive_amt']);
-                    array_push($temp, $row['amt_due']);
-                    array_push($temp, $row['tracking_no']);
-                    array_push($temp, $row['delivery_person']);
-                    array_push($temp, $row['status']);
-                    array_push($temp, $row['order_note']);
-                    array_push($temp, $row['order_activities']);
-                    array_push($temp, $row['created_at']);
-                    array_push($temp, $row['updated_at']);
-                    $sheet->appendRow($temp);
-                    $temp = array();
-                } 
-            });
-        })->export('csv');
-    }
-
-    public function exportQuotation(){
-        Excel::create('Quotation List', function($excel) {   
-            $excel->sheet('List', function($sheet) {      
-                $data = array();
-                $arr = Quotation::all();
-                $temp = array();
-                $sheet->row(1, array(
-                    'Client','Invoice Date','Due Date','Total','Grand Total','Tax','Discount','Paid','Balance','Receive Amount','Amount Due','Tracking No','Delivery Person','Status','Order Note','Order Activities','Created At','Updated At'
-                ));
-                foreach($arr as $index=>$row){
-                    $vendor = Client::find($row['client_id']);
-                    array_push($temp, $vendor->name);
-                    array_push($temp, $row['estimate_date']);
-                    array_push($temp, $row['expiration_date']);
-                    array_push($temp, $row['total']);
-                    array_push($temp, $row['g_total']);
-                    array_push($temp, $row['tax']);
-                    array_push($temp, $row['discount']);
-                    array_push($temp, $row['status']);
-                    array_push($temp, $row['order_note']);
-                    array_push($temp, $row['order_activities']);
-                    array_push($temp, $row['created_at']);
-                    array_push($temp, $row['updated_at']);
-                    $sheet->appendRow($temp);
-                    $temp = array();
-                } 
-            });
-        })->export('csv');
+        return (new OrderExport)->download('invoices.csv');
     }
 
     /**
@@ -380,7 +323,7 @@ class OrderController extends Controller
         }
         $inventories = Inventory::all();
         $clients = Client::all();
-        
+        // return redirect()->route('orders.i',$invoice_id);
         return redirect()->action('OrderController@index',['inventories'=>$inventories,'clients'=>$clients]);    
     }
 }

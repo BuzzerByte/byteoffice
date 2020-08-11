@@ -19,7 +19,8 @@
         "laravel/socialite": "^4.4",
         "laravel/helpers": "^1.2",
         "maatwebsite/excel": "^3.1",
-        "laravel/ui": "^2.1"
+        "laravel/ui": "^2.1",
+        "nesbot/carbon": "^2.38"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.4",
