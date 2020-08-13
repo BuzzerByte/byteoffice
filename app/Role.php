@@ -2,15 +2,17 @@
 
 namespace App;
 
-use Zizaco\Entrust\EntrustRole;
+use Illuminate\Database\Eloquent\Model;
+use App\PermissionRole;
 
-class Role extends EntrustRole
+class Role extends Model
 {
     protected $fillable = [
         'name',
         'display_name',
         'description'
     ];
+
     public function users()
     {
         return $this->belongsToMany(User::class);
@@ -19,5 +21,4 @@ class Role extends EntrustRole
     {
         return $this->belongsToMany('App\Permission');
     }
-    
 }

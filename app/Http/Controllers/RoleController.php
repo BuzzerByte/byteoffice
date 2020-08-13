@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Role;
 use App\Permission;
+use App\PermissionRole;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -40,17 +41,19 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // return response()->json($request->permission[1]);
         $role = new Role();
-        $role->name         =  $request->name;
+        $role->name         = $request->name;
         $role->display_name = $request->display_name; // optional
         $role->description  = $request->description; // optional
         $role->save();
 
-        $role->attachPermissions($request->permission);
-
-        return redirect()->action('RoleController@index');
+        foreach($request->permission as $permission){
+            $permission_role = new PermissionRole();
+            $permission_role->role_id = $role->id;
+            $permission_role->permission_id = $permission;
+            $permission_role->save();
+        }
+        return redirect()->route('roles.index');
     }
 
     /**
@@ -92,14 +95,19 @@ class RoleController extends Controller
             'display_name'=>$request->display_name,
             'description'=>$request->description
         ]);
-        $role = Role::find($role->id);
-        if($request->permission != null){
-            $role->perms()->sync([]);
-            $role->attachPermissions($request->permission);
-        }else{
-            $role->perms()->sync([]);
-        }
-        return redirect()->action('RoleController@index');
+        
+        $delete = PermissionRole::where('role_id',$role->id);
+        $delete->delete();
+        
+        if($request->permission !== null)
+            foreach($request->permission as $permission){
+                $permission_role = new PermissionRole();
+                $permission_role->role_id = $role->id;
+                $permission_role->permission_id = $permission;
+                $permission_role->save();
+            }
+            
+        return redirect()->route('roles.index');
     }
 
     /**
