@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Inventory;
 
 class PurchaseProduct extends Model
 {
@@ -25,4 +26,8 @@ class PurchaseProduct extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function inventory($inventory_id){
+        return Inventory::select('name')->where('id',$inventory_id)->first()->name;
+    }
 }

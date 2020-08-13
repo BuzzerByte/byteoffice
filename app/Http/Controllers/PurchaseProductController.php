@@ -8,6 +8,7 @@ use App\Purchase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Session;
+use App\Exports\PurchaseProductExport;
 
 class PurchaseProductController extends Controller
 {
@@ -182,5 +183,9 @@ class PurchaseProductController extends Controller
     public function destroy(PurchaseProduct $purchaseProduct)
     {
         //
+    }
+
+    public function export(){
+        return (new PurchaseProductExport)->download('receive.csv');
     }
 }

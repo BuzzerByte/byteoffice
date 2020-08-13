@@ -26,10 +26,8 @@
                         <h6>Received Product</h6>
                     </div>
                     <div class="actions">
-                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-create"> <i
+                        <button class="btn btn-primary btn-sm" onclick="location.href='{{ route('purchaseProduct.export') }}'"> <i
                                 class="icon-fa icon-fa-plus"></i> Export</button>
-                        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-import"> <i class="icon-fa icon-fa-cloud-upload"></i>
-                            Print</button>
                     </div>
                 </div>
                 <div class="card-body">
