@@ -15,7 +15,7 @@ use App\Payment;
 use Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-use App\Exports\PurchaseExport;
+use App\Exports\PurchasesExport;
 
 class PurchaseController extends Controller
 {
@@ -184,34 +184,11 @@ class PurchaseController extends Controller
     } 
     
     public function export(){
-        Excel::create('Purchase List', function($excel) {   
-            $excel->sheet('List', function($sheet) {      
-                $data = array();
-                $arr = Purchase::all();
-                $temp = array();
-                $sheet->row(1, array(
-                    'Vendor','Billing Reference','Status','Note','Total','Discount','Tax','Transport','Grang Total','Paid','Balance','Created At','Updated At'
-                ));
-                foreach($arr as $index=>$row){
-                    $vendor = Vendor::find($row['vendor_id']);
-                    array_push($temp, $vendor->name);
-                    array_push($temp, $row['b_reference']);
-                    array_push($temp, $row['status']);
-                    array_push($temp, $row['note']);
-                    array_push($temp, $row['total']);
-                    array_push($temp, $row['discount']);
-                    array_push($temp, $row['tax']);
-                    array_push($temp, $row['transport']);
-                    array_push($temp, $row['g_total']);
-                    array_push($temp, $row['paid']);
-                    array_push($temp, $row['balance']);
-                    array_push($temp, $row['created_at']);
-                    array_push($temp, $row['updated_at']);
-                    $sheet->appendRow($temp);
-                    $temp = array();
-                } 
-            });
-        })->export('csv');
+        return (new PurchasesExport)->download('purchases.csv');
+    }
+
+    public function exportReceivedProduct(){
+        return (new ReceivedProductExport)->download('purchases.csv');
     }
 
     /**

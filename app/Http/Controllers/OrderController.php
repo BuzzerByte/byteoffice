@@ -17,6 +17,9 @@ use Excel;
 use File;
 use DB;
 use App\Exports\OrderExport;
+use App\Exports\ProcessExport;
+use App\Exports\PendingExport;
+use App\Exports\DeliverExport;
 
 class OrderController extends Controller
 {
@@ -300,6 +303,18 @@ class OrderController extends Controller
 
     public function exportOrder(){
         return (new OrderExport)->download('invoices.csv');
+    }
+
+    public function exportProcessing(){
+        return (new ProcessExport)->download('processing.csv');
+    }
+
+    public function exportPending(){
+        return (new PendingExport)->download('pending.csv');
+    }
+
+    public function exportDeliver(){
+        return (new DeliverExport)->download('delivery.csv');
     }
 
     /**

@@ -42,10 +42,10 @@
                         <h6>Processing Order(s)</h6>
                     </div>
                     <div class="actions">
-                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-create"> <i
+                        <button class="btn btn-primary btn-sm" onclick="location.href='{{ route('orders.exportProcess') }}'"> <i
                                 class="icon-fa icon-fa-plus"></i> Export</button>
-                        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-import"> <i class="icon-fa icon-fa-cloud-upload"></i>
-                            Print</button>
+                        <!-- <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-import"> <i class="icon-fa icon-fa-cloud-upload"></i>
+                            Print</button> -->
                     </div>
                 </div>
                 <div class="card-body">
@@ -59,12 +59,8 @@
                                 <th>Due Payment</th>
                                 <th>Total</th>
                                 <th>Actions</th>
-
                             </tr>
-
-
                         </thead>
-
                         @if (!$invoice->isEmpty())
                         <tbody>
 
@@ -104,7 +100,6 @@
                                 <span style="color: green"><strong>{{ $order->g_total }}</strong></span>
                                 @endif
                                 </td>
-
                                 <td>
                                     <form action="{{ route('orders.updateStatusToShipping',$order->id) }}" method="post"
                                         enctype="multipart/form-data">
