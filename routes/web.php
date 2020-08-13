@@ -66,6 +66,9 @@ Route::group([
 
     //Routes for orders
     Route::get('/orders/exportOrder','OrderController@exportOrder')->name('orders.export');
+    Route::get('/orders/exportProcessing','OrderController@exportProcessing')->name('orders.exportProcess');
+    Route::get('/orders/exportPending','OrderController@exportPending')->name('orders.exportPending');
+    Route::get('/orders/exportDeliver','OrderController@exportDeliver')->name('orders.exportDeliver');
     Route::get('/orders/processing','OrderController@process')->name('orders.process');
     Route::get('/orders/pending','OrderController@pending')->name('orders.pending');
     Route::get('/orders/deliver','OrderController@deliver')->name('orders.deliver');
@@ -150,7 +153,7 @@ Route::group([
     Route::post('/category/{category}/delete','CategoryController@delete')->name('category.delete');
     Route::resource('category','CategoryController');
     
-    
+    Route::get('/purchaseProduct/export','PurchaseProductController@export')->name('purchaseProduct.export');
     Route::post('/purchaseProduct/{purchase}/updateReceivedAmt','PurchaseProductController@updateReceivedAmt')->name('purchaseProduct.updateReceivedAmt');
     Route::post('/purchaseProduct/{purchase}/updateReturnAmt','PurchaseProductController@updateReturnAmt')->name('purchaseProduct.updateReturnAmt');
     Route::get('/purchaseProduct/{purchaseProduct}/getName','PurchaseProductController@getName')->name('purchaseProduct.getName');

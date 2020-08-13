@@ -86,7 +86,6 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
-                @role('admin')
                 <div class="card-header bg-info">
                     <div class="caption">
                         <h6>Role List</h6>
@@ -191,7 +190,6 @@
                     </table>
                    
                 </div>
-                @endrole
             </div>
         </div>
 
@@ -201,7 +199,6 @@
     aria-hidden="true">
     @include('admin.roles.create')
 </div>
-
 <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     @include('admin.roles.edit')
 </div>
