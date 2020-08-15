@@ -106,7 +106,6 @@ class RoleController extends Controller
                 $permission_role->permission_id = $permission;
                 $permission_role->save();
             }
-            
         return redirect()->route('roles.index');
     }
 

@@ -23,6 +23,7 @@ use App\JobTitle;
 use App\WorkShift;
 use App\Attendance;
 use App\Role;
+use App\RoleUser;
 use Carbon\Carbon;
 use Session;
 use Response;
@@ -107,8 +108,16 @@ class UserController extends Controller
         ]);
         $user = User::where('id',$store)->first();
         //default is user
-        $user->attachRole($request->role);
-        return redirect()->action('UserController@index');   
+
+        // return response()->json($request->role);
+        // $user->attachRole($request->role);//role_ id
+
+        $role_user = new RoleUser();
+        $role_user->role_id = $request->role;
+        $role_user->user_id = $user->id;
+        $role_user->save();
+
+        return redirect()->route('users.index');   
     }
 
     /*

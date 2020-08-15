@@ -32,10 +32,10 @@
 @section('content')
 <div class="main-content">
     <div class="page-header">
-        <h3 class="page-title">Department <small class="text-muted">management</small></h3>
+        <h3 class="page-title">Employment Status <small class="text-muted">management</small></h3>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-            <li class="breadcrumb-item active"><a href="{{ route('users.index') }}">Department</a></li>
+            <li class="breadcrumb-item active"><a href="{{ route('users.index') }}">Employment Status</a></li>
         </ol>
     </div>
 
@@ -45,11 +45,11 @@
             <div class="card">
                 <div class="card-header bg-info">
                     <div class="caption">
-                        <h6>Department</h6>
+                        <h6>Employment Status</h6>
                     </div>
                     <div class="actions">
                         <button class="btn btn-primary btn-sm" data-target="#addEmployeeStatus" data-placement="top"
-                            data-toggle="modal"> <i class="icon-fa icon-fa-plus"></i>Add Department</button>
+                            data-toggle="modal"> <i class="icon-fa icon-fa-plus"></i>Add Employment Status</button>
 
                     </div>
                 </div>

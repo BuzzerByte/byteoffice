@@ -40,7 +40,7 @@ class EmployeeStatusController extends Controller
         $store = EmployeeStatus::create([
             'status' => $request->status
         ]);
-        return redirect()->action('EmployeeStatusController@index');
+        return redirect()->route('employeestatus.index');
     }
 
     /**
@@ -79,7 +79,7 @@ class EmployeeStatusController extends Controller
         $update = EmployeeStatus::where('id',$employeestatus->id)->update([
             'status'=>$request->status
         ]);
-        return redirect()->action('EmployeeStatusController@index');
+        return redirect()->route('employeestatus.index');
     }
 
     /**
@@ -96,6 +96,6 @@ class EmployeeStatusController extends Controller
     public function delete(EmployeeStatus $employeestatus){
         $delete = EmployeeStatus::find($employeestatus->id);
         $delete->delete();
-        return redirect()->action('EmployeeStatusController@index');
+        return redirect()->route('employeestatus.index');
     }
 }
