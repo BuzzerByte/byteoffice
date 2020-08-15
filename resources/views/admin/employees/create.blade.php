@@ -37,7 +37,7 @@
                             <i class="icon-fa icon-fa-plus"></i> Import</button>
                     </div>
                 </div>
-                <form action="{{ route('users.add') }}" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+                <form action="{{ route('users.store') }}" enctype="multipart/form-data" method="post" accept-charset="utf-8">
                     @csrf
                     <div class="card-body">
 

@@ -7,6 +7,7 @@ class UsersController extends Controller
 {
     public function index()
     {
+        return response()->json('helo');
         $users = User::where('role', 'user')->get();
 
         return view('admin.users.index')->with('users', $users);

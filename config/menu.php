@@ -28,12 +28,12 @@ return [
         ],[
             'title' => 'Leave Application',
             'link'  => '/users/applications',
-            'active'=> 'user/application*',
+            'active'=> 'users/application*',
             'icon'  => 'icon-fa icon-fa-wpforms',
         ],[
             'title' => 'Reimbursement',
             'link'  => '#',
-            'active'=> 'user/reimbursements*',
+            'active'=> 'users/reimbursements*',
             'icon'  => 'icon-fa icon-fa-tasks',
             'children' => [
                 [
@@ -50,18 +50,18 @@ return [
         ],[
             'title' => 'Payroll',
             'link'  => '/users/payrolls',
-            'active'=> 'user/payroll*',
+            'active'=> 'users/payroll*',
             'icon'  => 'icon-fa icon-fa-credit-card',
             
         ],[
             'title' => 'Attendance',
             'link'  => '/users/attendances',
-            'active'=> 'user/attendance*',
+            'active'=> 'users/attendance*',
             'icon'  => 'icon-fa icon-fa-check-square-o',
         ],[
             'title' => 'Awards',
             'link'  => '/users/awards',
-            'active'=> 'user/award*',
+            'active'=> 'users/award*',
             'icon'  => 'icon-fa icon-fa-star',
         ]
     ],
@@ -177,20 +177,20 @@ return [
             'children' =>[
                 [
                     'title' => 'Add Employee',
-                    'link' => '/admin/user/create',
-                    'active' => 'admin/user/create',
+                    'link' => 'admin/users/create',
+                    'active' => 'admin/users/create',
                 ],[
                     'title' => 'Import Employee',
-                    'link' => '/admin/user/import',
-                    'active' => 'admin/user/import',
+                    'link' => '/admin/users/import',
+                    'active' => 'admin/users/import',
                 ],[
                     'title'=> 'Employee List',
-                    'link'=> '/admin/user/index',
-                    'active'=>'admin/user/index',
+                    'link'=> '/admin/users',
+                    'active'=>'admin/users',
                 ],[
                     'title'=> 'Terminated Employee',
-                    'link'=> '/admin/user/terminateList',
-                    'active'=>'admin/user/terminateList',
+                    'link'=> '/admin/users/terminateList',
+                    'active'=>'admin/users/terminateList',
                 ],[
                     'title'=> 'Employee Award',
                     'link'=> '/admin/employeeAwards',

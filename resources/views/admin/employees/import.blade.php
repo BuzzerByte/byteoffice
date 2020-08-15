@@ -19,7 +19,7 @@
 @section('content')
 <div class="main-content">
     <div class="page-header">
-        <h3 class="page-title">Category <small class="text-muted">management</small></h3>
+        <h3 class="page-title">Import <small class="text-muted">employee</small></h3>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
             <li class="breadcrumb-item active"><a href="{{ route('users.import') }}">Import Employee(s)</a></li>

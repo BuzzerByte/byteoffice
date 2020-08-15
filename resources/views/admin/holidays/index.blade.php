@@ -37,7 +37,7 @@
         <h3 class="page-title">Holiday <small class="text-muted">management</small></h3>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-            <li class="breadcrumb-item active"><a href="{{ route('users.index') }}">List of Holiday</a></li>
+            <li class="breadcrumb-item active"><a href="{{ route('holidays.index') }}">List of Holiday</a></li>
         </ol>
     </div>
 
@@ -48,98 +48,68 @@
                 <div class="card-header bg-info">
                     <div class="caption">
                         <h6>List of Holiday</h6>
-
                     </div>
                     <div class="actions">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <button class="btn btn-primary btn-sm" data-target="#addHolidayModal"
-                                    title="View" data-placement="top" data-toggle="modal" href="#"> <i class="icon-fa icon-fa-plus"></i>Add
+                        <button class="btn btn-primary btn-sm" data-target="#addHolidayModal"
+                            title="View" data-placement="top" data-toggle="modal" href="#"> <i class="icon-fa icon-fa-plus"></i>Add
                                     Holiday</button>
-                                </div>
-                            <div class="col-md-7">
-                                <form action="#" class="form-inline" method="post" accept-charset="utf-8">
-                                    @csrf
-                                    
-                                    <div class="input-group">
-                                    <label>Year </label>
-                                        <input type="text" id="year" class="form-control years input-md" name="year"
-                                            value="2018">
-                                        <span class="input-group-btn">
-                                            <button type="submit" class="btn bg-olive">Go!</button>
-                                        </span>
-
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                        <form action="{{ route('holidays.index') }}" class="form-inline" method="post" accept-charset="utf-8">
+                            @csrf
+                            <label>Year </label>
+                                <input type="text" id="year" class="form-control years input-sm" name="year"
+                                    value="{{ now()->year }}">
+                                    <button type="submit" class="btn bnt-sm bg-olive">Go!</button>
+                        </form>
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="#">
-                        <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <!-- Table head -->
+                                    <tr>
+                                        <th>Holiday</th>
+                                        <th>Description</th>
+                                        <th>Start
+                                            Date</th>
+                                        <th>End
+                                            Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead><!-- / Table head -->
+                                <tbody>
+                                    <!-- / Table body -->
 
-                            <div class="dt-buttons btn-group"><a class="btn btn-default buttons-copy buttons-html5 btn-sm"
-                                    tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span></a><a class="btn btn-default buttons-csv buttons-html5 btn-sm"
-                                    tabindex="0" aria-controls="DataTables_Table_0"><span>CSV</span></a><a class="btn btn-default buttons-excel buttons-html5 btn-sm"
-                                    tabindex="0" aria-controls="DataTables_Table_0"><span>Excel</span></a><a class="btn btn-default buttons-pdf buttons-html5 btn-sm"
-                                    tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span></a><a class="btn btn-default buttons-print btn-sm"
-                                    tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span></a></div>
-                            <br>
-                            <br>
-                            <div class="table-responsive">
-                                <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                    <thead>
-                                        <!-- Table head -->
-                                        <tr>
-                                            <th>Holiday</th>
-                                            <th>Description</th>
-                                            <th>Start
-                                                Date</th>
-                                            <th>End
-                                                Date</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead><!-- / Table head -->
-                                    <tbody>
-                                        <!-- / Table body -->
+                                    <!--get all sub category if not this empty-->
+                                    @foreach($holidays as $holiday)
+                                    <tr>
+                                        <td>{{
+                                            $holiday->name }}</td>
+                                        <td>{{ $holiday->description }}</td>
+                                        <td>{{ Carbon\Carbon::parse(
+                                            $holiday->start)->format('d M Y') }}</td>
+                                        <td>{{ Carbon\Carbon::parse(
+                                            $holiday->end)->format('d M Y') }}</td>
+                                        <td>
+                                            <div class="btn-group mr-2" role="group" aria-label="First group">
+                                                <input type="hidden" value="{{ $holiday->id }}">
+                                                <button type="button" class="btn btn-icon btn-outline-info editHolidayModal"
+                                                    data-target="#editHolidayModal" data-placement="top"
+                                                    data-toggle="modal"><i class="icon-fa icon-fa-pencil"></i></button>
+                                
+                                                    <button type="button" class="btn btn-icon btn-outline-danger getDeleteHoliday"
+                                                data-target="#deleteHolidayModal" data-placement="top"
+                                                data-toggle="modal"><i class="icon-fa icon-fa-trash"></i></button>
+                                            </div>
+                                        </td>
 
-                                        <!--get all sub category if not this empty-->
-                                        @foreach($holidays as $holiday)
-                                        <tr>
-                                            <td>{{
-                                                $holiday->name }}</td>
-                                            <td>{{ $holiday->description }}</td>
-                                            <td>{{ Carbon\Carbon::parse(
-                                                $holiday->start)->format('d M Y') }}</td>
-                                            <td>{{ Carbon\Carbon::parse(
-                                                $holiday->end)->format('d M Y') }}</td>
-                                            <td>
-
-
-                                                <div class="btn-group mr-2" role="group" aria-label="First group">
-                                                    <input type="hidden" value="{{ $holiday->id }}">
-                                                    <button type="button" class="btn btn-icon btn-outline-info editHolidayModal"
-                                                        data-target="#editHolidayModal" data-placement="top"
-                                                        data-toggle="modal"><i class="icon-fa icon-fa-pencil"></i></button>
-                                    
-                                                        <button type="button" class="btn btn-icon btn-outline-danger getDeleteHoliday"
-                                                    data-target="#deleteHolidayModal" data-placement="top"
-                                                    data-toggle="modal"><i class="icon-fa icon-fa-trash"></i></button>
-                                                </div>
-                                            </td>
-
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
-
-
-                    </form>
-
-
+                    </div>
                 </div>
             </div>
         </div>
