@@ -23,7 +23,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-3">Minimum Salary</label>
                     <div class="col-md-9">
-                        <input name="min_salary" class="form-control autocomplete_off" type="text">
+                        <input type="number" min="0.00" step="0.01" placeholder="0.00" name="min_salary" class="form-control autocomplete_off">
                         <span class="help-block"></span>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-3">Maximum Salary</label>
                     <div class="col-md-9">
-                        <input name="max_salary" class="form-control autocomplete_off" type="text">
+                        <input type="number" min="0.00" step="0.01" placeholder="0.00" name="max_salary" class="form-control autocomplete_off">
                         <span class="help-block"></span>
                     </div>
                 </div>

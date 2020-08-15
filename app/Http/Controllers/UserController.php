@@ -23,7 +23,10 @@ use App\JobTitle;
 use App\WorkShift;
 use App\Attendance;
 use App\Role;
+use App\RoleUser;
 use Carbon\Carbon;
+use App\Imports\EmployeeImport;
+use App\Exports\EmployeeExport;
 use Session;
 use Response;
 use Excel;
@@ -40,7 +43,7 @@ class UserController extends Controller
     public function index()
     {
         if(Auth::user()->hasRole('admin')){
-            $employees = User::where('terminate_status',false)->get();
+            $employees = User::where('terminate_status',0)->get();
             return view('admin.employees.index',['employees'=>$employees]);
         }else{
             $users = User::where('id',Auth::user()->id)->first();
@@ -82,33 +85,7 @@ class UserController extends Controller
     }
 
     public function add(Request $request){
-        if ($request->hasFile('employee_photo')) {
-            $image = $request->file('employee_photo');
-            $name = $image->getClientOriginalName();
-            $destinationPath = public_path('/employeesPhoto');
-            $image->move($destinationPath, $name);
-        }else{
-            $name = NULL;
-        }
-        $store = DB::table('users')->insertGetId([
-            'name'  =>$request->first_name." ".$request->last_name,
-            'email' =>$request->email,
-            'f_name'=>$request->first_name,
-            'l_name'=>$request->last_name,
-            'dob'=>$request->date_of_birth,
-            'marital_status'=>$request->marital_status,
-            'country'=>$request->country,
-            'blood_group'=>$request->blood_group,
-            'id_number'=>$request->id_number,
-            'religious'=>$request->religious,
-            'gender'=>$request->gender,
-            'photo'=>$name,
-            'terminate_status'=>0
-        ]);
-        $user = User::where('id',$store)->first();
-        //default is user
-        $user->attachRole($request->role);
-        return redirect()->action('UserController@index');   
+        
     }
 
     /*
@@ -125,13 +102,9 @@ class UserController extends Controller
             'Content-Disposition: attachment; filename=employee.csv',
         );
         if (file_exists($file_path)) {
-            // Send Download
-            // Session::flash('success', 'File Downloaded');
             flash()->success('File Downloaded');
             return Response::download($file_path, 'employee.csv', $headers);
         } else {
-            // Error
-            // Session::flash('failure', 'Something went wrong!');
             flash()->error('Something went wrong!');
         }
         
@@ -144,33 +117,30 @@ class UserController extends Controller
             $extension = File::extension($request->importEmployee->getClientOriginalName());
             if ($extension == "csv") {
                 $path = $request->importEmployee->getRealPath();
-                $data = Excel::load($path, function($reader) {})->get();
-                if(!empty($data) && $data->count()){
-    
+                // Excel::import(new ClientsImport, $request->import_file);
+                $data = Excel::import(new EmployeeImport, $request->importEmployee);
+                if(!empty($data)){
                     foreach($data as $record){
-                        
                         if(in_array($record->id_number,$employee_id)){
                             continue;   
                         }else if(User::where('id_number','=',$record->id_number)->exists()){
                             continue;
                         }else{
                             $employee_id[] = $record->id_number;
-                            $record->date_of_birth = date('Y-m-d');
+                            $record->dob = date('Y-m-d');
                             $insert_employee_data[] = [
                                 'name'   => $record->first_name." ".$record->last_name,
                                 'email'  => $record->email,
-                                'f_name' => $record->first_name, 
+                                'f_name' => $record->first_name,
                                 'l_name' => $record->last_name,
                                 'marital_status'=>$record->marital_status,
-                                'dob' => $record->date_of_birth,
+                                'dob' => $record->dob,
                                 'id_number' => $record->id_number,
                                 'gender'=> $record->gender,
                                 'country'=>'-',
                                 'blood_group'=>'-',
                                 'religious'=>'-',
-                                'terminate_status'=>0,
-                                'created_at'=>Carbon::now(),
-                                'updated_at'=>Carbon::now()
+                                'terminate_status'=>0
                             ];
                         }
                     }
@@ -194,7 +164,7 @@ class UserController extends Controller
             // Session::flash('failure', 'Something went wrong!');
             flash()->error('Something went wrong!');
         }
-        return redirect()->action('UserController@index'); 
+        return redirect()->route('users.index'); 
     }
 
     public function terminate(Request $request){
@@ -202,9 +172,7 @@ class UserController extends Controller
     }
 
     public function terminateList(){
-        
-        $employees = User::where('terminate_status',true)->get();
-       
+        $employees = User::where('terminate_status',1)->get();
         return view('admin.employees.terminate',['employees'=>$employees]);
     }
 
@@ -354,7 +322,41 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->hasFile('employee_photo')) {
+            $image = $request->file('employee_photo');
+            $name = $image->getClientOriginalName();
+            $destinationPath = public_path('/employeesPhoto');
+            $image->move($destinationPath, $name);
+        }else{
+            $name = NULL;
+        }
+        $store = DB::table('users')->insertGetId([
+            'name'  =>$request->first_name." ".$request->last_name,
+            'email' =>$request->email,
+            'f_name'=>$request->first_name,
+            'l_name'=>$request->last_name,
+            'dob'=>$request->date_of_birth,
+            'marital_status'=>$request->marital_status,
+            'country'=>$request->country,
+            'blood_group'=>$request->blood_group,
+            'id_number'=>$request->id_number,
+            'religious'=>$request->religious,
+            'gender'=>$request->gender,
+            'photo'=>$name,
+            'terminate_status'=>0
+        ]);
+        $user = User::where('id',$store)->first();
+        //default is user
+
+        // return response()->json($request->role);
+        // $user->attachRole($request->role);//role_ id
+
+        $role_user = new RoleUser();
+        $role_user->role_id = $request->role;
+        $role_user->user_id = $user->id;
+        $role_user->save();
+
+        return redirect()->route('users.index');   
     }
 
     
