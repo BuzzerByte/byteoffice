@@ -51,12 +51,12 @@ $(document.body).on('change', '#parentLeaveCheckbox', function () {
             <div class="card">
                 <div class="card-header bg-info">
                     <div class="caption">
-                        <h6>Import Attendance</h6>
+                        <h6>Attendance Report</h6>
                     </div>
                     <div class="actions">
-                        <button class="btn btn-danger btn-sm" onclick="location.href='{{ route('attendances.import') }}'">
+                        <button class="btn btn-danger btn-sm" onclick="location.href='{{ route('attendances.export') }}'">
                             <i class="icon-fa icon-fa-cloud-upload"></i>
-                            Import</button>
+                            Export</button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -116,16 +116,8 @@ $(document.body).on('change', '#parentLeaveCheckbox', function () {
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
-
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <div class="dt-buttons btn-group"><a class="btn btn-default buttons-copy buttons-html5 btn-sm"><span>Copy</span></a><a
-                                                    class="btn btn-default buttons-csv buttons-html5 btn-sm"><span>CSV</span></a><a
-                                                    class="btn btn-default buttons-excel buttons-html5 btn-sm"><span>Excel</span></a><a
-                                                    class="btn btn-default buttons-pdf buttons-html5 btn-sm"><span>PDF</span></a><a
-                                                    class="btn btn-default buttons-print btn-sm"><span>Print</span></a>
-                                            </div>
-                                            <br>
                                             <div class="table-responsive">
                                                 <table class="table table-bordered" width="100%">
                                                     <thead>

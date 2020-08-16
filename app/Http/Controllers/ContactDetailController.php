@@ -27,7 +27,7 @@ class ContactDetailController extends Controller
             'mobile'=>$request->mobile
         ]);
 
-        return redirect()->action('UserController@contactDetails',['id'=>$request->employee_id]);
+        return redirect()->route('users.contactDetails',$request->employee_id);
     }
 
     public function show(ContactDetail $contactDetail)

@@ -41,7 +41,7 @@ class EmployeeDependentController extends Controller
             'dob'=>$request->date_of_birth,
             'employee_id'=>$request->employee_id
         ]);
-        return redirect()->action('UserController@employeeDependents',['id'=>$request->employee_id]);
+        return redirect()->route('users.employeeDependents',$request->employee_id);
     }
 
     /**
@@ -80,7 +80,7 @@ class EmployeeDependentController extends Controller
             'relationship'=>$request->relationship,
             'dob'=>$request->date_of_birth
         ]);
-        return redirect()->action('UserController@employeeDependents',['id'=>$employeeDependent->employee_id]);
+        return redirect()->route('users.employeeDependents',$employeeDependent->employee_id);
     }
 
     /**
@@ -102,10 +102,10 @@ class EmployeeDependentController extends Controller
                 $dependent = EmployeeDependent::find((int)$id);
                 $dependent->delete();
             }
-            return redirect()->action('UserController@employeeDependents',['id'=>$request->employee_id]);
+            return redirect()->route('users.employeeDependents',$request->employee_id);
         
         }else{
-            return redirect()->action('UserController@employeeDependents',['id'=>$request->employee_id]);
+            return redirect()->route('users.employeeDependents',$request->employee_id);
         }
     }
 }

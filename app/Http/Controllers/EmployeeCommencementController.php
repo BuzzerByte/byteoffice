@@ -32,7 +32,7 @@ class EmployeeCommencementController extends Controller
         }else{
 
         }
-        return redirect()->action('UserController@employeeCommencements',['id'=>$request->employee_id]);
+        return redirect()->route('users.employeeCommencements',$request->employee_id);
     }
 
     public function show(EmployeeCommencement $employeeCommencement)

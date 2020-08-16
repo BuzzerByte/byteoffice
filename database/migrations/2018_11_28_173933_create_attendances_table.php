@@ -17,7 +17,7 @@ class CreateAttendancesTable extends Migration
             $table->increments('id');
             $table->date('date')->nullable();
             $table->integer('department_id')->nullable();
-            $table->integer('employee_id')->nullable();
+            $table->string('employee_id')->nullable();
             $table->integer('leave_id')->nullable();
             $table->time('in')->nullable();
             $table->time('out')->nullable();

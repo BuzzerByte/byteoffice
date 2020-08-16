@@ -95,9 +95,9 @@ Route::group([
     // Route::get('/user/create','UserController@create')->name('users.create');
     // Route::get('/user/{user}/show','UserController@show')->name('users.show');
     // Route::get('/user/{user}','UserController@destroy')->name('users.destroy');
-    Route::get('/user/{user}/contactDetails','UserController@contactDetails')->name('users.contactDetails');
+    Route::get('/users/{user}/contactDetails','UserController@contactDetails')->name('users.contactDetails');
     Route::get('/user/{user}/employeeDependents','UserController@employeeDependents')->name('users.employeeDependents');
-    Route::get('/user/{user}/employeeCommencements','UserController@employeeCommencements')->name('users.employeeCommencements');
+    Route::get('/users/{user}/employeeCommencements','UserController@employeeCommencements')->name('users.employeeCommencements');
     Route::get('/user/{user}/employeeSalaries','UserController@employeeSalaries')->name('users.employeeSalaries');
     Route::get('/user/{user}/reportTo','UserController@reportTo')->name('users.reportTo');
     Route::get('/user/{user}/directDeposit','UserController@directDeposit')->name('users.directDeposit');
@@ -106,6 +106,7 @@ Route::group([
     // Route::put('/user/{user}','UserController@update')->name('users.update');
     Route::post('/user/storeSkin','UserController@storeSkin')->name('users.storeSkin');
     Route::get('/user/getSkin','UserController@getSkin')->name('users.getSkin');
+    Route::get('/users/export','UserController@export')->name('users.export');
     Route::resource('users','UserController');
 
     Route::get('/email/inbox','EmailController@inbox')->name('email.inbox');
@@ -238,6 +239,7 @@ Route::group([
     Route::post('/attendances/importAttendance','AttendanceController@importAttendance')->name('attendances.importAttendance');
     Route::get('/attendances/attendanceReport','AttendanceController@attendanceReport')->name('attendances.attendanceReport');
     Route::post('/attendances/setReport','AttendanceController@setReport')->name('attendances.setReport');
+    Route::get('/attendances/export','AttendanceController@export')->name('attendances.export');
     Route::resource('attendances','AttendanceController');
 
     Route::get('/reimbursements/export','ReimbursementController@export')->name('reimbursements.export');

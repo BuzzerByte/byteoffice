@@ -32,10 +32,8 @@ $('.delete').click(function () {
                         <h6>Terminated List</h6>
                     </div>
                     <div class="actions">
-                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-create"> <i
+                        <button class="btn btn-primary btn-sm" onclick="location.href='{{ route('users.export') }}'"> <i
                                 class="icon-fa icon-fa-plus"></i> Export</button>
-                        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-import"> <i class="icon-fa icon-fa-cloud-upload"></i>
-                            Print</button>
                     </div>
                 </div>
                 <div class="card-body table-responsive">
@@ -87,7 +85,6 @@ $('.delete').click(function () {
                                 <td>-</td>
                                 <td>-</td>
                                 <td>-</td>
-
                                 @endif
                                 <td>
                                     <div class="btn-group mr-2" role="group" aria-label="First group">
