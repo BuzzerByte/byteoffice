@@ -167,6 +167,10 @@ class UserController extends Controller
         return redirect()->route('users.index'); 
     }
 
+    public function export(){
+        return (new EmployeeExport)->download('employee.csv');
+    }
+
     public function terminate(Request $request){
         return response()->json($request);
     }
@@ -202,7 +206,7 @@ class UserController extends Controller
             );
         }
         
-        return redirect()->action('ContactDetailController@show',['id'=>$contactDetailId]);
+        return redirect()->route('contactDetails.show',$contactDetailId);
     }
 
     public function employeeDependents(User $user){
@@ -343,7 +347,9 @@ class UserController extends Controller
             'religious'=>$request->religious,
             'gender'=>$request->gender,
             'photo'=>$name,
-            'terminate_status'=>0
+            'terminate_status'=>0,
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now(),
         ]);
         $user = User::where('id',$store)->first();
         //default is user
@@ -403,17 +409,21 @@ class UserController extends Controller
                 'religious'=>$request->religious,
                 'gender'=>$request->gender,
                 'photo'=>$name,
+                'updated_at'=>Carbon::now()
             ]);
             $user = User::where('id',$user->id)->first();
             
-            $user->roles()->sync($request->role);
-            //$user->attachRole($request->role);
-            return redirect()->route('users.show',['id'=>$user->id]);
+            // $user->roles()->sync($request->role);
+            $role_user = new RoleUser();
+            $role_user->role_id = $request->role;
+            $role_user->user_id = $user->id;
+            $role_user->save();
+            return redirect()->route('users.show',$user->id);
         }else{
             $update = User::where('id',$user->id)->update([
                 'password'  =>bcrypt($request->password),
             ]);
-            return redirect()->action('UserController@show',['id'=>$user->id]);
+            return redirect()->route('users.show',$user->id);
         }  
     }
 
