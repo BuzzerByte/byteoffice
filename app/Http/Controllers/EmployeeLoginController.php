@@ -79,10 +79,10 @@ class EmployeeLoginController extends Controller
                 'password' => bcrypt($password)
             ]);
 
-            return redirect()->action('UserController@employeeLogin',['id'=>$employeeLogin->employee_id]);
+            return redirect()->route('users.employeeLogin',$employeeLogin->employee_id);
         }else{
             Session::flash('failure', 'Password and retype password does not matched!');
-            return redirect()->action('UserController@employeeLogin',['id'=>$employeeLogin->employee_id]);
+            return redirect()->route('users.employeeLogin',$employeeLogin->employee_id);
         }
     }
 

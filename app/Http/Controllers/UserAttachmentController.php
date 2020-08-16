@@ -51,7 +51,7 @@ class UserAttachmentController extends Controller
             'added_by'=>Auth::user()->name,
             'user_id'=>$request->user_id
         ]);
-        return redirect()->action('UserController@show',['id'=>$request->user_id]);
+        return redirect()->route('users.show',$request->user_id);
     }
 
     /**
@@ -106,9 +106,9 @@ class UserAttachmentController extends Controller
                 $attachment = UserAttachment::find((int)$id);
                 $attachment->delete();
             }
-            return redirect()->action('UserController@show',['id'=>$request->employee_id]);
+            return redirect()->route('user.show',$request->employee_id);
         }else{
-            return redirect()->action('UserController@show',['id'=>$request->employee_id]);
+            return redirect()->route('users.show',$request->employee_id);
         }
     }
 }
