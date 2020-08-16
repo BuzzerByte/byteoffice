@@ -15,6 +15,8 @@ use File;
 use Excel;
 use Illuminate\Http\Request;
 use Auth;
+use App\Imports\AttendanceImport;
+use App\Exports\AttendanceExport;
 
 class AttendanceController extends Controller
 {
@@ -77,18 +79,18 @@ class AttendanceController extends Controller
             $extension = File::extension($request->importAttendance->getClientOriginalName());
             if ($extension == "csv") {
                 $path = $request->importAttendance->getRealPath();
-                $data = Excel::load($path, function($reader) {})->get();
-                if(!empty($data) && $data->count()){
+                $data = Excel::import(new AttendanceImport, $request->importAttendance);
+                if(!empty($data)){
                     foreach($data as $record){
-                        $department_id = JobHistory::where('employee_id',User::where('id_number',$record->employee_id)->first()->id)->first()->department_id;
                         Attendance::updateOrCreate(
                             [
                                 'date'=>Carbon::parse($record->date)->format('Y-m-d'),
-                                'employee_id'=>User::where('id_number',$record->employee_id)->first()->id,
-                                'department_id' => $department_id
+                                'employee_id'=>User::select('id_number')->where('id_number',$record->employee_id)->first()->id_number,
+                                'department_id' => Department::select('id')->where('name',$record->deparment)->first()->id,
+                                'leave_id'=> $record->leave_id,
                             ],[
-                                'in'=>$record->in_time,
-                                'out'=>$record->out_time,
+                                'in'=>Carbon::parse($record->in_time)->format('H:i'),
+                                'out'=>Carbon::parse($record->out_time)->format('H:i'),
                             ]
                         );
                     }
@@ -102,7 +104,7 @@ class AttendanceController extends Controller
         }else{
             Session::flash('failure', 'Something went wrong!');
         }
-        return redirect()->action('UserController@index'); 
+        return redirect()->route('users.index'); 
     }
 
 
@@ -158,10 +160,10 @@ class AttendanceController extends Controller
             }     
             $departments = Department::all();
             $department = Department::where('id',$department_id)->first();
-            return redirect()->action('AttendanceController@setAttendance',['department'=>$department,'date'=>$date]);
+            return redirect()->route('attendances.setAttendance',['department'=>$department,'date'=>$date]);
         }else{
             $department_id_arr = null;
-            return redirect()->action('AttendanceController@index');
+            return redirect()->route('attendances.index');
         }
     }
 
@@ -201,4 +203,7 @@ class AttendanceController extends Controller
         return view('admin.attendances.edit',['employees'=>$employees,'department'=>$department,'date'=>$date]);
     }
 
+    public function export(){
+        return (new AttendanceExport)->download('attendance.csv');
+    }
 }

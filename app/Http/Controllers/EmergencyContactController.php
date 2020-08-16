@@ -18,7 +18,7 @@ class EmergencyContactController extends Controller
             'work_tel'=>$request->work_telephone,
             'employee_id'=>$request->employee_id
         ]);
-        return redirect()->action('UserController@contactDetails',['id'=>$request->employee_id]);
+        return redirect()->route('users.contactDetails',$request->employee_id);
     }
 
     public function edit(EmergencyContact $emergencyContact)
@@ -35,7 +35,7 @@ class EmergencyContactController extends Controller
             'mobile'=>$request->mobile,
             'work_tel'=>$request->work_telephone
         ]);
-        return redirect()->action('UserController@contactDetails',['id'=>$emergencyContact->employee_id]);
+        return redirect()->route('users.contactDetails',$emergencyContact->employee_id);
         
     }
 
@@ -46,10 +46,10 @@ class EmergencyContactController extends Controller
                 $contact = EmergencyContact::find((int)$id);
                 $contact->delete();
             }
-            return redirect()->action('UserController@contactDetails',['id'=>$request->employee_id]);
+            return redirect()->route('users.contactDetails',$request->employee_id);
         
         }else{
-            return redirect()->action('UserController@contactDetails',['id'=>$request->employee_id]);
+            return redirect()->route('users.contactDetails',$request->employee_id);
         }
     }
 }

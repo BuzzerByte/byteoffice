@@ -40,7 +40,7 @@ class EmployeeSubordinateController extends Controller
             'subordinate_id'=>$request->subordinate_id,
             'employee_id'=>$request->employee_id
         ]);
-        return redirect()->action('UserController@reportTo',['id'=>$request->employee_id]);
+        return redirect()->route('users.reportTo',$request->employee_id);
     }
 
     /**
@@ -78,7 +78,7 @@ class EmployeeSubordinateController extends Controller
             'department_id'=>$request->department_id,
             'subordinate_id'=>$request->subordinate_id
         ]);
-        return redirect()->action('UserController@reportTo',['id'=>$employeeSubordinate->employee_id]);
+        return redirect()->route('users.reportTo',$employeeSubordinate->employee_id);
  
     }
 
@@ -100,9 +100,9 @@ class EmployeeSubordinateController extends Controller
                 $subordinate = EmployeeSubordinate::find((int)$id);
                 $subordinate->delete();
             }
-            return redirect()->action('UserController@reportTo',['id'=>$request->employee_id]);
+            return redirect()->route('users.reportTo',$request->employee_id);
         }else{
-            return redirect()->action('UserController@reportTo',['id'=>$request->employee_id]);
+            return redirect()->route('users.reportTo',$request->employee_id);
         }
     }
 }
