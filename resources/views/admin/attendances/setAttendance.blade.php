@@ -132,14 +132,14 @@ $(document.body).on('change', '#parentLeaveCheckbox', function () {
                                         @foreach($attendances as $attendance)
                                         <tr>
                                             <td>{{
-                                                \App\User::where('id',$attendance->employee_id)->first()->id_number
+                                                \App\Employee::where('id',$attendance->employee_id)->first()->id_number
                                                 }}
                                                 <input type="hidden" value="{{$attendance->employee_id}}" name="employee_id[]"></td>
                                             <td>{{
-                                                \App\User::where('id',$attendance->employee_id)->first()->f_name
+                                                \App\Employee::where('id',$attendance->employee_id)->first()->f_name
                                                 }}
                                                 {{
-                                                \App\User::where('id',$attendance->employee_id)->first()->l_name
+                                                \App\Employee::where('id',$attendance->employee_id)->first()->l_name
                                                 }}</td>
                                             <td>{{
                                                 \App\JobTitle::where('id',\App\JobHistory::where('employee_id',$attendance->employee_id)->first()->title_id)->first()->title

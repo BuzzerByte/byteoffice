@@ -33,11 +33,11 @@
                         <h6>Add Employee</h6>
                     </div>
                     <div class="actions">
-                        <button class="btn btn-primary btn-sm" onclick="location.href='{{ route('users.import') }}'">
+                        <button class="btn btn-primary btn-sm" onclick="location.href='{{ route('employees.import') }}'">
                             <i class="icon-fa icon-fa-plus"></i> Import</button>
                     </div>
                 </div>
-                <form action="{{ route('users.store') }}" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+                <form action="{{ route('employees.store') }}" enctype="multipart/form-data" method="post" accept-charset="utf-8">
                     @csrf
                     <div class="card-body">
 

@@ -22,17 +22,21 @@ class EmployeeCommencementController extends Controller
     public function store(Request $request)
     {
         $store = EmployeeCommencement::updateOrCreate(
-            ['employee_id'=>$request->employee_id],
-            ['join_date'=>$request->joined_date,
-            'probation_end'=>$request->probation_end_date,
-            'dop'=>$request->date_of_permanency]
+            [
+                'employee_id'=>$request->employee_id
+            ],
+            [
+                'join_date'=>$request->joined_date,
+                'probation_end'=>$request->probation_end_date,
+                'dop'=>$request->date_of_permanency
+            ]
         );
         if($store){
 
         }else{
 
         }
-        return redirect()->route('users.employeeCommencements',$request->employee_id);
+        return redirect()->route('employees.employeeCommencements',$request->employee_id);
     }
 
     public function show(EmployeeCommencement $employeeCommencement)

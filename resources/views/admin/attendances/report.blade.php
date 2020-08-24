@@ -136,9 +136,9 @@ $(document.body).on('change', '#parentLeaveCheckbox', function () {
                                                         @foreach($employees as $employee)
                                                         <tr>
                                                             <td>{{
-                                                                \App\User::where('id',$employee->employee_id)->first()->f_name
+                                                                \App\Employee::where('id',$employee->employee_id)->first()->f_name
                                                                 }} {{
-                                                                \App\User::where('id',$employee->employee_id)->first()->l_name
+                                                                \App\Employee::where('id',$employee->employee_id)->first()->l_name
                                                                 }}</td>
                                                              @for($i = 1; $i<=$numberOfDays;$i++)
                                                                 <td>

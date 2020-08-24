@@ -16,10 +16,10 @@ class ApplicationController extends Controller
         if(Auth::user()->hasRole('admin')){
             $applications = Application::all();
             $leaveTypes = Leavetype::all(); 
-            $employees = User::all();
+            $employees = Employee::all();
             return view('admin.applications.index',['applications'=>$applications,'leaveTypes'=>$leaveTypes,'employees'=>$employees]);
         }else{
-            $employees = User::where('id',Auth::user()->id);
+            $employees = Employee::where('id',Auth::user()->id);
             $applications = Application::where('employee_id',Auth::user()->id)->get();
             $leaveTypes = Leavetype::all(); 
             return view('users.applications.index',['applications'=>$applications,'leaveTypes'=>$leaveTypes,'employees'=>$employees]);
@@ -49,7 +49,7 @@ class ApplicationController extends Controller
                 'status'=> 'pending'   
             ]);
         }
-        return redirect()->action('ApplicationController@index');
+        return redirect()->route('applications.index');
     }
 
     public function edit(Application $application)
@@ -67,7 +67,7 @@ class ApplicationController extends Controller
             'date'=>$request->apply,
             'status'=> $request->status
         ]);
-        return redirect()->action('ApplicationController@index');
+        return redirect()->route('applications.index');
     }
 
     public function destroy(Application $application)
@@ -78,7 +78,7 @@ class ApplicationController extends Controller
     public function delete(Application $application){
         $delete = Application::find($application->id);
         $delete->delete();
-        return redirect()->action('ApplicationController@index');
+        return redirect()->route('applications.index');
     }
 }
 
