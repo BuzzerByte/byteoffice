@@ -51,36 +51,34 @@
         @endif
     </div>
     <div class="card-body">
-        
-        
         <div class="tabs tabs-simple tabs-vertical">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                        <a href="{{ route('users.show',$employee->id) }}">Personal
+                        <a href="{{ route('employees.show',$employee->id) }}">Personal
                                 Details</a>
                 </li>
                 <li class="nav-item">
-                        <a href="{{ route('users.contactDetails',$employee->id) }}">Contact
+                        <a href="{{ route('employees.contactDetails',$employee->id) }}">Contact
                                 Details</a>
                 </li>
                 <li class="nav-item">
-                        <a href="{{ route('users.employeeDependents',$employee->id) }}">Dependents</a>
+                        <a href="{{ route('employees.employeeDependents',$employee->id) }}">Dependents</a>
                 </li>
                 <li class="nav-item">
-                        <a href="{{ route('users.employeeCommencements',$employee->id) }}">Job</a>
+                        <a href="{{ route('employees.employeeCommencements',$employee->id) }}">Job</a>
                 </li>
                 <li class="nav-item">
-                        <a href="{{ route('users.employeeSalaries',$employee->id) }}">Salary</a>
+                        <a href="{{ route('employees.employeeSalaries',$employee->id) }}">Salary</a>
                 </li>
                 <li class="nav-item">
-                        <a href="{{ route('users.reportTo',$employee->id) }}">Report-to</a>
+                        <a href="{{ route('employees.reportTo',$employee->id) }}">Report-to</a>
                 </li>
                 <li class="nav-item">
-                        <a href="{{ route('users.directDeposit',$employee->id) }}">Direct
+                        <a href="{{ route('employees.directDeposit',$employee->id) }}">Direct
                                 Deposit</a>
                 </li>
                 <li class="nav-item">
-                        <a href="{{ route('users.employeeLogin',$employee->id) }}">Login</a>
+                        <a href="{{ route('employees.employeeLogin',$employee->id) }}">Login</a>
                 </li>
             </ul>
         </div>

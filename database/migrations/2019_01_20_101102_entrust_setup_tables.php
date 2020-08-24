@@ -33,6 +33,18 @@ class EntrustSetupTables extends Migration
             $table->primary(['user_id', 'role_id']);
         });
 
+        Schema::create('role_employee', function(Blueprint $table){
+            $table->integer('employee_id')->unsigned();
+            $table->integer('role_id')->unsigned();
+
+            $table->foreign('employee_id')->references('id')->on('employees')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('role_id')->references('id')->on('roles')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->primary(['employee_id', 'role_id']);
+        });
+
         // Create table for storing permissions
         Schema::create('permissions', function (Blueprint $table) {
             $table->increments('id');
@@ -67,5 +79,6 @@ class EntrustSetupTables extends Migration
         Schema::drop('permissions');
         Schema::drop('role_user');
         Schema::drop('roles');
+        Schema::drop('role_employee');
     }
 }

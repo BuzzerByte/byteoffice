@@ -80,34 +80,34 @@ Route::group([
     Route::get('/orders/{client}/createWithClient','OrderController@createWithClient')->name('orders.createWithClient');
     Route::resource('orders','OrderController');
 
-    Route::get('/users/import','UserController@import')->name('users.import');
-    Route::post('/user/importEmployee','UserController@importEmployee')->name('users.importEmployee');
-    Route::get('/user/downloadEmployeeSample','UserController@downloadEmployeeSample')->name('users.downloadEmployeeSample');
-    Route::get('/user/terminate','UserController@terminate')->name('users.terminate');
-    Route::get('/users/terminateList','UserController@terminateList')->name('users.terminateList');
-    Route::get('/user/award','UserController@award')->name('users.award');
+    //user
+    // Route::get('/user/award','UserController@award')->name('users.award');
     Route::get('/user/set_attendance','UserController@set_attendance')->name('users.set_attendance');
     Route::get('/user/import_attendance','UserController@import_attendance')->name('users.import_attendance');
     Route::get('/user/attendance_report','UserController@attendance_report')->name('users.attendance_report');
     Route::get('/user/application_list','UserController@application_list')->name('users.application_list');
     Route::get('/user/reimbursement','UserController@reimbursement')->name('users.reimbursement');
-    // Route::get('/user/index','UserController@index')->name('users.index');
-    // Route::get('/user/create','UserController@create')->name('users.create');
-    // Route::get('/user/{user}/show','UserController@show')->name('users.show');
-    // Route::get('/user/{user}','UserController@destroy')->name('users.destroy');
-    Route::get('/users/{user}/contactDetails','UserController@contactDetails')->name('users.contactDetails');
-    Route::get('/user/{user}/employeeDependents','UserController@employeeDependents')->name('users.employeeDependents');
-    Route::get('/users/{user}/employeeCommencements','UserController@employeeCommencements')->name('users.employeeCommencements');
-    Route::get('/user/{user}/employeeSalaries','UserController@employeeSalaries')->name('users.employeeSalaries');
-    Route::get('/user/{user}/reportTo','UserController@reportTo')->name('users.reportTo');
-    Route::get('/user/{user}/directDeposit','UserController@directDeposit')->name('users.directDeposit');
-    Route::get('/user/{user}/employeeLogin','UserController@employeeLogin')->name('users.employeeLogin');
-    Route::post('/user/{user}/delete','UserController@delete')->name('users.delete');
-    // Route::put('/user/{user}','UserController@update')->name('users.update');
+    // Route::post('/user/{user}/delete','UserController@delete')->name('users.delete');
     Route::post('/user/storeSkin','UserController@storeSkin')->name('users.storeSkin');
     Route::get('/user/getSkin','UserController@getSkin')->name('users.getSkin');
     Route::get('/users/export','UserController@export')->name('users.export');
     Route::resource('users','UserController');
+
+    //Employee
+    Route::get('/employees/{employee}/reportTo','EmployeeController@reportTo')->name('employees.reportTo');
+    Route::get('/employees/{employee}/directDeposit','EmployeeController@directDeposit')->name('employees.directDeposit');
+    Route::get('/employees/{employee}/employeeLogin','EmployeeController@employeeLogin')->name('employees.employeeLogin');
+    Route::get('/employees/{employee}/employeeSalaries','EmployeeController@employeeSalaries')->name('employees.employeeSalaries');
+    Route::get('/employees/{employee}/employeeCommencements','EmployeeController@employeeCommencements')->name('employees.employeeCommencements');
+    Route::get('/employees/{employee}/employeeDependents','EmployeeController@employeeDependents')->name('employees.employeeDependents');
+    Route::get('/employees/{employee}/contactDetails','EmployeeController@contactDetails')->name('employees.contactDetails');
+    Route::post('/employees/{employee}/delete','EmployeeController@delete')->name('employees.delete');
+    Route::get('/employees/import','EmployeeController@import')->name('employees.import');
+    Route::get('/employees/downloadSample','EmployeeController@downloadSample')->name('employees.downloadSample');
+    Route::post('/employees/importEmployee','EmployeeController@importEmployee')->name('employees.importEmployee');
+    Route::get('/employees/terminateList','EmployeeController@terminateList')->name('employees.terminateList');
+    Route::get('/employees/terminate','EmployeeController@terminate')->name('employees.terminate');
+    Route::resource('employees','EmployeeController');
 
     Route::get('/email/inbox','EmailController@inbox')->name('email.inbox');
     Route::get('/email/compose','EmailController@compose')->name('email.compose');
@@ -173,6 +173,7 @@ Route::group([
 
     Route::post('/employeeTerminations/{employeeTermination}/unterminate','EmployeeTerminationController@unterminate')->name('employeeTerminations.unterminate');
     Route::resource('employeeTerminations','EmployeeTerminationController');
+
     Route::resource('contactDetails','ContactDetailController');
 
     Route::post('/emergencyContacts/delete','EmergencyContactController@delete')->name('emergencyContacts.delete');
@@ -180,6 +181,7 @@ Route::group([
 
     Route::post('/employeeDependents/delete','EmployeeDependentController@delete')->name('employeeDependents.delete');
     Route::resource('employeeDependents','EmployeeDependentController');
+
     Route::resource('employeeCommencements','EmployeeCommencementController');
 
     Route::post('/jobHistories/delete','JobHistoryController@delete')->name('jobHistories.delete');

@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'role',
         'f_name',
         'l_name',
         'dob',
@@ -18,7 +22,12 @@ class Employee extends Model
         'gender',
         'photo',
         'terminate_status',
+        'user_id',
         'created_at',
         'updated_at'
     ];
+
+    public function hasRole(){
+        return $this->role;
+    }
 }

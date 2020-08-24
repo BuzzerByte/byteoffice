@@ -46,17 +46,17 @@ class EmployeeTerminationController extends Controller
                 'note'=>$request->termination_note
             ]
         );
-        User::where('id',$request->employee_id)->update([
+        Employee::where('id',$request->employee_id)->update([
             'terminate_status'=>1
         ]);
-        return redirect()->route('users.show',$request->employee_id);
+        return redirect()->route('employees.show',$request->employee_id);
     }
 
     public function unterminate(EmployeeTermination $employeeTermination){
-        User::where('id',$employeeTermination->employee_id)->update([
+        Employee::where('id',$employeeTermination->employee_id)->update([
             'terminate_status'=>0
         ]);
-        return redirect()->route('users.show',$employeeTermination->employee_id);
+        return redirect()->route('employees.show',$employeeTermination->employee_id);
     }
 
     /**

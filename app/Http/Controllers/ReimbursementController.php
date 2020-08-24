@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 use App\JobHistory;
+use App\Exports\ReimbursementExport;
 
 class ReimbursementController extends Controller
 {
@@ -24,12 +25,12 @@ class ReimbursementController extends Controller
         //
         if(Auth::user()->hasRole('admin')){
             $departments = Department::all();
-            $employees = User::all();
+            $employees = Employee::all();
             $reimbursements = Reimbursement::all();
             return view('admin.reimbursements.index',['departments'=>$departments,'employees'=>$employees,'reimbursements'=>$reimbursements]);
         }else{
             $departments = Department::all();
-            $employees = User::where('id',Auth::user()->id)->get();
+            $employees = Employee::where('id',Auth::user()->id)->get();
             $reimbursements = Reimbursement::where('employee_id',Auth::user()->id)->get();
             return view('users.reimbursements.index',['departments'=>$departments,'employees'=>$employees,'reimbursements'=>$reimbursements]);
         }
@@ -38,7 +39,7 @@ class ReimbursementController extends Controller
 
     public function approval(){
         $departments = Department::all();
-        $employees = User::where('id',Auth::user()->id)->get();
+        $employees = Employee::where('id',Auth::user()->id)->get();
         $reimbursements = Reimbursement::where('employee_id',Auth::user()->id)->where('m_approved',0)->where('a_approved',0)->get();
         return view('users.reimbursements.approval',['departments'=>$departments,'employees'=>$employees,'reimbursements'=>$reimbursements]);
     }
@@ -145,33 +146,34 @@ class ReimbursementController extends Controller
     }
 
     public function export(){
-        Excel::create('Reimbursement List', function($excel) {   
-            $excel->sheet('List', function($sheet) {      
-                $data = array();
-                $arr = Reimbursement::all();
-                $temp = array();
-                $sheet->row(1, array(
-                    'Date','Department','Employee','Amount','Description','Manager Approved','Manager comment','Admin approved','Admin Comment','Created At','Updated At'
-                ));
-                foreach($arr as $index=>$row){
-                    array_push($temp, $row['date']);
-                    $department = Department::find($row['department_id']);
-                    array_push($temp, $department->name);
-                    $employee = Employee::find($row['employee_id']);
-                    array_push($temp, $employee->f_name);
-                    array_push($temp, $row['amount']);
-                    array_push($temp, $row['description']);
-                    array_push($temp, $row['m_approved']);
-                    array_push($temp, $row['m_comment']);
-                    array_push($temp, $row['a_approved']);
-                    array_push($temp, $row['a_comment']);
-                    array_push($temp, $row['created_at']);
-                    array_push($temp, $row['updated_at']);
-                    $sheet->appendRow($temp);
-                    $temp = array();
-                } 
-            });
-        })->export('csv');
+        return (new ReimbursementExport)->download('quotations.csv');
+        // Excel::create('Reimbursement List', function($excel) {   
+        //     $excel->sheet('List', function($sheet) {      
+        //         $data = array();
+        //         $arr = Reimbursement::all();
+        //         $temp = array();
+        //         $sheet->row(1, array(
+        //             'Date','Department','Employee','Amount','Description','Manager Approved','Manager comment','Admin approved','Admin Comment','Created At','Updated At'
+        //         ));
+        //         foreach($arr as $index=>$row){
+        //             array_push($temp, $row['date']);
+        //             $department = Department::find($row['department_id']);
+        //             array_push($temp, $department->name);
+        //             $employee = Employee::find($row['employee_id']);
+        //             array_push($temp, $employee->f_name);
+        //             array_push($temp, $row['amount']);
+        //             array_push($temp, $row['description']);
+        //             array_push($temp, $row['m_approved']);
+        //             array_push($temp, $row['m_comment']);
+        //             array_push($temp, $row['a_approved']);
+        //             array_push($temp, $row['a_comment']);
+        //             array_push($temp, $row['created_at']);
+        //             array_push($temp, $row['updated_at']);
+        //             $sheet->appendRow($temp);
+        //             $temp = array();
+        //         } 
+        //     });
+        // })->export('csv');
     }
     /**
      * Remove the specified resource from storage.

@@ -42,14 +42,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->hasRole('admin')){
-            $employees = User::where('terminate_status',0)->get();
-            return view('admin.employees.index',['employees'=>$employees]);
-        }else{
-            $users = User::where('id',Auth::user()->id)->first();
-            
-            return view('users.profiles.index',['user'=>$users]);
-        }
+    
     }
 
     public function storeSkin(Request $request){
@@ -80,8 +73,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
-        return view('admin.employees.create',['roles'=>$roles]);
+        
     }
 
     public function add(Request $request){
@@ -92,79 +84,13 @@ class UserController extends Controller
     *Import a list of employees from csv files
     */
     public function import(){
-        return view('admin.employees.import');
     }
 
     public function downloadEmployeeSample(){
-        $file_path = storage_path() . "/app/downloads/employee.csv";
-        $headers = array(
-            'Content-Type: csv',
-            'Content-Disposition: attachment; filename=employee.csv',
-        );
-        if (file_exists($file_path)) {
-            flash()->success('File Downloaded');
-            return Response::download($file_path, 'employee.csv', $headers);
-        } else {
-            flash()->error('Something went wrong!');
-        }
-        
-        return redirect()->route('users.import');
     }
 
     public function importEmployee(Request $request){
-        $employee_id = [];
-        if ($request->hasFile('importEmployee')) {
-            $extension = File::extension($request->importEmployee->getClientOriginalName());
-            if ($extension == "csv") {
-                $path = $request->importEmployee->getRealPath();
-                // Excel::import(new ClientsImport, $request->import_file);
-                $data = Excel::import(new EmployeeImport, $request->importEmployee);
-                if(!empty($data)){
-                    foreach($data as $record){
-                        if(in_array($record->id_number,$employee_id)){
-                            continue;   
-                        }else if(User::where('id_number','=',$record->id_number)->exists()){
-                            continue;
-                        }else{
-                            $employee_id[] = $record->id_number;
-                            $record->dob = date('Y-m-d');
-                            $insert_employee_data[] = [
-                                'name'   => $record->first_name." ".$record->last_name,
-                                'email'  => $record->email,
-                                'f_name' => $record->first_name,
-                                'l_name' => $record->last_name,
-                                'marital_status'=>$record->marital_status,
-                                'dob' => $record->dob,
-                                'id_number' => $record->id_number,
-                                'gender'=> $record->gender,
-                                'country'=>'-',
-                                'blood_group'=>'-',
-                                'religious'=>'-',
-                                'terminate_status'=>0
-                            ];
-                        }
-                    }
-                    if(!empty($insert_employee_data)){
-                        $insert_employee = DB::table('users')->insert($insert_employee_data);
-                        // Session::flash('success', 'Employees Data Imported!');
-                        flash()->success('Employees Data Imported');
-                    }else{
-                        // Session::flash('warning', 'Duplicated record, please check your csv file!');
-                        flash()->warning('Duplicated record, please check your csv file!');
-                    }
-                }else{
-                    // Session::flash('warning', 'There is no data in csv file!');
-                    flash()->warning('There is no data in csv file!');
-                }
-            }else{
-                // Session::flash('warning', 'Selected file is not csv!');
-                flash()->warning('Selected file is not csv!');
-            }
-        }else{
-            // Session::flash('failure', 'Something went wrong!');
-            flash()->error('Something went wrong!');
-        }
-        return redirect()->route('users.index'); 
+       
     }
 
     public function export(){
@@ -172,151 +98,50 @@ class UserController extends Controller
     }
 
     public function terminate(Request $request){
-        return response()->json($request);
+        // return response()->json($request);
     }
 
     public function terminateList(){
-        $employees = User::where('terminate_status',1)->get();
-        return view('admin.employees.terminate',['employees'=>$employees]);
     }
 
     public function show(User $user)
     {   
-        $roles = Role::all();
-        if(DB::table('user_attachments')->where('user_id',$user->id)->exists()){
-            $user_attachments = UserAttachment::where('user_id',$user->id)->get();
-        }else{
-            $user_attachments = null;
-        }
-        if(Auth::user()->hasRole('admin')){
-            return view('admin.employees.show',['employee'=>$user,'attachments'=>$user_attachments,'roles'=>$roles]);
-        }else{
-            return view('users.profiles.index',['user'=>$user,'attachments'=>$user_attachments]);
-        }
-    }
-
-    public function contactDetails(User $user){
-        if(ContactDetail::where('employee_id',$user->id)->exists()){
-            $contactDetailId = ContactDetail::where('employee_id',$user->id)->first()->id;
-        }else{
-            $contactDetailId = DB::table('contact_details')->insertGetId(
-                ['employee_id'=>$user->id,
-                'created_at'=>Carbon::now(),
-                'updated_at'=>Carbon::now()]
-            );
-        }
-        
-        return redirect()->route('contactDetails.show',$contactDetailId);
+        // $roles = Role::all();
+        // if(DB::table('user_attachments')->where('user_id',$user->id)->exists()){
+        //     $user_attachments = UserAttachment::where('user_id',$user->id)->get();
+        // }else{
+        //     $user_attachments = null;
+        // }
+        // if(Auth::user()->hasRole('admin')){
+        //     return view('admin.employees.show',['employee'=>$user,'attachments'=>$user_attachments,'roles'=>$roles]);
+        // }else{
+        //     return view('users.profiles.index',['user'=>$user,'attachments'=>$user_attachments]);
+        // }
     }
 
     public function employeeDependents(User $user){
-        if(employeeDependent::where('employee_id',$user->id)->exists()){
-            $dependents = EmployeeDependent::where('employee_id',$user->id)->get();
-        }else{
-            $dependents = null;
-        }
-        return view('admin.employeeDependents.index',['dependents'=>$dependents,'employee'=>$user]);
+        
     }
 
     public function employeeCommencements(User $user){
-        if(EmployeeCommencement::where('employee_id',$user->id)->exists()){
-            $commencements = EmployeeCommencement::where('employee_id',$user->id)->first();
-        }else{
-            $commencementId = DB::table('employee_commencements')->insertGetId([
-                'employee_id' => $user->id, 
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]);
-            $commencements = EmployeeCommencement::where('employee_id',$commencementId)->first();
-        }
-        if(JobHistory::where('employee_id',$user->id)->exists()){
-            $jobHistories = JobHistory::where('employee_id',$user->id)->get();
-        }else{
-            $jobHistories = null;
-        }
-        $departments = Department::all();
-        $employeeStatuses = EmployeeStatus::all();
-        $jobTitles = JobTitle::all();
-        $workShifts = WorkShift::all();
-        $jobCategories = JobCategory::all();
-        return view('admin.employeeCommencements.index',[
-            'employee'=>$user,
-            'commencement'=>$commencements,
-            'jobHistories'=>$jobHistories,
-            'departments'=>$departments,
-            'employeeStatuses'=>$employeeStatuses,
-            'jobTitles'=>$jobTitles,
-            'workShifts'=>$workShifts,
-            'jobCategories'=>$jobCategories
-        ]);
+        
     }
 
     public function employeeSalaries(User $user){
-        if(EmployeeSalary::where('employee_id',$user->id)->exists()){
-            $salary = EmployeeSalary::where('employee_id',$user->id)->first();
-        }else{
-            $salaryId = DB::table('employee_salaries')->insertGetId([
-                'employee_id'=> $user->id,
-                'created_at'=>Carbon::now(),
-                'updated_at'=>Carbon::now()
-            ]);
-            $salary = EmployeeSalary::where('id',$salaryId)->first();
-        }
-        return view('admin.employeeSalaries.index',['employee'=>$user,'salary'=>$salary]);
+        
     }
 
     public function reportTo(User $user){
-        if(EmployeeSupervisor::where('employee_id',$user->id)->exists()){
-            $supervisors = EmployeeSupervisor::where('employee_id',$user->id)->get();
-        }else{
-            $supervisors = null;
-        }
-
-        if(EmployeeSubordinate::where('employee_id',$user->id)->exists()){
-            $subordinates = EmployeeSubordinate::where('employee_id',$user->id)->get();
-        }else{
-            $subordinates = null;
-        }
-        $employees = User::all();
-        $departments = Department::all();
         
-        return view('admin.employeeReportTo.index',[
-            'employee'=>$user,
-            'supervisors'=>$supervisors,
-            'employees'=>$employees,
-            'subordinates'=>$subordinates,
-            'departments'=>$departments
-        ]);
     }
 
     public function directDeposit(User $user){
-        if(EmployeeDeposit::where('employee_id',$user->id)->exists()){
-            $deposit = EmployeeDeposit::where('employee_id',$user->id)->first();
-        }else{
-            $depositId = DB::table('employee_deposits')->insertGetId([
-                'employee_id'=>$user->id,
-                'created_at'=>Carbon::now(),
-                'updated_at'=>Carbon::now()
-            ]);
-            $deposit = EmployeeDeposit::where('id',$depositId)->first();
-        }
-        return view('admin.employeeDirectDeposit.index',['employee'=>$user,'deposit'=>$deposit]);
+        
     }
 
     public function employeeLogin(User $user){
 
-        if(EmployeeLogin::where('employee_id',$user->id)->exists()){
-            $login = EmployeeLogin::where('employee_id',$user->id)->first();
-        }else{
-            $loginId = DB::table('employee_logins')->insertGetId([
-                'name'=>$user->f_name,
-                'employee_id'=>$user->id,
-                'created_at'=>Carbon::now(),
-                'updated_at'=>Carbon::now()
-            ]);
-            $login = EmployeeLogin::where('id',$loginId)->first();
-        }
-        return view('admin.employeeLogins.index',['employee'=>$user,'login'=>$login]);
+        
     }
     /**
      * Store a newly created resource in storage.
@@ -436,33 +261,33 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
-        $delete = User::find($user->id);
-        $delete->delete();
-        if($delete){
-            // Session::flash('success', 'Employee Data Deleted!');
-            flash()->success('Employee Data Deleted!');
-        }else{
-            // Session::flash('failure', 'Something went wrong!');
-            flash()->error('Something went wrong!');
-        }
-        return redirect()->action(
-            'UserController@index'
-        );
+        // $delete = User::find($user->id);
+        // $delete->delete();
+        // if($delete){
+        //     // Session::flash('success', 'Employee Data Deleted!');
+        //     flash()->success('Employee Data Deleted!');
+        // }else{
+        //     // Session::flash('failure', 'Something went wrong!');
+        //     flash()->error('Something went wrong!');
+        // }
+        // return redirect()->action(
+        //     'UserController@index'
+        // );
     }
 
     public function delete(User $user){
-        $delete = User::find($user->id);
-        $delete->delete();
-        if($delete){
-            // Session::flash('success', 'Employee Data Deleted!');
-            flash()->success('Employee Data Deleted!');
-        }else{
-            // Session::flash('failure', 'Something went wrong!');
-            flash()->error('Something went wrong!');
-        }
-        return redirect()->action(
-            'UserController@index'
-        );
+        // $delete = User::find($user->id);
+        // $delete->delete();
+        // if($delete){
+        //     // Session::flash('success', 'Employee Data Deleted!');
+        //     flash()->success('Employee Data Deleted!');
+        // }else{
+        //     // Session::flash('failure', 'Something went wrong!');
+        //     flash()->error('Something went wrong!');
+        // }
+        // return redirect()->action(
+        //     'UserController@index'
+        // );
     }
 
     public function showAttendances(User $user, Request $request){

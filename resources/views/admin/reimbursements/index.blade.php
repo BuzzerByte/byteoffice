@@ -136,8 +136,6 @@ $(document).ready(function(){
             <div class="actions">
             <button class="btn btn-primary btn-sm" onclick="location.href='{{ route('reimbursements.export') }}'"> <i class="icon-fa icon-fa-plus"></i>
                     Export</button>
-                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-import"> <i class="icon-fa icon-fa-cloud-upload"></i>
-                    Print</button>
                 <button class="btn btn-primary btn-sm" data-target="#addReimbursement" title="View" data-placement="top"
                     data-toggle="modal"> <i class="icon-fa icon-fa-plus"></i>
                     New Reimbursement Form</button>
@@ -169,9 +167,9 @@ $(document).ready(function(){
                             {{ \Carbon\Carbon::parse($reimbursement->date)->format('Y-m-d') }} </td>
                         <td>
                             {{
-                            \App\User::where('id',$reimbursement->employee_id)->first()->f_name
+                            \App\Employee::where('id',$reimbursement->employee_id)->first()->f_name
                             }} {{
-                            \App\User::where('id',$reimbursement->employee_id)->first()->l_name
+                            \App\Employee::where('id',$reimbursement->employee_id)->first()->l_name
                             }}</td>
                         <td>
                             {{

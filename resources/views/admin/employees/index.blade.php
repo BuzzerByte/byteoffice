@@ -17,7 +17,7 @@
     })
     $('.delete').click(function () {
         var id = $(this).siblings('.employee_id').attr('id');
-        $('#form-d-employee').attr('action', '/admin/user/' + id + '/delete');
+        $('#form-d-employee').attr('action', '/admin/employees/' + id + '/delete');
     });
 </script>
 @stop
@@ -104,7 +104,7 @@
                                     <div class="btn-group mr-2" role="group" aria-label="First group">
                                         <input type="hidden" class="employee_id" id="{{ $employee->id }}">
                                         
-                                        <button type="button" class="btn btn-icon btn-outline-info" onclick="location.href='{{ route('users.show',$employee->id) }}'"><i
+                                        <button type="button" class="btn btn-icon btn-outline-info" onclick="location.href='{{ route('employees.show',$employee->id) }}'"><i
                                                 class="icon-fa icon-fa-search"></i></button>
                                         <button type="button" class="btn btn-icon btn-outline-danger delete" href="#" data-toggle="modal" data-target="#modal-delete"><i class="icon-fa icon-fa-trash"></i></button>
                                         

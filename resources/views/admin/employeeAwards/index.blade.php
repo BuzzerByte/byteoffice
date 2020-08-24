@@ -66,7 +66,7 @@
                         </div>
                         <div class="col-md-1">
                             <button data-target="#createAwardModal" title="View" data-placement="top" data-toggle="modal"
-                                href="#" class="btn bg-green-active"><i class="fa fa-plus"></i>Add Award</button>
+                                href="#" class="btn btn-sm bg-green-active"><i class="fa fa-plus"></i>Add Award</button>
 
                         </div>
                     </div>
@@ -105,12 +105,12 @@
                             @foreach($awards as $award)
                             <tr role="row" class="odd">
                                 <td>{{
-                                    \App\User::where('id',$award->employee_id)->first()->id_number
+                                    \App\Employee::where('id',$award->employee_id)->first()->id_number
                                     }}</td>
                                 <td>{{
-                                    \App\User::where('id',$award->employee_id)->first()->f_name
+                                    \App\Employee::where('id',$award->employee_id)->first()->f_name
                                     }} {{
-                                    \App\User::where('id',$award->employee_id)->first()->l_name
+                                    \App\Employee::where('id',$award->employee_id)->first()->l_name
                                     }}</td>
                                 <td class="sorting_1">{{ $award->award }}</td>
                                 <td>{{ $award->gift }}</td>

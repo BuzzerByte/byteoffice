@@ -50,7 +50,7 @@ class AttendanceController extends Controller
     }
 
     public function import(){
-        $employees = User::all();
+        $employees = Employee::all();
         return view('admin.attendances.import',['employees'=>$employees]);
     }
 
@@ -69,7 +69,7 @@ class AttendanceController extends Controller
             // Error
             Session::flash('failure', 'Something went wrong!');
         }
-        $employees = User::all();
+        $employees = Employee::all();
         return view('admin.attendances.import',['employees'=>$employees]);
     }
 
@@ -85,7 +85,7 @@ class AttendanceController extends Controller
                         Attendance::updateOrCreate(
                             [
                                 'date'=>Carbon::parse($record->date)->format('Y-m-d'),
-                                'employee_id'=>User::select('id_number')->where('id_number',$record->employee_id)->first()->id_number,
+                                'employee_id'=>Employee::select('id_number')->where('id_number',$record->employee_id)->first()->id_number,
                                 'department_id' => Department::select('id')->where('name',$record->deparment)->first()->id,
                                 'leave_id'=> $record->leave_id,
                             ],[
@@ -104,7 +104,7 @@ class AttendanceController extends Controller
         }else{
             Session::flash('failure', 'Something went wrong!');
         }
-        return redirect()->route('users.index'); 
+        return redirect()->route('employees.index'); 
     }
 
 
@@ -147,7 +147,7 @@ class AttendanceController extends Controller
             $department_id_arr = JobHistory::select('employee_id')->where('department_id',$department_id)->get();
             $employees = [];
             foreach($department_id_arr as $id){
-                $employee = User::where('id',$id['employee_id'])->first();
+                $employee = Employee::where('id',$id['employee_id'])->first();
                 array_push($employees,$employee);
                 $store = Attendance::updateOrCreate(
                     [

@@ -46,13 +46,13 @@ class RoleController extends Controller
         $role->display_name = $request->display_name; // optional
         $role->description  = $request->description; // optional
         $role->save();
-
-        foreach($request->permission as $permission){
-            $permission_role = new PermissionRole();
-            $permission_role->role_id = $role->id;
-            $permission_role->permission_id = $permission;
-            $permission_role->save();
-        }
+        if($request->permission !== null)
+            foreach($request->permission as $permission){
+                $permission_role = new PermissionRole();
+                $permission_role->role_id = $role->id;
+                $permission_role->permission_id = $permission;
+                $permission_role->save();
+            }
         return redirect()->route('roles.index');
     }
 
