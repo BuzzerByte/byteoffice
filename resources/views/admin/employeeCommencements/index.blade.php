@@ -102,7 +102,7 @@
         <h3 class="page-title">Employee <small class="text-muted">management</small></h3>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-            <li class="breadcrumb-item active"><a href="{{ route('users.index') }}">Employment Commencement</a></li>
+            <li class="breadcrumb-item active"><a href="{{ route('employees.index') }}">Employment Commencement</a></li>
         </ol>
     </div>
 

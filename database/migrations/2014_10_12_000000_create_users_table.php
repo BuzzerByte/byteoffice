@@ -30,7 +30,6 @@ class CreateUsersTable extends Migration
             $table->string('photo')->nullable();
             $table->string('gender')->nullable();
             $table->boolean('terminate_status')->nullable();
-            
             $table->rememberToken();
             $table->timestamps();
 
@@ -44,6 +43,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        Schema::dropIfExists('users');
     }
 }

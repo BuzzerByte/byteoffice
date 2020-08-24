@@ -86,7 +86,7 @@ class EmployeeSalaryController extends Controller
             'cost_to_company'=>$request->total_cost_company,
             'hourly_salary'=>$request->hourly_salary
         ]);
-        return redirect()->route('users.employeeSalaries',$employeeSalary->employee_id);
+        return redirect()->route('employees.employeeSalaries',$employeeSalary->employee_id);
     }
 
     /**

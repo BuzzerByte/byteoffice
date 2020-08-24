@@ -2,7 +2,8 @@
 
 namespace App\Imports;
 
-use App\User;
+use App\Employee;
+use Auth;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -15,7 +16,7 @@ class EmployeeImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        return new User([
+        return new Employee([
             'name' => $row['first_name']." ".$row['last_name'],
             'email' => $row['email'],
             'f_name' => $row['first_name'],
@@ -27,6 +28,7 @@ class EmployeeImport implements ToModel, WithHeadingRow
             'country'=> '-',
             'blood_group'=> '-',
             'religious'=> '-',
+            'user_id' => Auth::user()->id,
             'terminate_status'=> 0,
         ]);
     }

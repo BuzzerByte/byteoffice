@@ -99,7 +99,7 @@
         <h3 class="page-title">Employee <small class="text-muted">management</small></h3>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-            <li class="breadcrumb-item active"><a href="{{ route('users.index') }}">Report To</a></li>
+            <li class="breadcrumb-item active"><a href="{{ route('employees.index') }}">Report To</a></li>
         </ol>
     </div>
 
@@ -169,14 +169,14 @@
                                                     </label>
                                                 </td>
                                                 <td>{{
-                                                    \App\User::where('id',$supervisor->employee_id)->first()->f_name
+                                                    \App\Employee::where('id',$supervisor->employee_id)->first()->f_name
                                                     }} {{
-                                                    \App\User::where('id',$supervisor->employee_id)->first()->l_name
+                                                    \App\Employee::where('id',$supervisor->employee_id)->first()->l_name
                                                     }}</td>
                                                 <td>{{
-                                                    \App\User::where('id',$supervisor->supervisor_id)->first()->f_name
+                                                    \App\Employee::where('id',$supervisor->supervisor_id)->first()->f_name
                                                     }} {{
-                                                    \App\User::where('id',$supervisor->supervisor_id)->first()->l_name
+                                                    \App\Employee::where('id',$supervisor->supervisor_id)->first()->l_name
                                                     }}</td>
                                                 <td>
 
@@ -268,13 +268,13 @@
                                                     </label>
                                                 </td>
                                                 <td>{{
-                                                    \App\User::where('id',$subordinate->employee_id)->first()->f_name}}
+                                                    \App\Employee::where('id',$subordinate->employee_id)->first()->f_name}}
                                                     {{
-                                                    \App\User::where('id',$subordinate->employee_id)->first()->l_name}}</td>
+                                                    \App\Employee::where('id',$subordinate->employee_id)->first()->l_name}}</td>
                                                 <td>{{
-                                                    \App\User::where('id',$subordinate->subordinate_id)->first()->f_name}}
+                                                    \App\Employee::where('id',$subordinate->subordinate_id)->first()->f_name}}
                                                     {{
-                                                    \App\User::where('id',$subordinate->subordinate_id)->first()->l_name}}</td>
+                                                    \App\Employee::where('id',$subordinate->subordinate_id)->first()->l_name}}</td>
                                                 <td>
 
                                                     <div class="btn-group mr-2" role="group" aria-label="First group">

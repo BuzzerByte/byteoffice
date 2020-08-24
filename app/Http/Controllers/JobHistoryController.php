@@ -46,7 +46,7 @@ class JobHistoryController extends Controller
             'shift_id'=>$request->work_shift,
             'employee_id'=>$request->employee_id
         ]);
-        return redirect()->route('users.employeeCommencements',$request->employee_id);
+        return redirect()->route('employees.employeeCommencements',$request->employee_id);
     }
 
     /**
@@ -88,7 +88,7 @@ class JobHistoryController extends Controller
             'status_id'=>$request->employment_status,
             'shift_id'=>$request->work_shift
         ]); 
-        return redirect()->route('users.employeeCommencements',$jobHistory->employee_id);
+        return redirect()->route('employees.employeeCommencements',$jobHistory->employee_id);
     }
 
     /**
@@ -110,10 +110,10 @@ class JobHistoryController extends Controller
                 $job = JobHistory::find((int)$id);
                 $job->delete();
             }
-            return redirect()->route('users.employeeCommencements',$request->employee_id);
+            return redirect()->route('employees.employeeCommencements',$request->employee_id);
 
         }else{
-            return redirect()->route('users.employeeCommencements',$request->employee_id);
+            return redirect()->route('employees.employeeCommencements',$request->employee_id);
         }
     }
 }

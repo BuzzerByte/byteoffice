@@ -22,7 +22,7 @@
         <h3 class="page-title">Import <small class="text-muted">employee</small></h3>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-            <li class="breadcrumb-item active"><a href="{{ route('users.import') }}">Import Employee(s)</a></li>
+            <li class="breadcrumb-item active"><a href="{{ route('employees.import') }}">Import Employee(s)</a></li>
         </ol>
     </div>
 
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('users.importEmployee') }}" enctype="multipart/form-data" method="post"
+                    <form action="{{ route('employees.importEmployee') }}" enctype="multipart/form-data" method="post"
                         accept-charset="utf-8">
                         @csrf
 
@@ -68,7 +68,7 @@
 
                                 <div class="col-md-6">
                                     <strong>Download Sample CSV File</strong><br>
-                                    <a href="{{ route('users.downloadEmployeeSample') }}"><i class="fa fa-download"
+                                    <a href="{{ route('employees.downloadSample') }}"><i class="fa fa-download"
                                             aria-hidden="true"></i> Sample CSV File</a>
                                 </div>
                             </div>
