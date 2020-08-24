@@ -44,7 +44,7 @@ class EmployeeDepositController extends Controller
                 'note'=>$request->note
             ]
         );
-        return redirect()->route('users.directDeposit',$request->employee_id);
+        return redirect()->route('employees.directDeposit',$request->employee_id);
        
     }
 
@@ -86,7 +86,7 @@ class EmployeeDepositController extends Controller
             'note'=>$request->note
         ]);
         
-        return redirect()->route('users.directDeposit',$employeeDeposit->employee_id);
+        return redirect()->route('employees.directDeposit',$employeeDeposit->employee_id);
     }
 
     /**

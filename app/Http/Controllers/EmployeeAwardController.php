@@ -16,12 +16,12 @@ class EmployeeAwardController extends Controller
     {
         if(Auth::user()->hasRole('admin')){
             $awards = EmployeeAward::all();
-            $employees = User::all();
+            $employees = Employee::all();
             $departments = Department::all();
             return view('admin.employeeAwards.index',['awards'=>$awards,'employees'=>$employees,'departments'=>$departments]);
         }else{
             $awards = EmployeeAward::all();
-            $employees = User::all();
+            $employees = Employee::all();
             $departments = Department::all();
             return view('users.awards.index',['awards'=>$awards,'employees'=>$employees,'departments'=>$departments]);
         }
@@ -38,7 +38,7 @@ class EmployeeAwardController extends Controller
             'amount'=>$request->award_amount,
             'month'=>$request->month
         ]);
-        return redirect()->action('EmployeeAwardController@index');
+        return redirect()->route('employeeAwards.index');
     }
 
     public function show(EmployeeAward $employeeAward)
@@ -62,7 +62,7 @@ class EmployeeAwardController extends Controller
             'amount'=>$request->award_amount,
             'month'=>$request->month,
         ]);
-        return redirect()->action('EmployeeAwardController@index');
+        return redirect()->route('employeeAwards.index');
     }
 
 
@@ -76,8 +76,6 @@ class EmployeeAwardController extends Controller
         $delete = EmployeeAward::find($employeeAward->id);
         $delete->delete();
         
-        return redirect()->action(
-            'EmployeeAwardController@index'
-        );
+        return redirect()->route('employeeAwards.index');
     }
 }

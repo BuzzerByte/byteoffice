@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\User;
+use App\Employee;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
@@ -17,23 +17,24 @@ class EmployeeExport implements FromQuery, WithHeadings, WithMapping
     */
     public function query()
     {
-        return User::query();
+        return Employee::query();
     }
 
-    public function map($user): array
+    public function map($employee): array
     {
         return [
-            $user->name,
-            $user->email,
-            $user->dob,
-            $user->marital_status,
-            $user->country,
-            $user->blood_group,
-            $user->religious,
-            $user->gender,
-            $user->terminate_status,
-            Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->format('d/m/Y H:i:s'),
-            Carbon::createFromFormat('Y-m-d H:i:s', $user->updated_at)->format('d/m/Y H:i:s'),
+            $employee->name,
+            $employee->email,
+            $employee->dob,
+            $employee->marital_status,
+            $employee->country,
+            $employee->blood_group,
+            $employee->id_number,
+            $employee->religious,
+            $employee->gender,
+            $employee->terminate_status,
+            Carbon::createFromFormat('Y-m-d H:i:s', $employee->created_at)->format('d/m/Y H:i:s'),
+            Carbon::createFromFormat('Y-m-d H:i:s', $employee->updated_at)->format('d/m/Y H:i:s'),
         ];
     }
 

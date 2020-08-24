@@ -40,7 +40,7 @@ class EmployeeSupervisorController extends Controller
             'supervisor_id'=>$request->supervisor_id,
             'employee_id'=>$request->employee_id
         ]);
-        return redirect()->route('users.reportTo',$request->employee_id);
+        return redirect()->route('employees.reportTo',$request->employee_id);
     }
 
     /**
@@ -78,7 +78,7 @@ class EmployeeSupervisorController extends Controller
             'department_id'=>$request->department_id,
             'supervisor_id'=>$request->supervisor_id,
         ]);
-        return redirect()->route('users.reportTo',$employeeSupervisor->employee_id);
+        return redirect()->route('employees.reportTo',$employeeSupervisor->employee_id);
     }
 
     /**
@@ -99,9 +99,9 @@ class EmployeeSupervisorController extends Controller
                 $supervisor = EmployeeSupervisor::find((int)$id);
                 $supervisor->delete();
             }
-            return redirect()->route('users.reportTo',$request->employee_id);
+            return redirect()->route('employees.reportTo',$request->employee_id);
         }else{
-            return redirect()->route('users.reportTo',$request->employee_id);
+            return redirect()->route('employees.reportTo',$request->employee_id);
         }
     }
 }

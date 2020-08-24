@@ -177,20 +177,20 @@ return [
             'children' =>[
                 [
                     'title' => 'Add Employee',
-                    'link' => 'admin/users/create',
-                    'active' => 'admin/users/create',
+                    'link' => 'admin/employees/create',
+                    'active' => 'admin/employees/create',
                 ],[
                     'title' => 'Import Employee',
-                    'link' => '/admin/users/import',
-                    'active' => 'admin/users/import',
+                    'link' => '/admin/employees/import',
+                    'active' => 'admin/employees/import',
                 ],[
                     'title'=> 'Employee List',
-                    'link'=> '/admin/users',
-                    'active'=>'admin/users',
+                    'link'=> '/admin/employees',
+                    'active'=>'admin/employees',
                 ],[
                     'title'=> 'Terminated Employee',
-                    'link'=> '/admin/users/terminateList',
-                    'active'=>'admin/users/terminateList',
+                    'link'=> '/admin/employees/terminateList',
+                    'active'=>'admin/employees/terminateList',
                 ],[
                     'title'=> 'Employee Award',
                     'link'=> '/admin/employeeAwards',

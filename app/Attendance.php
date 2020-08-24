@@ -2,7 +2,7 @@
 
 namespace App;
 use App\Department;
-use App\User;
+use App\Employee;
 use App\Leavetype;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,7 +23,7 @@ class Attendance extends Model
     }
 
     public function employee($id){
-        return User::select('name')->where('id_number',$id)->first() == ''?'':User::select('name')->where('id_number',$id)->first()->name;
+        return Employee::select('name')->where('id_number',$id)->first() == ''?'':Employee::select('name')->where('id_number',$id)->first()->name;
     }
 
     public function leave($id){

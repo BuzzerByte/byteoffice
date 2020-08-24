@@ -15,6 +15,10 @@ class CreateEmployeesTable extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name')->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->string('password')->nullable();
+            $table->string('role')->default('user');
             $table->string('f_name')->nullable();
             $table->string('l_name')->nullable();
             $table->date('dob')->nullable();
@@ -23,9 +27,11 @@ class CreateEmployeesTable extends Migration
             $table->string('blood_group')->nullable();
             $table->string('id_number')->nullable();
             $table->string('religious')->nullable();
-            
             $table->string('gender')->nullable();
-           
+            $table->string('photo')->nullable();
+            $table->boolean('terminate_status')->nullable();
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

@@ -27,12 +27,12 @@ class ContactDetailController extends Controller
             'mobile'=>$request->mobile
         ]);
 
-        return redirect()->route('users.contactDetails',$request->employee_id);
+        return redirect()->route('employees.contactDetails',$request->employee_id);
     }
 
     public function show(ContactDetail $contactDetail)
     {
-        $employee = User::where('id',$contactDetail->employee_id)->first();
+        $employee = Employee::where('id',$contactDetail->employee_id)->first();
         $emergencyContacts = EmergencyContact::where('employee_id',$contactDetail->employee_id)->get();
         
         return view('admin.contactDetails.show',['contactDetail'=>$contactDetail,'employee'=>$employee,'emergencyContacts'=>$emergencyContacts]);
