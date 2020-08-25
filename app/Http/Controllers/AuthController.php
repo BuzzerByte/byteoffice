@@ -79,7 +79,7 @@ class AuthController extends Controller
             Log::info('update token');
             // Update the token on each login request
             $user[$provider . '_id'] = $provider_user->token;
-            $user['photo'] = $provider->avatar;
+            $user['photo'] = $provider_user->avatar;
             $user->save();
         }
 
