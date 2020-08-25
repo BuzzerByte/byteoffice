@@ -55,6 +55,7 @@ class AuthController extends Controller
         
         Log::info(json_encode($provider_user));
         $user = $this->findUserByProviderOrCreate($provider, $provider_user);
+        Log::info($user->getAvatar());
         auth()->login($user);
         flash('Welcome to Buzzer Office.')->success();
 
