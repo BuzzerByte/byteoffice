@@ -67,13 +67,13 @@ class AuthController extends Controller
         $user = User::where($provider . '_id', $provider_user->token)
             ->orWhere('email', $provider_user->email)
             ->first();
-        Log::info($user);
         if (!$user) {
             Log::info('create user');
             $user = User::create([
                 'name' => $provider_user->name,
                 'email' => $provider_user->email,
-                $provider . '_id' => $provider_user->token
+                $provider . '_id' => $provider_user->token,
+                'photo' => $provider_user->avatar
             ]);
         } else {
             Log::info('update token');
