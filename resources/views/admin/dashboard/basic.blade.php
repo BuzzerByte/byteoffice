@@ -94,18 +94,18 @@ Highcharts.chart('salesChart', {
     <div class="main-content" id="dashboardPage">
         <div class="row">
             <div class="col-md-12 col-lg-6 col-xl-3">
-                <a class="dashbox" href="#">
+                <a class="dashbox" href="{{ route('employees.index') }}">
                     <i class="icon-fa icon-fa-users text-primary"></i>
                     <span class="title">
-                      {{ $users }}
+                      {{ $employees }}
                     </span>
                     <span class="desc">
-                      Users
+                      Employees
                     </span>
                 </a>
             </div>
             <div class="col-md-12 col-lg-6 col-xl-3">
-                <a class="dashbox" href="#">
+                <a class="dashbox" href="{{ route('purchases.index') }}">
                     <i class="icon-fa icon-fa-ticket text-success"></i>
                     <span class="title">
                       {{ $purchases }}
@@ -116,7 +116,7 @@ Highcharts.chart('salesChart', {
                 </a>
             </div>
             <div class="col-md-12 col-lg-6 col-xl-3">
-                <a class="dashbox" href="#">
+                <a class="dashbox" href="{{ route('orders.index') }}">
                     <i class="icon-fa icon-fa-shopping-cart text-danger"></i>
                     <span class="title">
                       {{ $orders }}
@@ -127,7 +127,7 @@ Highcharts.chart('salesChart', {
                 </a>
             </div>
             <div class="col-md-12 col-lg-6 col-xl-3">
-                <a class="dashbox" href="#">
+                <a class="dashbox" href="{{ route('inventory.index') }}">
                     <i class="icon-fa icon-fa-cubes text-info"></i>
                     <span class="title">
                       {{ $products }}
