@@ -55,7 +55,6 @@ class AuthController extends Controller
         
         Log::info(json_encode($provider_user));
         $user = $this->findUserByProviderOrCreate($provider, $provider_user);
-        Log::info($user->getAvatar());
         auth()->login($user);
         flash('Welcome to Buzzer Office.')->success();
 
@@ -68,6 +67,7 @@ class AuthController extends Controller
         $user = User::where($provider . '_id', $provider_user->token)
             ->orWhere('email', $provider_user->email)
             ->first();
+        Log::info($user);
         if (!$user) {
             Log::info('create user');
             $user = User::create([
