@@ -7,13 +7,14 @@ use App\Client;
 use App\Http\Requests;
 use App\Order;
 use App\User;
+use App\Employee;
 
 class DashboardController extends Controller
 {
     public function index() 
     {
-        $users = User::All();
-        $totalUser = $users->count();
+        $employees = Employee::All();
+        $totalEmployee = $employees->count();
 
         $orders = Order::All();
         $totalOrder = $orders->count();
@@ -29,7 +30,7 @@ class DashboardController extends Controller
        
         return redirect()->route('admin.dashboard.basic',
             [   "orders"=> $totalOrder,
-                "users"=> $totalUser,
+                "employees"=> $totalEmployee,
                 "products"=> $totalProduct,
                 "purchases"=> $totalPurchase,
                 "clients"=>$clients,
@@ -39,8 +40,8 @@ class DashboardController extends Controller
 
     public function basic() 
     {
-        $users = User::All();
-        $totalUser = $users->count();
+        $employees = Employee::All();
+        $totalEmployee = $employees->count();
 
         $orders = Order::All();
         $totalOrder = $orders->count();
@@ -57,7 +58,7 @@ class DashboardController extends Controller
          return view('admin.dashboard.basic',
          [   
              "orders"=> $totalOrder,
-             "users"=> $totalUser,
+             "employees"=> $totalEmployee,
              "products"=> $totalProduct,
              "purchases"=> $totalPurchase,
              "clients"=>$clients,
