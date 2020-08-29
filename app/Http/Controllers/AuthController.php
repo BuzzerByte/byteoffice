@@ -72,12 +72,14 @@ class AuthController extends Controller
             $user = User::create([
                 'name' => $provider_user->name,
                 'email' => $provider_user->email,
-                $provider . '_id' => $provider_user->token
+                $provider . '_id' => $provider_user->token,
+                'photo' => $provider_user->avatar
             ]);
         } else {
             Log::info('update token');
             // Update the token on each login request
             $user[$provider . '_id'] = $provider_user->token;
+            $user['photo'] = $provider_user->avatar;
             $user->save();
         }
 

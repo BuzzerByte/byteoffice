@@ -62,4 +62,8 @@ class User extends Authenticatable
         $password = $request->password;
         return (\Auth::attempt(['email' => $email, 'password' => $password], $remember));
     }
+
+    public function avatar(){
+        return $this->photo;
+    }
 }

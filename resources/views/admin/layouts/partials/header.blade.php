@@ -1,7 +1,7 @@
 <header class="site-header">
   <a href="#" class="brand-main">
-    <img src="{{asset('/assets/admin/img/logo-desk.png')}}" id="logo-desk" alt="Laraspace Logo" class="d-none d-md-inline ">
-    <img src="{{asset('/assets/admin/img/logo-mobile.png')}}" id="logo-mobile" alt="Laraspace Logo" class="d-md-none">
+    <!-- <img src="{{asset('/assets/admin/img/logo-desk.png')}}" id="logo-desk" alt="Laraspace Logo" class="d-none d-md-inline ">
+    <img src="{{asset('/assets/admin/img/logo-mobile.png')}}" id="logo-mobile" alt="Laraspace Logo" class="d-md-none"> -->
   </a>
   <a href="#" class="nav-toggle">
     <div class="hamburger hamburger--htla">
@@ -11,7 +11,7 @@
 
   <ul class="action-list">
     <li>
-      <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="avatar"><img src="{{asset('/assets/admin/img/avatars/avatar.png')}}" alt="Avatar"></a>
+      <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="avatar"><img src="{{ Auth::user()->avatar() }}" alt="Avatar"></a>
       <div class="dropdown-menu dropdown-menu-right notification-dropdown">
         <a class="dropdown-item" href="{{ route('logoutForm.post') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
