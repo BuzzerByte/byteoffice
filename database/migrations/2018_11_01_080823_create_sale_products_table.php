@@ -21,7 +21,6 @@ class CreateSaleProductsTable extends Migration
             $table->string('rate')->nullable();
             $table->string('amount')->nullable();
             $table->integer('invoice_id')->unsigned()->nullable();
-
             $table->foreign('invoice_id')->references('id')->on('orders')->onDelete('cascade');
             $table->timestamps();
         });

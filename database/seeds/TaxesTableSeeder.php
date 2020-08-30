@@ -17,14 +17,17 @@ class TaxesTableSeeder extends Seeder
                 'name' => 'GST 50',
                 'rate' =>  15,
                 'type' => 'Percentage',
+                'user_id' => 1
             ],[
                 'name' => 'GST 0%',
                 'rate' => 0,
                 'type' => 'Percentage',
+                'user_id' => 1
             ],[
                 'name' => 'GST 15%',
                 'rate' => 50,
                 'type' => 'Percentage',
+                'user_id' => 1
             ]
         ]);
     }

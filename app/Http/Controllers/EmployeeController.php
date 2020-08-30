@@ -209,15 +209,15 @@ class EmployeeController extends Controller
     {   
         // return response()->json($employee);
         $roles = Role::all();
-        if(DB::table('user_attachments')->where('user_id',$employee->id)->exists()){
-            $user_attachments = UserAttachment::where('user_id',$employee->id)->get();
+        if(DB::table('employee_attachments')->where('user_id',$employee->id)->exists()){
+            $employee_attachments = UserAttachment::where('user_id',$employee->id)->get();
         }else{
-            $user_attachments = null;
+            $employee_attachments = null;
         }
         if(Auth::user()->hasRole('admin')){
-            return view('admin.employees.show',['employee'=>$employee,'attachments'=>$user_attachments,'roles'=>$roles]);
+            return view('admin.employees.show',['employee'=>$employee,'attachments'=>$employee_attachments,'roles'=>$roles]);
         }else{
-            return view('users.profiles.index',['user'=>$employee,'attachments'=>$user_attachments]);
+            return view('users.profiles.index',['user'=>$employee,'attachments'=>$employee_attachments]);
         }
     }
 

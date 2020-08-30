@@ -15,7 +15,7 @@ class CreatePurchaseTable extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('vendor_id')->nullable();
+            $table->integer('vendor_id')->unsigned();
             $table->string('b_reference')->nullable();
             $table->string('status')->nullable();
             $table->string('note')->nullable();
@@ -26,8 +26,8 @@ class CreatePurchaseTable extends Migration
             $table->float('g_total')->nullable();
             $table->float('paid')->nullable();
             $table->float('balance')->nullable();
-            
             $table->timestamps();
+            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
         });
     }
 

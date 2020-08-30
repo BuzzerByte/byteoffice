@@ -27,10 +27,9 @@ class CreateInventoriesTable extends Migration
             $table->string('type')->nullable();
             $table->integer('category_id')->unsigned()->nullable();
             $table->integer('tax_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->timestamps();
-
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreign('tax_id')->references('id')->on('taxes')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

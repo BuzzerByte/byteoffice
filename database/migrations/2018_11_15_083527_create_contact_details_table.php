@@ -26,7 +26,8 @@ class CreateContactDetailsTable extends Migration
             $table->string('work_tel')->nullable();
             $table->string('other_email')->nullable();
             $table->string('mobile')->nullable();
-            $table->integer('employee_id')->unsigned()->nullable();
+            $table->integer('employee_id')->unsigned();
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->timestamps();
         });
     }

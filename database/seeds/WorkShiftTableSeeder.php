@@ -19,12 +19,14 @@ class WorkShiftTableSeeder extends Seeder
                 'to' => '17:30',
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),
+                'user_id' => 1
             ],[
                 'name' => 'Evening Shift',
                 'from' => '18:00',
                 'to' => '7:00',
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),
+                'user_id' => 1
             ]
         ]);
     }

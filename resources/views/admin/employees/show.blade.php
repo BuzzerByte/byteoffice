@@ -408,7 +408,7 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
 
-                            <form action="{{ route('userAttachments.delete') }}" method="post" accept-charset="utf-8">
+                            <form action="{{ route('employeeAttachments.delete') }}" method="post" accept-charset="utf-8">
 
                                 @csrf
 
@@ -494,7 +494,7 @@
 </div>
 
 <div class="modal fade" id="addAttachmentModal" style="display: none;">
-    @include('admin.userAttachments.create')
+    @include('admin.employeeAttachments.create')
 </div>
 <div class="modal fade" id="addTerminationModal" style="display: none;">
     @include('admin.employeeTerminations.create')
