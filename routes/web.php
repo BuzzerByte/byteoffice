@@ -116,7 +116,6 @@ Route::group([
     //Client
     Route::post('/vendor/import','VendorController@import')->name('vendor.import');
     Route::get('/vendor/download','VendorController@downloadVendorSample')->name('vendor.download');
-    Route::post('/vendor/{vendor}/delete','VendorController@delete')->name('vendor.delete');
     Route::resource('vendor','VendorController');
 
     Route::post('/client/import','ClientController@import')->name('client.import');
@@ -168,8 +167,8 @@ Route::group([
     Route::post('/withdrawals/{withdrawal}/delete','WithdrawalController@delete')->name('withdrawals.delete');
     Route::resource('withdrawals','WithdrawalController');
 
-    Route::post('/userAttachments/delete','UserAttachmentController@delete')->name('userAttachments.delete');
-    Route::resource('userAttachments','UserAttachmentController');
+    Route::post('/employeeAttachments/delete','EmployeeAttachmentController@delete')->name('employeeAttachments.delete');
+    Route::resource('employeeAttachments','EmployeeAttachmentController');
 
     Route::post('/employeeTerminations/{employeeTermination}/unterminate','EmployeeTerminationController@unterminate')->name('employeeTerminations.unterminate');
     Route::resource('employeeTerminations','EmployeeTerminationController');

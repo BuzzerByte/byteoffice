@@ -17,7 +17,7 @@ class CreateReimbursementsTable extends Migration
             $table->increments('id');
             $table->date('date')->nullable();
             $table->integer('department_id')->nullable();
-            $table->integer('employee_id')->nullable();
+            $table->integer('employee_id')->unsigned();
             $table->float('amount',15,2)->nullable();
             $table->string('description')->nullable();
             $table->boolean('m_approved')->nullable();
@@ -25,6 +25,7 @@ class CreateReimbursementsTable extends Migration
             $table->boolean('a_approved')->nullable();
             $table->string('a_comment')->nullable();
             $table->timestamps();
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

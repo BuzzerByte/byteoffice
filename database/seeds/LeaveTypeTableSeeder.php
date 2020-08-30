@@ -17,18 +17,22 @@ class LeaveTypeTableSeeder extends Seeder
                 'name' => 'Sick Leave',
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),
+                'user_id' => 1
             ],[
                 'name' => 'Earn Leave',
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),
+                'user_id' => 1
             ],[
                 'name' => 'Yearly Leave',
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),
+                'user_id' => 1
             ],[
                 'name' => 'Medical Leave',
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),
+                'user_id' => 1
             ]
 
         ]);

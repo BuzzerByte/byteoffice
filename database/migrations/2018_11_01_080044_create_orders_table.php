@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             //
             $table->increments('id');
-            $table->integer('client_id')->nullable();
+            $table->integer('client_id')->unsigned();
             $table->date('invoice_date')->nullable();
             $table->date('due_date')->nullable();
             $table->float('total')->nullabl();
@@ -29,15 +29,11 @@ class CreateOrdersTable extends Migration
             $table->float('amt_due')->nullable();
             $table->string('tracking_no')->nullable();
             $table->string('delivery_person')->nullable();
-            
             $table->string('status')->nullable();
             $table->string('order_note')->nullable();
             $table->string('order_activities')->nullable();
-            
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->timestamps();
-
-            
-
         });
     }
 

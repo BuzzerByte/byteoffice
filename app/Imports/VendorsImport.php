@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Vendor;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Auth;
 
 class VendorsImport implements ToModel, WithHeadingRow
 {
@@ -24,7 +25,8 @@ class VendorsImport implements ToModel, WithHeadingRow
             'email'=> $row['email'],
             'website'=> $row['website'],
             'billing_address'=> $row['billing_address'],
-            'note'=> $row['note']
+            'note'=> $row['note'],
+            'user_id'=> Auth::user()->id
         ]);
     }
 }

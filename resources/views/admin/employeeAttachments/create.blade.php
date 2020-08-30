@@ -7,7 +7,7 @@
             </button>
         </div>
 
-        <form action="{{ route('userAttachments.store') }}" id="personalAttach" enctype="multipart/form-data" method="post"
+        <form action="{{ route('employeeAttachments.store') }}" id="personalAttach" enctype="multipart/form-data" method="post"
             accept-charset="utf-8">
             @csrf
             <div class="modal-body">
