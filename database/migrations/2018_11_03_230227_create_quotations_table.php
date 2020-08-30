@@ -15,8 +15,7 @@ class CreateQuotationsTable extends Migration
     {
         Schema::create('quotations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('client_id')->nullable();
-            
+            $table->integer('client_id')->unsigned();
             $table->date('estimate_date')->nullable();
             $table->date('expiration_date')->nullable();
             $table->float('total')->nullable();
@@ -27,6 +26,7 @@ class CreateQuotationsTable extends Migration
             $table->string('order_activities')->nullable();
             $table->string('order_note')->nullable();
             $table->timestamps();
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
         });
     }
 

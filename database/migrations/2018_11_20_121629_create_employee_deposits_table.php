@@ -19,7 +19,8 @@ class CreateEmployeeDepositsTable extends Migration
             $table->string('number')->nullable();
             $table->string('bank_name')->nullable();
             $table->string('note')->nullable();
-            $table->integer('employee_id')->unsigned()->nullable();
+            $table->integer('employee_id')->unsigned();
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->timestamps();
         });
     }

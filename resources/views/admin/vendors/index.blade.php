@@ -46,21 +46,20 @@
         var id = $(this).siblings('.vendor_id').attr('id');
         $('#form-vendor').attr('action', '/admin/vendor/' + id);
         $.get("/admin/vendor/" + id + "/edit", function (data) {
-
-            $('#inp_name').val(data['vendor'][0]['name']);
-            $('#inp_company').val(data['vendor'][0]['company']);
-            $('#inp_phone').val(data['vendor'][0]['phone']);
-            $('#inp_fax').val(data['vendor'][0]['fax']);
-            $('#inp_email').val(data['vendor'][0]['email']);
-            $('#inp_website').val(data['vendor'][0]['website']);
-            $('#inp_b_address').val(data['vendor'][0]['billing_address']);
-            $('#inp_note').val(data['vendor'][0]['note']);
+            $('#inp_name').val(data['name']);
+            $('#inp_company').val(data['company']);
+            $('#inp_phone').val(data['phone']);
+            $('#inp_fax').val(data['fax']);
+            $('#inp_email').val(data['email']);
+            $('#inp_website').val(data['website']);
+            $('#inp_b_address').val(data['billing_address']);
+            $('#inp_note').val(data['note']);
         });
     });
 
     $('.delete').click(function () {
         var id = $(this).siblings('.vendor_id').attr('id');
-        $('#form-d-vendor').attr('action', '/admin/vendor/' + id + '/delete');
+        $('#form-d-vendor').attr('action', '/admin/vendor/' + id);
     });
     </script>
 

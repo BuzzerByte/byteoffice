@@ -29,8 +29,9 @@ class CreateEmployeeSalariesTable extends Migration
             $table->float('total_deduction',15,2)->nullable();
             $table->float('total_payable',15,2)->nullable();
             $table->float('cost_to_company',15,2)->nullable();
-            $table->integer('employee_id')->unsigned()->nullable();
+            $table->integer('employee_id')->unsigned();
             $table->timestamps();
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

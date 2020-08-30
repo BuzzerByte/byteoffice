@@ -18,8 +18,9 @@ class CreateEmployeeDependentsTable extends Migration
             $table->string('name')->nullable();
             $table->string('relationship')->nullable();
             $table->date('dob')->nullable();
-            $table->integer('employee_id')->unsigned()->nullable();
+            $table->integer('employee_id')->unsigned();
             $table->timestamps();
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

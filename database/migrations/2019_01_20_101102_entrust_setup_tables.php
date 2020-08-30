@@ -17,6 +17,8 @@ class EntrustSetupTables extends Migration
             $table->string('name')->unique();
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
+            $table->integer('user_id')->unsigned()->default(1);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -51,6 +53,8 @@ class EntrustSetupTables extends Migration
             $table->string('name')->unique();
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
+            $table->integer('user_id')->unsigned()->default(1);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -75,10 +79,10 @@ class EntrustSetupTables extends Migration
      */
     public function down()
     {
-        Schema::drop('permission_role');
-        Schema::drop('permissions');
-        Schema::drop('role_user');
-        Schema::drop('roles');
-        Schema::drop('role_employee');
+        Schema::dropIfExists('permission_role');
+        Schema::dropIfExists('permissions');
+        Schema::dropIfExists('role_user');
+        Schema::dropIfExists('roles');
+        Schema::dropIfExists('role_employee');
     }
 }

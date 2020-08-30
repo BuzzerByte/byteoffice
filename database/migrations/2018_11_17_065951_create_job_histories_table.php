@@ -21,8 +21,9 @@ class CreateJobHistoriesTable extends Migration
             $table->integer('category_id')->nullable();
             $table->integer('status_id')->nullable();
             $table->integer('shift_id')->nullable();
-            $table->integer('employee_id')->unsigned()->nullable();
+            $table->integer('employee_id')->unsigned();
             $table->timestamps();
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

@@ -31,6 +31,8 @@ class CreatePaymentsTable extends Migration
             $table->integer('order_id')->unsigned()->nullable();
 
             $table->timestamps();
+            $table->foreign('purchase_id')->references('id')->on('purchases')->onDelete('cascade');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
     }
 

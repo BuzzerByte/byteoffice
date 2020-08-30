@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserAttachmentsTable extends Migration
+class CreateEmployeeAttachmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateUserAttachmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_attachments', function (Blueprint $table) {
+        Schema::create('employee_attachments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
             $table->string('description')->nullable();
             $table->string('added_by')->nullable();
-
+            $table->integer('employee_id')->unsigned();
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateUserAttachmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_attachments');
+        Schema::dropIfExists('employee_attachments');
     }
 }
