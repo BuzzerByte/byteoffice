@@ -14,7 +14,6 @@ class CreateVendorsTable extends Migration
     public function up()
     {
         Schema::create('vendors', function (Blueprint $table) {
-
             $table->increments('id');
             $table->string('name')->nullable();
             $table->string('company')->nullable();
@@ -25,7 +24,9 @@ class CreateVendorsTable extends Migration
             $table->string('website')->nullable();
             $table->string('billing_address')->nullable();
             $table->string('note')->nullable();
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

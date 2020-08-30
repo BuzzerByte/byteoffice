@@ -106,17 +106,6 @@ class UserController extends Controller
 
     public function show(User $user)
     {   
-        // $roles = Role::all();
-        // if(DB::table('user_attachments')->where('user_id',$user->id)->exists()){
-        //     $user_attachments = UserAttachment::where('user_id',$user->id)->get();
-        // }else{
-        //     $user_attachments = null;
-        // }
-        // if(Auth::user()->hasRole('admin')){
-        //     return view('admin.employees.show',['employee'=>$user,'attachments'=>$user_attachments,'roles'=>$roles]);
-        // }else{
-        //     return view('users.profiles.index',['user'=>$user,'attachments'=>$user_attachments]);
-        // }
     }
 
     public function employeeDependents(User $user){

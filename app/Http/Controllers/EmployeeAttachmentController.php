@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\UserAttachment;
+use App\EmployeeAttachment;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Auth;
 use Auth;
 
-class UserAttachmentController extends Controller
+class EmployeeAttachmentController extends Controller
 {
     /**
      * Display a listing of the resource.

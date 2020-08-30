@@ -19,6 +19,8 @@ class CreateWorkShiftsTable extends Migration
             $table->time('from')->nullable();
             $table->time('to')->nullable();
             $table->timestamps();
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -10,9 +10,21 @@ use Excel;
 use File;
 use DB;
 use App\Imports\VendorsImport;
+use Auth;
+use App\Repositories\VendorRepository;
+use App\Repositories\UserRepository;
 
 class VendorController extends Controller
 {
+
+    protected $vendors;
+    protected $auth_user;
+
+    public function __construct(UserRepository $auth_user, VendorRepository $vendors)
+    {
+        $this->vendors = $vendors;
+        $this->auth_user = $auth_user;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +32,8 @@ class VendorController extends Controller
      */
     public function index()
     {
-        $vendors = Vendor::all();
+        $auth_id = $this->auth_user->getAuthUser()->id;
+        $vendors =  $this->vendors->getAllVendors($auth_id);
         if(empty($vendors)){
             return view('admin.vendors.index',['vendors'=>'No Vendor']);
         }else{
@@ -46,95 +59,37 @@ class VendorController extends Controller
      */
     public function store(Request $request)
     {
-        $vendor = Vendor::create([
-            'name' => $request->input('name'),
-            'company' => $request->input('company_name'),
-            'phone' => $request->input('phone'),
-            // 'open_balance'
-            'fax' => $request->input('fax'),
-            'email' => $request->input('email'),
-            'website' => $request->input('website'),
-            'billing_address' => $request->input('b_address'),
-            'note' => $request->input('note')
-        ]);
-        if($vendor){
-            flash()->success('Client Inserted Successfully!');  
-        }else{
-            flash()->error('Something went wrong!');
-        }
-        $vendors = Vendor::all();
-        return redirect()->route('vendor.index',['vendors'=>$vendors]);
+        $auth_id = $this->auth_user->getAuthUser()->id;
+        $result = $this->vendors->store($auth_id, $request);
+        $result == true ? flash()->success('Vendor Inserted Successfully'):flash()->error('Something went wrong!');
+        return redirect()->route('vendor.index');
     }
 
     public function downloadVendorSample(){
-        // Check if file exists in app/storage/file folder
-        $file_path = storage_path() . "/app/downloads/vendor.csv";
-        $headers = array(
-            'Content-Type: csv',
-            'Content-Disposition: attachment; filename=vendor.csv',
-        );
-        if (file_exists($file_path)) {
-            // Send Download
-            flash()->success('File Downloaded');
-            return Response::download($file_path, 'vendor.csv', $headers);
-        } else {
-            // Error
+        $result = $this->vendors->downloadVendorSample();
+        if($result['result']){
+            flash()->success('Sample downloaded');
+            return Response::download($result['file_path'], 'vendor.csv', $result['headers']);
+        }else{
             flash()->error('Something went wrong!');
         }
-        $vendors = Vendor::all();
-        return redirect()->route('vendor.index',['vendors'=>$vendors]);
+        return redirect()->route('vendor.index');
     }
 
     public function import(Request $request){
         $this->validate($request, array(
             'import_file'      => 'required'
         ));
-        $vendor_name = [];
-        if ($request->hasFile('import_file')) {
-            $extension = File::extension($request->import_file->getClientOriginalName());
-            if ($extension == "csv") {
-                $path = $request->import_file->getRealPath();
-                $data = Excel::import(new VendorsImport, $request->import_file);
-                if(!empty($data)){
-                    foreach($data as $record){
-                        if(in_array($record->vendor_name,$vendor_name)){
-                            continue;   
-                        }else if(Vendor::where('name','=',$record->vendor_name)->exists()){
-                            continue;
-                        }else if($record->vendor_name == NULL || $record->vendor_name == "-"){
-                            continue;
-                        }else{
-                            $vendor_name[] = $record->vendor_name;
-                            $insert_vendor_data[] = [
-                                'name' => $record->vendor_name, 
-                                'company' => $record->company,
-                                'phone' => $record->phone,
-                                // 'open_balance' => $record->
-                                'fax' => $record->fax,
-                                'email' => $record->email,
-                                'website' => $record->website,
-                                'billing_address' => $record->billing_address,
-                                'note' => $record->note
-                            ];
-                        }
-                    }
-                    if(!empty($insert_vendor_data)){
-                        $insert_vendor = DB::table('vendors')->insert($insert_vendor_data);
-                        flash()->success('Vendors Data Imported!');
-                    }else{
-                        flash()->warning('Duplicated record, please check your csv file!');
-                    }
-                }else{
-                    flash()->warning('There is no data in csv file!');
-                }
-            }else{
-                flash()->warning('Selected file is not csv!');
-            }
+        $auth_id = $this->auth_user->getAuthUser()->id;
+        $result = $this->vendors->import($auth_id, $request);
+        if($result['result'] && $result['status']=='success'){
+            flash()->success($result['message']);
+        }else if($result['result'] && $result['status']=='warning'){
+            flash()->warning($result['message']);
         }else{
-            flash()->error('Something went wrong!');
+            flash()->error($result['message']);
         }
-        $vendors = Vendor::all();
-        return redirect()->route('vendor.index',['vendors'=>$vendors]);    
+        return redirect()->route('vendor.index');    
     }
     /**
      * Display the specified resource.
@@ -144,8 +99,7 @@ class VendorController extends Controller
      */
     public function show(Vendor $vendor)
     {
-        $data = Vendor::where('id',$vendor->id)->get();
-        return response()->json(['vendor'=>$data]);
+        return $this->vendors->show($vendor);
     }
 
     /**
@@ -156,8 +110,7 @@ class VendorController extends Controller
      */
     public function edit(Vendor $vendor)
     {
-        $data = Vendor::where('id',$vendor->id)->get();
-        return response()->json(['vendor'=>$data]);
+        return $this->vendors->edit($vendor);
     }
 
     /**
@@ -169,23 +122,9 @@ class VendorController extends Controller
      */
     public function update(Request $request, Vendor $vendor)
     {
-        $update = Vendor::where('id',$vendor->id)->update([
-            'name'=>$request->name,
-            'company'=>$request->company_name,
-            'phone'=>$request->phone,
-            'fax'=>$request->fax,
-            'email'=>$request->email,
-            'website'=>$request->website,
-            'billing_address'=>$request->b_address,
-            'note'=>$request->note
-        ]);
-        if($update){
-            flash()->success('Vendor Data Updated!');
-        }else{
-            flash()->error('Something went wrong!');
-        }
-        $vendors = Vendor::all();
-        return redirect()->route('vendor.index',['vendors'=>$vendors]);    
+        $result = $this->vendors->update($vendor, $request);
+        $result == true ? flash()->success('Vendor Updated Successfully'):flash()->error('Something went wrong!');
+        return redirect()->route('vendor.index');
     }
 
     /**
@@ -196,21 +135,8 @@ class VendorController extends Controller
      */
     public function destroy(Vendor $vendor)
     {
-        //
-    }
-
-   
-    public function delete(Vendor $vendor)
-    {
-        $data = Vendor::find($vendor->id);
-        $data->delete();
-        if($data){
-            flash()->success('Vendor Data Deleted!');
-        }else{
-            flash()->error('Something went wrong!');    
-        }
-        $vendors = Vendor::all();
-        return redirect()->route('vendor.index',['vendors'=>$vendors]);    
-
+        $result = $this->vendors->destroy($vendor);
+        $result == true ? flash()->success('Vendor Deleted Successfully'):flash()->error('Something went wrong!');
+        return redirect()->route('vendor.index');
     }
 }

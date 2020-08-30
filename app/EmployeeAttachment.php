@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserAttachment extends Model
+class EmployeeAttachment extends Model
 {
     protected $fillable = [
         'name',
         'description',
         'added_by',
-        'user_id'
+        'employee_id'
     ];
 }

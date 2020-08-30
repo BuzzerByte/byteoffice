@@ -25,7 +25,9 @@ class CreateClientsTable extends Migration
             $table->string('billing_address')->nullable();
             $table->string('shipping_address')->nullable();
             $table->string('note')->nullable();
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

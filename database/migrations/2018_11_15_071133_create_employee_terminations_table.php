@@ -15,11 +15,12 @@ class CreateEmployeeTerminationsTable extends Migration
     {
         Schema::create('employee_terminations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('employee_id');
+            $table->integer('employee_id')->unsigned();
             $table->date('date')->nullable();
             $table->string('reason')->nullable();
             $table->string('note')->nullable();
             $table->timestamps();
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

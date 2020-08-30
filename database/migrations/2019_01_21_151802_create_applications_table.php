@@ -15,7 +15,7 @@ class CreateApplicationsTable extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('employee_id')->nullable();
+            $table->integer('employee_id')->unsigned();
             $table->date('start')->nullable();
             $table->date('end')->nullable();
             $table->integer('type_id')->nullable();
@@ -23,7 +23,7 @@ class CreateApplicationsTable extends Migration
             $table->string('status')->nullable();
             $table->string('reason')->nullable();
             $table->timestamps();
-            
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

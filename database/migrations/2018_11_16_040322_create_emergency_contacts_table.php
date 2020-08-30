@@ -20,9 +20,9 @@ class CreateEmergencyContactsTable extends Migration
             $table->string('home_tel')->nullable();
             $table->string('mobile')->nullable();
             $table->string('work_tel')->nullable();
-
-            $table->integer('employee_id')->unsigned()->nullable();
+            $table->integer('employee_id')->unsigned();
             $table->timestamps();
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

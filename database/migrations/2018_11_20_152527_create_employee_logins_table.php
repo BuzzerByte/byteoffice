@@ -18,7 +18,8 @@ class CreateEmployeeLoginsTable extends Migration
             $table->string('name')->nullable();
             $table->string('password')->nullable();
             $table->boolean('active')->nullable();
-            $table->integer('employee_id')->unsigned()->nullable();
+            $table->integer('employee_id')->unsigned();
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->timestamps();
         });
     }
