@@ -20,9 +20,9 @@ $(document).ready(function () {
     $('#selected_client').change(function () {
         var client_id = $(this).val();
         $.get("/admin/client/" + client_id, function (data) {
-            $('#email').val(data['client'][0]['email']);
-            $('#b_address').val(data['client'][0]['billing_address']);
-            $('#s_address').val(data['client'][0]['shipping_address']);
+            $('#email').val(data['email']);
+            $('#b_address').val(data['billing_address']);
+            $('#s_address').val(data['shipping_address']);
         });
     });
     

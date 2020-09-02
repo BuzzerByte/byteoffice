@@ -52,21 +52,21 @@
         var id = $(this).siblings('.client_id').attr('id');
         $('#form-client').attr('action', '/admin/client/' + id);
         $.get("/admin/client/" + id + "/edit", function (data) {
-            $('#inp_name').val(data['client'][0]['name']);
-            $('#inp_company').val(data['client'][0]['company']);
-            $('#inp_phone').val(data['client'][0]['phone']);
-            $('#inp_fax').val(data['client'][0]['fax']);
-            $('#inp_email').val(data['client'][0]['email']);
-            $('#inp_website').val(data['client'][0]['website']);
-            $('#inp_b_address').val(data['client'][0]['billing_address']);
-            $('#inp_s_address').val(data['client'][0]['shipping_address']);
-            $('#inp_note').val(data['client'][0]['note']);
+            $('#inp_name').val(data['name']);
+            $('#inp_company').val(data['company']);
+            $('#inp_phone').val(data['phone']);
+            $('#inp_fax').val(data['fax']);
+            $('#inp_email').val(data['email']);
+            $('#inp_website').val(data['website']);
+            $('#inp_b_address').val(data['billing_address']);
+            $('#inp_s_address').val(data['shipping_address']);
+            $('#inp_note').val(data['note']);
         });
     });
 
     $('.delete').click(function () {
         var id = $(this).siblings('.client_id').attr('id');
-        $('#form-d-client').attr('action', '/admin/client/' + id + '/delete');
+        $('#form-d-client').attr('action', '/admin/client/' + id);
     });
     </script>
 

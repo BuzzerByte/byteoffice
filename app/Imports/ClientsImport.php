@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Client;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Auth;
 
 class ClientsImport implements ToModel, WithHeadingRow
 {
@@ -24,7 +25,8 @@ class ClientsImport implements ToModel, WithHeadingRow
             'website'=> $row['website'],
             'billing_address'=> $row['billing_address'],
             'shipping_address'=> $row['shipping_address'],
-            'note'=> $row['note']
+            'note'=> $row['note'],
+            'user_id'=>Auth::user()->id
         ]);
     }
 }

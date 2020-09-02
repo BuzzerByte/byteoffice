@@ -25,6 +25,7 @@ class Inventory extends Model
         'type',
         'category_id',
         'tax_id',
+        'user_id'
     ];
 
     public function purchases(){

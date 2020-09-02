@@ -99,7 +99,8 @@ class InventoryController extends Controller
             'category_id' => (int)$request->input('category'),
             'tax_id' => (int)$request->input('tax'),
             'quantity' => $quantity,
-            'type' => $request->input('type')
+            'type' => $request->input('type'),
+            'user_id'=>Auth::user()->id
         ]);
         if($inventory){
             // Session::flash('success', 'Inventory Inserted Successfully!');
