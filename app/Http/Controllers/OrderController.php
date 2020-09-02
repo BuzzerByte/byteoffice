@@ -20,9 +20,33 @@ use App\Exports\OrderExport;
 use App\Exports\ProcessExport;
 use App\Exports\PendingExport;
 use App\Exports\DeliverExport;
+use App\Services\OrderService;
+use App\Services\PaymentService;
+use App\Services\InventoryService;
+use App\Services\ClientService;
+use App\Services\SaleProductService;
 
 class OrderController extends Controller
 {
+    protected $orders;
+    protected $payments;
+    protected $inventories;
+    protected $clients;
+
+    public function __construct(
+        OrderService $orders, 
+        PaymentService $payments,
+        ClientService $clients,
+        InventoryService $inventories,
+        SaleProductService $saleProducts
+    )
+    {
+        $this->orders = $orders;
+        $this->payments = $payments;
+        $this->clients = $clients;
+        $this->inventories = $inventories;
+        $this->saleProducts = $saleProducts;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -30,9 +54,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $invoice = Order::all();
-        $payments = Payment::all();
-        return view('admin.orders.index',['invoice'=>$invoice,'payments'=>$payments]);   
+        $invoice = $this->orders->all();
+        return view('admin.orders.index',['invoice'=>$invoice]);   
     }
 
     /**
@@ -42,8 +65,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $inventories = Inventory::all();
-        $clients = Client::all();
+        $inventories = $this->inventories->all();
+        $clients = $this->clients->all();
         return view('admin.orders.create',['inventories'=>$inventories,'clients'=>$clients]);
     }
 
@@ -149,42 +172,11 @@ class OrderController extends Controller
         }else{
             $g_total = $request->g_total;
         }
-        $invoice_id = DB::table('orders')->insertGetId(
-            [
-                'client_id'=>$request->client_id,
-                'invoice_date'=>$request->invoice_date,
-                'due_date'=>$request->due_date,
-                'total'=>$request->total,
-                'g_total'=>$request->g_total,
-                'tax'=>$request->tax,
-                'discount'=>$request->discount,
-                'receive_amt'=>0,
-                'amt_due'=>0,
-                'paid'=>0,
-                'balance'=>0,
-                'status'=>'processing_order',
-                'order_note'=>$request->order_note,
-                'order_activities'=>$request->order_activities,
-                'created_at'=>Carbon::now(),
-                'updated_at'=>Carbon::now()
-            ]
-        );
 
-        $number_of_sales = count($inv_id);
-        for($i=0;$i<$number_of_sales;$i++){
-            SaleProduct::create([
-                'inventory_id'=>$inv_id[$i],
-                'description'=>$inv_desc[$i],
-                'quantity'=>$inv_qty[$i],
-                'rate'=>$inv_rate[$i],
-                'amount'=>$inv_amount[$i],
-                'invoice_id'=>$invoice_id
-            ]);
-        }
-        return redirect()->route('orders.show',$invoice_id);
-        // return redirect()->action(
-        //     'OrderController@show', ['id' => $invoice_id]
-        // );
+        $inventories = [];
+        array_push($inventories,['count'=>count($inv_id),'id'=>$inv_id,'desc'=>$inv_desc,'qty'=>$inv_qty,'rate'=>$inv_rate,'amt'=>$inv_amount]);
+        $result = $this->orders->store($request, $inventories[0]);
+        return redirect()->route('orders.show',$result['order_id']);
     }
 
     /**
@@ -195,12 +187,9 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        
-        $invoice = Order::where('id',$order->id)->get();
-        $sale_product = SaleProduct::where('invoice_id',$order->id)->get();
-        $client = Client::where('id',$invoice[0]['client_id'])->get();
-        $payments = Payment::where('order_id',$order->id)->get();
-        return view('admin.orders.show',['invoice'=>$invoice,'sale_products'=>$sale_product,'client'=>$client,'payments'=>$payments]);
+        $invoice = $this->orders->show($order);
+        // return response()->json($invoice);
+        return view('admin.orders.show',['invoice'=>$invoice['invoice'],'sale_products'=>$invoice['sale_product'],'client'=>$invoice['client'],'payments'=>$invoice['payments']]);
     }
 
     /**

@@ -120,7 +120,6 @@ Route::group([
 
     Route::post('/client/import','ClientController@import')->name('client.import');
     Route::get('/client/download','ClientController@downloadClientSample')->name('client.download');
-    Route::post('/client/{client}/delete','ClientController@delete')->name('client.delete');
     Route::resource('client','ClientController');
     //Vendor
     Route::get('/transaction/chart_of_accounts','TransactionController@chart_of_accounts')->name('transaction.chart_of_accounts');

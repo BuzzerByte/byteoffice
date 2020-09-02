@@ -133,7 +133,7 @@
                                 </td>
                                 <td>
                                     {{ $order->id }} </td>
-                                <td>{{ $order->orderClient($order->id) }}
+                                <td>{{ $order->client }}
                                 </td>
                                 <td>
                                     {{ $order->due_date }} </td>

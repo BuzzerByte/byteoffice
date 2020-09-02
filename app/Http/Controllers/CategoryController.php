@@ -6,7 +6,7 @@ use App\Category;
 use App\Inventory;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Session;
 use Response;
 use Excel;
@@ -29,7 +29,8 @@ class CategoryController extends Controller
             flash()->warning('This Category already exists!');
         }else{
             $category = Category::create([
-                'name'=>$request->category
+                'name'=>$request->category,
+                'user_id'=>Auth::user()->id
             ]);
             if($category){
                 // Session::flash('success', 'New Category Added');
