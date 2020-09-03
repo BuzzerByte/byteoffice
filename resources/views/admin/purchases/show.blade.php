@@ -29,7 +29,7 @@
         $('#received_prod_list').empty();
         $('#updateReceivedProd').attr('action', '/admin/purchaseProduct/' + purchase_id + '/updateReceivedAmt');
         $.get('/admin/purchases/' + purchase_id + '/edit', function (data) {
-            $('#ReceivePurchaseInvoice').text('Purchase Invoice #'+data['purchase'][0]['id']);
+            $('#ReceivePurchaseInvoice').text('Purchase Invoice #'+data['id']);
             $.each(data['purchaseProducts'], function (index, value) {
                 var receive;
                 var tr_received_clone = $('.prod_received_clone').clone();
@@ -187,7 +187,7 @@
                         <div class="col-sm-2 col-lg-2">
                             <h5>
                                 <small>Date: {{
-                                    $purchase[0]['created_at'] }}</small>
+                                    $purchase['created_at'] }}</small>
                             </h5>
                         </div>
                     </div>
@@ -195,10 +195,10 @@
                     <div class="row">
                         <div class="col-sm-4 invoice-col">
                             <h5>Billing Address</h5> <address>
-                                <strong>{{ $vendors[0]['company'] }}</strong><br>
-                                {{ $vendors[0]['billing_address'] }}<br>
-                                Phone: {{ $vendors[0]['phone'] }}<br>
-                                Email: {{ $vendors[0]['email'] }} </address>
+                                <strong>{{ $vendors['company'] }}</strong><br>
+                                {{ $vendors['billing_address'] }}<br>
+                                Phone: {{ $vendors['phone'] }}<br>
+                                Email: {{ $vendors['email'] }} </address>
                         </div>
                         <!-- /.col -->
 
@@ -209,11 +209,11 @@
                         <!-- /.col -->
 
                         <div class="col-sm-4 invoice-col inv_ref">
-                            <input type="hidden" class="purchase_id" value="{{ $purchase[0]['id'] }}">
-                            <h4>Purchase #{{ $purchase[0]['id'] }}</h4>
-                            <b>Order Date:</b> {{ Carbon\Carbon::parse( $purchase[0]['created_at'])->format('d M
+                            <input type="hidden" class="purchase_id" value="{{ $purchase['id'] }}">
+                            <h4>Purchase #{{ $purchase['id'] }}</h4>
+                            <b>Order Date:</b> {{ Carbon\Carbon::parse( $purchase['created_at'])->format('d M
                             Y') }} <br>
-                            <b>Billing Ref:</b> {{ $purchase[0]['b_reference'] }}<br>
+                            <b>Billing Ref:</b> {{ $purchase['b_reference'] }}<br>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -262,31 +262,31 @@
                                         <tbody>
                                             <tr>
                                                 <th style="width:50%">Subtotal:</th>
-                                                <td class="inv_subtotal">{{ $purchase[0]['total'] }}</td>
+                                                <td class="inv_subtotal">{{ $purchase['total'] }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Discount:</th>
-                                                <td class="inv_discount">{{ $purchase[0]['discount'] }}</td>
+                                                <td class="inv_discount">{{ $purchase['discount'] }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Tax Amount:</th>
-                                                <td class="inv_tax">{{ $purchase[0]['tax'] }}</td>
+                                                <td class="inv_tax">{{ $purchase['tax'] }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Shipping:</th>
-                                                <td class="inv_transport">{{ $purchase[0]['transport'] }}</td>
+                                                <td class="inv_transport">{{ $purchase['transport'] }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Grand Total:</th>
-                                                <td class="inv_g_total">{{ $purchase[0]['g_total'] }}</td>
+                                                <td class="inv_g_total">{{ $purchase['g_total'] }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Paid :</th>
-                                                <td class="inv_paid">{{ $purchase[0]['paid'] }}</td>
+                                                <td class="inv_paid">{{ $purchase['paid'] }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Balance :</th>
-                                                <td class="inv_balance">{{ $purchase[0]['balance'] }}</td>
+                                                <td class="inv_balance">{{ $purchase['balance'] }}</td>
                                             </tr>
 
                                         </tbody>

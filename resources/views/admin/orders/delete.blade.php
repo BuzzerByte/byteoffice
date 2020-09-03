@@ -12,14 +12,14 @@
         <form action="" id="form-d-order" enctype="multipart/form-data" method="post">
             @csrf
             @method('delete')
-        <div class="modal-body">
-                Are you sure?
-        </div>
-        <div class="modal-footer">
-                <button class="btn btn-danger" type="submit" value="Submit"><i class="fa fa-save"></i>
-                    Delete Invoice</button>
-        </div>
-    </form>
+            <div class="modal-body">
+                    Are you sure?
+            </div>
+            <div class="modal-footer">
+                    <button class="btn btn-danger" type="submit" value="Submit"><i class="fa fa-save"></i>
+                        Delete Invoice</button>
+            </div>
+        </form>
     </div>
 </div>
 
