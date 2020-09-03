@@ -16,4 +16,6 @@ interface IOrderRepository
     public function getOrderTotal($order_id);
     public function updatePaid($order_id, $total, $balance);
     public function getById($order_id);
+    public function getByStatus($status);
+    public function updateStatus(Order $order, $status);
 }

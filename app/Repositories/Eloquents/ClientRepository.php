@@ -104,4 +104,8 @@ class ClientRepository implements IClientRepository
     public function getByOrder($order_id){
         return $this->clients->where('id',$this->orders->where('id',$order_id)->first()->client_id)->first();
     }
+
+    public function getById($id){
+        return $this->clients->where('id',$id)->get();
+    }
 }

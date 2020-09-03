@@ -159,7 +159,7 @@ Route::group([
 
     
     Route::get('/quotation/exportQuotation','QuotationController@exportQuotation')->name('quotation.exportQuotation');
-    Route::post('/quotation/{quotation}/delete','QuotationController@delete')->name('quotation.delete');
+    // Route::post('/quotation/{quotation}/delete','QuotationController@delete')->name('quotation.delete');
     Route::get('/quotation/{client}/createWithClient','QuotationController@createWithClient')->name('quotation.createWithClient');
     Route::resource('quotations','QuotationController');
 

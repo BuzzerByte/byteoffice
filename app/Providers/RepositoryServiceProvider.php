@@ -19,6 +19,10 @@ use App\Repositories\Interfaces\ISaleProductRepository;
 use App\Repositories\Eloquents\SaleProductRepository;
 use App\Repositories\Interfaces\IPurchaseRepository;
 use App\Repositories\Eloquents\PurchaseRepository;
+use App\Repositories\Interfaces\IQuotationRepository;
+use App\Repositories\Eloquents\QuotationRepository;
+use App\Repositories\Interfaces\IQuotationProductRepository;
+use App\Repositories\Eloquents\QuotationProductRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -37,6 +41,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IInventoryRepository::class, InventoryRepository::class);
         $this->app->bind(ISaleProductRepository::class, SaleProductRepository::class);
         $this->app->bind(IPurchaseRepository::class, PurchaseRepository::class);
+        $this->app->bind(IQuotationRepository::class, QuotationRepository::class);
+        $this->app->bind(IQuotationProductRepository::class, QuotationProductRepository::class);
 
     }
 

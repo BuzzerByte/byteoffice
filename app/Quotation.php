@@ -13,9 +13,7 @@ class Quotation extends Model
         'expiration_date',
         'total',
         'g_total',
-        'status',  
-        'created_at',
-        'updated_at'
+        'status'
     ];
 
     public function timeFormat($dateTime){

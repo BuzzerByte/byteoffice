@@ -80,14 +80,12 @@ class OrderController extends Controller
      */
     public function process()
     {
-        $processing_order = Order::where('status','processing_order')->get();
+        $processing_order = $this->orders->getByStatus('processing_order');
         return view('admin.orders.process',['invoice'=>$processing_order]);
     }
 
     public function updateStatusToShipping(Order $order){
-        $updateStatus = Order::where('id',$order->id)->update([
-            'status' => 'awaiting_delivery'
-        ]);
+        $this->orders->updateStatus($order, 'awaiting_delivery');
         return redirect()->route('orders.index');
     }
     /**
@@ -97,14 +95,12 @@ class OrderController extends Controller
      */
     public function pending()
     {
-        $pending_order = Order::where('status','awaiting_delivery')->get();
+        $pending_order = $this->orders->getByStatus('awaiting_delivery');
         return view('admin.orders.pending',['invoice'=>$pending_order]);
     }
 
     public function updateStatusToShipped(Order $order){
-        $updateStatus = Order::where('id',$order->id)->update([
-            'status'=>'delivery_done'
-        ]);
+        $this->orders->updateStatus($order, 'delivery_done');
         return redirect()->route('orders.index');
     }
 
@@ -115,7 +111,7 @@ class OrderController extends Controller
      */
     public function deliver()
     {
-        $delivered_order = Order::where('status','delivery_done')->get();
+        $pending_order = $this->orders->getByStatus('delivery_done');
         return view('admin.orders.deliver',['invoice'=>$delivered_order]);
     }
 
