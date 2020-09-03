@@ -42,6 +42,38 @@ class SaleProductRepository implements ISaleProductRepository
         return ['result'=>true, 'order_id'=>$order_id];
     }
 
+    public function updateByOrder($inventories, $order_id){
+        for($i=0;$i<$inventories['count'];$i++){
+            if(!array_key_exists($i, $inventories['sale_id'])){
+                $saleProduct = new SaleProduct;
+                $saleProduct->inventory_id = $inventories['id'][$i];
+                $saleProduct->description = $inventories['desc'][$i];
+                $saleProduct->quantity = (int)$inventories['qty'][$i];
+                $saleProduct->rate = $inventories['rate'][$i];
+                $saleProduct->amount = $inventories['amt'][$i];
+                $saleProduct->invoice_id = $order_id;
+                $saleProduct->save();
+            }else{
+                $saleProduct = SaleProduct::find($inventories['sale_id'][$i]);
+                $saleProduct->inventory_id = $inventories['id'][$i];
+                $saleProduct->description = $inventories['desc'][$i];
+                $saleProduct->quantity = (int)$inventories['qty'][$i];
+                $saleProduct->rate = $inventories['rate'][$i];
+                $saleProduct->amount = $inventories['amt'][$i];
+                $saleProduct->invoice_id = $order_id;
+                $saleProduct->save();
+            }
+        }
+        $sale_items = $this->saleProducts->where('invoice_id',$order_id)->get();
+        foreach($sale_items as $item){
+            if(!in_array($item->inventory_id,$inventories['id'])){
+                $remove = $this->saleProducts->find($item->id);
+                $remove->delete();
+            }
+        }
+        return ['result'=>true, 'order_id'=>$order_id];
+    }
+
     public function getByOrder($order_id){
         return $this->saleProducts->where('invoice_id',$order_id)->get();
     }

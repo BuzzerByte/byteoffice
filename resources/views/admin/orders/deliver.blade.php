@@ -17,7 +17,7 @@
 
         $(document.body).on('click', '.delete_order', function () {
             var invoice_id = $('.invoice_id').val();
-            $('#form-d-order').attr('action', '/admin/orders/' + invoice_id + '/delete');
+            $('#form-d-order').attr('action', '/admin/orders/' + invoice_id);
         });
     });
 </script>

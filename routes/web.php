@@ -74,7 +74,7 @@ Route::group([
     Route::get('/orders/deliver','OrderController@deliver')->name('orders.deliver');
     Route::get('/orders/quotation','OrderController@quotation')->name('orders.quotation');
     Route::get('/orders/all_quotation','OrderController@all_quotation')->name('orders.all_quotation');
-    Route::post('/orders/{order}/delete','OrderController@delete')->name('orders.delete');
+    // Route::post('/orders/{order}/delete','OrderController@delete')->name('orders.delete');
     Route::post('/orders/{order}/updateStatusToShipping','OrderController@updateStatusToShipping')->name('orders.updateStatusToShipping');
     Route::post('/orders/{order}/updateStatusToShipped','OrderController@updateStatusToShipped')->name('orders.updateStatusToShipped');
     Route::get('/orders/{client}/createWithClient','OrderController@createWithClient')->name('orders.createWithClient');
