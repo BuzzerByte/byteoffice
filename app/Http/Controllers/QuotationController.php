@@ -10,10 +10,23 @@ use DB;
 use Carbon\Carbon;  
 use Session;
 use Illuminate\Http\Request;
-use App\Exports\QuotationExport;
+use App\Services\QuotationService;
+use App\Services\ClientService;
+use App\Services\InventoryService;
 
 class QuotationController extends Controller
 {
+    protected $quotations;
+
+    public function __construct(
+        QuotationService $quotations,
+        ClientService $clients,
+        InventoryService $inventories
+    ){
+        $this->quotations = $quotations;
+        $this->clients = $clients;
+        $this->inventories = $inventories;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +34,7 @@ class QuotationController extends Controller
      */
     public function index()
     {
-        $quotations = Quotation::all();
+        $quotations = $this->quotations->all();
         return view('admin.quotations.index',['quotations'=>$quotations]);
     }
 
@@ -32,15 +45,14 @@ class QuotationController extends Controller
      */
     public function create()
     {
-        $clients = Client::all();
-        $inventories = Inventory::all();
+        $clients = $this->clients->all();
+        $inventories = $this->inventories->all();
         return view('admin.quotations.create',['clients'=>$clients,'inventories'=>$inventories]);
     }
 
     public function createWithClient(Client $client){
-        $selected_client = $client;
-        $clients = Client::all();
-        $inventories = Inventory::all();
+        $clients = $this->clients->all();
+        $inventories = $this->inventories->all();
         return view('admin.quotations.create',['clients'=>$clients,'inventories'=>$inventories,'selected_client'=>$selected_client]);
     }
     /**
@@ -90,38 +102,18 @@ class QuotationController extends Controller
         }else{
             $g_total = $request->g_total;
         }
-        $quotation_id = DB::table('quotations')->insertGetId(
-            [
-                'client_id'=>$request->client_id,
-                'estimate_date'=>$request->est_date,
-                'expiration_date'=>$request->exp_date,
-                'total' => $total,
-                'g_total'=>$g_total,
-                'tax'=>$tax,
-                'discount'=>$discount,
-                'status'=>'pending',
-                'order_note'=>$request->order_note,
-                'order_activities'=>$request->order_activities,
-                'created_at'=>Carbon::now(),
-                'updated_at'=>Carbon::now()
-            ]
-        );
-
-        $number_of_sales = count($inv_id);
-        for($i=0;$i<$number_of_sales;$i++){
-            QuotationProduct::create([
-                'inventory_id'=>$inv_id[$i],
-                'description'=>$inv_desc[$i],
-                'quantity'=>$inv_qty[$i],
-                'rate'=>$inv_rate[$i],
-                'amount'=>$inv_amount[$i],
-                'quotation_id'=>$quotation_id
-            ]);
-        }
+        
+        $inventories = [];
+        array_push($inventories, [
+            'count'=>count($inv_id),
+            'id' => $inv_id,
+            'desc' => $inv_desc,
+            'qty' => $inv_qty,
+            'rate' => $inv_rate,
+            'amt' => $inv_amount
+        ]);
+        $quotation = $this->quotations->store($request, $inventories[0]);
         return redirect()->route('quotations.index');
-        // return redirect()->action(
-        //     'QuotationController@index'
-        // );
     }
 
     /**
@@ -132,10 +124,8 @@ class QuotationController extends Controller
      */
     public function show(Quotation $quotation)
     {
-        $quotation = Quotation::where('id',$quotation->id)->get();
-        $client = Client::where('id',$quotation[0]['client_id'])->get();
-        $quotation_products = QuotationProduct::where('quotation_id',$quotation[0]['id'])->get();
-        return view('admin.quotations.show',['quotation'=>$quotation,'client'=>$client,'quotation_products'=>$quotation_products]);
+        $result = $this->quotations->show($quotation);
+        return view('admin.quotations.show',['quotation'=>$result['quotation'],'client'=>$result['client'],'quotation_products'=>$result['quotation_products']]);
     }
 
     /**
@@ -146,11 +136,13 @@ class QuotationController extends Controller
      */
     public function edit(Quotation $quotation)
     {
-        $quotations = Quotation::where('id',$quotation->id)->get();
-        $client = Client::where('id',$quotation->client_id)->get();
-        $quotation_products = QuotationProduct::where('quotation_id',$quotation->id)->get();
-        $inventories = Inventory::all();
-        return view('admin.quotations.edit',['inventories'=>$inventories,'quotation'=>$quotations,'client'=>$client,'quotation_products'=>$quotation_products]);
+        $result = $this->quotations->edit($quotation);
+        return view('admin.quotations.edit',[
+            'inventories'=>$result['inventories'],
+            'quotation'=>$result['quotations'],
+            'client'=>$result['client'],
+            'quotation_products'=>$result['quotation_products']
+        ]);
     }
 
     /**
@@ -203,51 +195,17 @@ class QuotationController extends Controller
         }else{
             $g_total = $request->g_total;
         }
-
-        $updateQuotation = Quotation::where('id',$quotation->id)->update([
-            'estimate_date'=>$request->est_date,
-            'expiration_date'=>$request->exp_date,
-            'total' => $request->total,
-            'g_total'=>$request->g_total,
-            'tax'=>$request->tax,
-            'discount'=>$request->discount,
-            'order_note'=>$request->order_note,
-            'order_activities'=>$request->order_activities,
+        $inventories = [];
+        array_push($inventories, [
+            'count'=>count($inv_id),
+            'id' => $inv_id,
+            'desc' => $inv_desc,
+            'qty' => $inv_qty,
+            'rate' => $inv_rate,
+            'amt' => $inv_amount
         ]);
-       
-        $number_of_sales = count($inv_id);
-        for($i=0;$i<$number_of_sales;$i++){
-            if(!array_key_exists($i, $quotation_id)){
-                QuotationProduct::create(
-                    ['inventory_id'=>$inv_id[$i],
-                    'description'=>$inv_desc[$i],
-                    'quantity'=>$inv_qty[$i],
-                    'rate'=>$inv_rate[$i],
-                    'amount'=>$inv_amount[$i],
-                    'quotation_id'=>$quotation->id]
-                );
-            }else{
-                QuotationProduct::where('id',$quotation_id[$i])->update(
-                    ['inventory_id'=>$inv_id[$i],
-                    'description'=>$inv_desc[$i],
-                    'quantity'=>$inv_qty[$i],
-                    'rate'=>$inv_rate[$i],
-                    'amount'=>$inv_amount[$i],
-                    'quotation_id'=>$quotation->id]
-                );
-            }
-        }
-        $quotation_items = QuotationProduct::where('quotation_id',$quotation->id)->get();
-        foreach($quotation_items as $item){
-            if(!in_array($item->inventory_id,$inv_id)){
-                $remove = QuotationProduct::find($item->id);
-                $remove->delete();
-            }
-        }
+        $this->quotations->update($request, $quotation, $inventories[0]);
         return redirect()->route('quotations.show',$quotation->id);
-        // return redirect()->action(
-        //     'QuotationController@index'
-        // );
     }
 
     /**
@@ -258,50 +216,16 @@ class QuotationController extends Controller
      */
     public function destroy(Quotation $quotation)
     {
-        //
-    }
-
-    public function delete(Quotation $quotation){
-        
-        $data = Quotation::find($quotation->id);
-        $data->delete();
-        if($data){
+        $result = $this->quotations->destroy($quotation);
+        if($result){
             Session::flash('success', 'Quotation Data Deleted!');
         }else{
             Session::flash('failure', 'Something went wrong!');
         }
         return redirect()->route('quotations.index');
-        // return redirect()->action('QuotationController@index');    
     }
 
     public function exportQuotation(){
-        return (new QuotationExport)->download('quotations.csv');
-        // Excel::create('Quotation List', function($excel) {   
-        //     $excel->sheet('List', function($sheet) {      
-        //         $data = array();
-        //         $arr = Quotation::all();
-        //         $temp = array();
-        //         $sheet->row(1, array(
-        //             'Client','Invoice Date','Due Date','Total','Grand Total','Tax','Discount','Paid','Balance','Receive Amount','Amount Due','Tracking No','Delivery Person','Status','Order Note','Order Activities','Created At','Updated At'
-        //         ));
-        //         foreach($arr as $index=>$row){
-        //             $vendor = Client::find($row['client_id']);
-        //             array_push($temp, $vendor->name);
-        //             array_push($temp, $row['estimate_date']);
-        //             array_push($temp, $row['expiration_date']);
-        //             array_push($temp, $row['total']);
-        //             array_push($temp, $row['g_total']);
-        //             array_push($temp, $row['tax']);
-        //             array_push($temp, $row['discount']);
-        //             array_push($temp, $row['status']);
-        //             array_push($temp, $row['order_note']);
-        //             array_push($temp, $row['order_activities']);
-        //             array_push($temp, $row['created_at']);
-        //             array_push($temp, $row['updated_at']);
-        //             $sheet->appendRow($temp);
-        //             $temp = array();
-        //         } 
-        //     });
-        // })->export('csv');
+        return $this->quotations->exportQuotation();
     }
 }

@@ -97,4 +97,12 @@ class OrderService {
     public function getById($order_id){
         return $this->orders->getById($order_id);
     }
+
+    public function getByStatus($status){
+        return $this->orders->getByStatus($status);
+    }
+
+    public function updateStatus(Order $order, $status){
+        return $this->orders->updateStatus($order, $status);
+    }
 }

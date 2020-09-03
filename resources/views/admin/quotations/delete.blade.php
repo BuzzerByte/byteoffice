@@ -1,8 +1,3 @@
-
-
-
-
-
 <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header bg-danger">
@@ -13,6 +8,7 @@
             </div>
             <form action="" id="form-d-quotation" enctype="multipart/form-data" method="post">
                 @csrf
+                @method('delete')
             <div class="modal-body">
                     Are you sure?
             </div>

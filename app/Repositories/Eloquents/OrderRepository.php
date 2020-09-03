@@ -102,4 +102,14 @@ class OrderRepository implements IOrderRepository
     public function getById($order_id){
         return $this->orders->find($order_id);
     }
+
+    public function getByStatus($status){
+        return $this->orders->where('status',$status)->get();
+    }
+
+    public function updateStatus(Order $order, $status){
+        $updateStatus = $this->orders->find($order->id);
+        $updateStatus->status = $status;
+        return $updateStatus->save();
+    }
 }
