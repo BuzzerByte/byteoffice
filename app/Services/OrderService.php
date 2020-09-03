@@ -85,4 +85,16 @@ class OrderService {
     public function exportDeliver(){
         return (new DeliverExport)->download('delivery.csv');
     }
+
+    public function getOrderTotal($order_id){
+        return $this->orders->getOrderTotal($order_id);
+    }
+
+    public function updatePaid($order_id,$total, $balance){
+        return $this->orders->updatePaid($order_id, $total, $balance);
+    }
+
+    public function getById($order_id){
+        return $this->orders->getById($order_id);
+    }
 }

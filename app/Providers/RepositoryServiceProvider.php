@@ -17,6 +17,8 @@ use App\Repositories\Interfaces\IInventoryRepository;
 use App\Repositories\Eloquents\InventoryRepository;
 use App\Repositories\Interfaces\ISaleProductRepository;
 use App\Repositories\Eloquents\SaleProductRepository;
+use App\Repositories\Interfaces\IPurchaseRepository;
+use App\Repositories\Eloquents\PurchaseRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -34,6 +36,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IPaymentRepository::class, PaymentRepository::class);
         $this->app->bind(IInventoryRepository::class, InventoryRepository::class);
         $this->app->bind(ISaleProductRepository::class, SaleProductRepository::class);
+        $this->app->bind(IPurchaseRepository::class, PurchaseRepository::class);
+
     }
 
     /**

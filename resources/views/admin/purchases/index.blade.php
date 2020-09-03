@@ -15,7 +15,7 @@
         $('#received_prod_list').empty();
         $('#updateReceivedProd').attr('action', '/admin/purchaseProduct/' + purchase_id + '/updateReceivedAmt');
         $.get('/admin/purchases/' + purchase_id + '/edit', function (data) {
-            $('#ReceivePurchaseInvoice').text('Purchase Invoice #'+data['purchase'][0]['id']);
+            $('#ReceivePurchaseInvoice').text('Purchase Invoice #'+data['id']);
             $.each(data['purchaseProducts'], function (index, value) {
                 var receive;
                 var tr_received_clone = $('.prod_received_clone').clone();

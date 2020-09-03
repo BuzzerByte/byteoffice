@@ -13,4 +13,7 @@ interface IOrderRepository
     public function edit(Order $order);
     public function update(Request $request, Order $order, $paid);
     public function destroy(Order $order);
+    public function getOrderTotal($order_id);
+    public function updatePaid($order_id, $total, $balance);
+    public function getById($order_id);
 }

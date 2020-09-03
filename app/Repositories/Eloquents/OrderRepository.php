@@ -87,4 +87,19 @@ class OrderRepository implements IOrderRepository
         $order = $this->orders->find($order->id);
         return $order->delete();
     }
+
+    public function getOrderTotal($order_id){
+        return $this->orders->select('g_total')->where('id',$order_id)->get();
+    }
+
+    public function updatePaid($order_id, $total, $balance){
+        $order = $this->orders->find($order_id);
+        $order->paid = $total;
+        $order->balance = $balance;
+        return $order->save();
+    }
+
+    public function getById($order_id){
+        return $this->orders->find($order_id);
+    }
 }

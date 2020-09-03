@@ -45,8 +45,8 @@ Route::group([
     Route::resource('permissions','PermissionController');
 
     //Routes for payment
-    Route::post('/payment/{payment}/delete','PaymentController@delete')->name('payments.delete');
-    Route::post('/payments/add','PaymentController@add')->name('payments.add');
+    // Route::post('/payment/{payment}/delete','PaymentController@delete')->name('payments.delete');
+    // Route::post('/payments/add','PaymentController@add')->name('payments.add');
     Route::resource('payments','PaymentController');
     
     //Routes for purchases
