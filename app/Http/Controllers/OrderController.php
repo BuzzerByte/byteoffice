@@ -16,10 +16,6 @@ use Response;
 use Excel;
 use File;
 use DB;
-use App\Exports\OrderExport;
-use App\Exports\ProcessExport;
-use App\Exports\PendingExport;
-use App\Exports\DeliverExport;
 use App\Services\OrderService;
 use App\Services\PaymentService;
 use App\Services\InventoryService;
@@ -174,7 +170,14 @@ class OrderController extends Controller
         }
 
         $inventories = [];
-        array_push($inventories,['count'=>count($inv_id),'id'=>$inv_id,'desc'=>$inv_desc,'qty'=>$inv_qty,'rate'=>$inv_rate,'amt'=>$inv_amount]);
+        array_push($inventories,[
+            'count'=>count($inv_id),
+            'id'=>$inv_id,
+            'desc'=>$inv_desc,
+            'qty'=>$inv_qty,
+            'rate'=>$inv_rate,
+            'amt'=>$inv_amount
+        ]);
         $result = $this->orders->store($request, $inventories[0]);
         return redirect()->route('orders.show',$result['order_id']);
     }
@@ -188,8 +191,12 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         $invoice = $this->orders->show($order);
-        // return response()->json($invoice);
-        return view('admin.orders.show',['invoice'=>$invoice['invoice'],'sale_products'=>$invoice['sale_product'],'client'=>$invoice['client'],'payments'=>$invoice['payments']]);
+        return view('admin.orders.show',[
+            'invoice'=>$invoice['invoice'],
+            'sale_products'=>$invoice['sale_product'],
+            'client'=>$invoice['client'],
+            'payments'=>$invoice['payments']
+        ]);
     }
 
     /**
@@ -200,11 +207,13 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        $inventories = Inventory::all();
-        $invoice = Order::where('id',$order->id)->get();
-        $sale_product = SaleProduct::where('invoice_id',$order->id)->get();
-        $client = Client::where('id',$invoice[0]['client_id'])->get();
-        return view('admin.orders.edit',['invoice'=>$invoice,'clients'=>$client,'sale_product'=>$sale_product,'inventories'=>$inventories]);
+        $invoice = $this->orders->edit($order);
+        return view('admin.orders.edit',[
+            'invoice'=>$invoice['invoice'],
+            'clients'=>$invoice['clients'],
+            'sale_product'=>$invoice['sale_product'],
+            'inventories'=>$invoice['inventories']
+        ]);
     }
 
     /**
@@ -217,7 +226,7 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         // return response()->json($request);
-        $sale_id = $request->sale_id;
+        // $sale_id = $request->sale_id;
 
         $inv_id = $request->inventory_id;
         array_splice($inv_id,0,1);
@@ -240,70 +249,35 @@ class OrderController extends Controller
         array_splice($inv_amount,count($inv_amount)-1,1);
 
         $paid = Order::select('paid')->where('id',$order->id)->first()->paid;
-        $updateInvoice = Order::where('id',$order->id)->update([
-            'invoice_date'=>$request->invoice_date,
-            'due_date'=>$request->due_date,
-            'total'=>$request->total,
-            'g_total'=>$request->g_total,
-            'tax'=>$request->tax,
-            'balance'=>$request->g_total - $paid,
-            'discount'=>$request->discount,
-            'order_note'=>$request->order_note,
-            'order_activities'=>$request->order_activities,
+        $inventories = [];
+        array_push($inventories,[
+            'count'=>count($inv_id),
+            'id'=>$inv_id,
+            'desc'=>$inv_desc,
+            'qty'=>$inv_qty,
+            'rate'=>$inv_rate,
+            'amt'=>$inv_amount,
+            'sale_id'=>$request->sale_id
         ]);
-        
-        $number_of_sales = count($inv_id);
-        
-        for($i=0;$i<$number_of_sales;$i++){
-            if(!array_key_exists($i, $sale_id)){
-                SaleProduct::create(
-                    ['inventory_id'=>$inv_id[$i],
-                    'description'=>$inv_desc[$i],
-                    'quantity'=>(int)$inv_qty[$i],
-                    'rate'=>$inv_rate[$i],
-                    'amount'=>$inv_amount[$i],
-                    'invoice_id'=>$order->id]
-                );
-            }else{
-                SaleProduct::where('id',$sale_id[$i])->update(
-                    
-                    ['inventory_id'=>$inv_id[$i],
-                    'description'=>$inv_desc[$i],
-                    'quantity'=>(int)$inv_qty[$i],
-                    'rate'=>$inv_rate[$i],
-                    'amount'=>$inv_amount[$i],
-                    'invoice_id'=>$order->id]
-                );
-            }
-        }
-        $sale_items = SaleProduct::where('invoice_id',$order->id)->get();
-        // return response()->json($sale_items);
-        foreach($sale_items as $item){
-            if(!in_array($item->inventory_id,$inv_id)){
-                $remove = SaleProduct::find($item->id);
-                $remove->delete();
-            }
-        }
+        // return response()->json($inventories[0]);
+        $updateInvoice = $this->orders->update($request, $order, $paid, $inventories[0]);
         return redirect()->route('orders.show',$order->id);
-        // return redirect()->action(
-        //     'OrderController@show', ['id' => $order->id]
-        // );
     }
 
     public function exportOrder(){
-        return (new OrderExport)->download('invoices.csv');
+        return $this->orders->exportOrder();
     }
 
     public function exportProcessing(){
-        return (new ProcessExport)->download('processing.csv');
+        return $this->orders->exportProcessing();
     }
 
     public function exportPending(){
-        return (new PendingExport)->download('pending.csv');
+        return $this->orders->exportPending();
     }
 
     public function exportDeliver(){
-        return (new DeliverExport)->download('delivery.csv');
+        return $this->orders->exportDeliver();
     }
 
     /**
@@ -314,20 +288,8 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $this->orders->destroy($order);
+        return redirect()->route('orders.index');
     }
 
-    public function delete(Order $order){
-        $data = Order::find($order->id);
-        $data->delete();
-        if($data){
-            flash()->success('Invoice Data Deleted!');
-        }else{
-            flash()->error('Something went wrong!');    
-        }
-        $inventories = Inventory::all();
-        $clients = Client::all();
-        // return redirect()->route('orders.i',$invoice_id);
-        return redirect()->action('OrderController@index',['inventories'=>$inventories,'clients'=>$clients]);    
-    }
 }

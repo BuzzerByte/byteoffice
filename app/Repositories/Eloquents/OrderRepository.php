@@ -62,7 +62,6 @@ class OrderRepository implements IOrderRepository
     }
 
     public function show(Order $order){
-        // $order = $this->orders->addSelect(['client'=>$this->clients->select('name')->whereColumn('id','orders.client_id')])->get();
         return $order;
     }
 
@@ -70,22 +69,22 @@ class OrderRepository implements IOrderRepository
         return $order;
     }
 
-    public function update(Client $client, Request $request){
-        $client = Client::find($client->id);
-        $client->name = $request->name;
-        $client->company = $request->company_name;
-        $client->phone = $request->phone;
-        $client->fax = $request->fax;
-        $client->email = $request->email;
-        $client->website = $request->website;
-        $client->billing_address = $request->b_address;
-        $client->shipping_address = $request->s_address;
-        $client->note = $request->note;
-        return $client->save();
+    public function update(Request $request, Order $order, $paid){
+        $order = Order::find($order->id);
+        $order->invoice_date = $request->invoice_date;
+        $order->due_date = $request->due_date;
+        $order->total = $request->total;
+        $order->g_total = $request->g_total;
+        $order->tax = $request->tax;
+        $order->balance = $request->g_tax - $paid;
+        $order->discount = $request->discount;
+        $order->order_note = $request->order_note;
+        $order->order_activities = $request->order_acitivites;
+        return ['result'=>$order->save(),'id'=>$order->id];
     }
 
-    public function destroy(Client $client){
-        $client = Client::find($client->id);
-        return $client->delete();
+    public function destroy(Order $order){
+        $order = $this->orders->find($order->id);
+        return $order->delete();
     }
 }

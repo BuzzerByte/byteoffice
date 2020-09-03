@@ -21,7 +21,7 @@
         });
         $(document.body).on('click', '.delete_order', function () {
             var invoice_id = $('.invoiceId').attr('value');
-            $('#form-d-order').attr('action', '/admin/orders/' + invoice_id + '/delete');
+            $('#form-d-order').attr('action', '/admin/orders/' + invoice_id);
         });
     });
 </script>
