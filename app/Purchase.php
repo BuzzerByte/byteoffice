@@ -25,9 +25,7 @@ class Purchase extends Model
         'transport',
         'g_total',
         'paid',
-        'balance',
-        'created_at',
-        'updated_at',
+        'balance'
     ];
 
     public function product(){

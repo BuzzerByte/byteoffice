@@ -139,7 +139,7 @@
 
     $(document.body).on('click', '.del_purchase', function () {
         var purchase_id = $('.purchase_id').val();
-        $('#form-d-purchase').attr('action', '/admin/purchases/' + purchase_id + '/delete');
+        $('#form-d-purchase').attr('action', '/admin/purchases/' + purchase_id);
     });
 
     $("#print_purchase").click(function () {
@@ -187,7 +187,7 @@
                         <div class="col-sm-2 col-lg-2">
                             <h5>
                                 <small>Date: {{
-                                    $purchase['created_at'] }}</small>
+                                    $purchase->created_at }}</small>
                             </h5>
                         </div>
                     </div>
@@ -209,11 +209,11 @@
                         <!-- /.col -->
 
                         <div class="col-sm-4 invoice-col inv_ref">
-                            <input type="hidden" class="purchase_id" value="{{ $purchase['id'] }}">
-                            <h4>Purchase #{{ $purchase['id'] }}</h4>
-                            <b>Order Date:</b> {{ Carbon\Carbon::parse( $purchase['created_at'])->format('d M
+                            <input type="hidden" class="purchase_id" value="{{ $purchase->id }}">
+                            <h4>Purchase #{{ $purchase->id }}</h4>
+                            <b>Order Date:</b> {{ Carbon\Carbon::parse( $purchase->created_at)->format('d M
                             Y') }} <br>
-                            <b>Billing Ref:</b> {{ $purchase['b_reference'] }}<br>
+                            <b>Billing Ref:</b> {{ $purchase->b_reference }}<br>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -262,31 +262,31 @@
                                         <tbody>
                                             <tr>
                                                 <th style="width:50%">Subtotal:</th>
-                                                <td class="inv_subtotal">{{ $purchase['total'] }}</td>
+                                                <td class="inv_subtotal">{{ $purchase->total }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Discount:</th>
-                                                <td class="inv_discount">{{ $purchase['discount'] }}</td>
+                                                <td class="inv_discount">{{ $purchase->discount }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Tax Amount:</th>
-                                                <td class="inv_tax">{{ $purchase['tax'] }}</td>
+                                                <td class="inv_tax">{{ $purchase->tax }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Shipping:</th>
-                                                <td class="inv_transport">{{ $purchase['transport'] }}</td>
+                                                <td class="inv_transport">{{ $purchase->transport }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Grand Total:</th>
-                                                <td class="inv_g_total">{{ $purchase['g_total'] }}</td>
+                                                <td class="inv_g_total">{{ $purchase->g_total }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Paid :</th>
-                                                <td class="inv_paid">{{ $purchase['paid'] }}</td>
+                                                <td class="inv_paid">{{ $purchase->paid }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Balance :</th>
-                                                <td class="inv_balance">{{ $purchase['balance'] }}</td>
+                                                <td class="inv_balance">{{ $purchase->balance }}</td>
                                             </tr>
 
                                         </tbody>
