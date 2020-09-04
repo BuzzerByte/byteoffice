@@ -14,4 +14,5 @@ interface IVendorRepository
     public function edit(Vendor $vendor);
     public function update(Request $request, Vendor $vendor);
     public function destroy(Vendor $vendor);
+    public function getById($id);
 }

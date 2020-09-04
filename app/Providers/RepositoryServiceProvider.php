@@ -23,6 +23,8 @@ use App\Repositories\Interfaces\IQuotationRepository;
 use App\Repositories\Eloquents\QuotationRepository;
 use App\Repositories\Interfaces\IQuotationProductRepository;
 use App\Repositories\Eloquents\QuotationProductRepository;
+use App\Repositories\Interfaces\IPurchaseProductRepository;
+use App\Repositories\Eloquents\PurchaseProductRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -43,6 +45,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IPurchaseRepository::class, PurchaseRepository::class);
         $this->app->bind(IQuotationRepository::class, QuotationRepository::class);
         $this->app->bind(IQuotationProductRepository::class, QuotationProductRepository::class);
+        $this->app->bind(IPurchaseProductRepository::class, PurchaseProductRepository::class);
 
     }
 

@@ -52,7 +52,7 @@ Route::group([
     //Routes for purchases
     Route::get('/purchases/export','PurchaseController@export')->name('purchases.export');
     Route::get('/purchases/receive','PurchaseController@receive')->name('purchases.receive');
-    Route::post('/purchases/{purchase}/delete','PurchaseController@delete')->name('purchases.delete');
+    // Route::post('/purchases/{purchase}/delete','PurchaseController@delete')->name('purchases.delete');
     Route::get('/purchases/{vendor}/createWithVendor','PurchaseController@createWithVendor')->name('purchases.createWithVendor');
     Route::get('/purchases/{purchase}/getBalance','PurchaseController@getBalance')->name('purchases.getBalance');
     Route::resource('purchases','PurchaseController');

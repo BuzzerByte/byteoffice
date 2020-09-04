@@ -103,4 +103,8 @@ class VendorRepository implements IVendorRepository
         $vendor = Vendor::find($vendor->id);
         return $vendor->delete();
     }
+
+    public function getById($id){
+        return $this->vendors->where('id',$id)->get();
+    }
 }

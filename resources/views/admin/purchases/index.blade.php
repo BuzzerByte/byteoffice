@@ -126,7 +126,7 @@
     });
     $(document.body).on('click', '.del_purchase', function () {
         var purchase_id = $(this).parents('tr').attr('value');
-        $('#form-d-purchase').attr('action', '/admin/purchases/' + purchase_id + '/delete');
+        $('#form-d-purchase').attr('action', '/admin/purchases/' + purchase_id);
     });
 </script>
 @stop
