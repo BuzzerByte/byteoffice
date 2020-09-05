@@ -11,7 +11,6 @@
     $(document.body).on('click', '.received_prod_edit', function () {
         var number = 1;
         var purchase_id = $(this).siblings('input').val();
-        
         $('#received_prod_list').empty();
         $('#updateReceivedProd').attr('action', '/admin/purchaseProduct/' + purchase_id + '/updateReceivedAmt');
         $.get('/admin/purchases/' + purchase_id + '/edit', function (data) {

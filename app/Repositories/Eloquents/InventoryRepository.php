@@ -28,4 +28,8 @@ class InventoryRepository implements IInventoryRepository
                     ->orderBy('created_at', 'asc')
                     ->get();
     }
+
+    public function getNameById($id){
+        return $this->inventories->where('id',$id)->first()->name;
+    }
 }

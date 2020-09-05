@@ -25,6 +25,10 @@ use App\Repositories\Interfaces\IQuotationProductRepository;
 use App\Repositories\Eloquents\QuotationProductRepository;
 use App\Repositories\Interfaces\IPurchaseProductRepository;
 use App\Repositories\Eloquents\PurchaseProductRepository;
+use App\Repositories\Interfaces\ICategoryRepository;
+use App\Repositories\Eloquents\CategoryRepository;
+use App\Repositories\Interfaces\ITaxRepository;
+use App\Repositories\Eloquents\TaxRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -46,6 +50,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IQuotationRepository::class, QuotationRepository::class);
         $this->app->bind(IQuotationProductRepository::class, QuotationProductRepository::class);
         $this->app->bind(IPurchaseProductRepository::class, PurchaseProductRepository::class);
+        $this->app->bind(ICategoryRepository::class, CategoryRepository::class);
+        $this->app->bind(ITaxRepository::class, TaxRepository::class);
 
     }
 
