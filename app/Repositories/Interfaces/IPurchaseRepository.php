@@ -14,4 +14,5 @@ interface IPurchaseRepository
     public function store(Request $request);
     public function show(Purchase $purchase);
     public function destroy(Purchase $purchase);
+    public function updateStatus($purchase_id, $status);
 }

@@ -16,10 +16,16 @@ use Excel;
 use File;
 use DB;
 use App\Imports\InventoryImport;
-
+use App\Services\InventoryService;
 
 class InventoryController extends Controller
 {
+
+    protected $inventories;
+
+    public function __construct(InventoryService $inventories){
+        $this->inventories = $inventories;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,16 +33,16 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        //
-        $inventories = Inventory::all();
-        $categories = Category::all();
-        $taxes = Tax::all();
-        if(empty($inventories)){
+        $result = $this->inventories->all();
+        if(empty($result)){
             return view('admin.inventory.index',['inventories'=>'No Inventory']);
         }else{
-            return view('admin.inventory.index',['inventories'=>$inventories,'categories'=>$categories,'taxes'=>$taxes]);
+            return view('admin.inventory.index',[
+                'inventories'=>$result['inventories'],
+                'categories'=>$result['categories'],
+                'taxes'=>$result['taxes']
+            ]);
         }
-        
     }
 
     /**
@@ -56,9 +62,13 @@ class InventoryController extends Controller
      */
     public function import()
     {
+        $result = $this->inventories->import();
         $categories = Category::all();
         $taxes = Tax::all();
-        return view('admin.inventory.import',['categories'=>$categories,'taxes'=>$taxes]);
+        return view('admin.inventory.import',[
+            'categories'=>$categories,
+            'taxes'=>$taxes
+        ]);
     }
 
     /**

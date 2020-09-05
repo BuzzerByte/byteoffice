@@ -90,7 +90,7 @@ class PurchaseService {
         $purchases = $this->purchases->getById($purchase->id);
         $purchaseProducts = $this->purchaseProducts->getByPurchaseId($purchase->id);
         return [
-            'purchase'=>$purchases,
+            'purchases'=>$purchases,
             'purchaseProducts'=>$purchaseProducts
         ];
     }

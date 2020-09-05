@@ -157,7 +157,7 @@ class PurchaseController extends Controller
     {
         $result = $this->purchases->edit($purchase);
         return response()->json([
-            'purchase'=>$result['purchases'],
+            'purchases'=>$result['purchases'],
             'purchaseProducts'=>$result['purchaseProducts']
         ]);
     }

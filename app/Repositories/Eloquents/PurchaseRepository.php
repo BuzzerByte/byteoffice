@@ -75,4 +75,12 @@ class PurchaseRepository implements IPurchaseRepository
         $purchase = Purchase::find($purchase->id);
         return $purchase->delete();
     }
+
+    public function updateStatus($purchase_id, $status){
+        $result = $this->purchases->select('status')->where('id',$purchase_id)
+        ->update([
+            'status' => $status,
+        ]);
+        return $result;
+    }
 }
