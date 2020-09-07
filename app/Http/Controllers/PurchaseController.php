@@ -15,11 +15,15 @@ use App\Payment;
 use Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-use App\Exports\PurchasesExport;
+use App\Services\PurchaseService;
 
 class PurchaseController extends Controller
 {
-    
+    protected $purchases;
+
+    public function __construct(PurchaseService $purchases){
+        $this->purchases = $purchases;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,10 +31,12 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::all();
-        $payments = Payment::all();
-        $vendor = Vendor::all();
-        return view('admin.purchases.index',['purchases'=>$purchases,'payments'=>$payments,'vendor'=>$vendor]);   
+        $result = $this->purchases->all();
+        return view('admin.purchases.index',[
+            'purchases'=>$result['purchases'],
+            'payments'=>$result['payments'],
+            'vendor'=>$result['vendor']
+        ]);   
     }
 
     /**
@@ -40,16 +46,20 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        $vendors = Vendor::all();
-        $inventories = Inventory::all();
-        return view('admin.purchases.create',['vendors'=>$vendors,'inventories'=>$inventories]);
+        $result = $this->purchases->create();
+        return view('admin.purchases.create',[
+            'vendors'=>$result['vendors'],
+            'inventories'=>$result['inventories']
+        ]);
     }
 
     public function createWithVendor(Vendor $vendor){
-        $selected_vendor = $vendor;
-        $vendors = Vendor::all();
-        $inventories = Inventory::all();
-        return view('admin.purchases.create',['vendors'=>$vendors,'inventories'=>$inventories,'selected_vendor'=>$selected_vendor]);
+        $result = $this->purchases->create();
+        return view('admin.purchases.create',[
+            'vendors'=>$result['vendors'],
+            'inventories'=>$result['inventories'],
+            'selected_vendor'=>$vendor
+        ]);
     }
     /**
      * Store a newly created resource in storage.
@@ -103,39 +113,17 @@ class PurchaseController extends Controller
         }else{
             $g_total = $request->g_total;
         }
-        $purchase_id = DB::table('purchases')->insertGetId(
-            [
-                'vendor_id'=>(int)$request->vendorId,
-                'b_reference'=>$request->b_reference,
-                'status'=>'pending_received',
-                'note'=>$request->order_note,
-                'total'=>$total,
-                'discount'=>$discount,
-                'tax'=>$tax,
-                'transport' => $transport,
-                'g_total'=>$g_total,
-                'paid' => 0.00,
-                'balance' => 0.00,
-                'created_at'=>Carbon::now(),
-                'updated_at'=>Carbon::now()
-            ]
-        );
-
-        $number_of_sales = count($inv_id);
-        for($i=0;$i<$number_of_sales;$i++){
-            PurchaseProduct::create([
-                'inventory_id'=>$inv_id[$i],
-                'description'=>$inv_desc[$i],
-                'quantity'=>$inv_qty[$i],
-                'rate'=>$inv_rate[$i],
-                'amount'=>$inv_amount[$i],
-                'purchase_id'=>$purchase_id
-            ]);
-        }
-        return redirect()->route('purchases.show',$purchase_id);
-        // return redirect()->action(
-        //     'PurchaseController@show', ['id' => $purchase_id]
-        // );
+        $inventories = [];
+        array_push($inventories,[
+            'count' => count($inv_id),
+            'id' => $inv_id,
+            'desc' => $inv_desc,
+            'qty' =>$inv_qty,
+            'rate'=>$inv_rate,
+            'amt' => $inv_amount
+        ]);
+        $purchase = $this->purchases->store($request, $inventories[0]);
+        return redirect()->route('purchases.show',$purchase['id']);
     }
 
     public function getBalance(Purchase $purchase){
@@ -149,13 +137,14 @@ class PurchaseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Purchase $purchase)
-    {
-        $purchases = Purchase::where('id',$purchase->id)->get();
-        $purchase_products = PurchaseProduct::where('purchase_id',$purchase->id)->get();
-        $vendor = Vendor::where('id',$purchases[0]['vendor_id'])->get();
-        $payments = Payment::where('purchase_id',$purchase->id)->get();
-        
-        return view('admin.purchases.show',['purchase'=>$purchases,'purchase_products'=>$purchase_products,'vendors'=>$vendor,'payments'=>$payments]);
+    {   
+        $result = $this->purchases->show($purchase);
+        return view('admin.purchases.show',[
+            'purchase'=>$result['purchases'][0],
+            'purchase_products'=>$result['purchase_products'],
+            'vendors'=>$result['vendor'][0],
+            'payments'=>$result['payments']
+        ]);
     }
 
     /**
@@ -166,9 +155,11 @@ class PurchaseController extends Controller
      */
     public function edit(Purchase $purchase)
     {
-        $purchases = Purchase::where('id',$purchase->id)->get();
-        $purchaseProducts = PurchaseProduct::where('purchase_id',$purchase->id)->get();
-        return response()->json(['purchase'=>$purchases,'purchaseProducts'=>$purchaseProducts]);
+        $result = $this->purchases->edit($purchase);
+        return response()->json([
+            'purchases'=>$result['purchases'],
+            'purchaseProducts'=>$result['purchaseProducts']
+        ]);
     }
 
     /**
@@ -184,11 +175,11 @@ class PurchaseController extends Controller
     } 
     
     public function export(){
-        return (new PurchasesExport)->download('purchases.csv');
+        return $this->purchases->export();
     }
 
     public function exportReceivedProduct(){
-        return (new ReceivedProductExport)->download('purchases.csv');
+        // return (new ReceivedProductExport)->download('purchases.csv');
     }
 
     /**
@@ -199,22 +190,7 @@ class PurchaseController extends Controller
      */
     public function destroy(Purchase $purchase)
     {
-        Purchase::find($purchase->id)->delete();
-        return response()->json(['success'=>'deleted successfully']);
-    }
- 
-    public function delete(Purchase $purchase){
-        $deleted = Purchase::find($purchase->id)->delete();
-        $vendors = Vendor::all();
-        $inventories = Inventory::all();
-        if($deleted){
-            Session::flash('success','Purchase record deleted!');
-        }else{
-            Session::flash('failure','Something went wrong!');
-        }
-        $purchases = Purchase::all();
-        $payments = Payment::all();
-        $vendor = Vendor::all();
-        return redirect()->route('purchases.index',['purchases'=>$purchases,'payments'=>$payments,'vendor'=>$vendor]);
+        $this->purchases->destroy($purchase);
+        return redirect()->route('purchases.index');
     }
 }

@@ -8,7 +8,7 @@
         <div class="modal-body">
             <form action="" id="form-d-withdraw" enctype="multipart/form-data" method="post">
                 @csrf
-                <!--                -->
+                @method('delete')
                 <div class="box-body">
                     Are you sure?
                 </div>

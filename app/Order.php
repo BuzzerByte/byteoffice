@@ -27,8 +27,6 @@ class Order extends Model
         'status',
         'order_note',
         'order_activities',
-        'created_at',
-        'updated_at'
     ];
 
     public function product(){

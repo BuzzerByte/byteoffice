@@ -42,6 +42,7 @@
     38 => 'Laracasts\\Flash\\FlashServiceProvider',
     39 => 'Laravel\\Socialite\\SocialiteServiceProvider',
     40 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    41 => 'App\\Providers\\RepositoryServiceProvider',
   ),
   'eager' => 
   array (
@@ -71,6 +72,7 @@
     23 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
     24 => 'Laracasts\\Flash\\FlashServiceProvider',
     25 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    26 => 'App\\Providers\\RepositoryServiceProvider',
   ),
   'deferred' => 
   array (

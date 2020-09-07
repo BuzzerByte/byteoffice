@@ -165,6 +165,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        App\Providers\RepositoryServiceProvider::class
     ],
 
     /*

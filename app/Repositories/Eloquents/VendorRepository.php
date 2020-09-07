@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquents;
 
 use App\Vendor;
 use Illuminate\Http\Request;
@@ -10,18 +10,25 @@ use App\Imports\VendorsImport;
 use Session;
 use Excel;
 use DB;
+use App\Repositories\Interfaces\IVendorRepository;
 
-class VendorRepository
+class VendorRepository implements IVendorRepository
 {
+    protected $vendors;
+
+    public function __construct(Vendor $vendors)
+    {
+        $this->vendors = $vendors;
+    }
     /**
      * Get all of the vendor for the given user.
      *
      * @param  Vendor  $vendor
      * @return Collection
      */
-    public function getAllVendors($user_id)
+    public function all($user_id)
     {
-        return Vendor::where('user_id', $user_id)
+        return $this->vendors->where('user_id', $user_id)
                     ->orderBy('created_at', 'asc')
                     ->get();
     }
@@ -79,7 +86,7 @@ class VendorRepository
         return $vendor;
     }
 
-    public function update(Vendor $vendor, Request $request){
+    public function update(Request $request,Vendor $vendor){
         $vendor = Vendor::find($vendor->id);
         $vendor->name = $request->name;
         $vendor->company = $request->company_name;
@@ -95,5 +102,9 @@ class VendorRepository
     public function destroy(Vendor $vendor){
         $vendor = Vendor::find($vendor->id);
         return $vendor->delete();
+    }
+
+    public function getById($id){
+        return $this->vendors->where('id',$id)->get();
     }
 }

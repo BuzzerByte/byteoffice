@@ -45,14 +45,14 @@ Route::group([
     Route::resource('permissions','PermissionController');
 
     //Routes for payment
-    Route::post('/payment/{payment}/delete','PaymentController@delete')->name('payments.delete');
-    Route::post('/payments/add','PaymentController@add')->name('payments.add');
+    // Route::post('/payment/{payment}/delete','PaymentController@delete')->name('payments.delete');
+    // Route::post('/payments/add','PaymentController@add')->name('payments.add');
     Route::resource('payments','PaymentController');
     
     //Routes for purchases
     Route::get('/purchases/export','PurchaseController@export')->name('purchases.export');
     Route::get('/purchases/receive','PurchaseController@receive')->name('purchases.receive');
-    Route::post('/purchases/{purchase}/delete','PurchaseController@delete')->name('purchases.delete');
+    // Route::post('/purchases/{purchase}/delete','PurchaseController@delete')->name('purchases.delete');
     Route::get('/purchases/{vendor}/createWithVendor','PurchaseController@createWithVendor')->name('purchases.createWithVendor');
     Route::get('/purchases/{purchase}/getBalance','PurchaseController@getBalance')->name('purchases.getBalance');
     Route::resource('purchases','PurchaseController');
@@ -74,7 +74,7 @@ Route::group([
     Route::get('/orders/deliver','OrderController@deliver')->name('orders.deliver');
     Route::get('/orders/quotation','OrderController@quotation')->name('orders.quotation');
     Route::get('/orders/all_quotation','OrderController@all_quotation')->name('orders.all_quotation');
-    Route::post('/orders/{order}/delete','OrderController@delete')->name('orders.delete');
+    // Route::post('/orders/{order}/delete','OrderController@delete')->name('orders.delete');
     Route::post('/orders/{order}/updateStatusToShipping','OrderController@updateStatusToShipping')->name('orders.updateStatusToShipping');
     Route::post('/orders/{order}/updateStatusToShipped','OrderController@updateStatusToShipped')->name('orders.updateStatusToShipped');
     Route::get('/orders/{client}/createWithClient','OrderController@createWithClient')->name('orders.createWithClient');
@@ -120,7 +120,6 @@ Route::group([
 
     Route::post('/client/import','ClientController@import')->name('client.import');
     Route::get('/client/download','ClientController@downloadClientSample')->name('client.download');
-    Route::post('/client/{client}/delete','ClientController@delete')->name('client.delete');
     Route::resource('client','ClientController');
     //Vendor
     Route::get('/transaction/chart_of_accounts','TransactionController@chart_of_accounts')->name('transaction.chart_of_accounts');
@@ -149,7 +148,6 @@ Route::group([
     
     Route::resource('setting','SettingController');
 
-    Route::post('/category/{category}/delete','CategoryController@delete')->name('category.delete');
     Route::resource('category','CategoryController');
     
     Route::get('/purchaseProduct/export','PurchaseProductController@export')->name('purchaseProduct.export');
@@ -157,14 +155,13 @@ Route::group([
     Route::post('/purchaseProduct/{purchase}/updateReturnAmt','PurchaseProductController@updateReturnAmt')->name('purchaseProduct.updateReturnAmt');
     Route::get('/purchaseProduct/{purchaseProduct}/getName','PurchaseProductController@getName')->name('purchaseProduct.getName');
     Route::resource('purchaseProduct','PurchaseProductController');
-
     
     Route::get('/quotation/exportQuotation','QuotationController@exportQuotation')->name('quotation.exportQuotation');
-    Route::post('/quotation/{quotation}/delete','QuotationController@delete')->name('quotation.delete');
+    // Route::post('/quotation/{quotation}/delete','QuotationController@delete')->name('quotation.delete');
     Route::get('/quotation/{client}/createWithClient','QuotationController@createWithClient')->name('quotation.createWithClient');
     Route::resource('quotations','QuotationController');
 
-    Route::post('/withdrawals/{withdrawal}/delete','WithdrawalController@delete')->name('withdrawals.delete');
+    // Route::post('/withdrawals/{withdrawal}/delete','WithdrawalController@delete')->name('withdrawals.delete');
     Route::resource('withdrawals','WithdrawalController');
 
     Route::post('/employeeAttachments/delete','EmployeeAttachmentController@delete')->name('employeeAttachments.delete');

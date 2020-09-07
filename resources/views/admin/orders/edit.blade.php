@@ -24,7 +24,7 @@
                         <h6>Edit Order</h6>
                     </div>
                 </div>
-                <form action="{{ route('orders.update',$invoice[0]['id'] ) }}" id="from-invoice" enctype="multipart/form-data"
+                <form action="{{ route('orders.update',$invoice['id'] ) }}" id="from-invoice" enctype="multipart/form-data"
                     method="post" accept-charset="utf-8">
                     @method('PATCH')
                     @csrf
@@ -37,7 +37,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Client <span class="required" aria-required="true">*</span></label>
-                                                <input type="text" class="form-control" value="{{ $clients[0]['name'] }}"
+                                                <input type="text" class="form-control" value="{{ $clients['name'] }}"
                                                     readonly="">
                                             </div>
                                         </div>
@@ -47,21 +47,21 @@
                                             <div class="form-group form-group-bottom">
                                                 <label>Email</label>
                                                 <input type="email" id="email" name="email" class="form-control autocomplete_off"
-                                                    value="{{ $clients[0]['email'] }}">
+                                                    value="{{ $clients['email'] }}">
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Billing Address</label>
-                                                <textarea class="form-control autocomplete_off" id="b_address" name="b_address">{{ $clients[0]['billing_address'] }}</textarea>
+                                                <textarea class="form-control autocomplete_off" id="b_address" name="b_address">{{ $clients['billing_address'] }}</textarea>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Shipping Address</label>
-                                                <textarea class="form-control autocomplete_off" id="s_address" name="s_address">{{ $clients[0]['shipping_address'] }}</textarea>
+                                                <textarea class="form-control autocomplete_off" id="s_address" name="s_address">{{ $clients['shipping_address'] }}</textarea>
                                             </div>
                                         </div>
 
@@ -75,12 +75,12 @@
 
                                                     <div class="input-group input-daterange">
                                                         <input type="text" class="form-control ls-datepicker autocomplete_off"
-                                                            data-date-format="yyyy-mm-dd" value="{{ $invoice[0]['invoice_date'] }}">
+                                                            data-date-format="yyyy-mm-dd" value="{{ $invoice['invoice_date'] }}">
                                                         <div class="input-group-prepend input-group-append">
                                                             <span class="input-group-text">to</span>
                                                         </div>
                                                         <input type="text" class="form-control ls-datepicker autocomplete_off"
-                                                            data-date-format="yyyy-mm-dd" value="{{ $invoice[0]['due_date'] }}">
+                                                            data-date-format="yyyy-mm-dd" value="{{ $invoice['due_date'] }}">
                                                     </div>
                                                 </div>
                                         </div>
@@ -96,7 +96,7 @@
                                                     </span>
                                                 </div>
                                                 <input name="invoice_date" type="text" class="form-control ls-datepicker invoice_date autocomplete_off"
-                                                    value="{{ $invoice[0]['invoice_date'] }}" data-date-format="yyyy-mm-dd" required>
+                                                    value="{{ $invoice['invoice_date'] }}" data-date-format="yyyy-mm-dd" required>
                                             </div>
                                         </div>
 
@@ -111,7 +111,7 @@
                                                     </span>
                                                 </div>
                                                 <input name="due_date" type="text" class="form-control ls-datepicker due_date autocomplete_off"
-                                                    value="{{ $invoice[0]['due_date'] }}" data-date-format="yyyy-mm-dd" required>
+                                                    value="{{ $invoice['due_date'] }}" data-date-format="yyyy-mm-dd" required>
                                             </div>
                                         </div>
                                     </div>
@@ -264,16 +264,16 @@
                                             <tr>
                                                 <td colspan="5" style="text-align: right">
                                                     Total </td>
-                                                <input type="hidden" name="total" value="{{ $invoice[0]['total'] }}">
+                                                <input type="hidden" name="total" value="{{ $invoice['total'] }}">
                                                 <td id="total" style="text-align: right; padding-right: 30px">{{
-                                                    $invoice[0]['total'] }}</td>
+                                                    $invoice['total'] }}</td>
                                             </tr>
                                             <tr>
                                                 <td colspan="5" style="text-align: right">
                                                     Discount </td>
                                                 <td style="text-align: right; padding-right: 30px">
                                                     <input id="discount" type="" class="form-control" style="text-align: right"
-                                                        value="{{ $invoice[0]['discount'] }}" name="discount">
+                                                        value="{{ $invoice['discount'] }}" name="discount">
                                                     <div id="dis_msg"></div>
                                                 </td>
                                             </tr>
@@ -282,7 +282,7 @@
                                                     Tax Amount </td>
                                                 <td style="text-align: right; padding-right: 30px">
                                                     <input id="tax" type="" class="form-control" style="text-align: right"
-                                                        value="{{ $invoice[0]['tax'] }}" name="tax">
+                                                        value="{{ $invoice['tax'] }}" name="tax">
                                                         <div id="tax_msg"></div>
                                                 </td>
                                             </tr>
@@ -292,9 +292,9 @@
                                                 <td colspan="5" style="text-align: right; font-weight: bold">
                                                     Grand Total </td>
 
-                                                <input type="hidden" name="g_total" value="{{ $invoice[0]['g_total'] }}">
+                                                <input type="hidden" name="g_total" value="{{ $invoice['g_total'] }}">
                                                 <td id="g_total" style="text-align: right; padding-right: 30px; font-weight: bold; font-size: 16px">{{
-                                                    $invoice[0]['g_total'] }}</td>
+                                                    $invoice['g_total'] }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -306,7 +306,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Order Note</label>
-                                        <textarea class="form-control" name="order_note">{{ $invoice[0]['order_note'] }}</textarea>
+                                        <textarea class="form-control" name="order_note">{{ $invoice['order_note'] }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -314,7 +314,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Order Activities</label>
-                                        <textarea class="form-control" name="order_activities">{{ $invoice[0]['order_activities'] }}</textarea>
+                                        <textarea class="form-control" name="order_activities">{{ $invoice['order_activities'] }}</textarea>
                                     </div>
                                 </div>
                             </div>

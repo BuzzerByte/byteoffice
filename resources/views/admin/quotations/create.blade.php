@@ -29,9 +29,9 @@
         $('#selected_client').change(function () {
             var client_id = $(this).val();
             $.get("/admin/client/" + client_id, function (data) {
-                $('#email').val(data['client'][0]['email']);
-                $('#b_address').val(data['client'][0]['billing_address']);
-                $('#s_address').val(data['client'][0]['shipping_address']);
+                $('#email').val(data['email']);
+                $('#b_address').val(data['billing_address']);
+                $('#s_address').val(data['shipping_address']);
             });
         });
 
@@ -40,10 +40,10 @@
             var list = $(this);
             $.get("/admin/inventory/" + inventory_id, function (data) {
                 list.closest('td').siblings('td').find('.quantity').val(1);
-                list.closest('td').siblings('td').find('.rate').val(data['inventory'][0][
+                list.closest('td').siblings('td').find('.rate').val(data[
                     'p_price'
                 ]);
-                list.closest('td').siblings('td').find('.amount').val(data['inventory'][0][
+                list.closest('td').siblings('td').find('.amount').val(data[
                     'p_price'
                 ]);
             });
@@ -61,10 +61,10 @@
             list.attr('class', 'inventory added form-control select2');
             $.get("/admin/inventory/" + inventory_id, function (data) {
                 list.closest('td').siblings('td').find('.quantity').val(1);
-                list.closest('td').siblings('td').find('.rate').val(data['inventory'][0][
+                list.closest('td').siblings('td').find('.rate').val(data[
                     'p_price'
                 ]);
-                list.closest('td').siblings('td').find('.amount').val(data['inventory'][0][
+                list.closest('td').siblings('td').find('.amount').val(data[
                     'p_price'
                 ]);
             });
