@@ -31,10 +31,17 @@ use App\Role;
 use App\Imports\EmployeeImport;
 use App\Exports\EmployeeExport;
 use App\User;
-
+use App\Services\EmployeeService;
 
 class EmployeeController extends Controller
 {
+    protected $employees;
+
+    public function __construct(
+        EmployeeService $employees
+    ){
+        $this->employees = $employees;
+    }
     public function index()
     {
         if(Auth::user()->hasRole('admin')){
@@ -48,7 +55,7 @@ class EmployeeController extends Controller
 
     public function create()
     {
-        $roles = Role::all();
+        $roles = $this->employees->getRoles();
         return view('admin.employees.create',['roles'=>$roles]);
     }
 
