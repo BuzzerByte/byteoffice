@@ -18,7 +18,6 @@
             })
             $('.edit').click(function () {
                 var id = $(this).parents('button').siblings('.withdraw_id').attr('id');
-                console.log(id);
                 $('#form-witdraw-edit').attr('action', '/admin/withdrawals/' + id);
                 $('.withdraw_id').val(id);
                 $.get("/admin/withdrawals/" + id + "/edit", function (data) {
@@ -49,7 +48,7 @@
         
             $('.delete').click(function () {
                 var id = $(this).parents('li').siblings('.withdraw_id').attr('id');
-                $('#form-d-withdraw').attr('action', '/admin/withdrawals/' + id + '/delete');
+                $('#form-d-withdraw').attr('action', '/admin/withdrawals/' + id);
             });
         
             

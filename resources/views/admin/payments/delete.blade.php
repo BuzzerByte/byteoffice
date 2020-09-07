@@ -7,17 +7,17 @@
             </button>
         </div>
         <form action="" id="form-d-payment" enctype="multipart/form-data" method="post">
-        @csrf
-        <div class="modal-body">
-            
+            @csrf
+            @method('delete')
+            <div class="modal-body">
                 <div class="box-body">
                     <b>Are you sure?</b>
                 </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-danger" type="submit" value="Submit"><i class="fa fa-save"></i>
-                Delete Payment</button>
-        </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="submit" value="Submit"><i class="fa fa-save"></i>
+                    Delete Payment</button>
+            </div>
         </form>
     </div>
 </div>

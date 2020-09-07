@@ -11,8 +11,8 @@ use File;
 use DB;
 use App\Imports\VendorsImport;
 use Auth;
-use App\Repositories\VendorRepository;
-use App\Repositories\UserRepository;
+use App\Services\VendorService;
+use App\Services\UserService;
 
 class VendorController extends Controller
 {
@@ -20,7 +20,7 @@ class VendorController extends Controller
     protected $vendors;
     protected $auth_user;
 
-    public function __construct(UserRepository $auth_user, VendorRepository $vendors)
+    public function __construct(UserService $auth_user, VendorService $vendors)
     {
         $this->vendors = $vendors;
         $this->auth_user = $auth_user;
@@ -32,8 +32,8 @@ class VendorController extends Controller
      */
     public function index()
     {
-        $auth_id = $this->auth_user->getAuthUser()->id;
-        $vendors =  $this->vendors->getAllVendors($auth_id);
+        $auth_id = $this->auth_user->getAuthId();
+        $vendors =  $this->vendors->all($auth_id);
         if(empty($vendors)){
             return view('admin.vendors.index',['vendors'=>'No Vendor']);
         }else{
@@ -59,7 +59,7 @@ class VendorController extends Controller
      */
     public function store(Request $request)
     {
-        $auth_id = $this->auth_user->getAuthUser()->id;
+        $auth_id = $this->auth_user->getAuthId();
         $result = $this->vendors->store($auth_id, $request);
         $result == true ? flash()->success('Vendor Inserted Successfully'):flash()->error('Something went wrong!');
         return redirect()->route('vendor.index');
@@ -80,7 +80,7 @@ class VendorController extends Controller
         $this->validate($request, array(
             'import_file'      => 'required'
         ));
-        $auth_id = $this->auth_user->getAuthUser()->id;
+        $auth_id = $this->auth_user->getAuthId();
         $result = $this->vendors->import($auth_id, $request);
         if($result['result'] && $result['status']=='success'){
             flash()->success($result['message']);
@@ -122,7 +122,7 @@ class VendorController extends Controller
      */
     public function update(Request $request, Vendor $vendor)
     {
-        $result = $this->vendors->update($vendor, $request);
+        $result = $this->vendors->update($request, $vendor);
         $result == true ? flash()->success('Vendor Updated Successfully'):flash()->error('Something went wrong!');
         return redirect()->route('vendor.index');
     }

@@ -6,79 +6,71 @@ use App\Category;
 use App\Inventory;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Session;
 use Response;
 use Excel;
 use File;
 use DB;
+use App\Services\CategoryService;
 
 class CategoryController extends Controller
 {
+    protected $categories;
+
+    public function __construct(
+        CategoryService $categories
+    ){
+        $this->categories = $categories;
+    }
 
     public function index()
     {
-        $categories = Category::all();
+        // $categories = Category::all();
+        $categories = $this->categories->all();
         return view('admin.category.index',['categories'=>$categories]);  
     }
 
     public function store(Request $request)
     {
-        if (Category::where('name', '=', $request->name)->exists()) {
-            // Session::flash('warning', 'This category already exists!');
+        if ($this->categories->exists($request->name)) {
             flash()->warning('This Category already exists!');
         }else{
-            $category = Category::create([
-                'name'=>$request->category
-            ]);
+            $category = $this->categories->store($request);
             if($category){
-                // Session::flash('success', 'New Category Added');
                 flash()->success('New Category Added!');
             }else{
-                // Session::flash('failure', 'Something went wrong!');
                 flash()->error('Something went wrong!');
             }
         }
-        $inventories = Inventory::all();
-        $categories = Category::all();
-        return redirect()->route('category.index',['categories'=>$categories]);     
+        return redirect()->route('category.index');     
     }
 
     public function edit(Category $category)
     {
-        $data = Category::where('id',$category->id)->get();
-        return response()->json(['category'=>$data]);
+        $categories = $this->categories->getById($category->id);
+        return response()->json(['category'=>$categories]);
     }
 
     public function update(Request $request, Category $category)
     {
-        $update = Category::where('id',$category->id)->update([
-            'name' => $request->input('name'),
-            
-        ]);
-        if($update){
-            // Session::flash('success', 'Category Data Updated!');
+        $result = $this->categories->update($request, $category);
+        if($result['result']){
             flash()->success('Category Data Updated!');
         }else{
-            // Session::flash('failure', 'Something went wrong!');
             flash()->error('Something went wrong!');
         }
-        $categories = Category::all();
-        return redirect()->route('category.index',['categories'=>$categories]);  
+        return redirect()->route('category.index');  
     }
     
-    public function delete(Category $category)
+    public function destroy(Category $category)
     {
-        $data = Category::find($category->id);
-        $data->delete();
-        if($data){
-            // Session::flash('success', 'Category Data Deleted!');
+        $result = $this->categories->destroy($category);
+        if($result['result']){
             flash()->success('Category Data deleted!');
         }else{
-            // Session::flash('failure', 'Something went wrong!');
             flash()->error('Something went wrong!');
         }
-        $categories = Category::all();
-        return redirect()->route('category.index',['categories'=>$categories]);    
+        return redirect()->route('category.index');    
     }
 }

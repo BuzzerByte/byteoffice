@@ -72,7 +72,7 @@
         // delete invoice
         $(document.body).on('click', '.delete_order', function () {
             var invoice_id = $('.invoice_id').val();
-            $('#form-d-order').attr('action', '/admin/orders/' + invoice_id + '/delete');
+            $('#form-d-order').attr('action', '/admin/orders/' + invoice_id);
         });
 
         $(document.body).on('keyup','#addAmount',function(){
@@ -116,7 +116,7 @@
                         <div class="col-sm-2 col-lg-2">
                             <h5>
                                 <small>Date: {{
-                                    $invoice[0]['created_at'] }}</small>
+                                    $invoice['created_at'] }}</small>
                             </h5>
                         </div>
                     </div>
@@ -125,28 +125,28 @@
 
                         <div class="col-sm-4 col-xs-4 col-lg-4">
                             <h5>Billing Address</h5> <address>
-                                <strong>{{ $client[0]['company'] }}</strong><br>
-                                {{ $client[0]['billing_address'] }}<br>
-                                Phone: {{ $client[0]['phone'] }}<br>
-                                Email: {{ $client[0]['email'] }} </address>
+                                <strong>{{ $client['company'] }}</strong><br>
+                                {{ $client['billing_address'] }}<br>
+                                Phone: {{ $client['phone'] }}<br>
+                                Email: {{ $client['email'] }} </address>
                         </div>
 
                         <div class="col-sm-4 col-xs-4 col-lg-4">
                             <h5>Shipping Address</h5> <address>
-                                <strong>{{ $client[0]['company'] }}</strong><br>
-                                {{ $client[0]['shipping_address'] }}<br>
-                                Phone: {{ $client[0]['phone'] }}<br>
-                                Email: {{ $client[0]['email'] }} </address>
+                                <strong>{{ $client['company'] }}</strong><br>
+                                {{ $client['shipping_address'] }}<br>
+                                Phone: {{ $client['phone'] }}<br>
+                                Email: {{ $client['email'] }} </address>
                         </div>
 
 
                         <div class="col-sm-4 col-xs-4 col-lg-4">
-                            <input type="hidden" class="invoice_id" value="{{ $invoice[0]['id'] }}">
-                            <h4>Invoice #{{ $invoice[0]['id'] }}</h4>
+                            <input type="hidden" class="invoice_id" value="{{ $invoice['id'] }}">
+                            <h4>Invoice #{{ $invoice['id'] }}</h4>
 
-                            <b>Order Date:</b> {{ Carbon\Carbon::parse( $invoice[0]['invoice_date'])->format('d M
+                            <b>Order Date:</b> {{ Carbon\Carbon::parse( $invoice['invoice_date'])->format('d M
                             Y') }} <br>
-                            <b>Payment Due:</b> {{ Carbon\Carbon::parse( $invoice[0]['due_date'])->format('d M Y')
+                            <b>Payment Due:</b> {{ Carbon\Carbon::parse( $invoice['due_date'])->format('d M Y')
                             }}<br>
                         </div>
 
@@ -199,45 +199,45 @@
 
                         <div class="col-xs-6">
                             <div class="card-body ">
-                                <h6 class="pull-right">Amount Due: SGD {{ $invoice[0]['total'] }}</h6>
+                                <h6 class="pull-right">Amount Due: SGD {{ $invoice['total'] }}</h6>
 
                                 <div class="table-responsive">
                                     <table class="table">
                                         <tbody>
                                             <tr>
                                                 <th>Subtotal</th>
-                                                <td id="total">SGD {{ $invoice[0]['total'] }}</td>
+                                                <td id="total">SGD {{ $invoice['total'] }}</td>
                                             </tr>
 
                                             <tr>
                                                 <th>Tax</th>
 
-                                                <td id="tax">SGD {{ $invoice[0]['tax'] }}</td>
+                                                <td id="tax">SGD {{ $invoice['tax'] }}</td>
 
 
                                             </tr>
                                             <tr>
                                                 <th>Discount</th>
 
-                                                <td id="discount">SGD -{{ $invoice[0]['discount'] }}</td>
+                                                <td id="discount">SGD -{{ $invoice['discount'] }}</td>
 
 
                                             </tr>
                                             <tr>
                                                 <th>Grand Total</th>
-                                                <td id="g_total">SGD {{ $invoice[0]['g_total'] }}</td>
+                                                <td id="g_total">SGD {{ $invoice['g_total'] }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Received Amount</th>
 
-                                                <td id="receiv_amount">SGD {{ $invoice[0]['paid'] }}</td>
+                                                <td id="receiv_amount">SGD {{ $invoice['paid'] }}</td>
 
 
                                             </tr>
                                             <tr>
                                                 <th>Amount Due</th>
 
-                                                <td id="amt_due">SGD {{ $invoice[0]['balance'] }}</td>
+                                                <td id="amt_due">SGD {{ $invoice['balance'] }}</td>
 
 
                                             </tr>
@@ -268,7 +268,7 @@
                                 data-toggle="modal">
                                 Add Payment
                             </button>
-                            <button onclick="location.href='{{ route('orders.edit',$invoice[0]['id']) }}'" class="btn btn-info btn-rounded">
+                            <button onclick="location.href='{{ route('orders.edit',$invoice['id']) }}'" class="btn btn-info btn-rounded">
                                 Edit
                             </button>
 

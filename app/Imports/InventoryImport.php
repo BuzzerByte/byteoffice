@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Inventory;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Auth;
 
 class InventoryImport implements ToModel, WithHeadingRow
 {
@@ -27,7 +28,8 @@ class InventoryImport implements ToModel, WithHeadingRow
             'quantity'=> $row['quantity'],
             'type'=> $row['type'],
             'category_id'=> $row['category_id'],
-            'tax_id'=> $row['tax_id']
+            'tax_id'=> $row['tax_id'],
+            'user_id'=>Auth::user()->id
         ]);
     }
 }

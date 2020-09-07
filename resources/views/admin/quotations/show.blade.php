@@ -71,8 +71,7 @@
         // delete invoice
         $(document.body).on('click', '.del_quotation', function () {
             var quotation_id = $('.quotation_id').val();
-            $('#form-d-quotation').attr('action', '/admin/quotation/' + quotation_id +
-                '/delete');
+            $('#form-d-quotation').attr('action', '/admin/quotations/' + quotation_id);
         });
     });
 </script>

@@ -9,12 +9,24 @@ use File;
 use Illuminate\Http\Request;
 use DB;
 use App\Imports\ClientsImport;
+use App\Services\UserService;
+use App\Services\ClientService;
 
 class ClientController extends Controller
 {
+    protected $clients;
+    protected $auth_user;
+
+    public function __construct(UserService $auth_user, ClientService $clients)
+    {
+        $this->clients = $clients;
+        $this->auth_user = $auth_user;
+    }
+
     public function index()
     {
-        $clients = Client::all();
+        $auth_id = $this->auth_user->getAuthId();
+        $clients = $this->clients->all();
         if(empty($clients)){
             return view('admin.clients.index',['clients'=>'No Client']);
         }else{
@@ -24,146 +36,59 @@ class ClientController extends Controller
 
     public function store(Request $request)
     {
-        $client = Client::create([
-            'name' => $request->input('name'),
-            'company' => $request->input('company_name'),
-            'phone' => $request->input('phone'),
-            'fax' => $request->input('fax'),
-            'email' => $request->input('email'),
-            'website' => $request->input('website'),
-            'billing_address' => $request->input('b_address'),
-            'shipping_address' => $request->input('s_address'),
-            'note' => $request->input('note')
-        ]);
-        if($client){
-            flash()->success('Client Inserted Successfully!');
-            // Session::flash('success', 'Client Inserted Successfully!');
-        }else{
-            flash()->error('Something went wrong!');
-            // Session::flash('failure', 'Something went wrong!');
-        }
-        $clients = Client::all();
-
-        return redirect()->route('client.index',['clients'=>$clients]);
+        $auth_id = $this->auth_user->getAuthId();
+        $result = $this->clients->store($auth_id, $request);
+        $result == true ? flash()->success('Client Inserted Successfully'):flash()->error('Something went wrong!');
+        return redirect()->route('client.index');
     }
 
     public function downloadClientSample(){
-        $file_path = storage_path() . "/app/downloads/client.csv";
-        $headers = array(
-            'Content-Type: csv',
-            'Content-Disposition: attachment; filename=client.csv',
-        );
-        if (file_exists($file_path)) {
-            flash()->success('File Downloaded');
-            return Response::download($file_path, 'client.csv', $headers);
-        } else {
+        $result = $this->clients->downloadClientSample();
+        if($result['result']){
+            flash()->success('Sample downloaded');
+            return Response::download($result['file_path'], 'client.csv', $result['headers']);
+        }else{
             flash()->error('Something went wrong!');
         }
-        $clients = Client::all();
-        return redirect()->route('client.index',['clients'=>$clients]);
+        return redirect()->route('client.index');
     }
 
     public function import(Request $request){
         $this->validate($request, array(
-            'import_file' => 'required'
+            'import_file'      => 'required'
         ));
-        $client_name = [];
-        if ($request->hasFile('import_file')) {
-            $extension = File::extension($request->import_file->getClientOriginalName());
-            if ($extension == "csv") {
-                $path = $request->import_file->getRealPath();
-                $data = Excel::import(new ClientsImport, $request->import_file);
-                if(!empty($data)){
-                    foreach($data as $record){
-                        if(in_array($record->client_name,$client_name)){
-                            continue;   
-                        }else if(Client::where('name','=',$record->client_name)->exists()){
-                            continue;
-                        }else if($record->client_name == NULL || $record->client_name == "-"){
-                            continue;
-                        }else{
-                            $client_name[] = $record->client_name;
-                            $insert_client_data[] = [
-                                'name' => $record->client_name, 
-                                'company' => $record->company,
-                                'phone' => $record->phone,
-                                'fax' => $record->fax,
-                                'email' => $record->email,
-                                'website' => $record->website,
-                                'billing_address' => $record->billing_address,
-                                'shipping_address' => $record->shipping_address,
-                                'note' => $record->note
-                            ];
-                        }
-                    }
-                    if(!empty($insert_client_data)){
-                        $insert_client = DB::table('clients')->insert($insert_client_data);
-                        flash()->success('Clients Data Imported!');
-                    }else{
-                        flash()->warning('Duplicated record, please check your csv file!');
-                    }
-                }else{
-                    flash()->warning('There is no data in csv file!');
-                }
-            }else{
-                flash()->warning('Selected file is not csv!');
-            }
+        $auth_id = $this->auth_user->getAuthId();
+        $result = $this->clients->import($auth_id, $request);
+        if($result['result'] && $result['status']=='success'){
+            flash()->success($result['message']);
+        }else if($result['result'] && $result['status']=='warning'){
+            flash()->warning($result['message']);
         }else{
-            flash()->error('Something went wrong!');
+            flash()->error($result['message']);
         }
-        $clients = Client::all();
-        return redirect()->route('client.index',['clients'=>$clients]);    
+        return redirect()->route('client.index'); 
     }
 
     public function show(Client $client)
     {
-        $client = Client::where('id',$client->id)->get();
-        return response()->json(['client'=>$client]);
+        return $this->clients->show($client);
     }
 
     public function edit(Client $client)
     {
-        $data = Client::where('id',$client->id)->get();
-        return response()->json(['client'=>$data]);
+        return $this->clients->edit($client);
     }
 
     public function update(Request $request, Client $client)
     {
-        $update = Client::where('id',$client->id)->update([
-            'name'=>$request->name,
-            'company'=>$request->company_name,
-            'phone'=>$request->phone,
-            'fax'=>$request->fax,
-            'email'=>$request->email,
-            'website'=>$request->website,
-            'billing_address'=>$request->b_address,
-            'shipping_address'=>$request->s_address,
-            'note'=>$request->note
-        ]);
-        if($update){
-            flash()->success('Clients Data Updated!');
-            // Session::flash('success', 'Clients Data Updated!');
-        }else{
-            flash()->error('Something went wrong!');
-            // Session::flash('failure', 'Something went wrong!');
-        }
-        $clients = Client::all();
-        return redirect()->route('client.index',['clients'=>$clients]);    
+        $result = $this->clients->update($request, $client);
+        $result == true ? flash()->success('Client Updated Successfully'):flash()->error('Something went wrong!');
+        return redirect()->route('client.index');   
     }
 
-    public function delete(Client $client)
-    {
-        $data = Client::find($client->id);
-        $data->delete();
-        if($data){
-            flash()->success('Clients Data Deleted!');
-            // Session::flash('success', 'Clients Data Deleted!');
-        }else{
-            flash()->error('Something went wrong!');
-            // Session::flash('failure', 'Something went wrong!');
-        }
-        $clients = Client::all();
-        return redirect()->route('client.index',['clients'=>$clients]);    
-
+    public function destroy(Client $client){
+        $result = $this->clients->destroy($client);
+        $result == true ? flash()->success('Client Deleted Successfully'):flash()->error('Something went wrong!');
+        return redirect()->route('client.index');
     }
 }
