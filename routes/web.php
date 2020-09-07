@@ -148,7 +148,6 @@ Route::group([
     
     Route::resource('setting','SettingController');
 
-    Route::post('/category/{category}/delete','CategoryController@delete')->name('category.delete');
     Route::resource('category','CategoryController');
     
     Route::get('/purchaseProduct/export','PurchaseProductController@export')->name('purchaseProduct.export');
@@ -156,14 +155,13 @@ Route::group([
     Route::post('/purchaseProduct/{purchase}/updateReturnAmt','PurchaseProductController@updateReturnAmt')->name('purchaseProduct.updateReturnAmt');
     Route::get('/purchaseProduct/{purchaseProduct}/getName','PurchaseProductController@getName')->name('purchaseProduct.getName');
     Route::resource('purchaseProduct','PurchaseProductController');
-
     
     Route::get('/quotation/exportQuotation','QuotationController@exportQuotation')->name('quotation.exportQuotation');
     // Route::post('/quotation/{quotation}/delete','QuotationController@delete')->name('quotation.delete');
     Route::get('/quotation/{client}/createWithClient','QuotationController@createWithClient')->name('quotation.createWithClient');
     Route::resource('quotations','QuotationController');
 
-    Route::post('/withdrawals/{withdrawal}/delete','WithdrawalController@delete')->name('withdrawals.delete');
+    // Route::post('/withdrawals/{withdrawal}/delete','WithdrawalController@delete')->name('withdrawals.delete');
     Route::resource('withdrawals','WithdrawalController');
 
     Route::post('/employeeAttachments/delete','EmployeeAttachmentController@delete')->name('employeeAttachments.delete');

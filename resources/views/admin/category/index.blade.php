@@ -19,7 +19,7 @@
     
     $('.delete').click(function () {
         var id = $(this).siblings('.category_id').attr('id');
-        $('#form-d-category').attr('action', '/admin/category/' + id + '/delete');
+        $('#form-d-category').attr('action', '/admin/category/' + id);
     });
     
 </script>
