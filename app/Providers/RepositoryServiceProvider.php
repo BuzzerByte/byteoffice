@@ -29,6 +29,8 @@ use App\Repositories\Interfaces\ICategoryRepository;
 use App\Repositories\Eloquents\CategoryRepository;
 use App\Repositories\Interfaces\ITaxRepository;
 use App\Repositories\Eloquents\TaxRepository;
+use App\Repositories\Interfaces\IWithdrawalRepository;
+use App\Repositories\Eloquents\WithdrawalRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -52,6 +54,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IPurchaseProductRepository::class, PurchaseProductRepository::class);
         $this->app->bind(ICategoryRepository::class, CategoryRepository::class);
         $this->app->bind(ITaxRepository::class, TaxRepository::class);
+        $this->app->bind(IWithdrawalRepository::class, WithdrawalRepository::class);
 
     }
 
