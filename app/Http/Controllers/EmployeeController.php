@@ -31,50 +31,42 @@ use App\Role;
 use App\Imports\EmployeeImport;
 use App\Exports\EmployeeExport;
 use App\User;
-
+use App\Services\EmployeeService;
 
 class EmployeeController extends Controller
 {
+    protected $employees;
+
+    public function __construct(
+        EmployeeService $employees
+    ){
+        $this->employees = $employees;
+    }
+
     public function index()
     {
         if(Auth::user()->hasRole('admin')){
-            $employees = Employee::where('terminate_status',0)->get();
+            $employees = $this->employees->all();
             return view('admin.employees.index',['employees'=>$employees]);
-        }else{
-            $users = User::where('id',Auth::user()->id)->first();
-            return view('users.profiles.index',['user'=>$users]);
         }
+        // }else{
+        //     $users = User::where('id',Auth::user()->id)->first();
+        //     return view('users.profiles.index',['user'=>$users]);
+        // }
     }
 
     public function create()
     {
-        $roles = Role::all();
+        $roles = $this->employees->getRoles();
         return view('admin.employees.create',['roles'=>$roles]);
     }
 
 
     public function add(Request $request){
-        if ($request->hasFile('employee_photo')) {
-            $image = $request->file('employee_photo');
-            $name = $image->getClientOriginalName();
-            $destinationPath = public_path('/employeesPhoto');
-            $image->move($destinationPath, $name);
-        }else{
-            $name = NULL;
-        }
-        $store = Employee::create([
-            'f_name'=>$request->first_name,
-            'l_name'=>$request->last_name,
-            'dob'=>$request->date_of_birth,
-            'marital_status'=>$request->marital_status,
-            'country'=>$request->country,
-            'blood_group'=>$request->blood_group,
-            'id_number'=>$request->id_number,
-            'religious'=>$request->religious,
-            'gender'=>$request->gender,
-            'photo'=>$name,
-            'terminate_status'=>0
-        ]);
+        $file_name = $this->employees->avatar($request);
+        
+        $employee = $this->employees->store($request, $file_name);
+        
         return redirect()->action('EmployeeController@index');   
     }
 
