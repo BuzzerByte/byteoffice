@@ -64,9 +64,7 @@ class EmployeeController extends Controller
 
     public function add(Request $request){
         $file_name = $this->employees->avatar($request);
-        
         $employee = $this->employees->store($request, $file_name);
-        
         return redirect()->action('EmployeeController@index');   
     }
 
@@ -78,18 +76,13 @@ class EmployeeController extends Controller
     }
 
     public function downloadSample(){
-        $file_path = storage_path() . "/app/downloads/employee.csv";
-        $headers = array(
-            'Content-Type: csv',
-            'Content-Disposition: attachment; filename=employee.csv',
-        );
-        if (file_exists($file_path)) {
+        $result = $this->employees->downloadSample();
+        if ($result['file_exists']) {
             flash()->success('File Downloaded');
-            return Response::download($file_path, 'employee.csv', $headers);
+            return Response::download($result['file_path'], 'employee.csv', $result['headers']);
         } else {
             flash()->error('Something went wrong!');
         }
-        
         return redirect()->route('employees.import');
     }
 
