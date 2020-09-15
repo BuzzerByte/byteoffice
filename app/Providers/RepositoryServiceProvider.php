@@ -31,6 +31,10 @@ use App\Repositories\Interfaces\ITaxRepository;
 use App\Repositories\Eloquents\TaxRepository;
 use App\Repositories\Interfaces\IWithdrawalRepository;
 use App\Repositories\Eloquents\WithdrawalRepository;
+use App\Repositories\Interfaces\IRoleRepository;
+use App\Repositories\Eloquents\RoleRepository;
+use App\Repositories\Interfaces\IEmployeeRepository;
+use App\Repositories\Eloquents\EmployeeRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -55,7 +59,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ICategoryRepository::class, CategoryRepository::class);
         $this->app->bind(ITaxRepository::class, TaxRepository::class);
         $this->app->bind(IWithdrawalRepository::class, WithdrawalRepository::class);
-
+        $this->app->bind(IRoleRepository::class, RoleRepository::class);
+        $this->app->bind(IEmployeeRepository::class, EmployeeRepository::class);
     }
 
     /**

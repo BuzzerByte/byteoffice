@@ -41,4 +41,17 @@ class EmployeeService{
     public function store(Request $request, $file_name){
         return $this->employees->store($request, $file_name);
     }
+
+    public function downloadSample(){
+        $file_path = storage_path() . "/app/downloads/employee.csv";
+        $headers = array(
+            'Content-Type: csv',
+            'Content-Disposition: attachment; filename=employee.csv',
+        );
+        return [
+            'file_exists' => file_exists($file_path),
+            'file_path'=> $file_path,
+            'headers'=>$headers
+        ];
+    }
 }
