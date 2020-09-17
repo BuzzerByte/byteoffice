@@ -87,97 +87,26 @@ class EmployeeController extends Controller
     }
 
     public function importEmployee(Request $request){
-        $employee_id = [];
-        if ($request->hasFile('importEmployee')) {
-            $extension = File::extension($request->importEmployee->getClientOriginalName());
-            if ($extension == "csv") {
-                $path = $request->importEmployee->getRealPath();
-                $data = Excel::import(new EmployeeImport, $request->importEmployee);
-                if(!empty($data)){
-                    foreach($data as $record){
-                        if(in_array($record->id_number,$employee_id)){
-                            continue;   
-                        }else if(Employee::where('id_number','=',$record->id_number)->exists()){
-                            continue;
-                        }else{
-                            $employee_id[] = $record->id_number;
-                            $record->dob = date('Y-m-d');
-                            $insert_employee_data[] = [
-                                'name'   => $record->first_name." ".$record->last_name,
-                                'email'  => $record->email,
-                                'f_name' => $record->first_name,
-                                'l_name' => $record->last_name,
-                                'marital_status'=>$record->marital_status,
-                                'dob' => $record->dob,
-                                'id_number' => $record->id_number,
-                                'gender'=> $record->gender,
-                                'country'=>'-',
-                                'blood_group'=>'-',
-                                'religious'=>'-',
-                                'terminate_status'=>0
-                            ];
-                        }
-                    }
-                    if(!empty($insert_employee_data)){
-                        $insert_employee = DB::table('employees')->insert($insert_employee_data);
-                        // Session::flash('success', 'Employees Data Imported!');
-                        flash()->success('Employees Data Imported');
-                    }else{
-                        // Session::flash('warning', 'Duplicated record, please check your csv file!');
-                        flash()->warning('Duplicated record, please check your csv file!');
-                    }
-                }else{
-                    // Session::flash('warning', 'There is no data in csv file!');
-                    flash()->warning('There is no data in csv file!');
-                }
-            }else{
-                // Session::flash('warning', 'Selected file is not csv!');
-                flash()->warning('Selected file is not csv!');
-            }
+        $result = $this->clients->import($request);
+        if($result['result'] && $result['status']=='success'){
+            flash()->success($result['message']);
+        }else if($result['result'] && $result['status']=='warning'){
+            flash()->warning($result['message']);
         }else{
-            // Session::flash('failure', 'Something went wrong!');
-            flash()->error('Something went wrong!');
+            flash()->error($result['message']);
         }
         return redirect()->route('employees.index'); 
     }
 
     public function store(Request $request)
     {
-        if ($request->hasFile('employee_photo')) {
-            $image = $request->file('employee_photo');
-            $name = $image->getClientOriginalName();
-            $destinationPath = public_path('/employeesPhoto');
-            $image->move($destinationPath, $name);
-        }else{
-            $name = NULL;
-        }
-        $store = DB::table('employees')->insertGetId([
-            'name'  =>$request->first_name." ".$request->last_name,
-            'email' =>$request->email,
-            'f_name'=>$request->first_name,
-            'l_name'=>$request->last_name,
-            'dob'=>$request->date_of_birth,
-            'marital_status'=>$request->marital_status,
-            'country'=>$request->country,
-            'blood_group'=>$request->blood_group,
-            'id_number'=>$request->id_number,
-            'religious'=>$request->religious,
-            'gender'=>$request->gender,
-            'photo'=>$name,
-            'terminate_status'=>0,
-            'user_id'=> Auth::user()->id,
-            'created_at'=>Carbon::now(),
-            'updated_at'=>Carbon::now(),
-        ]);
-        $employee = Employee::where('id',$store)->first();
-        // return response()->json($request->role);
-        // $user->attachRole($request->role);//role_ id
-
+        $file_name = $this->employees->avatar($request);
+        $employee = $this->employees->store($request, $file_name);
+        //until here
         $role_employee = new RoleEmployee();
         $role_employee->role_id = $request->role;
-        $role_employee->employee_id = $employee->id;
+        $role_employee->employee_id = $employee['employee']->id;
         $role_employee->save();
-
         return redirect()->route('employees.index');
     }
 

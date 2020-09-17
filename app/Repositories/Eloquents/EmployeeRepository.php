@@ -23,6 +23,8 @@ class EmployeeRepository implements IEmployeeRepository{
 
     public function store(Request $request, $file_name){
         $employee = $this->employees;
+        $employee->name = $request->first_name." ".$request->last_name;
+        $employee->email = $request->email;
         $employee->f_name = $request->first_name;
         $employee->l_name = $request->last_name;
         $employee->dob = $request->date_of_birth;
@@ -34,6 +36,10 @@ class EmployeeRepository implements IEmployeeRepository{
         $employee->gender = $request->gender;
         $employee->photo = $file_name;
         $employee->terminate_status = 0;
-        return $employee->save();
+        $employee->user_id = Auth::user()->id;
+        return [
+            'result'=>$employee->save(),
+            'employee'=>$employee
+        ];
     }
 }
