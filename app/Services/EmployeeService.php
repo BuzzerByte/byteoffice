@@ -5,6 +5,9 @@ namespace App\Services;
 use App\Repositories\Interfaces\IRoleRepository;
 use App\Repositories\Interfaces\IEmployeeRepository;
 use Illuminate\Http\Request;
+use File;
+use App\Imports\EmployeeImport;
+use App\Exports\EmployeeExport;
 
 class EmployeeService{
     protected $roles;
@@ -53,5 +56,27 @@ class EmployeeService{
             'file_path'=> $file_path,
             'headers'=>$headers
         ];
+    }
+
+    public function import(Request $request){
+        $result = [];
+        if ($request->hasFile('importEmployee')) {
+            $extension = File::extension($request->importEmployee->getClientOriginalName());
+            if ($extension == "csv") {
+                $path = $request->importEmployee->getRealPath();
+                $data = Excel::import(new EmployeeImport, $request->importEmployee);
+                if(!empty($data)){
+                    if(!empty($insert_employee_data))
+                        $result = ['result'=>true, 'status'=>'success','message'=>'Employees Data Imported!'];
+                }else{
+                    $result = ['result'=>false, 'status'=>'warning','message'=>'There is no data in csv file!'];
+                }
+            }else{
+                $result = ['result'=>false, 'status'=>'warning','message'=>'Selected file is not csv!'];
+            }
+        }else{
+            $result = ['result'=>false, 'status'=>'warning','message'=>'Something went wrong!'];
+        }
+        return $result;
     }
 }
