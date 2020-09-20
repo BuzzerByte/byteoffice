@@ -4,21 +4,30 @@ namespace App\Services;
 
 use App\Repositories\Interfaces\IRoleRepository;
 use App\Repositories\Interfaces\IEmployeeRepository;
+use App\Repositories\Interfaces\IRoleEmployeeRepository;
+use App\Repositories\Interfaces\IEmployeeAttachmentRepository;
 use Illuminate\Http\Request;
 use File;
 use App\Imports\EmployeeImport;
 use App\Exports\EmployeeExport;
+use Excel;
 
 class EmployeeService{
     protected $roles;
     protected $employees;
+    protected $roleEmployees;
+    protected $employeeAttachments;
 
     public function __construct(
         IRoleRepository $roles,
-        IEmployeeRepository $employees
+        IEmployeeRepository $employees,
+        IRoleEmployeeRepository $roleEmployees,
+        IEmployeeAttachmentRepository $employeeAttachments
     ){
         $this->roles = $roles;
         $this->employees = $employees;
+        $this->roleEmployees = $roleEmployees;
+        $this->employeeAttachments = $employeeAttachments;
     }
 
     public function getRoles(){
@@ -66,8 +75,7 @@ class EmployeeService{
                 $path = $request->importEmployee->getRealPath();
                 $data = Excel::import(new EmployeeImport, $request->importEmployee);
                 if(!empty($data)){
-                    if(!empty($insert_employee_data))
-                        $result = ['result'=>true, 'status'=>'success','message'=>'Employees Data Imported!'];
+                    $result = ['result'=>true, 'status'=>'success','message'=>'Employees Data Imported!'];
                 }else{
                     $result = ['result'=>false, 'status'=>'warning','message'=>'There is no data in csv file!'];
                 }
@@ -78,5 +86,21 @@ class EmployeeService{
             $result = ['result'=>false, 'status'=>'warning','message'=>'Something went wrong!'];
         }
         return $result;
+    }
+
+    public function role(Request $request, $employee){
+        $role_employee = $this->roleEmployees->store($request, $employee);
+        return [
+            'result'=>$role_employee['result'],
+            'role_employee'=>$role_employee['role_employee']
+        ];
+    }
+
+    public function getTerminate(){
+        return $this->employees->getTerminate();
+    }
+
+    public function checkAttachmentsExists(Employee $employee){
+        return $this->employeeAttachments->checkAttachmentsExists($employee);
     }
 }

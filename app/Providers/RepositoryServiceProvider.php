@@ -35,6 +35,8 @@ use App\Repositories\Interfaces\IRoleRepository;
 use App\Repositories\Eloquents\RoleRepository;
 use App\Repositories\Interfaces\IEmployeeRepository;
 use App\Repositories\Eloquents\EmployeeRepository;
+use App\Repositories\Interfaces\IRoleEmployeeRepository;
+use App\Repositories\Eloquents\RoleEmployeeRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -61,6 +63,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IWithdrawalRepository::class, WithdrawalRepository::class);
         $this->app->bind(IRoleRepository::class, RoleRepository::class);
         $this->app->bind(IEmployeeRepository::class, EmployeeRepository::class);
+        $this->app->bind(IRoleEmployeeRepository::class, RoleEmployeeRepository::class);
     }
 
     /**

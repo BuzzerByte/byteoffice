@@ -42,4 +42,11 @@ class EmployeeRepository implements IEmployeeRepository{
             'employee'=>$employee
         ];
     }
+
+    public function getTerminate(){
+        return $this->employees->where('user_id',Auth::user()->id)
+                                ->where('terminate_status',1)
+                                ->orderBy('created_at','asc')
+                                ->get();
+    }
 }

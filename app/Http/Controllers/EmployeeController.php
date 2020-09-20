@@ -49,10 +49,6 @@ class EmployeeController extends Controller
             $employees = $this->employees->all();
             return view('admin.employees.index',['employees'=>$employees]);
         }
-        // }else{
-        //     $users = User::where('id',Auth::user()->id)->first();
-        //     return view('users.profiles.index',['user'=>$users]);
-        // }
     }
 
     public function create()
@@ -87,7 +83,7 @@ class EmployeeController extends Controller
     }
 
     public function importEmployee(Request $request){
-        $result = $this->clients->import($request);
+        $result = $this->employees->import($request);
         if($result['result'] && $result['status']=='success'){
             flash()->success($result['message']);
         }else if($result['result'] && $result['status']=='warning'){
@@ -102,11 +98,7 @@ class EmployeeController extends Controller
     {
         $file_name = $this->employees->avatar($request);
         $employee = $this->employees->store($request, $file_name);
-        //until here
-        $role_employee = new RoleEmployee();
-        $role_employee->role_id = $request->role;
-        $role_employee->employee_id = $employee['employee']->id;
-        $role_employee->save();
+        $role_employee = $this->employees->role($request, $employee);
         return redirect()->route('employees.index');
     }
 
@@ -115,15 +107,15 @@ class EmployeeController extends Controller
     }
 
     public function terminateList(){
-        $employees = Employee::where('terminate_status',1)->get();
+        $employees = $this->employees->getTerminate();
         return view('admin.employees.terminate',['employees'=>$employees]);
     }
 
     public function show(Employee $employee)
     {   
-        // return response()->json($employee);
-        $roles = Role::all();
-        if(DB::table('employee_attachments')->where('user_id',$employee->id)->exists()){
+        // $roles = Role::all();
+        $roles = $this->employees->getRoles();
+        if($this->employees->checkAttachmentsExists($employee)){
             $employee_attachments = UserAttachment::where('user_id',$employee->id)->get();
         }else{
             $employee_attachments = null;
