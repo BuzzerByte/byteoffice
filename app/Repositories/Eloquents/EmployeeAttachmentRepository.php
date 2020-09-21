@@ -15,7 +15,11 @@ class EmployeeAttachmentRepository implements IEmployeeAttachmentRepository{
         $this->employeeAttachment = $employeeAttachments;
     }
 
-    public function checkAttachmentsExists(Employee $employee){
-        return $this->employeeAttachment->where('employee_id',$employee->id)->first() == null ? false: true;
+    public function checkAttachmentsExistsById($id){
+        return $this->employeeAttachment->where('employee_id',$id)->first() == null ? false: true;
+    }
+
+    public function getAttachmentById($id){
+        return $this->employeeAttachment->where('employee_id',$id)->get();
     }
 }

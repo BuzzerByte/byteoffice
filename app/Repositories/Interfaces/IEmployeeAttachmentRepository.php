@@ -6,5 +6,6 @@ use App\Employee;
 use App\EmployeeAttachment;
 
 interface IEmployeeAttachmentRepository{
-    public function checkAttachmentsExists(Employee $employee);
+    public function checkAttachmentsExistsById($id);
+    public function getAttachmentById($id);
 }

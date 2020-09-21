@@ -115,8 +115,9 @@ class EmployeeController extends Controller
     {   
         // $roles = Role::all();
         $roles = $this->employees->getRoles();
-        if($this->employees->checkAttachmentsExists($employee)){
-            $employee_attachments = UserAttachment::where('user_id',$employee->id)->get();
+        if($this->employees->checkAttachmentsExistsById($employee->id)){
+            $employee_attachments = $this->employees->getAttachmentById($employee->id);
+            // $employee_attachments = UserAttachment::where('user_id',$employee->id)->get();
         }else{
             $employee_attachments = null;
         }
@@ -128,7 +129,7 @@ class EmployeeController extends Controller
     }
 
     public function reportTo(Employee $employee){
-        if(EmployeeSupervisor::where('employee_id',$employee->id)->exists()){
+        if($this->employees->checkSupervisorsExists($employee->id)){
             $supervisors = EmployeeSupervisor::where('employee_id',$employee->id)->get();
         }else{
             $supervisors = null;
