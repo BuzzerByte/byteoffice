@@ -45,11 +45,11 @@ class EmployeeAttachmentController extends Controller
         }else{
             $name = "-";
         }
-        $store = UserAttachment::create([
+        $store = EmployeeAttachment::create([
             'name'=>$name,
             'description'=>$request->description,
             'added_by'=>Auth::user()->name,
-            'user_id'=>$request->user_id
+            'employee_id'=>$request->user_id
         ]);
         return redirect()->route('employees.show',$request->user_id);
     }

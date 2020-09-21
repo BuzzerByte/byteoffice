@@ -37,6 +37,10 @@ use App\Repositories\Interfaces\IEmployeeRepository;
 use App\Repositories\Eloquents\EmployeeRepository;
 use App\Repositories\Interfaces\IRoleEmployeeRepository;
 use App\Repositories\Eloquents\RoleEmployeeRepository;
+use App\Repositories\Interfaces\IEmployeeAttachmentRepository;
+use App\Repositories\Eloquents\EmployeeAttachmentRepository;
+use App\Repositories\Interfaces\IEmployeeSupervisorRepository;
+use App\Repositories\Eloquents\EmployeeSupervisorRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -64,6 +68,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IRoleRepository::class, RoleRepository::class);
         $this->app->bind(IEmployeeRepository::class, EmployeeRepository::class);
         $this->app->bind(IRoleEmployeeRepository::class, RoleEmployeeRepository::class);
+        $this->app->bind(IEmployeeAttachmentRepository::class, EmployeeAttachmentRepository::class);
+        $this->app->bind(IEmployeeSupervisorRepository::class, EmployeeSupervisorRepository::class);
     }
 
     /**
