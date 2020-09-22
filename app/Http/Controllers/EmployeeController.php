@@ -130,18 +130,21 @@ class EmployeeController extends Controller
 
     public function reportTo(Employee $employee){
         if($this->employees->checkSupervisorsExists($employee->id)){
-            $supervisors = EmployeeSupervisor::where('employee_id',$employee->id)->get();
+            $this->employees->getSupervisoryById($employee->id);
         }else{
             $supervisors = null;
         }
 
-        if(EmployeeSubordinate::where('employee_id',$employee->id)->exists()){
-            $subordinates = EmployeeSubordinate::where('employee_id',$employee->id)->get();
+        if($this->employees->checkSubordinatesExists($employee->id)){
+            $this->employees->getSubordinateById($employee->id);
+            // $subordinates = EmployeeSubordinate::where('employee_id',$employee->id)->get();
         }else{
             $subordinates = null;
         }
-        $employees = Employee::all();
-        $departments = Department::all();
+        $employees = $this->employees->all();
+        // $employees = Employee::all();
+        $departments = $this->employees->getDepartments();
+        // $departments = Department::all();
         
         return view('admin.employeeReportTo.index',[
             'employee'=>$employee,
@@ -153,21 +156,16 @@ class EmployeeController extends Controller
     }
 
     public function directDeposit(Employee $employee){
-        if(EmployeeDeposit::where('employee_id',$employee->id)->exists()){
-            $deposit = EmployeeDeposit::where('employee_id',$employee->id)->first();
+        if($this->employees->checkDepositExists($employee->id)){
+            $deposit = $this->employees->getDepositById($employee->id);
         }else{
-            $depositId = DB::table('employee_deposits')->insertGetId([
-                'employee_id'=>$employee->id,
-                'created_at'=>Carbon::now(),
-                'updated_at'=>Carbon::now()
-            ]);
-            $deposit = EmployeeDeposit::where('id',$depositId)->first();
+            $deposit = $this->employees->storeDepositById($employee->id);
         }
         return view('admin.employeeDirectDeposit.index',['employee'=>$employee,'deposit'=>$deposit]);
     }
 
     public function employeeLogin(Employee $employee){
-        if(EmployeeLogin::where('employee_id',$employee->id)->exists()){
+        if($this->employees->checkLoginExists($employee->id)){
             $login = EmployeeLogin::where('employee_id',$employee->id)->first();
         }else{
             $loginId = DB::table('employee_logins')->insertGetId([
