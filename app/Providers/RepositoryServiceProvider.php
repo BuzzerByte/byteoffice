@@ -41,6 +41,14 @@ use App\Repositories\Interfaces\IEmployeeAttachmentRepository;
 use App\Repositories\Eloquents\EmployeeAttachmentRepository;
 use App\Repositories\Interfaces\IEmployeeSupervisorRepository;
 use App\Repositories\Eloquents\EmployeeSupervisorRepository;
+use App\Repositories\Interfaces\IEmployeeSubordinateRepository;
+use App\Repositories\Eloquents\EmployeeSubordinateRepository;
+use App\Repositories\Interfaces\IDepartmentRepository;
+use App\Repositories\Eloquents\DepartmentRepository;
+use App\Repositories\Interfaces\IEmployeeDepositRepository;
+use App\Repositories\Eloquents\EmployeeDepositRepository;
+use App\Repositories\Interfaces\IEmployeeLoginRepository;
+use App\Repositories\Eloquents\EmployeeLoginRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -70,6 +78,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IRoleEmployeeRepository::class, RoleEmployeeRepository::class);
         $this->app->bind(IEmployeeAttachmentRepository::class, EmployeeAttachmentRepository::class);
         $this->app->bind(IEmployeeSupervisorRepository::class, EmployeeSupervisorRepository::class);
+        $this->app->bind(IEmployeeSubordinateRepository::class, EmployeeSubordinateRepository::class);
+        $this->app->bind(IDepartmentRepository::class, DepartmentRepository::class);
+        $this->app->bind(IEmployeeDepositRepository::class, EmployeeDepositRepository::class);
+        $this->app->bind(IEmployeeLoginRepository::class, EmployeeLoginRepository::class);
     }
 
     /**

@@ -7,6 +7,10 @@ use App\Repositories\Interfaces\IEmployeeRepository;
 use App\Repositories\Interfaces\IRoleEmployeeRepository;
 use App\Repositories\Interfaces\IEmployeeAttachmentRepository;
 use App\Repositories\Interfaces\IEmployeeSupervisorRepository;
+use App\Repositories\Interfaces\IEmployeeSubordinateRepository;
+use App\Repositories\Interfaces\IDepartmentRepository;
+use App\Repositories\Interfaces\IEmployeeDepositRepository;
+use App\Repositories\Interfaces\IEmployeeLoginRepository;
 use Illuminate\Http\Request;
 use File;
 use App\Imports\EmployeeImport;
@@ -19,19 +23,31 @@ class EmployeeService{
     protected $roleEmployees;
     protected $employeeAttachments;
     protected $employeeSupervisors;
+    protected $employeeSubordinates;
+    protected $departments;
+    protected $employeeDeposits;
+    protected $employeeLogins;
 
     public function __construct(
         IRoleRepository $roles,
         IEmployeeRepository $employees,
         IRoleEmployeeRepository $roleEmployees,
         IEmployeeAttachmentRepository $employeeAttachments,
-        IEmployeeSupervisorRepository $employeeSupervisors
+        IEmployeeSupervisorRepository $employeeSupervisors,
+        IEmployeeSubordinateRepository $employeeSubordinates,
+        IDepartmentRepository $departments,
+        IEmployeeDepositRepository $employeeDeposits,
+        IEmployeeLoginRepository $employeeLogins
     ){
         $this->roles = $roles;
         $this->employees = $employees;
         $this->roleEmployees = $roleEmployees;
         $this->employeeAttachments = $employeeAttachments;
         $this->employeeSupervisors = $employeeSupervisors;
+        $this->employeeSubordinates = $employeeSubordinates;
+        $this->departments = $departments;
+        $this->employeeDeposits = $employeeDeposits;
+        $this->employeeLogins = $employeeLogins;
     }
 
     public function getRoles(){
@@ -114,5 +130,37 @@ class EmployeeService{
 
     public function checkSupervisorsExists($id){
         return $this->employeeSupervisors->checkSupervisorsExistsById($id);
+    }
+
+    public function getSupervisoryById($id){
+        return $this->employeeSupervisors->getSupervisoryById($id);
+    }
+
+    public function checkSubordinatesExists($id){
+        return $this->employeeSubordinates->checkSubordinatesExists($id);
+    }
+
+    public function getSubordinateById($id){
+        return $this->employeeSubordinates->getSubordinateById($id);
+    }
+
+    public function getDepartments(){
+        return $this->departments->all();
+    }
+
+    public function checkDepositExists($id){
+        return $this->employeeDeposits->checkDepositExists($id);
+    }
+
+    public function getDepositById($id){
+        return $this->employeeDeposits->getDepositById($id);
+    }
+
+    public function storeDepositById($id){
+        return $this->employeeDeposits->storeDepositById($id);
+    }
+
+    public function checkLoginExists($id){
+        return $this->employeeLogins->checkLoginExists($id);
     }
 }
