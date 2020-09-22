@@ -19,7 +19,9 @@ class EmployeeDepositRepository implements IEmployeeDepositRepository{
     }
 
     public function getDepositById($id){
-        return $this->employeeDeposits->where('employee_id',$id)->first();
+        return [
+            'deposit'=>$this->employeeDeposits->where('employee_id',$id)->first()
+        ];
     }
 
     public function storeDepositById($id){

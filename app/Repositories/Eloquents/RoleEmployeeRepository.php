@@ -24,4 +24,11 @@ class RoleEmployeeRepository implements IRoleEmployeeRepository{
             'role_employee' => $role_employee
         ];
     }
+
+    public function destroy($id){
+        $delete = $this->roleEmployees->where('employee_id',$id);
+        return [
+            'result' => $delete->delete()
+        ];
+    }
 }
