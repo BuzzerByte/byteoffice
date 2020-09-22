@@ -161,22 +161,16 @@ class EmployeeController extends Controller
         }else{
             $deposit = $this->employees->storeDepositById($employee->id);
         }
-        return view('admin.employeeDirectDeposit.index',['employee'=>$employee,'deposit'=>$deposit]);
+        return view('admin.employeeDirectDeposit.index',['employee'=>$employee,'deposit'=>$deposit['deposit']]);
     }
 
     public function employeeLogin(Employee $employee){
         if($this->employees->checkLoginExists($employee->id)){
-            $login = EmployeeLogin::where('employee_id',$employee->id)->first();
+            $login = $this->employees->getLoginById($employee->id);
         }else{
-            $loginId = DB::table('employee_logins')->insertGetId([
-                'name'=>$employee->f_name,
-                'employee_id'=>$employee->id,
-                'created_at'=>Carbon::now(),
-                'updated_at'=>Carbon::now()
-            ]);
-            $login = EmployeeLogin::where('id',$loginId)->first();
+            $login = $this->employees->storeLogin($employee->id, $employee->f_name);
         }
-        return view('admin.employeeLogins.index',['employee'=>$employee,'login'=>$login]);
+        return view('admin.employeeLogins.index',['employee'=>$employee,'login'=>$login['login']]);
     }
     
     /**
@@ -200,43 +194,13 @@ class EmployeeController extends Controller
     public function update(Request $request, Employee $employee)
     {
         if(Auth::user()->hasRole('admin')){
-            if ($request->hasFile('employee_photo')) {
-                $image = $request->file('employee_photo');
-                $name = $image->getClientOriginalName();
-                $destinationPath = public_path('/employeesPhoto');
-                $image->move($destinationPath, $name);
-            }else{
-                $name = NULL;
-            }
-            $update = Employee::where('id',$employee->id)->update([
-                'name'  =>$request->first_name." ".$request->last_name,
-                'email' =>$request->email,
-                'f_name'=>$request->first_name,
-                'l_name'=>$request->last_name,
-                'dob'   =>$request->date_of_birth,
-                'marital_status'=>$request->marital_status,
-                'country'=>$request->country,
-                'blood_group'=>$request->blood_group,
-                'id_number'=>$request->id_number,
-                'religious'=>$request->religious,
-                'gender'=>$request->gender,
-                'photo'=>$name,
-                'updated_at'=>Carbon::now()
-            ]);
-            $employee = Employee::where('id',$employee->id)->first();
-
-            $delete = RoleEmployee::where('role_id',$request->role);
-            $delete->delete();
-
-            $role_employee = new RoleEmployee();
-            $role_employee->role_id = $request->role;
-            $role_employee->employee_id = $employee->id;
-            $role_employee->save();
-            return redirect()->route('employees.show',$employee->id);
+            $file_name = $this->employees->avatar($request);
+            $employee = $this->employees->update($request, $employee->id, $file_name);
+            $delete = $this->employees->deleteRoleById($employee['employee']->id);
+            $role_employee = $this->employees->role($request, $employee);
+            return redirect()->route('employees.show',$employee['employee']->id);
         }else{
-            $update = Employee::where('id',$employee->id)->update([
-                'password'  =>bcrypt($request->password),
-            ]);
+            $update = $this->employees->updatePassword($request->password, $employee->id);
             return redirect()->route('employees.show',$employee->id);
         }  
     }

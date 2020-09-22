@@ -163,4 +163,24 @@ class EmployeeService{
     public function checkLoginExists($id){
         return $this->employeeLogins->checkLoginExists($id);
     }
+
+    public function getLoginById($id){
+        return $this->employeeLogins->getLoginById($id);
+    }
+
+    public function storeLogin($id, $f_name){
+        return $this->employeeLogins->storeLogin($id, $f_name);
+    }
+
+    public function update(Request $request, $id, $file_name){
+        return $this->employees->update($request, $id, $file_name);
+    }
+
+    public function deleteRoleById($id){
+        return $this->roleEmployees->destroy($id);
+    }
+
+    public function updatePassword($password, $id){
+        return $this->employees->updatePassword($password, $id);
+    }
 }

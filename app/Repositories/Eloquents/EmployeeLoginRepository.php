@@ -17,4 +17,20 @@ class EmployeeLoginRepository implements IEmployeeLoginRepository{
     public function checkLoginExists($id){
         return $this->employeeLogins->where('employee_id',$id)->first() == null ? false: true;
     }
+
+    public function getLoginById($id){
+        return [
+            'login'=>$this->employeeLogins->where('employee_id',$id)->first()
+        ];
+    }
+
+    public function storeLogin($id, $f_name){
+        $login = $this->employeeLogins;
+        $login->name = $f_name;
+        $login->employee_id = $id;
+        return [
+            'result' => $login->save(),
+            'login' => $login
+        ];
+    }
 }
