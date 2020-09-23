@@ -11,6 +11,10 @@ use App\Repositories\Interfaces\IEmployeeSubordinateRepository;
 use App\Repositories\Interfaces\IDepartmentRepository;
 use App\Repositories\Interfaces\IEmployeeDepositRepository;
 use App\Repositories\Interfaces\IEmployeeLoginRepository;
+use App\Repositories\Interfaces\IContactDetailRepository;
+use App\Repositories\Interfaces\IEmployeeDependentRepository;
+use App\Repositories\Interfaces\IEmployeeCommencementRepository;
+use App\Repositories\Interfaces\IJobHistoryRepository;
 use Illuminate\Http\Request;
 use File;
 use App\Imports\EmployeeImport;
@@ -27,6 +31,10 @@ class EmployeeService{
     protected $departments;
     protected $employeeDeposits;
     protected $employeeLogins;
+    protected $contactDetails;
+    protected $employeeDependents;
+    protected $employeeCommencements;
+    protected $jobHistories;
 
     public function __construct(
         IRoleRepository $roles,
@@ -37,7 +45,11 @@ class EmployeeService{
         IEmployeeSubordinateRepository $employeeSubordinates,
         IDepartmentRepository $departments,
         IEmployeeDepositRepository $employeeDeposits,
-        IEmployeeLoginRepository $employeeLogins
+        IEmployeeLoginRepository $employeeLogins,
+        IContactDetailRepository $contactDetails,
+        IEmployeeDependentRepository $employeeDependents,
+        IEmployeeCommencementRepository $employeeCommencements,
+        IJobHistoryRepository $jobHistories
     ){
         $this->roles = $roles;
         $this->employees = $employees;
@@ -48,6 +60,10 @@ class EmployeeService{
         $this->departments = $departments;
         $this->employeeDeposits = $employeeDeposits;
         $this->employeeLogins = $employeeLogins;
+        $this->contactDetails = $contactDetails;
+        $this->employeeDependents = $employeeDependents;
+        $this->employeeCommencements = $employeeCommencements;
+        $this->jobHistories = $jobHistories;
     }
 
     public function getRoles(){
@@ -182,5 +198,49 @@ class EmployeeService{
 
     public function updatePassword($password, $id){
         return $this->employees->updatePassword($password, $id);
+    }
+
+    public function destroy($id){
+        return $this->employees->destroy($id);
+    }
+
+    public function checkContactDetailExists($id){
+        return $this->contactDetails->checkContactDetailExists($id);
+    }
+
+    public function getContactDetailById($id){
+        return $this->contactDetails->getContactDetailById($id);
+    }
+
+    public function storeContactDetailById($id){
+        return $this->contactDetails->storeContactDetailById($id);
+    }
+
+    public function checkDependentExists($id){
+        return $this->employeeDependents->checkDependentExists($id);
+    }
+
+    public function getDependentById($id){
+        return $this->employeeDependents->getDependentById($id);
+    }
+
+    public function checkCommencementExists($id){
+        return $this->employeeCommencements->checkCommencementExists($id);
+    }
+
+    public function getCommencementById($id){
+        return $this->employeeCommencements->getCommencementById($id);
+    }
+
+    public function storeCommencementById($id){
+        return $this->employeeCommencements->storeCommencementById($id);
+    }
+
+    public function checkJobHistoryExists($id){
+        return $this->jobHistories->checkJobHistoryExists($id);
+    }
+
+    public function getJobHistoryById($id){
+        return $this->jobHistories->getJobHistoryById($id);
     }
 }

@@ -10,4 +10,5 @@ interface IEmployeeRepository {
     public function getTerminate();
     public function update(Request $request, $id, $file_name);
     public function updatePassword($password, $id);
+    public function destroy($id);
 }

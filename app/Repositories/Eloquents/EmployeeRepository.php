@@ -78,4 +78,11 @@ class EmployeeRepository implements IEmployeeRepository{
             'employee' => $employee
         ];
     }
+
+    public function destroy($id){
+        $employee = $this->employees->find($id);
+        return [
+            'result' => $employee->delete()
+        ];
+    }
 }
