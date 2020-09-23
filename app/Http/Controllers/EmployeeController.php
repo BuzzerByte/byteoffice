@@ -213,9 +213,8 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        $delete = Employee::find($employee->id);
-        $delete->delete();
-        if($delete){
+        $delete = $this->employees->destroy($employee->id);
+        if($delete['result']){
             Session::flash('success', 'Employee Data Deleted!');
         }else{
             Session::flash('failure', 'Something went wrong!');
@@ -224,9 +223,8 @@ class EmployeeController extends Controller
     }
 
     public function delete(Employee $employee){
-        $delete = Employee::find($employee->id);
-        $delete->delete();
-        if($delete){
+        $delete = $this->employees->destroy($employee->id);
+        if($delete['result']){
             Session::flash('success', 'Employee Data Deleted!');
         }else{
             Session::flash('failure', 'Something went wrong!');
@@ -235,22 +233,17 @@ class EmployeeController extends Controller
     }
 
     public function contactDetails(Employee $employee){
-        if(ContactDetail::where('employee_id',$employee->id)->exists()){
-            $contactDetailId = ContactDetail::where('employee_id',$employee->id)->first()->id;
+        if($this->employees->checkContactDetailExists($employee->id)){
+            $contactDetailId = $this->employees->getContactDetailById($employee->id);
         }else{
-            $contactDetailId = DB::table('contact_details')->insertGetId(
-                ['employee_id'=>$employee->id,
-                'created_at'=>Carbon::now(),
-                'updated_at'=>Carbon::now()]
-            );
+            $contactDetailId = $this->employees->storeContactDetailById($employee->id);
         }
-        
-        return redirect()->route('contactDetails.show',$contactDetailId);
+        return redirect()->route('contactDetails.show',$contactDetailId['contactDetail']->id);
     }
 
     public function employeeDependents(Employee $employee){
-        if(employeeDependent::where('employee_id',$employee->id)->exists()){
-            $dependents = EmployeeDependent::where('employee_id',$employee->id)->get();
+        if($this->employees->checkDependentExists($employee->id)){
+            $dependents = $this->employees->getDependentById($employee->id);
         }else{
             $dependents = null;
         }
@@ -258,29 +251,25 @@ class EmployeeController extends Controller
     }
 
     public function employeeCommencements(Employee $employee){
-        if(EmployeeCommencement::where('employee_id',$employee->id)->exists()){
-            $commencements = EmployeeCommencement::where('employee_id',$employee->id)->first();
+        if($this->employees->checkCommencementExists($employee->id)){
+            $commencements = $this->employees->getCommencementById($employee->id);
         }else{
-            $commencementId = DB::table('employee_commencements')->insertGetId([
-                'employee_id' => $employee->id, 
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]);
-            $commencements = EmployeeCommencement::where('employee_id',$commencementId)->first();
+            $commencements = $this->employees->storeCommencementById($employee->id);
         }
-        if(JobHistory::where('employee_id',$employee->id)->exists()){
-            $jobHistories = JobHistory::where('employee_id',$employee->id)->get();
+        
+        if($this->employees->checkJobHistoryExists($employee->id)){
+            $jobHistories = $this->employees->getJobHistoryById($employee->id);
         }else{
             $jobHistories = null;
         }
-        $departments = Department::all();
+        $departments = $this->employees->getDepartments();
         $employeeStatuses = EmployeeStatus::all();
         $jobTitles = JobTitle::all();
         $workShifts = WorkShift::all();
         $jobCategories = JobCategory::all();
         return view('admin.employeeCommencements.index',[
             'employee'=>$employee,
-            'commencement'=>$commencements,
+            'commencement'=>$commencements['employeeCommencement'],
             'jobHistories'=>$jobHistories,
             'departments'=>$departments,
             'employeeStatuses'=>$employeeStatuses,

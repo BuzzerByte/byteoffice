@@ -49,6 +49,14 @@ use App\Repositories\Interfaces\IEmployeeDepositRepository;
 use App\Repositories\Eloquents\EmployeeDepositRepository;
 use App\Repositories\Interfaces\IEmployeeLoginRepository;
 use App\Repositories\Eloquents\EmployeeLoginRepository;
+use App\Repositories\Interfaces\IContactDetailRepository;
+use App\Repositories\Eloquents\ContactDetailRepository;
+use App\Repositories\Interfaces\IEmployeeDependentRepository;
+use App\Repositories\Eloquents\EmployeeDependentRepository;
+use App\Repositories\Interfaces\IEmployeeCommencementRepository;
+use App\Repositories\Eloquents\EmployeeCommencementRepository;
+use App\Repositories\Interfaces\IJobHistoryRepository;
+use App\Repositories\Eloquents\JobHistoryRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -82,6 +90,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IDepartmentRepository::class, DepartmentRepository::class);
         $this->app->bind(IEmployeeDepositRepository::class, EmployeeDepositRepository::class);
         $this->app->bind(IEmployeeLoginRepository::class, EmployeeLoginRepository::class);
+        $this->app->bind(IContactDetailRepository::class, ContactDetailRepository::class);
+        $this->app->bind(IEmployeeDependentRepository::class, EmployeeDependentRepository::class);
+        $this->app->bind(IEmployeeCommencementRepository::class, EmployeeCommencementRepository::class);
+        $this->app->bind(IJobHistoryRepository::class, JobHistoryRepository::class);
     }
 
     /**
