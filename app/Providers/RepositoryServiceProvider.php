@@ -33,6 +33,32 @@ use App\Repositories\Interfaces\IWithdrawalRepository;
 use App\Repositories\Eloquents\WithdrawalRepository;
 use App\Repositories\Interfaces\IRoleRepository;
 use App\Repositories\Eloquents\RoleRepository;
+use App\Repositories\Interfaces\IEmployeeRepository;
+use App\Repositories\Eloquents\EmployeeRepository;
+use App\Repositories\Interfaces\IRoleEmployeeRepository;
+use App\Repositories\Eloquents\RoleEmployeeRepository;
+use App\Repositories\Interfaces\IEmployeeAttachmentRepository;
+use App\Repositories\Eloquents\EmployeeAttachmentRepository;
+use App\Repositories\Interfaces\IEmployeeSupervisorRepository;
+use App\Repositories\Eloquents\EmployeeSupervisorRepository;
+use App\Repositories\Interfaces\IEmployeeSubordinateRepository;
+use App\Repositories\Eloquents\EmployeeSubordinateRepository;
+use App\Repositories\Interfaces\IDepartmentRepository;
+use App\Repositories\Eloquents\DepartmentRepository;
+use App\Repositories\Interfaces\IEmployeeDepositRepository;
+use App\Repositories\Eloquents\EmployeeDepositRepository;
+use App\Repositories\Interfaces\IEmployeeLoginRepository;
+use App\Repositories\Eloquents\EmployeeLoginRepository;
+use App\Repositories\Interfaces\IContactDetailRepository;
+use App\Repositories\Eloquents\ContactDetailRepository;
+use App\Repositories\Interfaces\IEmployeeDependentRepository;
+use App\Repositories\Eloquents\EmployeeDependentRepository;
+use App\Repositories\Interfaces\IEmployeeCommencementRepository;
+use App\Repositories\Eloquents\EmployeeCommencementRepository;
+use App\Repositories\Interfaces\IJobHistoryRepository;
+use App\Repositories\Eloquents\JobHistoryRepository;
+use App\Repositories\Interfaces\IEmployeeStatusRepository;
+use App\Repositories\Eloquents\EmployeeStatusRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -58,6 +84,19 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ITaxRepository::class, TaxRepository::class);
         $this->app->bind(IWithdrawalRepository::class, WithdrawalRepository::class);
         $this->app->bind(IRoleRepository::class, RoleRepository::class);
+        $this->app->bind(IEmployeeRepository::class, EmployeeRepository::class);
+        $this->app->bind(IRoleEmployeeRepository::class, RoleEmployeeRepository::class);
+        $this->app->bind(IEmployeeAttachmentRepository::class, EmployeeAttachmentRepository::class);
+        $this->app->bind(IEmployeeSupervisorRepository::class, EmployeeSupervisorRepository::class);
+        $this->app->bind(IEmployeeSubordinateRepository::class, EmployeeSubordinateRepository::class);
+        $this->app->bind(IDepartmentRepository::class, DepartmentRepository::class);
+        $this->app->bind(IEmployeeDepositRepository::class, EmployeeDepositRepository::class);
+        $this->app->bind(IEmployeeLoginRepository::class, EmployeeLoginRepository::class);
+        $this->app->bind(IContactDetailRepository::class, ContactDetailRepository::class);
+        $this->app->bind(IEmployeeDependentRepository::class, EmployeeDependentRepository::class);
+        $this->app->bind(IEmployeeCommencementRepository::class, EmployeeCommencementRepository::class);
+        $this->app->bind(IJobHistoryRepository::class, JobHistoryRepository::class);
+        $this->app->bind(IEmployeeStatusRepository::class, EmployeeStatusRepository::class);
     }
 
     /**

@@ -42,14 +42,12 @@ class EmployeeController extends Controller
     ){
         $this->employees = $employees;
     }
+  
     public function index()
     {
         if(Auth::user()->hasRole('admin')){
-            $employees = Employee::where('terminate_status',0)->get();
+            $employees = $this->employees->all();
             return view('admin.employees.index',['employees'=>$employees]);
-        }else{
-            $users = User::where('id',Auth::user()->id)->first();
-            return view('users.profiles.index',['user'=>$users]);
         }
     }
 
@@ -61,27 +59,8 @@ class EmployeeController extends Controller
 
 
     public function add(Request $request){
-        if ($request->hasFile('employee_photo')) {
-            $image = $request->file('employee_photo');
-            $name = $image->getClientOriginalName();
-            $destinationPath = public_path('/employeesPhoto');
-            $image->move($destinationPath, $name);
-        }else{
-            $name = NULL;
-        }
-        $store = Employee::create([
-            'f_name'=>$request->first_name,
-            'l_name'=>$request->last_name,
-            'dob'=>$request->date_of_birth,
-            'marital_status'=>$request->marital_status,
-            'country'=>$request->country,
-            'blood_group'=>$request->blood_group,
-            'id_number'=>$request->id_number,
-            'religious'=>$request->religious,
-            'gender'=>$request->gender,
-            'photo'=>$name,
-            'terminate_status'=>0
-        ]);
+        $file_name = $this->employees->avatar($request);
+        $employee = $this->employees->store($request, $file_name);
         return redirect()->action('EmployeeController@index');   
     }
 
@@ -93,113 +72,33 @@ class EmployeeController extends Controller
     }
 
     public function downloadSample(){
-        $file_path = storage_path() . "/app/downloads/employee.csv";
-        $headers = array(
-            'Content-Type: csv',
-            'Content-Disposition: attachment; filename=employee.csv',
-        );
-        if (file_exists($file_path)) {
+        $result = $this->employees->downloadSample();
+        if ($result['file_exists']) {
             flash()->success('File Downloaded');
-            return Response::download($file_path, 'employee.csv', $headers);
+            return Response::download($result['file_path'], 'employee.csv', $result['headers']);
         } else {
             flash()->error('Something went wrong!');
         }
-        
         return redirect()->route('employees.import');
     }
 
     public function importEmployee(Request $request){
-        $employee_id = [];
-        if ($request->hasFile('importEmployee')) {
-            $extension = File::extension($request->importEmployee->getClientOriginalName());
-            if ($extension == "csv") {
-                $path = $request->importEmployee->getRealPath();
-                $data = Excel::import(new EmployeeImport, $request->importEmployee);
-                if(!empty($data)){
-                    foreach($data as $record){
-                        if(in_array($record->id_number,$employee_id)){
-                            continue;   
-                        }else if(Employee::where('id_number','=',$record->id_number)->exists()){
-                            continue;
-                        }else{
-                            $employee_id[] = $record->id_number;
-                            $record->dob = date('Y-m-d');
-                            $insert_employee_data[] = [
-                                'name'   => $record->first_name." ".$record->last_name,
-                                'email'  => $record->email,
-                                'f_name' => $record->first_name,
-                                'l_name' => $record->last_name,
-                                'marital_status'=>$record->marital_status,
-                                'dob' => $record->dob,
-                                'id_number' => $record->id_number,
-                                'gender'=> $record->gender,
-                                'country'=>'-',
-                                'blood_group'=>'-',
-                                'religious'=>'-',
-                                'terminate_status'=>0
-                            ];
-                        }
-                    }
-                    if(!empty($insert_employee_data)){
-                        $insert_employee = DB::table('employees')->insert($insert_employee_data);
-                        // Session::flash('success', 'Employees Data Imported!');
-                        flash()->success('Employees Data Imported');
-                    }else{
-                        // Session::flash('warning', 'Duplicated record, please check your csv file!');
-                        flash()->warning('Duplicated record, please check your csv file!');
-                    }
-                }else{
-                    // Session::flash('warning', 'There is no data in csv file!');
-                    flash()->warning('There is no data in csv file!');
-                }
-            }else{
-                // Session::flash('warning', 'Selected file is not csv!');
-                flash()->warning('Selected file is not csv!');
-            }
+        $result = $this->employees->import($request);
+        if($result['result'] && $result['status']=='success'){
+            flash()->success($result['message']);
+        }else if($result['result'] && $result['status']=='warning'){
+            flash()->warning($result['message']);
         }else{
-            // Session::flash('failure', 'Something went wrong!');
-            flash()->error('Something went wrong!');
+            flash()->error($result['message']);
         }
         return redirect()->route('employees.index'); 
     }
 
     public function store(Request $request)
     {
-        if ($request->hasFile('employee_photo')) {
-            $image = $request->file('employee_photo');
-            $name = $image->getClientOriginalName();
-            $destinationPath = public_path('/employeesPhoto');
-            $image->move($destinationPath, $name);
-        }else{
-            $name = NULL;
-        }
-        $store = DB::table('employees')->insertGetId([
-            'name'  =>$request->first_name." ".$request->last_name,
-            'email' =>$request->email,
-            'f_name'=>$request->first_name,
-            'l_name'=>$request->last_name,
-            'dob'=>$request->date_of_birth,
-            'marital_status'=>$request->marital_status,
-            'country'=>$request->country,
-            'blood_group'=>$request->blood_group,
-            'id_number'=>$request->id_number,
-            'religious'=>$request->religious,
-            'gender'=>$request->gender,
-            'photo'=>$name,
-            'terminate_status'=>0,
-            'user_id'=> Auth::user()->id,
-            'created_at'=>Carbon::now(),
-            'updated_at'=>Carbon::now(),
-        ]);
-        $employee = Employee::where('id',$store)->first();
-        // return response()->json($request->role);
-        // $user->attachRole($request->role);//role_ id
-
-        $role_employee = new RoleEmployee();
-        $role_employee->role_id = $request->role;
-        $role_employee->employee_id = $employee->id;
-        $role_employee->save();
-
+        $file_name = $this->employees->avatar($request);
+        $employee = $this->employees->store($request, $file_name);
+        $role_employee = $this->employees->role($request, $employee);
         return redirect()->route('employees.index');
     }
 
@@ -208,16 +107,17 @@ class EmployeeController extends Controller
     }
 
     public function terminateList(){
-        $employees = Employee::where('terminate_status',1)->get();
+        $employees = $this->employees->getTerminate();
         return view('admin.employees.terminate',['employees'=>$employees]);
     }
 
     public function show(Employee $employee)
     {   
-        // return response()->json($employee);
-        $roles = Role::all();
-        if(DB::table('employee_attachments')->where('user_id',$employee->id)->exists()){
-            $employee_attachments = UserAttachment::where('user_id',$employee->id)->get();
+        // $roles = Role::all();
+        $roles = $this->employees->getRoles();
+        if($this->employees->checkAttachmentsExistsById($employee->id)){
+            $employee_attachments = $this->employees->getAttachmentById($employee->id);
+            // $employee_attachments = UserAttachment::where('user_id',$employee->id)->get();
         }else{
             $employee_attachments = null;
         }
@@ -229,19 +129,22 @@ class EmployeeController extends Controller
     }
 
     public function reportTo(Employee $employee){
-        if(EmployeeSupervisor::where('employee_id',$employee->id)->exists()){
-            $supervisors = EmployeeSupervisor::where('employee_id',$employee->id)->get();
+        if($this->employees->checkSupervisorsExists($employee->id)){
+            $this->employees->getSupervisoryById($employee->id);
         }else{
             $supervisors = null;
         }
 
-        if(EmployeeSubordinate::where('employee_id',$employee->id)->exists()){
-            $subordinates = EmployeeSubordinate::where('employee_id',$employee->id)->get();
+        if($this->employees->checkSubordinatesExists($employee->id)){
+            $this->employees->getSubordinateById($employee->id);
+            // $subordinates = EmployeeSubordinate::where('employee_id',$employee->id)->get();
         }else{
             $subordinates = null;
         }
-        $employees = Employee::all();
-        $departments = Department::all();
+        $employees = $this->employees->all();
+        // $employees = Employee::all();
+        $departments = $this->employees->getDepartments();
+        // $departments = Department::all();
         
         return view('admin.employeeReportTo.index',[
             'employee'=>$employee,
@@ -253,32 +156,21 @@ class EmployeeController extends Controller
     }
 
     public function directDeposit(Employee $employee){
-        if(EmployeeDeposit::where('employee_id',$employee->id)->exists()){
-            $deposit = EmployeeDeposit::where('employee_id',$employee->id)->first();
+        if($this->employees->checkDepositExists($employee->id)){
+            $deposit = $this->employees->getDepositById($employee->id);
         }else{
-            $depositId = DB::table('employee_deposits')->insertGetId([
-                'employee_id'=>$employee->id,
-                'created_at'=>Carbon::now(),
-                'updated_at'=>Carbon::now()
-            ]);
-            $deposit = EmployeeDeposit::where('id',$depositId)->first();
+            $deposit = $this->employees->storeDepositById($employee->id);
         }
-        return view('admin.employeeDirectDeposit.index',['employee'=>$employee,'deposit'=>$deposit]);
+        return view('admin.employeeDirectDeposit.index',['employee'=>$employee,'deposit'=>$deposit['deposit']]);
     }
 
     public function employeeLogin(Employee $employee){
-        if(EmployeeLogin::where('employee_id',$employee->id)->exists()){
-            $login = EmployeeLogin::where('employee_id',$employee->id)->first();
+        if($this->employees->checkLoginExists($employee->id)){
+            $login = $this->employees->getLoginById($employee->id);
         }else{
-            $loginId = DB::table('employee_logins')->insertGetId([
-                'name'=>$employee->f_name,
-                'employee_id'=>$employee->id,
-                'created_at'=>Carbon::now(),
-                'updated_at'=>Carbon::now()
-            ]);
-            $login = EmployeeLogin::where('id',$loginId)->first();
+            $login = $this->employees->storeLogin($employee->id, $employee->f_name);
         }
-        return view('admin.employeeLogins.index',['employee'=>$employee,'login'=>$login]);
+        return view('admin.employeeLogins.index',['employee'=>$employee,'login'=>$login['login']]);
     }
     
     /**
@@ -302,43 +194,13 @@ class EmployeeController extends Controller
     public function update(Request $request, Employee $employee)
     {
         if(Auth::user()->hasRole('admin')){
-            if ($request->hasFile('employee_photo')) {
-                $image = $request->file('employee_photo');
-                $name = $image->getClientOriginalName();
-                $destinationPath = public_path('/employeesPhoto');
-                $image->move($destinationPath, $name);
-            }else{
-                $name = NULL;
-            }
-            $update = Employee::where('id',$employee->id)->update([
-                'name'  =>$request->first_name." ".$request->last_name,
-                'email' =>$request->email,
-                'f_name'=>$request->first_name,
-                'l_name'=>$request->last_name,
-                'dob'   =>$request->date_of_birth,
-                'marital_status'=>$request->marital_status,
-                'country'=>$request->country,
-                'blood_group'=>$request->blood_group,
-                'id_number'=>$request->id_number,
-                'religious'=>$request->religious,
-                'gender'=>$request->gender,
-                'photo'=>$name,
-                'updated_at'=>Carbon::now()
-            ]);
-            $employee = Employee::where('id',$employee->id)->first();
-
-            $delete = RoleEmployee::where('role_id',$request->role);
-            $delete->delete();
-
-            $role_employee = new RoleEmployee();
-            $role_employee->role_id = $request->role;
-            $role_employee->employee_id = $employee->id;
-            $role_employee->save();
-            return redirect()->route('employees.show',$employee->id);
+            $file_name = $this->employees->avatar($request);
+            $employee = $this->employees->update($request, $employee->id, $file_name);
+            $delete = $this->employees->deleteRoleById($employee['employee']->id);
+            $role_employee = $this->employees->role($request, $employee);
+            return redirect()->route('employees.show',$employee['employee']->id);
         }else{
-            $update = Employee::where('id',$employee->id)->update([
-                'password'  =>bcrypt($request->password),
-            ]);
+            $update = $this->employees->updatePassword($request->password, $employee->id);
             return redirect()->route('employees.show',$employee->id);
         }  
     }
@@ -351,9 +213,8 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        $delete = Employee::find($employee->id);
-        $delete->delete();
-        if($delete){
+        $delete = $this->employees->destroy($employee->id);
+        if($delete['result']){
             Session::flash('success', 'Employee Data Deleted!');
         }else{
             Session::flash('failure', 'Something went wrong!');
@@ -362,9 +223,8 @@ class EmployeeController extends Controller
     }
 
     public function delete(Employee $employee){
-        $delete = Employee::find($employee->id);
-        $delete->delete();
-        if($delete){
+        $delete = $this->employees->destroy($employee->id);
+        if($delete['result']){
             Session::flash('success', 'Employee Data Deleted!');
         }else{
             Session::flash('failure', 'Something went wrong!');
@@ -373,22 +233,17 @@ class EmployeeController extends Controller
     }
 
     public function contactDetails(Employee $employee){
-        if(ContactDetail::where('employee_id',$employee->id)->exists()){
-            $contactDetailId = ContactDetail::where('employee_id',$employee->id)->first()->id;
+        if($this->employees->checkContactDetailExists($employee->id)){
+            $contactDetailId = $this->employees->getContactDetailById($employee->id);
         }else{
-            $contactDetailId = DB::table('contact_details')->insertGetId(
-                ['employee_id'=>$employee->id,
-                'created_at'=>Carbon::now(),
-                'updated_at'=>Carbon::now()]
-            );
+            $contactDetailId = $this->employees->storeContactDetailById($employee->id);
         }
-        
-        return redirect()->route('contactDetails.show',$contactDetailId);
+        return redirect()->route('contactDetails.show',$contactDetailId['contactDetail']->id);
     }
 
     public function employeeDependents(Employee $employee){
-        if(employeeDependent::where('employee_id',$employee->id)->exists()){
-            $dependents = EmployeeDependent::where('employee_id',$employee->id)->get();
+        if($this->employees->checkDependentExists($employee->id)){
+            $dependents = $this->employees->getDependentById($employee->id);
         }else{
             $dependents = null;
         }
@@ -396,29 +251,25 @@ class EmployeeController extends Controller
     }
 
     public function employeeCommencements(Employee $employee){
-        if(EmployeeCommencement::where('employee_id',$employee->id)->exists()){
-            $commencements = EmployeeCommencement::where('employee_id',$employee->id)->first();
+        if($this->employees->checkCommencementExists($employee->id)){
+            $commencements = $this->employees->getCommencementById($employee->id);
         }else{
-            $commencementId = DB::table('employee_commencements')->insertGetId([
-                'employee_id' => $employee->id, 
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]);
-            $commencements = EmployeeCommencement::where('employee_id',$commencementId)->first();
+            $commencements = $this->employees->storeCommencementById($employee->id);
         }
-        if(JobHistory::where('employee_id',$employee->id)->exists()){
-            $jobHistories = JobHistory::where('employee_id',$employee->id)->get();
+        
+        if($this->employees->checkJobHistoryExists($employee->id)){
+            $jobHistories = $this->employees->getJobHistoryById($employee->id);
         }else{
             $jobHistories = null;
         }
-        $departments = Department::all();
-        $employeeStatuses = EmployeeStatus::all();
+        $departments = $this->employees->getDepartments();
+        $employeeStatuses = $this->employees->getStatuses();
         $jobTitles = JobTitle::all();
         $workShifts = WorkShift::all();
         $jobCategories = JobCategory::all();
         return view('admin.employeeCommencements.index',[
             'employee'=>$employee,
-            'commencement'=>$commencements,
+            'commencement'=>$commencements['employeeCommencement'],
             'jobHistories'=>$jobHistories,
             'departments'=>$departments,
             'employeeStatuses'=>$employeeStatuses,
