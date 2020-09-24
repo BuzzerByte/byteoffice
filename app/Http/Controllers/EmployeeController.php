@@ -42,7 +42,7 @@ class EmployeeController extends Controller
     ){
         $this->employees = $employees;
     }
-
+  
     public function index()
     {
         if(Auth::user()->hasRole('admin')){
