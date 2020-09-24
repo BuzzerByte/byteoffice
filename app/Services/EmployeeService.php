@@ -68,6 +68,14 @@ class EmployeeService{
         $this->employeeCommencements = $employeeCommencements;
         $this->jobHistories = $jobHistories;
         $this->employeeStatuses = $employeeStatuses;
+
+class EmployeeService{
+    protected $roles;
+
+    public function __construct(
+        IRoleRepository $roles
+    ){
+        $this->roles = $roles;
     }
 
     public function getRoles(){
