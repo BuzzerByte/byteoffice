@@ -263,7 +263,7 @@ class EmployeeController extends Controller
             $jobHistories = null;
         }
         $departments = $this->employees->getDepartments();
-        $employeeStatuses = EmployeeStatus::all();
+        $employeeStatuses = $this->employees->getStatuses();
         $jobTitles = JobTitle::all();
         $workShifts = WorkShift::all();
         $jobCategories = JobCategory::all();

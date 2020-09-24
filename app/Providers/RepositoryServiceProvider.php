@@ -57,6 +57,8 @@ use App\Repositories\Interfaces\IEmployeeCommencementRepository;
 use App\Repositories\Eloquents\EmployeeCommencementRepository;
 use App\Repositories\Interfaces\IJobHistoryRepository;
 use App\Repositories\Eloquents\JobHistoryRepository;
+use App\Repositories\Interfaces\IEmployeeStatusRepository;
+use App\Repositories\Eloquents\EmployeeStatusRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -94,6 +96,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IEmployeeDependentRepository::class, EmployeeDependentRepository::class);
         $this->app->bind(IEmployeeCommencementRepository::class, EmployeeCommencementRepository::class);
         $this->app->bind(IJobHistoryRepository::class, JobHistoryRepository::class);
+        $this->app->bind(IEmployeeStatusRepository::class, EmployeeStatusRepository::class);
     }
 
     /**
