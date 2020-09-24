@@ -15,6 +15,7 @@ use App\Repositories\Interfaces\IContactDetailRepository;
 use App\Repositories\Interfaces\IEmployeeDependentRepository;
 use App\Repositories\Interfaces\IEmployeeCommencementRepository;
 use App\Repositories\Interfaces\IJobHistoryRepository;
+use App\Repositories\Interfaces\IEmployeeStatusRepository;
 use Illuminate\Http\Request;
 use File;
 use App\Imports\EmployeeImport;
@@ -35,6 +36,7 @@ class EmployeeService{
     protected $employeeDependents;
     protected $employeeCommencements;
     protected $jobHistories;
+    protected $employeeStatuses;
 
     public function __construct(
         IRoleRepository $roles,
@@ -49,7 +51,8 @@ class EmployeeService{
         IContactDetailRepository $contactDetails,
         IEmployeeDependentRepository $employeeDependents,
         IEmployeeCommencementRepository $employeeCommencements,
-        IJobHistoryRepository $jobHistories
+        IJobHistoryRepository $jobHistories,
+        IEmployeeStatusRepository $employeeStatuses
     ){
         $this->roles = $roles;
         $this->employees = $employees;
@@ -64,6 +67,7 @@ class EmployeeService{
         $this->employeeDependents = $employeeDependents;
         $this->employeeCommencements = $employeeCommencements;
         $this->jobHistories = $jobHistories;
+        $this->employeeStatuses = $employeeStatuses;
     }
 
     public function getRoles(){
@@ -242,5 +246,9 @@ class EmployeeService{
 
     public function getJobHistoryById($id){
         return $this->jobHistories->getJobHistoryById($id);
+    }
+
+    public function getStatuses(){
+        return $this->employeeStatuses->all();
     }
 }
