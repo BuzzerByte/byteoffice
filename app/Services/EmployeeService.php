@@ -80,10 +80,21 @@ class EmployeeService{
         $this->employeeCommencements = $employeeCommencements;
         $this->jobHistories = $jobHistories;
         $this->employeeStatuses = $employeeStatuses;
+<<<<<<< HEAD
         $this->jobTitles = $jobTitles;
         $this->workShifts = $workShifts;
         $this->jobCategories = $jobCategories;
         $this->employeeSalaries = $employeeSalaries;
+=======
+
+class EmployeeService{
+    protected $roles;
+
+    public function __construct(
+        IRoleRepository $roles
+    ){
+        $this->roles = $roles;
+>>>>>>> e8d99be9b74f33dc995a0c5dfa19e100023d1651
     }
 
     public function getRoles(){
