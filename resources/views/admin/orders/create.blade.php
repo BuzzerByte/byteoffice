@@ -37,7 +37,6 @@
                                     @if(isset($selected_client))
                                     <div class="row">
                                         <div class="col-md-6 col-lg-6 col-sm-6">
-
                                             <label>Client <span class="required" aria-required="true">*</span></label>
                                             <select class="form-control ls-select2" id="selected_client" name="client_id"  style="width: 100%;"
                                                 required>
