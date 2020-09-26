@@ -59,6 +59,14 @@ use App\Repositories\Interfaces\IJobHistoryRepository;
 use App\Repositories\Eloquents\JobHistoryRepository;
 use App\Repositories\Interfaces\IEmployeeStatusRepository;
 use App\Repositories\Eloquents\EmployeeStatusRepository;
+use App\Repositories\Interfaces\IJobTitleRepository;
+use App\Repositories\Eloquents\JobTitleRepository;
+use App\Repositories\Interfaces\IWorkShiftRepository;
+use App\Repositories\Eloquents\WorkShiftRepository;
+use App\Repositories\Interfaces\IJobCategoryRepository;
+use App\Repositories\Eloquents\JobCategoryRepository;
+use App\Repositories\Interfaces\IEmployeeSalaryRepository;
+use App\Repositories\Eloquents\EmployeeSalaryRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -97,6 +105,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IEmployeeCommencementRepository::class, EmployeeCommencementRepository::class);
         $this->app->bind(IJobHistoryRepository::class, JobHistoryRepository::class);
         $this->app->bind(IEmployeeStatusRepository::class, EmployeeStatusRepository::class);
+        $this->app->bind(IWorkShiftRepository::class, WorkShiftRepository::class);
+        $this->app->bind(IJobTitleRepository::class, JobTitleRepository::class);
+        $this->app->bind(IJobCategoryRepository::class, JobCategoryRepository::class);
+        $this->app->bind(IEmployeeSalaryRepository::class, EmployeeSalaryRepository::class);
     }
 
     /**

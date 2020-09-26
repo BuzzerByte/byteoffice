@@ -264,9 +264,12 @@ class EmployeeController extends Controller
         }
         $departments = $this->employees->getDepartments();
         $employeeStatuses = $this->employees->getStatuses();
-        $jobTitles = JobTitle::all();
-        $workShifts = WorkShift::all();
-        $jobCategories = JobCategory::all();
+        // $jobTitles = JobTitle::all();
+        $jobTitles = $this->employees->getJobTitles();
+        // $jobTitles = $this->employees->getJobTitle();
+        $workShifts = $this->employees->getWorkShifts();
+        $jobCategories = $this->employees->getJobCategories();
+        // $jobCategories = JobCategory::all();
         return view('admin.employeeCommencements.index',[
             'employee'=>$employee,
             'commencement'=>$commencements['employeeCommencement'],
@@ -280,16 +283,18 @@ class EmployeeController extends Controller
     }
 
     public function employeeSalaries(Employee $employee){
-        if(EmployeeSalary::where('employee_id',$employee->id)->exists()){
-            $salary = EmployeeSalary::where('employee_id',$employee->id)->first();
+        if($this->employees->checkSalaryExists($employee->id)){
+            $salary = $this->employees->getSalaryById($employee->id);
+            // $salary = EmployeeSalary::where('employee_id',$employee->id)->first();
         }else{
-            $salaryId = DB::table('employee_salaries')->insertGetId([
-                'employee_id'=> $employee->id,
-                'created_at'=>Carbon::now(),
-                'updated_at'=>Carbon::now()
-            ]);
-            $salary = EmployeeSalary::where('id',$salaryId)->first();
+            $salary = $this->employees->storeSalaryById($employee->id);
+            // $salaryId = DB::table('employee_salaries')->insertGetId([
+            //     'employee_id'=> $employee->id,
+            //     'created_at'=>Carbon::now(),
+            //     'updated_at'=>Carbon::now()
+            // ]);
+            // $salary = EmployeeSalary::where('id',$salaryId)->first();
         }
-        return view('admin.employeeSalaries.index',['employee'=>$employee,'salary'=>$salary]);
+        return view('admin.employeeSalaries.index',['employee'=>$employee,'salary'=>$salary['salary']]);
     }
 }

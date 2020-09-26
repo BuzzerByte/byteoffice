@@ -16,6 +16,10 @@ use App\Repositories\Interfaces\IEmployeeDependentRepository;
 use App\Repositories\Interfaces\IEmployeeCommencementRepository;
 use App\Repositories\Interfaces\IJobHistoryRepository;
 use App\Repositories\Interfaces\IEmployeeStatusRepository;
+use App\Repositories\Interfaces\IJobTitleRepository;
+use App\Repositories\Interfaces\IWorkShiftRepository;
+use App\Repositories\Interfaces\IJobCategoryRepository;
+use App\Repositories\Interfaces\IEmployeeSalaryRepository;
 use Illuminate\Http\Request;
 use File;
 use App\Imports\EmployeeImport;
@@ -37,6 +41,10 @@ class EmployeeService{
     protected $employeeCommencements;
     protected $jobHistories;
     protected $employeeStatuses;
+    protected $jobTitles;
+    protected $workShifts;
+    protected $jobCategories;
+    protected $employeeSalaries;
 
     public function __construct(
         IRoleRepository $roles,
@@ -52,7 +60,11 @@ class EmployeeService{
         IEmployeeDependentRepository $employeeDependents,
         IEmployeeCommencementRepository $employeeCommencements,
         IJobHistoryRepository $jobHistories,
-        IEmployeeStatusRepository $employeeStatuses
+        IEmployeeStatusRepository $employeeStatuses,
+        IJobTitleRepository $jobTitles,
+        IWorkShiftRepository $workShifts,
+        IJobCategoryRepository $jobCategories,
+        IEmplolyeeSalaryRepository $employeeSalaries
     ){
         $this->roles = $roles;
         $this->employees = $employees;
@@ -68,6 +80,10 @@ class EmployeeService{
         $this->employeeCommencements = $employeeCommencements;
         $this->jobHistories = $jobHistories;
         $this->employeeStatuses = $employeeStatuses;
+        $this->jobTitles = $jobTitles;
+        $this->workShifts = $workShifts;
+        $this->jobCategories = $jobCategories;
+        $this->employeeSalaries = $employeeSalaries;
     }
 
     public function getRoles(){
@@ -250,5 +266,29 @@ class EmployeeService{
 
     public function getStatuses(){
         return $this->employeeStatuses->all();
+    }
+
+    public function getJobTitle(){
+        return $this->jobTitles->all();
+    }
+
+    public function getWorkShifts(){
+        return $this->workShifts->all();
+    }
+
+    public function getJobCategories(){
+        return $this->jobCategories->all();
+    }
+
+    public function checkSalaryExists($id){
+        return $this->employeeSalaries->checkSalaryExists($id);
+    }
+
+    public function getSalaryById($id){
+        return $this->employeeSalaries->getSalaryById($id);
+    }
+
+    public function storeSalaryById($id){
+        return $this->employeeSalaries->storeSalaryById($id);
     }
 }
