@@ -29,7 +29,6 @@ class AttendanceController extends Controller
     {
         //
         if(Auth::user()->hasRole('admin')){
-            // $departments = Department::all();
             $departments = $this->attendances->getDepartments();
             return view('admin.attendances.index',['departments'=>$departments]);
         }else{
@@ -43,10 +42,8 @@ class AttendanceController extends Controller
     public function setAttendance(Request $request){
         $department_id = (int)$request->department;
         $attendances = $this->attendances->getAttendances($request->department, $request->date);
-        // $attendances = Attendance::where('department_id',$request->department)->where('date',$request->date)->get();
         $departments = $this->attendances->getDepartments();
         $leave = $this->attendances->getLeaveTypes();
-        // $leave = LeaveType::all();
 
         return view('admin.attendances.setAttendance',[
             'attendances'=>$attendances,
@@ -58,7 +55,8 @@ class AttendanceController extends Controller
     }
 
     public function import(){
-        $employees = Employee::all();
+        // $employees = Employee::all();
+        $employees = $this->attendances->getEmployees();
         return view('admin.attendances.import',['employees'=>$employees]);
     }
 
