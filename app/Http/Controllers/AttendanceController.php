@@ -17,17 +17,23 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Imports\AttendanceImport;
 use App\Exports\AttendanceExport;
+use App\Services\AttendanceService;
 
 class AttendanceController extends Controller
 {
+    protected $attendances;
+    public function __construct(AttendanceService $attendances){
+        $this->attendances = $attendances;
+    }
     public function index()
     {
         //
         if(Auth::user()->hasRole('admin')){
-            $departments = Department::all();
+            // $departments = Department::all();
+            $departments = $this->attendances->getDepartments();
             return view('admin.attendances.index',['departments'=>$departments]);
         }else{
-            $departments = Department::all();
+            $departments = $this->attendances->getDepartments();
             $user_id     = Auth::user()->id;
             $attendances = null;
             return view('users.attendances.index',['departments'=>$departments,'id'=>$user_id,'attendances'=>$attendances]);
@@ -36,9 +42,11 @@ class AttendanceController extends Controller
 
     public function setAttendance(Request $request){
         $department_id = (int)$request->department;
-        $attendances = Attendance::where('department_id',$request->department)->where('date',$request->date)->get();
-        $departments = Department::all();
-        $leave = LeaveType::all();
+        $attendances = $this->attendances->getAttendances($request->department, $request->date);
+        // $attendances = Attendance::where('department_id',$request->department)->where('date',$request->date)->get();
+        $departments = $this->attendances->getDepartments();
+        $leave = $this->attendances->getLeaveTypes();
+        // $leave = LeaveType::all();
 
         return view('admin.attendances.setAttendance',[
             'attendances'=>$attendances,

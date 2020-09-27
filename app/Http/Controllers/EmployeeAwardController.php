@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\EmployeeAwardService;
 use App\EmployeeAward;
 use App\Employee;
 use App\Department;
@@ -11,18 +12,23 @@ use Illuminate\Http\Request;
 
 class EmployeeAwardController extends Controller
 {
+    protected $employeeAwards;
+
+    public function __construct(EmployeeAwardService $employeeAwards){
+        $this->employeeAwards = $employeeAwards;
+    }
 
     public function index()
     {
         if(Auth::user()->hasRole('admin')){
-            $awards = EmployeeAward::all();
-            $employees = Employee::all();
-            $departments = Department::all();
+            $awards = $this->employeeAwards->all();
+            $employees = $this->employeeAwards->getEmployees();
+            $departments = $this->employeeAwards->getDepartments();
             return view('admin.employeeAwards.index',['awards'=>$awards,'employees'=>$employees,'departments'=>$departments]);
         }else{
-            $awards = EmployeeAward::all();
-            $employees = Employee::all();
-            $departments = Department::all();
+            $awards = $this->employeeAwards->all();
+            $employees = $this->employeeAwards->getEmployees();
+            $departments = $this->employeeAwards->getDepartments();
             return view('users.awards.index',['awards'=>$awards,'employees'=>$employees,'departments'=>$departments]);
         }
     }
@@ -30,14 +36,7 @@ class EmployeeAwardController extends Controller
     public function store(Request $request)
     {
         $request->month = \Carbon\Carbon::parse($request->month)->format('Y-m-d');
-        $store = EmployeeAward::create([
-            'department_id'=>(int)$request->department_id,
-            'employee_id'=>(int)$request->employee_id,
-            'award'=>$request->award_name,
-            'gift'=>$request->gift_item,
-            'amount'=>$request->award_amount,
-            'month'=>$request->month
-        ]);
+        $result = $this->employeeAwards->store($request);
         return redirect()->route('employeeAwards.index');
     }
 
@@ -54,28 +53,14 @@ class EmployeeAwardController extends Controller
     public function update(Request $request, EmployeeAward $employeeAward)
     {
         $request->month = \Carbon\Carbon::parse($request->month)->format('Y-m-d');
-        $update = EmployeeAward::where('id',$employeeAward->id)->update([
-            'department_id'=>$request->department_id,
-            'employee_id'=>$request->employee_id,
-            'award'=>$request->award_name,
-            'gift'=>$request->gift_item,
-            'amount'=>$request->award_amount,
-            'month'=>$request->month,
-        ]);
+        $result = $this->employeeAwards->update($request, $employeeAward->id);
         return redirect()->route('employeeAwards.index');
     }
 
 
     public function destroy(EmployeeAward $employeeAward)
     {
-        return response()->json($employeeAward);
-    }
-
-    public function delete(EmployeeAward $employeeAward)
-    {
-        $delete = EmployeeAward::find($employeeAward->id);
-        $delete->delete();
-        
+        $result = $this->employeeAwards->destroy($employeeAward->id);
         return redirect()->route('employeeAwards.index');
     }
 }

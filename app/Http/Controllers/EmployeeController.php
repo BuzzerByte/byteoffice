@@ -113,11 +113,9 @@ class EmployeeController extends Controller
 
     public function show(Employee $employee)
     {   
-        // $roles = Role::all();
         $roles = $this->employees->getRoles();
         if($this->employees->checkAttachmentsExistsById($employee->id)){
             $employee_attachments = $this->employees->getAttachmentById($employee->id);
-            // $employee_attachments = UserAttachment::where('user_id',$employee->id)->get();
         }else{
             $employee_attachments = null;
         }
@@ -137,14 +135,11 @@ class EmployeeController extends Controller
 
         if($this->employees->checkSubordinatesExists($employee->id)){
             $this->employees->getSubordinateById($employee->id);
-            // $subordinates = EmployeeSubordinate::where('employee_id',$employee->id)->get();
         }else{
             $subordinates = null;
         }
         $employees = $this->employees->all();
-        // $employees = Employee::all();
         $departments = $this->employees->getDepartments();
-        // $departments = Department::all();
         
         return view('admin.employeeReportTo.index',[
             'employee'=>$employee,
@@ -264,12 +259,9 @@ class EmployeeController extends Controller
         }
         $departments = $this->employees->getDepartments();
         $employeeStatuses = $this->employees->getStatuses();
-        // $jobTitles = JobTitle::all();
         $jobTitles = $this->employees->getJobTitles();
-        // $jobTitles = $this->employees->getJobTitle();
         $workShifts = $this->employees->getWorkShifts();
         $jobCategories = $this->employees->getJobCategories();
-        // $jobCategories = JobCategory::all();
         return view('admin.employeeCommencements.index',[
             'employee'=>$employee,
             'commencement'=>$commencements['employeeCommencement'],
@@ -285,15 +277,8 @@ class EmployeeController extends Controller
     public function employeeSalaries(Employee $employee){
         if($this->employees->checkSalaryExists($employee->id)){
             $salary = $this->employees->getSalaryById($employee->id);
-            // $salary = EmployeeSalary::where('employee_id',$employee->id)->first();
         }else{
             $salary = $this->employees->storeSalaryById($employee->id);
-            // $salaryId = DB::table('employee_salaries')->insertGetId([
-            //     'employee_id'=> $employee->id,
-            //     'created_at'=>Carbon::now(),
-            //     'updated_at'=>Carbon::now()
-            // ]);
-            // $salary = EmployeeSalary::where('id',$salaryId)->first();
         }
         return view('admin.employeeSalaries.index',['employee'=>$employee,'salary'=>$salary['salary']]);
     }

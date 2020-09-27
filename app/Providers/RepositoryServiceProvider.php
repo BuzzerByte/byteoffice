@@ -67,6 +67,12 @@ use App\Repositories\Interfaces\IJobCategoryRepository;
 use App\Repositories\Eloquents\JobCategoryRepository;
 use App\Repositories\Interfaces\IEmployeeSalaryRepository;
 use App\Repositories\Eloquents\EmployeeSalaryRepository;
+use App\Repositories\Interfaces\IEmployeeAwardRepository;
+use App\Repositories\Eloquents\EmployeeAwardRepository;
+use App\Repositories\Interfaces\IAttendanceRepository;
+use App\Repositories\Eloquents\AttendanceRepository;
+use App\Repositories\Interfaces\ILeaveTypeRepository;
+use App\Repositories\Eloquents\LeaveTypeRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -109,6 +115,9 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IJobTitleRepository::class, JobTitleRepository::class);
         $this->app->bind(IJobCategoryRepository::class, JobCategoryRepository::class);
         $this->app->bind(IEmployeeSalaryRepository::class, EmployeeSalaryRepository::class);
+        $this->app->bind(IEmployeeAwardRepository::class, EmployeeAwardRepository::class);
+        $this->app->bind(IAttendanceRepository::class, AttendanceRepository::class);
+        $this->app->bind(ILeaveTypeRepository::class, LeaveTypeRepository::class);
     }
 
     /**
