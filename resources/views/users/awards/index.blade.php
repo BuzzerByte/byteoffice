@@ -42,7 +42,7 @@
     });
     $('.delete').click(function () {
         var id = $(this).siblings('input').val();
-        $('#form-d-award').attr('action', '/admin/employeeAwards/' + id + '/delete');
+        $('#form-d-award').attr('action', '/admin/employeeAwards/' + id);
     });
 </script>
 @stop
