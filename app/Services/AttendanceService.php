@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\Interfaces\IAttendanceRepository;
 use App\Repositories\Interfaces\IDepartmentRepository;
 use App\Repositories\Interfaces\ILeaveTypeRepository;
+use App\Repositories\Interfaces\IEmployeeRepository;
 use App\Attendance;
 
 class AttendanceService {
@@ -13,11 +14,13 @@ class AttendanceService {
     public function __construct(
         IAttendanceRepository $attendances,
         IDepartmentRepository $departments,
-        ILeaveTypeRepository $leaveTypes
+        ILeaveTypeRepository $leaveTypes,
+        IEmployeeRepository $employees
     ){
         $this->attendances = $attendances;
         $this->departments = $departments;
         $this->leaveTypes = $leaveTypes;
+        $this->employees = $employees;
     }
 
     public function getDepartments()
@@ -32,5 +35,9 @@ class AttendanceService {
 
     public function getLeaveTypes(){
         return $this->leaveTypes->all();
+    }
+
+    public function getEmployees(){
+        return $this->employees->all();
     }
 }
