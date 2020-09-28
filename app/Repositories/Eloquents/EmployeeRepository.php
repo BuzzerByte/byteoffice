@@ -85,4 +85,8 @@ class EmployeeRepository implements IEmployeeRepository{
             'result' => $employee->delete()
         ];
     }
+
+    public function getById($id){
+        return $this->employees->where('id',$id)->first();
+    }
 }

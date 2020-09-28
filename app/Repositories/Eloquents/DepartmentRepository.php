@@ -20,4 +20,8 @@ class DepartmentRepository implements IDepartmentRepository{
                     ->orderBy('created_at','asc')
                     ->get();
     }
+
+    public function getDepartmentById($id){
+        return $this->departments->where('id',$department_id)->first();
+    }
 }
