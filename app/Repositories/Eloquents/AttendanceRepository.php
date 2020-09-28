@@ -58,7 +58,7 @@ class AttendanceRepository implements IAttendanceRepository{
     public function getByDateTimeAndDepartment($month, $year, $department){
         return $this->attendances->whereMonth('date',$month)
                                     ->whereYear('date',$year)
-                                    ->where('department_id',$request->department_id)
+                                    ->where('department_id',$department)
                                     ->get();
     }
 }
