@@ -26,4 +26,39 @@ class AttendanceRepository implements IAttendanceRepository{
                     ->where('date',$date)
                     ->get();
     }
+
+    public function updateByDateAndDepartment($date, $department, $employee_id, $leave_id, $in, $out){
+        $attendance = $this->attendances->where('date',$date)
+                                        ->where('department_id',$department)
+                                        ->where('employee_id',$employee_id)
+                                        ->update([
+                                            'leave_id'=> $leave_id,
+                                            'in' => $in,
+                                            'out' => $out
+                                        ]);
+        return [
+            'attendance' => $attendance
+        ];
+    }
+
+    public function updateOrCreate($id, $date, $department){
+        $attendance = Attendance::updateOrCreate(
+            [
+                'employee_id' => $id,
+                'date'=> $date
+            ],[
+                'department_id' => $department,
+            ]
+        );
+        return [
+            'attendance' => $attendance
+        ];
+    }
+
+    public function getByDateTimeAndDepartment($month, $year, $department){
+        return $this->attendances->whereMonth('date',$month)
+                                    ->whereYear('date',$year)
+                                    ->where('department_id',$request->department_id)
+                                    ->get();
+    }
 }
