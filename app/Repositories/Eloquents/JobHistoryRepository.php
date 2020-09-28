@@ -25,6 +25,6 @@ class JobHistoryRepository implements IJobHistoryRepository{
     }
 
     public function getJobHistoryByDepartmentId($id){
-        return $this->jobHistories->where('deparment_id',$id)->get();
+        return $this->jobHistories->where('department_id',$id)->get();
     }
 }
