@@ -73,6 +73,8 @@ use App\Repositories\Interfaces\IAttendanceRepository;
 use App\Repositories\Eloquents\AttendanceRepository;
 use App\Repositories\Interfaces\ILeaveTypeRepository;
 use App\Repositories\Eloquents\LeaveTypeRepository;
+use App\Repositories\Interfaces\IApplicationRepository;
+use App\Repositories\Eloquents\ApplicationRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -118,6 +120,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IEmployeeAwardRepository::class, EmployeeAwardRepository::class);
         $this->app->bind(IAttendanceRepository::class, AttendanceRepository::class);
         $this->app->bind(ILeaveTypeRepository::class, LeaveTypeRepository::class);
+        $this->app->bind(IApplicationRepository::class, ApplicationRepository::class);
     }
 
     /**

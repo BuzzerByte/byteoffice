@@ -244,7 +244,7 @@ Route::group([
     Route::post('/reimbursements/{reimbursement}/delete','ReimbursementController@delete')->name('reimbursements.delete');
     Route::resource('reimbursements','ReimbursementController');
     
-    Route::post('/applications/{application}/delete','ApplicationController@delete')->name('applications.delete');
+    // Route::post('/applications/{application}/delete','ApplicationController@delete')->name('applications.delete');
     Route::resource('applications','ApplicationController');
 
 });
