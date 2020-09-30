@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ApplicationService;
 use App\Application;
 use App\Leavetype;
 use App\Employee;
@@ -11,17 +12,23 @@ use App\User;
 
 class ApplicationController extends Controller
 {
+    protected $applications;
+
+    public function __construct(ApplicationService $applications){
+        $this->applications = $applications;
+    }
+
     public function index()
     {
         if(Auth::user()->hasRole('admin')){
-            $applications = Application::all();
-            $leaveTypes = Leavetype::all(); 
-            $employees = Employee::all();
+            $applications = $this->applications->all();
+            $leaveTypes = $this->applications->getLeaveTypes();
+            $employees = $this->applications->getEmployees();
             return view('admin.applications.index',['applications'=>$applications,'leaveTypes'=>$leaveTypes,'employees'=>$employees]);
         }else{
             $employees = Employee::where('id',Auth::user()->id);
             $applications = Application::where('employee_id',Auth::user()->id)->get();
-            $leaveTypes = Leavetype::all(); 
+            $leaveTypes = $this->applications->getLeaveTypes();
             return view('users.applications.index',['applications'=>$applications,'leaveTypes'=>$leaveTypes,'employees'=>$employees]);
         }
         
@@ -29,26 +36,7 @@ class ApplicationController extends Controller
 
     public function store(Request $request)
     {
-        if(Auth::user()->hasRole('admin')){
-            $store = Application::create([
-                'employee_id'=>$request->employee,
-                'start'=>$request->start,
-                'end'=>$request->end,
-                'type_id'=>(int)$request->type,
-                'date'=>$request->apply,
-                'status'=> 'pending'   
-            ]);
-        }else{
-            $store = Application::create([
-                'employee_id'=>Auth::user()->id,
-                'reason' =>$request->reason,
-                'start'=>$request->start,
-                'end'=>$request->end,
-                'type_id'=>(int)$request->type,
-                'date'=>$request->apply,
-                'status'=> 'pending'   
-            ]);
-        }
+        $this->applications->store($request);
         return redirect()->route('applications.index');
     }
 
@@ -59,25 +47,13 @@ class ApplicationController extends Controller
 
     public function update(Request $request, Application $application)
     {
-        $update = Application::where('id',$application->id)->update([
-            'employee_id'=>$request->employee,
-            'start'=>$request->start,
-            'end'=>$request->end,
-            'type_id'=>(int)$request->type,
-            'date'=>$request->apply,
-            'status'=> $request->status
-        ]);
+        $this->applications->update($request, $application->id);
         return redirect()->route('applications.index');
     }
 
     public function destroy(Application $application)
     {
-        //
-    }
-
-    public function delete(Application $application){
-        $delete = Application::find($application->id);
-        $delete->delete();
+        $this->applications->destroy($application->id);
         return redirect()->route('applications.index');
     }
 }
