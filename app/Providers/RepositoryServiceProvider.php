@@ -75,6 +75,8 @@ use App\Repositories\Interfaces\ILeaveTypeRepository;
 use App\Repositories\Eloquents\LeaveTypeRepository;
 use App\Repositories\Interfaces\IApplicationRepository;
 use App\Repositories\Eloquents\ApplicationRepository;
+use App\Repositories\Interfaces\IReimbursementRepository;
+use App\Repositories\Eloquents\ReimbursementRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -121,6 +123,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IAttendanceRepository::class, AttendanceRepository::class);
         $this->app->bind(ILeaveTypeRepository::class, LeaveTypeRepository::class);
         $this->app->bind(IApplicationRepository::class, ApplicationRepository::class);
+        $this->app->bind(IReimbursementRepository::class, ReimbursementRepository::class);
     }
 
     /**

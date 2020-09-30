@@ -145,16 +145,7 @@ class ReimbursementController extends Controller
      */
     public function destroy(Reimbursement $reimbursement)
     {
-        //
-        // $delete = Reimbursement::find($reimbursement->id);
-        // $delete->delete();
         $this->reimbursements->destroy($reimbursement->id);
         return response()->json($reimbursement);
     }
-
-    // public function delete(Reimbursement $reimbursement){
-    //     $delete = Reimbursement::find($reimbursement->id);
-    //     $delete->delete();
-    //     return redirect()->action('ReimbursementController@index');
-    // }
 }

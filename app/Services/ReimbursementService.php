@@ -5,13 +5,14 @@ namespace App\Services;
 use App\Repositories\Interfaces\IReimbursementRepository;
 use App\Repositories\Interfaces\IEmployeeRepository;
 use App\Repositories\Interfaces\IDepartmentRepository;
+use App\Department;
 
 class ReimbursementService{
     protected $reimbursements;
     protected $employees;
     protected $departments;
 
-    public function __contruct(
+    public function __construct(
         IReimbursementRepository $reimbursements,
         IEmployeeRepository $employees,
         IDepartmentRepository $departments
