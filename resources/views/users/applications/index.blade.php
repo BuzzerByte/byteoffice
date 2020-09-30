@@ -77,7 +77,7 @@
 
     $('.getDeleteApplication').click(function () {
         var id = $(this).siblings('input').val();
-        $('#form-d-application').attr('action', '/admin/applications/' + id + '/delete');
+        $('#form-d-application').attr('action', '/admin/applications/' + id);
     });
 </script>
 @stop
