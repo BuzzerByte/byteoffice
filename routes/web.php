@@ -241,10 +241,10 @@ Route::group([
     Route::resource('attendances','AttendanceController');
 
     Route::get('/reimbursements/export','ReimbursementController@export')->name('reimbursements.export');
-    Route::post('/reimbursements/{reimbursement}/delete','ReimbursementController@delete')->name('reimbursements.delete');
+    // Route::post('/reimbursements/{reimbursement}/delete','ReimbursementController@delete')->name('reimbursements.delete');
     Route::resource('reimbursements','ReimbursementController');
     
-    Route::post('/applications/{application}/delete','ApplicationController@delete')->name('applications.delete');
+    // Route::post('/applications/{application}/delete','ApplicationController@delete')->name('applications.delete');
     Route::resource('applications','ApplicationController');
 
 });

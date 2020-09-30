@@ -112,7 +112,7 @@
         });
         $('.delete').click(function () {
             var id = $(this).siblings('.reimbursement_id').val();
-            $('#form-d-reimbursement').attr('action', '/admin/reimbursements/' + id + '/delete');
+            $('#form-d-reimbursement').attr('action', '/admin/reimbursements/' + id);
         });
     });
 </script>
