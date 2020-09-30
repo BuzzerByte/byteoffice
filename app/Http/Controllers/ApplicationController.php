@@ -56,12 +56,6 @@ class ApplicationController extends Controller
         $this->applications->destroy($application->id);
         return redirect()->route('applications.index');
     }
-
-    // public function delete(Application $application){
-    //     $delete = Application::find($application->id);
-    //     $delete->delete();
-    //     return redirect()->route('applications.index');
-    // }
 }
 
 
