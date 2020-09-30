@@ -14,6 +14,8 @@ class ReimbursementRepository implements IReimbursementRepository{
     }
 
     public function all(){
+        $reimbursements = Reimbursement::all();
+        if($reimbursements->isEmpty()) return [];
         return $this->reimbursements->leftjoin('employees','reimbursements.employee_id','employees.id')
                                     ->leftjoin('users','users.id','employees.user_id')
                                     ->orderBy('reimbursements.created_at','asc')
