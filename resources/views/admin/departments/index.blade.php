@@ -25,8 +25,8 @@
     });
 
     $(document.body).on('click','.getDeleteDepartment',function(){
-        $department_id = $(this).siblings('input').val();
-        $('#form-d-department').attr('action','/admin/departments/'+$department_id+'/delete');
+        $id = $(this).siblings('input').val();
+        $('#form-d-department').attr('action','/admin/departments/'+$id);
     });
 
 </script>

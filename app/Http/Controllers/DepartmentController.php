@@ -4,21 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Department;
 use Illuminate\Http\Request;
+use App\Services\DepartmentService;
 
 class DepartmentController extends Controller
 {
+    protected $departments;
+
+    public function __construct(DepartmentService $departments){
+        $this->departments = $departments;
+    }
+
     public function index()
     {
-        $departments = Department::all();
+        $departments = $this->departments->all();
         return view('admin.departments.index',['departments'=>$departments]);
     }
 
     public function store(Request $request)
     {
-        $store = Department::create([
-            'name'=>$request->department,
-            'description'=>$request->description
-        ]);
+        $department = $this->departments->store($request);
         return redirect()->action('DepartmentController@index');
     }
 
@@ -29,18 +33,12 @@ class DepartmentController extends Controller
 
     public function update(Request $request, Department $department)
     {
-        $update = Department::where('id',$department->id)->update([
-            'name'=>$request->department,
-            'description'=>$request->description
-        ]);
+        $department = $this->departments->update($request, $department->id);
         return redirect()->action('DepartmentController@index');
     }
 
-    public function delete(Department $department){
-        
-        $delete = Department::find($department->id);
-        $delete->delete();
-        
+    public function destroy(Department $department){
+        $department = $this->departments->destroy($department->id);
         return redirect()->action('DepartmentController@index');
     }
 }
