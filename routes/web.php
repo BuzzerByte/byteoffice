@@ -197,7 +197,7 @@ Route::group([
     // Route::post('/employeeAwards/{employeeAward}/delete','EmployeeAwardController@delete')->name('employeeAwards.delete');
     Route::resource('employeeAwards','EmployeeAwardController');
 
-    Route::post('/departments/{department}/delete','DepartmentController@delete')->name('departments.delete');
+    // Route::post('/departments/{department}/delete','DepartmentController@delete')->name('departments.delete');
     Route::resource('departments','DepartmentController');
 
     Route::post('/jobtitles/{jobtitle}/delete','JobTitleController@delete')->name('jobtitles.delete');

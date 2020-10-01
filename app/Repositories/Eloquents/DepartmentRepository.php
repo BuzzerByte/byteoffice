@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquents;
 use App\Repositories\Interfaces\IDepartmentRepository;
 use App\Department;
 use Auth;
+use Illuminate\Http\Request;
 
 class DepartmentRepository implements IDepartmentRepository{
     protected $departments;
@@ -23,5 +24,32 @@ class DepartmentRepository implements IDepartmentRepository{
 
     public function getDepartmentById($id){
         return $this->departments->where('id',$department_id)->first();
+    }
+
+    public function store(Request $request){
+        $department = $this->departments;
+        $department->name = $request->department;
+        $department->description = $request->description;
+        return [
+            'result' => $department->save(),
+            'department' => $department
+        ];
+    }
+
+    public function update(Request $request, $id){
+        $department = $this->departments->find($id);
+        $department->name = $request->department;
+        $department->description = $request->description;
+        return [
+            'result' => $department->save(),
+            'department' => $department
+        ];
+    }
+
+    public function destroy($id){
+        $department = $this->department->find($id);
+        return [
+            'result' => $department->delete()
+        ];
     }
 }
