@@ -200,10 +200,10 @@ Route::group([
     // Route::post('/departments/{department}/delete','DepartmentController@delete')->name('departments.delete');
     Route::resource('departments','DepartmentController');
 
-    Route::post('/jobtitles/{jobtitle}/delete','JobTitleController@delete')->name('jobtitles.delete');
+    // Route::post('/jobtitles/{jobtitle}/delete','JobTitleController@delete')->name('jobtitles.delete');
     Route::resource('jobtitles','JobTitleController');
 
-    Route::post('/jobCategories/{jobCategory}/delete','JobCategoryController@delete')->name('jobCategories.delete');
+    // Route::post('/jobCategories/{jobCategory}/delete','JobCategoryController@delete')->name('jobCategories.delete');
     Route::resource('jobCategories','JobCategoryController');
 
     Route::post('/workshifts/{workshift}/delete','WorkShiftController@delete')->name('workshifts.delete');
