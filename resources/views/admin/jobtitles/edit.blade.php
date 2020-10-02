@@ -14,9 +14,9 @@
 
                 <div class="form-body">
                     <div class="form-group">
-                        <label class="control-label col-md-3">Department</label>
+                        <label class="control-label col-md-3">Job Title</label>
                         <div class="col-md-9">
-                            <input name="department" class="form-control edit_title autocomplete_off" type="text"
+                            <input name="title" class="form-control edit_title autocomplete_off" type="text"
                                 required>
                             <span class="help-block"></span>
                         </div>

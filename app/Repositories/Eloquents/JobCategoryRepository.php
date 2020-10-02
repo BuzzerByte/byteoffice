@@ -18,4 +18,29 @@ class JobCategoryRepository implements IJobCategoryRepository{
                     ->orderBy('created_at','asc')
                     ->get();
     }
+
+    public function store(Request $request){
+        $jobCategory = $this->jobCategories;
+        $jobCategory->category = $request->category;
+        return [
+            'result' => $jobCategory->save(),
+            'jobCategory' => $jobCategory
+        ];
+    }
+
+    public function update(Request $request, $id){
+        $jobCategory = $this->jobCategories->find($id);
+        $jobCategory->category = $request->category;
+        return [
+            'result' => $jobCategory->save(),
+            'jobCategory' => $jobCategory
+        ];
+    }
+
+    public function destroy($id){
+        $jobCategory = $this->jobCategories->find($id);
+        return [
+            'result' => $jobCategory->delete(),
+        ];
+    }
 }

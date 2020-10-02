@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\JobTitle;
 use Illuminate\Http\Request;
+use App\Services\JobTitleService;
 
 class JobTitleController extends Controller
 {
+    protected $jobTitles;
+
+    public function __construct(JobTitleService $jobTitles){
+        $this->jobTitles = $jobTitles;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +20,8 @@ class JobTitleController extends Controller
      */
     public function index()
     {
-        $jobtitles = JobTitle::all();
-        return view('admin.jobtitles.index',['jobtitles'=>$jobtitles]);
+        $jobTitles = $this->jobTitles->all();
+        return view('admin.jobtitles.index',['jobtitles'=>$jobTitles]);
     }
 
     /**
@@ -36,10 +42,7 @@ class JobTitleController extends Controller
      */
     public function store(Request $request)
     {
-        $store = JobTitle::create([
-            'title'=>$request->title,
-            'description'=>$request->description
-        ]);
+        $jobTitle = $this->jobTitles->store($request);
         return redirect()->action('JobTitleController@index');
     }
 
@@ -74,10 +77,7 @@ class JobTitleController extends Controller
      */
     public function update(Request $request, JobTitle $jobtitle)
     {
-        $update = JobTitle::where('id',$jobtitle->id)->update([
-            'title'=>$request->department,
-            'description'=>$request->description
-        ]);
+        $jobTitle = $this->jobTitles->update($request, $jobtitle->id);
         return redirect()->action('JobTitleController@index');
     }
 
@@ -89,12 +89,7 @@ class JobTitleController extends Controller
      */
     public function destroy(JobTitle $jobTitle)
     {
-        //
-    }
-
-    public function delete(JobTitle $jobtitle){
-        $delete = JobTitle::find($jobtitle->id);
-        $delete->delete();
+        $jobTile = $this->jobTitle->destroy($jobTitle->id);
         return redirect()->action('JobTitleController@index');
     }
 }

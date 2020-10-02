@@ -25,8 +25,8 @@ $(document.body).on('click','.getEditJobTitle',function(){
 });
 
 $(document.body).on('click','.getDeleteJobTitle',function(){
-    $jobtitle_id = $(this).siblings('input').val();
-    $('#form-d-jobTitle').attr('action','/admin/jobtitles/'+$jobtitle_id+'/delete');
+    $id = $(this).siblings('input').val();
+    $('#form-d-jobTitle').attr('action','/admin/jobtitles/'+$id);
 });
 </script>
 @stop
@@ -58,7 +58,7 @@ $(document.body).on('click','.getDeleteJobTitle',function(){
                         <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Department</th>
+                                    <th>Job Title(s)</th>
                                     <th>Description</th>
 
                                     <th>Actions</th>
