@@ -8,6 +8,7 @@
         </div>
         <form action="" id="form-d-empStatus" enctype="multipart/form-data" method="post">
             @csrf
+            @method('delete')
         <div class="modal-body">
                 Are you sure?
         </div>
