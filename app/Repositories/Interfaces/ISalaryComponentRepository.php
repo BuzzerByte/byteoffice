@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Repositories\Interfaces;
 
 use Illuminate\Http\Request;
 
-interface IWorkShiftRepository{
+interface ISalaryComponentRepository{
     public function all();
     public function store(Request $request);
     public function update(Request $request, $id);

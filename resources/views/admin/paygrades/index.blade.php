@@ -27,7 +27,7 @@
     });
     $(document.body).on('click','.getDeletePayGrade',function(){
         $paygrade_id = $(this).siblings('input').val();
-        $('#form-d-payGrade').attr('action','/admin/paygrades/'+$paygrade_id+'/delete');
+        $('#form-d-payGrade').attr('action','/admin/paygrades/'+$paygrade_id);
     });
 </script>
 @stop

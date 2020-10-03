@@ -9,6 +9,7 @@ class WorkingDay extends Model
     //
     protected $fillable = [
         'day',
-        'work'
+        'work',
+        'user_id'
     ];
 }

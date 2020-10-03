@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interfaces;
 
-use Http\Illuminate\Request;
+use Illuminate\Http\Request;
 
 interface IApplicationRepository{
     public function all();

@@ -64,7 +64,7 @@ class EmployeeService{
         IJobTitleRepository $jobTitles,
         IWorkShiftRepository $workShifts,
         IJobCategoryRepository $jobCategories,
-        IEmplolyeeSalaryRepository $employeeSalaries
+        IEmployeeSalaryRepository $employeeSalaries
     ){
         $this->roles = $roles;
         $this->employees = $employees;
@@ -88,6 +88,10 @@ class EmployeeService{
 
     public function all(){
         return $this->employees->all();
+    }
+
+    public function getRoles(){
+        return $this->roles->all();
     }
 
     public function avatar(Request $request){

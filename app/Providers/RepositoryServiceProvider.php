@@ -77,6 +77,14 @@ use App\Repositories\Interfaces\IApplicationRepository;
 use App\Repositories\Eloquents\ApplicationRepository;
 use App\Repositories\Interfaces\IReimbursementRepository;
 use App\Repositories\Eloquents\ReimbursementRepository;
+use App\Repositories\Interfaces\IWorkingDayRepository;
+use App\Repositories\Eloquents\WorkingDayRepository;
+use App\Repositories\Interfaces\IHolidayRepository;
+use App\Repositories\Eloquents\HolidayRepository;
+use App\Repositories\Interfaces\IPayGradeRepository;
+use App\Repositories\Eloquents\PayGradeRepository;
+use App\Repositories\Interfaces\ISalaryComponentRepository;
+use App\Repositories\Eloquents\SalaryComponentRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -124,6 +132,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ILeaveTypeRepository::class, LeaveTypeRepository::class);
         $this->app->bind(IApplicationRepository::class, ApplicationRepository::class);
         $this->app->bind(IReimbursementRepository::class, ReimbursementRepository::class);
+        $this->app->bind(IWorkingDayRepository::class, WorkingDayRepository::class);
+        $this->app->bind(IHolidayRepository::class, HolidayRepository::class);
+        $this->app->bind(IPayGradeRepository::class, PayGradeRepository::class);
+        $this->app->bind(ISalaryComponentRepository::class, SalaryComponentRepository::class);
     }
 
     /**
