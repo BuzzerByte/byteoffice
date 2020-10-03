@@ -25,7 +25,7 @@
     });
     $(document.body).on('click','.getDeleteEmployeeStatus',function(){
         $employeestatus_id = $(this).siblings('input').val();
-        $('#form-d-empStatus').attr('action','/admin/employeestatus/'+$employeestatus_id+'/delete');
+        $('#form-d-empStatus').attr('action','/admin/employeestatus/'+$employeestatus_id);
     });
 </script>
 @stop

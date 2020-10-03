@@ -223,7 +223,7 @@ Route::group([
     // Route::post('/salarycomponents/{salarycomponent}/delete','SalaryComponentController@delete')->name('salarycomponents.delete');
     Route::resource('salarycomponents','SalaryComponentController');
     
-    Route::post('/employeestatus/{employeestatus}/delete','EmployeeStatusController@delete')->name('employeestatus.delete');
+    // Route::post('/employeestatus/{employeestatus}/delete','EmployeeStatusController@delete')->name('employeestatus.delete');
     Route::resource('employeestatus','EmployeeStatusController');
 
     Route::post('/taxes/{tax}/delete','TaxController@delete')->name('taxes.delete');
