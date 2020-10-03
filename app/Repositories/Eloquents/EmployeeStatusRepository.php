@@ -9,7 +9,7 @@ use Auth;
 class EmployeeStatusRepository implements IEmployeeStatusRepository{
     protected $employeeStatuses;
 
-    public function __construct(IEmployeeStatusRepository $employeeStatuses){
+    public function __construct(EmployeeStatus $employeeStatuses){
         $this->employeeStatuses = $employeeStatuses;
     }
 

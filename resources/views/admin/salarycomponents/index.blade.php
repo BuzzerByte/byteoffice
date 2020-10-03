@@ -50,7 +50,7 @@
     });
     $(document.body).on('click','.getDeleteSalaryComponent',function(){
         $salarycomponent_id = $(this).siblings('input').val();
-        $('#form-d-salaryComponent').attr('action','/admin/salarycomponents/'+$salarycomponent_id+'/delete');
+        $('#form-d-salaryComponent').attr('action','/admin/salarycomponents/'+$salarycomponent_id);
     });
 </script>
 @stop

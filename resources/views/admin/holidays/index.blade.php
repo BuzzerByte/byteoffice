@@ -27,7 +27,7 @@
 
     $(document.body).on('click','.getDeleteHoliday',function(){
         $holiday_id = $(this).siblings('input').val();
-        $('#form-d-holiday').attr('action','/admin/holidays/'+ $holiday_id+'/delete');
+        $('#form-d-holiday').attr('action','/admin/holidays/'+ $holiday_id);
     });
 </script>
 @stop

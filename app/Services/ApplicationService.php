@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
-use App\Repositories\IApplicationRepository;
-use App\Repositories\ILeaveTypeRepository;
-use App\Repositories\IEmployeeRepository;
+use App\Repositories\Interfaces\IApplicationRepository;
+use App\Repositories\Interfaces\ILeaveTypeRepository;
+use App\Repositories\Interfaces\IEmployeeRepository;
+use Illuminate\Http\Request;
 
 class ApplicationService{
     protected $applications;

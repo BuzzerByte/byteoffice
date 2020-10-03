@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Holiday;
 use Illuminate\Http\Request;
+use App\Services\HolidayService;
 
 class HolidayController extends Controller
 {
+    protected $holidays;
+
+    public function __construct(
+        HolidayService $holidays
+    ){
+        $this->holidays = $holidays;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +22,7 @@ class HolidayController extends Controller
      */
     public function index()
     {
-        $holidays = Holiday::all();
+        $holidays = $this->holidays->all();
         return view('admin.holidays.index',['holidays'=>$holidays]);
     }
 
@@ -36,13 +44,7 @@ class HolidayController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $store = Holiday::create([
-            'name' => $request->event_name,
-            'description'=>$request->description,
-            'start' => $request->start_date,
-            'end'=>$request->end_date
-        ]);
+        $holiday = $this->holidays->store($request);
         return redirect()->action('HolidayController@index');
     }
 
@@ -78,13 +80,7 @@ class HolidayController extends Controller
      */
     public function update(Request $request, Holiday $holiday)
     {
-        //
-        $update = Holiday::where('id',$holiday->id)->update([
-            'name'=>$request->event_name,
-            'description'=>$request->description,
-            'start'=>$request->start_date,
-            'end'=>$request->end_date
-        ]);
+        $holiday = $this->holidays->update($request, $holiday->id);
         return redirect()->action('HolidayController@index');
     }
 
@@ -96,12 +92,7 @@ class HolidayController extends Controller
      */
     public function destroy(Holiday $holiday)
     {
-        //
-    }
-
-    public function delete(Holiday $holiday){
-        $delete = Holiday::find($holiday->id);
-        $delete->delete();
+        $this->holidays->destroy($holiday->id);
         return redirect()->action('HolidayController@index');
     }
 }

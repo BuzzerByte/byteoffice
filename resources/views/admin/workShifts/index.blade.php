@@ -26,7 +26,7 @@
     });
     $(document.body).on('click','.getDeleteWorkShift',function(){
         $workshift_id = $(this).siblings('input').val();
-        $('#form-d-workshifts').attr('action','/admin/workshifts/'+ $workshift_id+'/delete');
+        $('#form-d-workshifts').attr('action','/admin/workshifts/'+ $workshift_id);
     });
 </script>
 @stop

@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use App\WorkShift;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Services\WorkShiftService;
 
 class WorkShiftController extends Controller
 {
+    protected $workShifts;
+
+    public function __construct(WorkShiftService $workShifts){
+        $this->workShifts = $workShifts;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +21,7 @@ class WorkShiftController extends Controller
      */
     public function index()
     {
-        //
-        $workshifts = WorkShift::all();
+        $workshifts = $this->workShifts->all();
         return view('admin.workShifts.index',['workshifts'=>$workshifts]);
     }
 
@@ -38,14 +43,7 @@ class WorkShiftController extends Controller
      */
     public function store(Request $request)
     {
-        // return response()->json($request);
-        $request->shift_from = Carbon::parse($request->shift_from)->format('H:i');
-        $request->shift_to = Carbon::parse($request->shift_to)->format('H:i');
-        $store = WorkShift::create([
-            'name'=>$request->shift_name,
-            'from'=>$request->shift_from,
-            'to'=>$request->shift_to
-        ]);
+        $workshift = $this->workShifts->store($request);
         return redirect()->action('WorkShiftController@index');
     }
 
@@ -80,14 +78,7 @@ class WorkShiftController extends Controller
      */
     public function update(Request $request, WorkShift $workshift)
     {
-        // return response()->json($workshift);
-        $request->shift_from = Carbon::parse($request->shift_from)->format('H:i');
-        $request->shift_to = Carbon::parse($request->shift_to)->format('H:i');
-        $update = WorkShift::where('id',$workshift->id)->update([
-            'name'=>$request->shift_name,
-            'from'=>$request->shift_from,
-            'to'=>$request->shift_to
-        ]);
+        $workshift = $this->workShifts->update($request, $workshift->id);
         return redirect()->action('WorkShiftController@index');
     }
 
@@ -97,15 +88,10 @@ class WorkShiftController extends Controller
      * @param  \App\WorkShift  $workShift
      * @return \Illuminate\Http\Response
      */
-    public function destroy(WorkShift $workShift)
+    public function destroy(WorkShift $workshift)
     {
         //
-    }
-
-    public function delete(WorkShift $workshift){
-        $delete = WorkShift::find($workshift->id);
-        $delete->delete();
-        
+        $this->workShifts->destroy($workshift->id);
         return redirect()->action('WorkShiftController@index');
     }
 }

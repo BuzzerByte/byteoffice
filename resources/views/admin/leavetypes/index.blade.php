@@ -25,7 +25,7 @@
 
     $(document.body).on('click','.getDeleteJobTitle',function(){
         $leave_id = $(this).siblings('input').val();
-        $('#form-d-leaveType').attr('action','/admin/leavetypes/'+$leave_id+'/delete');
+        $('#form-d-leaveType').attr('action','/admin/leavetypes/'+$leave_id);
     });
     </script>
 @stop

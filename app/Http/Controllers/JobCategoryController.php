@@ -43,7 +43,7 @@ class JobCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $jobCategories = $this->jobCatgories->store($request);
+        $jobCategories = $this->jobCategories->store($request);
         return redirect()->action('JobCategoryController@index');
     }
 
