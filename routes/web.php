@@ -226,7 +226,7 @@ Route::group([
     // Route::post('/employeestatus/{employeestatus}/delete','EmployeeStatusController@delete')->name('employeestatus.delete');
     Route::resource('employeestatus','EmployeeStatusController');
 
-    Route::post('/taxes/{tax}/delete','TaxController@delete')->name('taxes.delete');
+    // Route::post('/taxes/{tax}/delete','TaxController@delete')->name('taxes.delete');
     Route::resource('taxes','TaxController');
 
     Route::get('/attendances/setAttendance','AttendanceController@setAttendance')->name('attendances.setAttendance');

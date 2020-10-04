@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Permission;
 use Illuminate\Http\Request;
+use App\Services\PermissionService;
 
 class PermissionController extends Controller
 {
+    protected $permissions;
+
+    public function __construct(PermissionService $permissions){
+        $this->permissions = $permissions;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,7 @@ class PermissionController extends Controller
     public function index()
     {
         //
-        $permissions = Permission::all();
+        $permissions = $this->permissions->all();
         return view('admin.permissions.index',['permissions'=>$permissions]);
     }
 
@@ -37,13 +43,7 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $permission = new Permission();
-        $permission->name         =  $request->name;
-        $permission->display_name = $request->display_name; // optional
-        $permission->description  = $request->description; // optional
-        $permission->save();
-
+        $permission = $this->permissions->store($request);
         return redirect()->action('PermissionController@index');
     }
 
@@ -79,12 +79,7 @@ class PermissionController extends Controller
      */
     public function update(Request $request, Permission $permission)
     {
-        //
-        $update = Permission::where('id',$permission->id)->update([
-            'name'=>$request->name,
-            'display_name'=>$request->display_name,
-            'description'=>$request->description
-        ]);
+        $permission = $this->permissions->update($request, $permission->id);
         return redirect()->action('PermissionController@index');
     }
 
@@ -96,10 +91,7 @@ class PermissionController extends Controller
      */
     public function destroy(Permission $permission)
     {
-        //
-        $delete = Permission::findOrFail($permission->id);
-        $delete->delete();
-       
+        $delete = $this->permissions->destroy($permission->id);
         return redirect()->action('PermissionController@index');
     }
 }
