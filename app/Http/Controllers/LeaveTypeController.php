@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\LeaveType;
 use Illuminate\Http\Request;
+use App\Services\LeaveTypeService;
 
 class LeaveTypeController extends Controller
 {
+    protected $leaveTypes;
+
+    public function __construct(LeaveTypeService $leaveTypes){
+        $this->leaveTypes = $leaveTypes;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,7 @@ class LeaveTypeController extends Controller
     public function index()
     {
         //
-        $leavetypes = LeaveType::all();
+        $leavetypes = $this->leaveTypes->all();
         return view('admin.leavetypes.index',['leavetypes'=>$leavetypes]);
     }
 
@@ -37,10 +43,7 @@ class LeaveTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $store = LeaveType::create([
-            'name'=>$request->leave
-        ]);
+        $leaveType = $this->leaveTypes->store($request);
         return redirect()->action('LeaveTypeController@index');
     }
 
@@ -76,10 +79,7 @@ class LeaveTypeController extends Controller
      */
     public function update(Request $request, LeaveType $leavetype)
     {
-        //
-        $update = LeaveType::where('id',$leavetype->id)->update([
-            'name'=>$request->leave
-        ]);
+        $leaveType = $this->leaveTypes->update($request, $leavetype->id);
         return redirect()->action('LeaveTypeController@index');
     }
 
@@ -89,14 +89,9 @@ class LeaveTypeController extends Controller
      * @param  \App\LeaveType  $leaveType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(LeaveType $leaveType)
+    public function destroy(LeaveType $leavetype)
     {
-        //
-    }
-
-    public function delete(LeaveType $leavetype){
-        $delete = LeaveType::find($leavetype->id);
-        $delete->delete(); 
+        $leaveType = $this->leaveTypes->destroy($leavetype->id);
         return redirect()->action('LeaveTypeController@index');
     }
 }

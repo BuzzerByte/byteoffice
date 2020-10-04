@@ -11,6 +11,7 @@ class Holiday extends Model
         'name',
         'description',
         'start',
-        'end'
+        'end',
+        'user_id'
     ];
 }

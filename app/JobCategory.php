@@ -8,7 +8,8 @@ class JobCategory extends Model
 {
     //
     protected $fillable = [
-        'category'
+        'category',
+        'user_id'
     ];
 
     public function jobHistory(){

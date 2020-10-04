@@ -25,7 +25,7 @@
     });
     $(document.body).on('click','.getDeleteJobCategory',function(){
         $jobcategory_id = $(this).siblings('input').val();
-        $('#form-d-jobCategories').attr('action','/admin/jobCategories/'+$jobcategory_id+'/delete');
+        $('#form-d-jobCategories').attr('action','/admin/jobCategories/'+$jobcategory_id);
     });
 </script>
 @stop

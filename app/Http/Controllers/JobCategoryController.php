@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\JobCategory;
 use Illuminate\Http\Request;
+use App\Services\JobCategoryService;
 
 class JobCategoryController extends Controller
 {
+    protected $jobCategories;
+
+    public function __construct(JobCategoryService $jobCategories){
+        $this->jobCategories = $jobCategories;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,7 @@ class JobCategoryController extends Controller
     public function index()
     {
         //
-        $jobcategories = JobCategory::all();
+        $jobcategories = $this->jobCategories->all();
         return view('admin.jobCategories.index',['jobcategories'=>$jobcategories]);
     }
 
@@ -37,10 +43,7 @@ class JobCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $store = JobCategory::create([
-            'category'=>$request->category
-        ]);
+        $jobCategories = $this->jobCategories->store($request);
         return redirect()->action('JobCategoryController@index');
     }
 
@@ -76,9 +79,7 @@ class JobCategoryController extends Controller
      */
     public function update(Request $request, JobCategory $jobCategory)
     {
-        $update = JobCategory::where('id',$jobCategory->id)->update([
-            'category'=>$request->category
-        ]);
+        $jobCategory = $this->jobCategories->update($request, $jobCategory->id);
         return redirect()->action('JobCategoryController@index');
     }
 
@@ -91,11 +92,7 @@ class JobCategoryController extends Controller
     public function destroy(JobCategory $jobCategory)
     {
         //
-    }
-
-    public function delete(JobCategory $jobCategory){
-        $delete = JobCategory::find($jobCategory->id);
-        $delete->delete();
+        $this->jobCategories->destroy($jobCategory->id);
         return redirect()->action('JobCategoryController@index');
     }
 }

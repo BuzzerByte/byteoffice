@@ -197,36 +197,36 @@ Route::group([
     // Route::post('/employeeAwards/{employeeAward}/delete','EmployeeAwardController@delete')->name('employeeAwards.delete');
     Route::resource('employeeAwards','EmployeeAwardController');
 
-    Route::post('/departments/{department}/delete','DepartmentController@delete')->name('departments.delete');
+    // Route::post('/departments/{department}/delete','DepartmentController@delete')->name('departments.delete');
     Route::resource('departments','DepartmentController');
 
-    Route::post('/jobtitles/{jobtitle}/delete','JobTitleController@delete')->name('jobtitles.delete');
+    // Route::post('/jobtitles/{jobtitle}/delete','JobTitleController@delete')->name('jobtitles.delete');
     Route::resource('jobtitles','JobTitleController');
 
-    Route::post('/jobCategories/{jobCategory}/delete','JobCategoryController@delete')->name('jobCategories.delete');
+    // Route::post('/jobCategories/{jobCategory}/delete','JobCategoryController@delete')->name('jobCategories.delete');
     Route::resource('jobCategories','JobCategoryController');
 
-    Route::post('/workshifts/{workshift}/delete','WorkShiftController@delete')->name('workshifts.delete');
+    // Route::post('/workshifts/{workshift}/delete','WorkShiftController@delete')->name('workshifts.delete');
     Route::resource('workshifts','WorkShiftController');
 
     Route::resource('workingdays','WorkingDayController');
 
-    Route::post('/holidays/{holiday}/delete','HolidayController@delete')->name('holidays.delete');
+    // Route::post('/holidays/{holiday}/delete','HolidayController@delete')->name('holidays.delete');
     Route::resource('holidays','HolidayController');
 
-    Route::post('/leavetypes/{leavetype}/delete','LeaveTypeController@delete')->name('leavetypes.delete');
+    // Route::post('/leavetypes/{leavetype}/delete','LeaveTypeController@delete')->name('leavetypes.delete');
     Route::resource('leavetypes','LeaveTypeController');
     
-    Route::post('/paygrades/{paygrade}/delete','PayGradeController@delete')->name('paygrades.delete');
+    // Route::post('/paygrades/{paygrade}/delete','PayGradeController@delete')->name('paygrades.delete');
     Route::resource('paygrades','PayGradeController');
 
-    Route::post('/salarycomponents/{salarycomponent}/delete','SalaryComponentController@delete')->name('salarycomponents.delete');
+    // Route::post('/salarycomponents/{salarycomponent}/delete','SalaryComponentController@delete')->name('salarycomponents.delete');
     Route::resource('salarycomponents','SalaryComponentController');
     
-    Route::post('/employeestatus/{employeestatus}/delete','EmployeeStatusController@delete')->name('employeestatus.delete');
+    // Route::post('/employeestatus/{employeestatus}/delete','EmployeeStatusController@delete')->name('employeestatus.delete');
     Route::resource('employeestatus','EmployeeStatusController');
 
-    Route::post('/taxes/{tax}/delete','TaxController@delete')->name('taxes.delete');
+    // Route::post('/taxes/{tax}/delete','TaxController@delete')->name('taxes.delete');
     Route::resource('taxes','TaxController');
 
     Route::get('/attendances/setAttendance','AttendanceController@setAttendance')->name('attendances.setAttendance');

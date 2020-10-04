@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\PayGrade;
 use Illuminate\Http\Request;
+use App\Services\PayGradeService;
 
 class PayGradeController extends Controller
 {
+    protected $payGrades;
+
+    public function __construct(PayGradeService $payGrades){
+        $this->payGrades = $payGrades;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,7 @@ class PayGradeController extends Controller
     public function index()
     {
         //
-        $paygrades = PayGrade::all();
+        $paygrades = $this->payGrades->all();
         return view('admin.paygrades.index',['paygrades'=>$paygrades]);
     }
 
@@ -37,12 +43,7 @@ class PayGradeController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $store = PayGrade::create([
-            'name'=>$request->grade_name,
-            'minimum'=>(double)$request->min_salary,
-            'maximum'=>(double)$request->max_salary
-        ]);
+        $payGrade = $this->payGrades->store($request);
         return redirect()->action('PayGradeController@index');
     }
 
@@ -78,12 +79,7 @@ class PayGradeController extends Controller
      */
     public function update(Request $request, PayGrade $paygrade)
     {
-        //
-        $update = PayGrade::where('id',$paygrade->id)->update([
-            'name'=>$request->grade_name,
-            'minimum'=>$request->min_salary,
-            'maximum'=>$request->max_salary
-        ]);
+        $payGrade = $this->payGrades->update($request, $paygrade->id);
         return redirect()->action('PayGradeController@index');
     }
 
@@ -95,12 +91,7 @@ class PayGradeController extends Controller
      */
     public function destroy(PayGrade $payGrade)
     {
-        //
-    }
-    
-    public function delete(PayGrade $paygrade){
-        $delete = PayGrade::find($paygrade->id);
-        $delete->delete();
+        $payGrade = $this->payGrades->destroy($paygrade->id);
         return redirect()->action('PayGradeController@index');
     }
 }
