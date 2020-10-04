@@ -85,6 +85,10 @@ use App\Repositories\Interfaces\IPayGradeRepository;
 use App\Repositories\Eloquents\PayGradeRepository;
 use App\Repositories\Interfaces\ISalaryComponentRepository;
 use App\Repositories\Eloquents\SalaryComponentRepository;
+use App\Repositories\Interfaces\IPermissionRepository;
+use App\Repositories\Eloquents\PermissionRepository;
+use App\Repositories\Interfaces\IPermissionRoleRepository;
+use App\Repositories\Eloquents\PermissionRoleRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -136,6 +140,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IHolidayRepository::class, HolidayRepository::class);
         $this->app->bind(IPayGradeRepository::class, PayGradeRepository::class);
         $this->app->bind(ISalaryComponentRepository::class, SalaryComponentRepository::class);
+        $this->app->bind(IPermissionRepository::class, PermissionRepository::class);
+        $this->app->bind(IPermissionRoleRepository::class, PermissionRoleRepository::class);
     }
 
     /**
