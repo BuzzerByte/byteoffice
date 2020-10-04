@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Tax;
 use Illuminate\Http\Request;
+use App\Services\TaxService;
 
 class TaxController extends Controller
 {
+    protected $taxes;
+
+    public function __construct(TaxService $taxes){
+        $this->taxes = $taxes;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +20,7 @@ class TaxController extends Controller
      */
     public function index()
     {
-        //
-        $taxes = Tax::all();
+        $taxes = $this->taxes->all();
         return view('admin.taxes.index',['taxes'=>$taxes]);
     }
 
@@ -36,13 +41,8 @@ class TaxController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-        $store = Tax::create([
-            'name'=>$request->name,
-            'rate'=>$request->rate,
-            'type'=>$request->type
-        ]);
+    {   
+        $tax = $this->taxes->store($request);
         return redirect()->action('TaxController@index');
     }
 
@@ -79,12 +79,7 @@ class TaxController extends Controller
      */
     public function update(Request $request, Tax $tax)
     {
-        //
-        $update = Tax::where('id',$tax->id)->update([
-            'name'=>$request->name,
-            'rate'=>$request->rate,
-            'type'=>(int)$request->type
-        ]);
+        $tax = $this->taxes->update($request, $tax->id);
         return redirect()->action('TaxController@index');
     }
 
@@ -96,13 +91,7 @@ class TaxController extends Controller
      */
     public function destroy(Tax $tax)
     {
-        //
-    }
-
-    public function delete(Tax $tax){
-        $delete = Tax::find($tax->id);
-        $delete->delete();
-        
+        $tax = $this->taxes->destroy($tax->id);
         return redirect()->action('TaxController@index');
     }
 }

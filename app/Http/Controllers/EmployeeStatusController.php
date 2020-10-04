@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\EmployeeStatus;
 use Illuminate\Http\Request;
+use App\Services\EmployeeStatusService;
 
 class EmployeeStatusController extends Controller
 {
+    protected $employeeStatus;
+
+    public function __construct(EmployeeStatusService $employeeStatus){
+        $this->employeeStatus = $employeeStatus;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,7 @@ class EmployeeStatusController extends Controller
      */
     public function index()
     {
-        $status = EmployeeStatus::all();
+        $status = $this->employeeStatus->all();
         return view('admin.employeestatus.index',['status'=>$status]);
     }
 
@@ -36,10 +42,7 @@ class EmployeeStatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $store = EmployeeStatus::create([
-            'status' => $request->status
-        ]);
+        $employeeStatus = $this->employeeStatus->store($request);
         return redirect()->route('employeestatus.index');
     }
 
@@ -75,10 +78,7 @@ class EmployeeStatusController extends Controller
      */
     public function update(Request $request, EmployeeStatus $employeestatus)
     {
-        //
-        $update = EmployeeStatus::where('id',$employeestatus->id)->update([
-            'status'=>$request->status
-        ]);
+        $employeeStatus = $this->employeeStatus->store($request, $employeestatus->id);
         return redirect()->route('employeestatus.index');
     }
 
@@ -90,12 +90,7 @@ class EmployeeStatusController extends Controller
      */
     public function destroy(EmployeeStatus $employeeStatus)
     {
-        //
-    }
-
-    public function delete(EmployeeStatus $employeestatus){
-        $delete = EmployeeStatus::find($employeestatus->id);
-        $delete->delete();
+        $employeeStatus = $this->employeeStatus->destroy($employeeStatus->id);
         return redirect()->route('employeestatus.index');
     }
 }

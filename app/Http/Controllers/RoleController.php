@@ -6,9 +6,15 @@ use App\Role;
 use App\Permission;
 use App\PermissionRole;
 use Illuminate\Http\Request;
+use App\Services\RoleService;
 
 class RoleController extends Controller
 {
+    protected $roles;
+
+    public function __construct(RoleService $roles){
+        $this->roles = $roles;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,9 +23,11 @@ class RoleController extends Controller
     public function index()
     {
         //
-        $roles = Role::all();
-        $permissions = Permission::all();
-        return view('admin.roles.index',['roles'=>$roles,'permissions'=>$permissions]);
+        $result = $this->roles->all();
+        return view('admin.roles.index',[
+            'roles'=>$result['roles'],
+            'permissions'=>$result['permissions']
+        ]);
     }
 
     /**
@@ -41,18 +49,8 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $role = new Role();
-        $role->name         = $request->name;
-        $role->display_name = $request->display_name; // optional
-        $role->description  = $request->description; // optional
-        $role->save();
-        if($request->permission !== null)
-            foreach($request->permission as $permission){
-                $permission_role = new PermissionRole();
-                $permission_role->role_id = $role->id;
-                $permission_role->permission_id = $permission;
-                $permission_role->save();
-            }
+        
+        $this->roles->store($request);
         return redirect()->route('roles.index');
     }
 
@@ -75,8 +73,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        //
-        $permissions = $role->permissions()->select('id')->get();
+        $permissions = $this->roles->getPermissionById($role->id);
         return response()->json(['role'=>$role,'permission'=>$permissions]);
     }
 
@@ -89,23 +86,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
-        $update = Role::where('id',$role->id)->update([
-            'name'=>$request->name,
-            'display_name'=>$request->display_name,
-            'description'=>$request->description
-        ]);
-        
-        $delete = PermissionRole::where('role_id',$role->id);
-        $delete->delete();
-        
-        if($request->permission !== null)
-            foreach($request->permission as $permission){
-                $permission_role = new PermissionRole();
-                $permission_role->role_id = $role->id;
-                $permission_role->permission_id = $permission;
-                $permission_role->save();
-            }
+        $update = $this->roles->update($request, $role->id);
         return redirect()->route('roles.index');
     }
 
@@ -117,11 +98,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
-        //return response()->json($role);
-        $delete = Role::findOrFail($role->id);
-        $delete->delete();
-        
+        $role = $this->roles->destroy($role->id);
         return redirect()->action('RoleController@index');
     }
 }

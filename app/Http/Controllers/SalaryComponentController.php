@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\SalaryComponent;
 use Illuminate\Http\Request;
+use App\Services\SalaryComponentService;
 
 class SalaryComponentController extends Controller
 {
+    protected $salaryComponents;
+
+    public function __construct(SalaryComponentService $salaryComponents){
+        $this->salaryComponents = $salaryComponents;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,7 @@ class SalaryComponentController extends Controller
     public function index()
     {
         //
-        $salaries = SalaryComponent::all();
+        $salaries = $this->salaryComponents->all();
         return view('admin.salarycomponents.index',['salaries'=>$salaries]);
     }
 
@@ -37,14 +43,7 @@ class SalaryComponentController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $store = SalaryComponent::create([
-            'component_name' => $request->component_name,
-            'type' => (int)$request->type,
-            'total_payable' => $request->total_payable,
-            'cost_company'=>$request->cost_company,
-            'value_type'=>(int)$request->value_type
-        ]);
+        $salaryComponent = $this->salaryComponents->store($request);
         return redirect()->action('SalaryComponentController@index');
     }
 
@@ -80,14 +79,7 @@ class SalaryComponentController extends Controller
      */
     public function update(Request $request, SalaryComponent $salarycomponent)
     {
-        //
-        $update = SalaryComponent::where('id',$salarycomponent->id)->update([
-            'component_name' => $request->component_name,
-            'type' => (int)$request->type,
-            'total_payable' => $request->total_payable,
-            'cost_company' => $request->cost_company,
-            'value_type' => (int)$request->value_type
-        ]);
+        $salaryComponent = $this->salaryComponents->update($request, $salarycomponent->id);
         return redirect()->action('SalaryComponentController@index');
     }
 
@@ -99,12 +91,7 @@ class SalaryComponentController extends Controller
      */
     public function destroy(SalaryComponent $salaryComponent)
     {
-        //
-    }
-
-    public function delete(SalaryComponent $salarycomponent){
-        $delete = SalaryComponent::find($salarycomponent->id);
-        $delete->delete();
+        $salaryComponent = $this->salaryComponents->destroy($salaryComponent->id);
         return redirect()->action('SalaryComponentController@index');
     }
 }

@@ -8,6 +8,7 @@ class LeaveType extends Model
 {
     //
     protected $fillable = [
-        'name'
+        'name',
+        'user_id'
     ];
 }

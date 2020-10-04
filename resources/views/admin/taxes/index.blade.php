@@ -32,7 +32,7 @@
     });
     $(document.body).on('click','.getDeleteTax',function(){
         $tax_id = $(this).siblings('input').val();
-        $('#form-d-tax').attr('action','/admin/taxes/'+$tax_id+'/delete');
+        $('#form-d-tax').attr('action','/admin/taxes/'+$tax_id);
     });
 </script>
 @stop

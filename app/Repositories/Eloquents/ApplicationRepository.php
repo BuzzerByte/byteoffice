@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquents;
 
 use App\Repositories\Interfaces\IApplicationRepository;
 use App\Application;
+use Illuminate\Http\Request;
 
 class ApplicationRepository implements IApplicationRepository{
     protected $applications;
@@ -18,7 +19,7 @@ class ApplicationRepository implements IApplicationRepository{
                                   ->orderBy('applications.created_at','asc')
                                   ->get();
     }
-
+    
     public function store(Request $request){
         $application = $this->applications;
         $application->employee_id = $request->employee;
