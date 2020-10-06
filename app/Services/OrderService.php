@@ -45,10 +45,19 @@ class OrderService {
         return $this->saleProducts->storeByOrder($inventories, $order['id']);
     }
 
+    public function create(){
+        $inventories = $this->inventories->all();
+        $clients = $this->clients->all();
+        return [
+            'inventories' => $inventories,
+            'clients' => $clients
+        ];
+    }
+
     public function show(Order $order){
         $invoice = $this->orders->show($order);
         $sale_product = $this->saleProducts->getByOrder($invoice->id);
-        $client = $this->clients->getByOrder($invoice->id);
+        $client = $this->clients->getById($invoice->client_id);
         $payments = $this->payments->getByOrder($invoice->id);
         return ['invoice'=>$invoice, 'sale_product'=>$sale_product, 'client'=>$client,'payments'=>$payments];
     }
@@ -57,7 +66,7 @@ class OrderService {
         $invoice = $this->orders->edit($order);
         $inventories = $this->inventories->all();
         $sale_product = $this->saleProducts->getByOrder($invoice->id);
-        $client = $this->clients->getByOrder($invoice->id);
+        $client = $this->clients->getById($invoice->client_id);
         return ['invoice'=>$invoice,'clients'=>$client,'sale_product'=>$sale_product,'inventories'=>$inventories];
     }
 

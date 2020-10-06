@@ -125,18 +125,18 @@
 
                         <div class="col-sm-4 col-xs-4 col-lg-4">
                             <h5>Billing Address</h5> <address>
-                                <strong>{{ $client['company'] }}</strong><br>
-                                {{ $client['billing_address'] }}<br>
-                                Phone: {{ $client['phone'] }}<br>
-                                Email: {{ $client['email'] }} </address>
+                                <strong>{{ $client->company }}</strong><br>
+                                {{ $client->billing_address }}<br>
+                                Phone: {{ $client->phone }}<br>
+                                Email: {{ $client->email }} </address>
                         </div>
 
                         <div class="col-sm-4 col-xs-4 col-lg-4">
                             <h5>Shipping Address</h5> <address>
-                                <strong>{{ $client['company'] }}</strong><br>
-                                {{ $client['shipping_address'] }}<br>
-                                Phone: {{ $client['phone'] }}<br>
-                                Email: {{ $client['email'] }} </address>
+                                <strong>{{ $client->company }}</strong><br>
+                                {{ $client->shipping_address }}<br>
+                                Phone: {{ $client->phone }}<br>
+                                Email: {{ $client->email }} </address>
                         </div>
 
 

@@ -14,6 +14,6 @@ interface IClientRepository
     public function edit(Client $client);
     public function update(Request $request, Client $client);
     public function destroy(Client $client);
-    public function getByOrder($order_id);
+    // public function getByOrder($order_id);
     public function getById($id);
 }
