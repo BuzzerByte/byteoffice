@@ -14,14 +14,15 @@ use App\Repositories\Interfaces\IClientRepository;
 use Auth;
 use App\Order;
 
-class ClientRepository implements IClientRepository
+class ClientRepository extends BaseRepository implements IClientRepository
 {
-    protected $clients;
+    // protected $clients;
     protected $orders;
 
-    public function __construct(Client $clients, Order $orders)
+    public function __construct(Client $model, Order $orders)
     {
-        $this->clients = $clients;
+        // $this->clients = $clients;
+        parent::__construct($model);
         $this->orders = $orders;
     }
     /**
@@ -32,13 +33,13 @@ class ClientRepository implements IClientRepository
      */
     public function all()
     {
-        return $this->clients->where('user_id', Auth::user()->id)
+        return $this->model->where('user_id', Auth::user()->id)
                     ->orderBy('created_at', 'asc')
                     ->get();
     }
 
     public function store($auth_id, Request $request){
-        $client = new Client;
+        $client = $this->model;
         $client->company = $request->company_name;
         $client->name = $request->name;
         $client->phone = $request->phone;
@@ -83,7 +84,7 @@ class ClientRepository implements IClientRepository
     }
 
     public function update(Request $request, Client $client){
-        $client = Client::find($client->id);
+        $client = $this->model->find($client->id);
         $client->name = $request->name;
         $client->company = $request->company_name;
         $client->phone = $request->phone;
@@ -97,15 +98,15 @@ class ClientRepository implements IClientRepository
     }
 
     public function destroy(Client $client){
-        $client = Client::find($client->id);
+        $client = $this->model->find($client->id);
         return $client->delete();
     }
 
-    public function getByOrder($order_id){
-        return $this->clients->where('id',$this->orders->where('id',$order_id)->first()->client_id)->first();
-    }
+    // public function getByOrder($order_id){
+    //     return $this->clients->where('id',$this->orders->where('id',$order_id)->first()->client_id)->first();
+    // }
 
     public function getById($id){
-        return $this->clients->where('id',$id)->get();
+        return $this->model->where('id',$id)->get();
     }
 }

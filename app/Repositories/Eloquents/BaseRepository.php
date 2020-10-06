@@ -2,10 +2,10 @@
 
 namespace App\Repositories\Eloquents;   
 
-use App\Repositories\Interfaces\IEloquentRepository; 
+use App\Repositories\Interfaces\IBaseRepository; 
 use Illuminate\Database\Eloquent\Model;   
 
-class BaseRepository implements IEloquentRepository 
+class BaseRepository implements IBaseRepository 
 {     
     /**      
      * @var Model      

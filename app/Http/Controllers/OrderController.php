@@ -61,9 +61,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $inventories = $this->inventories->all();
-        $clients = $this->clients->all();
-        return view('admin.orders.create',['inventories'=>$inventories,'clients'=>$clients]);
+        $result = $this->orders->create();
+        return view('admin.orders.create',['inventories'=>$result['inventories'],'clients'=>$result['clients']]);
     }
 
     public function createWithClient(Client $client){
@@ -190,7 +189,7 @@ class OrderController extends Controller
         return view('admin.orders.show',[
             'invoice'=>$invoice['invoice'],
             'sale_products'=>$invoice['sale_product'],
-            'client'=>$invoice['client'],
+            'client'=>$invoice['client'][0],
             'payments'=>$invoice['payments']
         ]);
     }
