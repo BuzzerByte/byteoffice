@@ -7,7 +7,9 @@ use App\SaleProduct;
 
 interface ISaleProductRepository
 {
-    public function storeByOrder($inventories, $order_id);
+    public function storeByOrder($id, $desc, $qty, $rate, $amt, $order_id);
     public function getByOrder($order_id);
-    public function updateByOrder($inventories, $order_id);
+    public function store($id, $desc, $qty, $rate, $amt, $order_id);
+    public function update($sale_id, $id, $desc, $qty, $rate, $amt, $order_id);
+    public function destroy($id);
 }
