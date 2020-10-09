@@ -42,13 +42,34 @@ class OrderService {
 
     public function store(Request $request, $inventories){
         $order =  $this->orders->store($request);
-        return $this->saleProducts->storeByOrder($inventories, $order['id']);
+        for($i = 0; $i < $inventories['count']; $i++){
+            $this->saleProducts->storeByOrder(
+                $inventories['id'][$i], 
+                $inventories['desc'][$i],
+                $inventories['qty'][$i],
+                $inventories['rate'][$i],
+                $inventories['amt'][$i],
+                $order->id
+            );
+        }
+        return [
+            'result' => true
+        ];
+    }
+
+    public function create(){
+        $inventories = $this->inventories->all();
+        $clients = $this->clients->all();
+        return [
+            'inventories' => $inventories,
+            'clients' => $clients
+        ];
     }
 
     public function show(Order $order){
         $invoice = $this->orders->show($order);
         $sale_product = $this->saleProducts->getByOrder($invoice->id);
-        $client = $this->clients->getByOrder($invoice->id);
+        $client = $this->clients->getById($invoice->client_id);
         $payments = $this->payments->getByOrder($invoice->id);
         return ['invoice'=>$invoice, 'sale_product'=>$sale_product, 'client'=>$client,'payments'=>$payments];
     }
@@ -57,13 +78,44 @@ class OrderService {
         $invoice = $this->orders->edit($order);
         $inventories = $this->inventories->all();
         $sale_product = $this->saleProducts->getByOrder($invoice->id);
-        $client = $this->clients->getByOrder($invoice->id);
+        $client = $this->clients->getById($invoice->client_id);
         return ['invoice'=>$invoice,'clients'=>$client,'sale_product'=>$sale_product,'inventories'=>$inventories];
     }
 
     public function update(Request $request, Order $order, $paid, $inventories){
+        $result = true;
         $order = $this->orders->update($request, $order, $paid);
-        return $this->saleProducts->updateByOrder($inventories, $order['id']);
+        for($i=0;$i<$inventories['count'];$i++){
+            if(!array_key_exists($i, $inventories['sale_id'])){
+                $this->saleProducts->store(
+                    $inventories['id'][$i], 
+                    $inventories['desc'][$i], 
+                    $inventories['qty'][$i], 
+                    $inventories['rate'][$i], 
+                    $inventories['amt'][$i], 
+                    $order->id
+                );
+            }else{
+                $this->saleProducts->update(
+                    $inventories['sale_id'][$i],
+                    $inventories['id'][$i], 
+                    $inventories['desc'][$i], 
+                    $inventories['qty'][$i], 
+                    $inventories['rate'][$i], 
+                    $inventories['amt'][$i], 
+                    $order->id
+                );
+            }
+        }
+        $sale_items = $this->saleProducts->getByOrder($order->id);
+        foreach($sale_items as $item){
+            if(!in_array($item->inventory_id,$inventories['id'])){
+                $this->saleProducts->destroy($item->id);
+            }
+        }
+        return [
+            'result' => $result
+        ];
     }
 
     public function destroy(Order $order){

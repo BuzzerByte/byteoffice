@@ -40,23 +40,24 @@
                                             <label>Client <span class="required" aria-required="true">*</span></label>
                                             <select class="form-control ls-select2" id="selected_client" name="client_id"  style="width: 100%;"
                                                 required>
-                                                @if (!$clients->isEmpty())
+                                                @isset ($clients)
                                                 <option value="">
                                                     Please Selected</option>
-                                                @foreach($clients as $client)
-
-                                                @if($client->id == $selected_client->id)
-                                                <option value="{{ $client->id}}" selected>
-                                                    {{ $client->name }}</option>
-                                                @else
-                                                <option value="{{ $client->id}}">
-                                                    {{ $client->name }}</option>
-                                                @endif
-                                                @endforeach
-                                                @else
+                                                    @foreach($clients as $client)
+                                                        
+                                                        @if($client->id == $selected_client->id)
+                                                        <option value={{ $client->id }} selected>
+                                                            {{ $client->name }}</option>
+                                                        @else
+                                                        <option value={{ $client->id }}>
+                                                            {{ $client->name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endisset
+                                                @empty($clients)
                                                 <option value="">
                                                     Please Selected</option>
-                                                @endif
+                                                @endempty
 
                                             </select>
 
@@ -135,17 +136,18 @@
                                                 <label>Client <span class="required" aria-required="true">*</span></label>
                                                 <select class="form-control ls-select2" id="selected_client" name="client_id"  style="width: 100%;"
                                                     required>
-                                                    @if (!$clients->isEmpty())
-                                                    <option value="">Please Select</option>
-                                                    @foreach($clients as $client)
-                                                    <option value="{{ $client->id}}">
-                                                        {{ $client->name }}</option>
-                                                    @endforeach
-                                                    @else
+                                                    @isset ($clients)
+                                                        <option value="">Please Select</option>
+                                                        @foreach($clients as $client)
+                                                        <option value={{ $client->id }}>
+                                                            {{ $client->name }}</option>
+                                                        @endforeach
+                                                    @endisset
+                                                    @empty($clients)
                                                     <option value="">
                                                         Please Selected</option>
 
-                                                    @endif
+                                                    @endempty
                                                 </select>
                                             </div>
                                         </div>
@@ -248,15 +250,13 @@
 
                                                     <select class="inventory new_inventory form-control" style="width: 100%;"
                                                         name="inventory_id[]">
-                                                        @if (!$inventories->isEmpty())
-                                                        <option value="">Please Select</option>
-                                                        @foreach($inventories as $inventory)
-                                                        <option value="{{ $inventory->id}}">
-                                                            {{ $inventory->name }}</option>
-                                                        @endforeach
-
-
-                                                        @endif
+                                                        @isset($inventories)
+                                                            <option value="">Please Select</option>
+                                                            @foreach($inventories as $inventory)
+                                                            <option value={{ $inventory->id }}>
+                                                                {{ $inventory->name }}</option>
+                                                            @endforeach
+                                                        @endisset
                                                     </select>
 
                                                 </td>
