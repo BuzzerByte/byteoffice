@@ -34,7 +34,19 @@ class QuotationService{
 
     public function store(Request $request, $inventories){
         $quotation = $this->quotations->store($request);
-        return $this->quotationProducts->store($inventories, $quotation['id']);
+        for($i=0;$i<$inventories['count'];$i++){
+            $this->quotationProducts->store(
+                $inventories['id'][$i], 
+                $inventories['desc'][$i],
+                $inventories['qty'][$i],
+                $inventories['rate'][$i],
+                $inventories['amt'][$i],
+                $quotation->id
+            );
+        }
+        return [
+            'result' => true
+        ];
     }
 
     public function show(Quotation $quotation){
@@ -58,7 +70,34 @@ class QuotationService{
     }
 
     public function update(Request $request, Quotation $quotation, $inventories){
-        $quotations = $this->quotations->update($request, $quotation);
+        $quotation = $this->quotations->update($request, $quotation);
+        for($i=0;$i<$inventories['count'];$i++){
+            if(!array_key_exists($i, $inventories['id'])){
+                $this->quotationProducts->store(
+                    $inventories['id'][$i], 
+                    $inventories['desc'][$i],
+                    $inventories['qty'][$i],
+                    $inventories['rate'][$i],
+                    $inventories['amt'][$i],
+                    $quotation->id
+                );
+            }else{
+                $this->quotationProducts->update(
+                    $inventories['id'][$i], 
+                    $inventories['desc'][$i],
+                    $inventories['qty'][$i],
+                    $inventories['rate'][$i],
+                    $inventories['amt'][$i],
+                    $quotation->id
+                );
+            }
+        }
+        $quotation_items = $this->quotationProducts->getByQuotationId($quotation_id);
+        foreach($quotation_items as $item){
+            if(!in_array($item->inventory_id,$inventories['id'])){
+                $this->quotationProducts->destroy($item->id);
+            }
+        }
         return $this->quotationProducts->update($inventories, $quotation->id);
     }
 

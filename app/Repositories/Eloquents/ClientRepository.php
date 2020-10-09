@@ -16,14 +16,9 @@ use App\Order;
 
 class ClientRepository extends BaseRepository implements IClientRepository
 {
-    // protected $clients;
-    protected $orders;
-
-    public function __construct(Client $model, Order $orders)
+    public function __construct(Client $clients)
     {
-        // $this->clients = $clients;
-        parent::__construct($model);
-        $this->orders = $orders;
+        $this->clients = $clients;
     }
     /**
      * Get all of the client for the given user.
@@ -33,13 +28,13 @@ class ClientRepository extends BaseRepository implements IClientRepository
      */
     public function all()
     {
-        return $this->model->where('user_id', Auth::user()->id)
+        return $this->clients->where('user_id', Auth::user()->id)
                     ->orderBy('created_at', 'asc')
                     ->get();
     }
 
-    public function store($auth_id, Request $request){
-        $client = $this->model;
+    public function store(Request $request){
+        $client = $this->clients;
         $client->company = $request->company_name;
         $client->name = $request->name;
         $client->phone = $request->phone;
@@ -49,11 +44,11 @@ class ClientRepository extends BaseRepository implements IClientRepository
         $client->billing_address = $request->b_address;
         $client->shipping_address = $request->s_address;
         $client->note = $request->note;
-        $client->user_id = $auth_id;
+        $client->user_id = Auth::user()->id;
         return $client->save();
     }
 
-    public function import($auth_id, Request $request){
+    public function import(Request $request){
         $result = [];
         $client_name = [];
         if ($request->hasFile('import_file')) {
@@ -84,7 +79,7 @@ class ClientRepository extends BaseRepository implements IClientRepository
     }
 
     public function update(Request $request, Client $client){
-        $client = $this->model->find($client->id);
+        $client = $this->clients->find($client->id);
         $client->name = $request->name;
         $client->company = $request->company_name;
         $client->phone = $request->phone;
@@ -98,15 +93,11 @@ class ClientRepository extends BaseRepository implements IClientRepository
     }
 
     public function destroy(Client $client){
-        $client = $this->model->find($client->id);
+        $client = $this->clients->find($client->id);
         return $client->delete();
     }
 
-    // public function getByOrder($order_id){
-    //     return $this->clients->where('id',$this->orders->where('id',$order_id)->first()->client_id)->first();
-    // }
-
     public function getById($id){
-        return $this->model->where('id',$id)->get();
+        return $this->clients->where('id',$id)->get();
     }
 }

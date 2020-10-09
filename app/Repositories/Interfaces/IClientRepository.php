@@ -8,8 +8,8 @@ use App\Client;
 interface IClientRepository
 {
     public function all();
-    public function store($auth_id, Request $request);
-    public function import($auth_id, Request $request);
+    public function store(Request $request);
+    public function import(Request $request);
     public function show(Client $client);
     public function edit(Client $client);
     public function update(Request $request, Client $client);

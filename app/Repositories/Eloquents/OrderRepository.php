@@ -17,12 +17,10 @@ use Auth;
 class OrderRepository implements IOrderRepository
 {
     protected $orders;
-    protected $auth_user;
     protected $clients;
 
-    public function __construct(Order $orders, User $auth_user, Client $clients){
+    public function __construct(Order $orders, Client $clients){
         $this->orders = $orders;
-        $this->auth_user = $auth_user;
         $this->clients = $clients;
     }
    
@@ -43,7 +41,7 @@ class OrderRepository implements IOrderRepository
     }
 
     public function store(Request $request){
-        $order = new Order;
+        $order = $this->orders;
         $order->client_id = $request->client_id;
         $order->invoice_date = $request->invoice_date;
         $order->due_date = $request->due_date;
@@ -58,7 +56,10 @@ class OrderRepository implements IOrderRepository
         $order->status = 'processing_order';
         $order->order_note = $request->order_note;
         $order->order_activities = $request->order_activities;
-        return ['result'=>$order->save(),'id'=>$order->id];
+        return [
+            'result'=>$order->save(),
+            'order'=>$order
+        ];
     }
 
     public function show(Order $order){
