@@ -41,7 +41,7 @@ class OrderService {
     }
 
     public function store(Request $request, $inventories){
-        $order =  $this->orders->store($request);
+        $result =  $this->orders->store($request);
         for($i = 0; $i < $inventories['count']; $i++){
             $this->saleProducts->storeByOrder(
                 $inventories['id'][$i], 
@@ -49,11 +49,12 @@ class OrderService {
                 $inventories['qty'][$i],
                 $inventories['rate'][$i],
                 $inventories['amt'][$i],
-                $order->id
+                $result['order']->id
             );
         }
         return [
-            'result' => true
+            'result' => true,
+            'order' => $result['order']
         ];
     }
 
