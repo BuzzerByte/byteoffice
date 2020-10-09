@@ -15,17 +15,14 @@ use App\Services\ClientService;
 class ClientController extends Controller
 {
     protected $clients;
-    protected $auth_user;
 
-    public function __construct(UserService $auth_user, ClientService $clients)
+    public function __construct(ClientService $clients)
     {
         $this->clients = $clients;
-        $this->auth_user = $auth_user;
     }
 
     public function index()
     {
-        $auth_id = $this->auth_user->getAuthId();
         $clients = $this->clients->all();
         if(empty($clients)){
             return view('admin.clients.index',['clients'=>'No Client']);

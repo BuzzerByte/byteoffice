@@ -6,7 +6,7 @@ use App\Repositories\Interfaces\IClientRepository;
 use Illuminate\Http\Request;
 use App\Client;
 
-class ClientService {
+class ClientService{
     protected $clients;
 
     public function __construct(IClientRepository $clients){
@@ -17,8 +17,8 @@ class ClientService {
         return $this->clients->all();
     }
 
-    public function store($auth_id, Request $request){
-        return $this->clients->store($auth_id, $request);
+    public function store(Request $request){
+        return $this->clients->store($request);
     }
 
     public function downloadClientSample(){
