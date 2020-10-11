@@ -30,8 +30,8 @@ class ClientService{
         return ['result'=>file_exists($file_path),'file_path'=>$file_path,'headers'=>$headers];
     }
 
-    public function import($auth_id, Request $request){
-        return $this->clients->import($auth_id, $request);
+    public function import(Request $request){
+        return $this->clients->import($request);
     }
 
     public function show(Client $client){
