@@ -33,8 +33,7 @@ class ClientController extends Controller
 
     public function store(Request $request)
     {
-        $auth_id = $this->auth_user->getAuthId();
-        $result = $this->clients->store($auth_id, $request);
+        $result = $this->clients->store($request);
         $result == true ? flash()->success('Client Inserted Successfully'):flash()->error('Something went wrong!');
         return redirect()->route('client.index');
     }
@@ -54,8 +53,7 @@ class ClientController extends Controller
         $this->validate($request, array(
             'import_file'      => 'required'
         ));
-        $auth_id = $this->auth_user->getAuthId();
-        $result = $this->clients->import($auth_id, $request);
+        $result = $this->clients->import($request);
         if($result['result'] && $result['status']=='success'){
             flash()->success($result['message']);
         }else if($result['result'] && $result['status']=='warning'){

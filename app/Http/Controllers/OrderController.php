@@ -62,14 +62,20 @@ class OrderController extends Controller
     public function create()
     {
         $result = $this->orders->create();
-        return view('admin.orders.create',['inventories'=>$result['inventories'],'clients'=>$result['clients']]);
+        return view('admin.orders.create',[
+            'inventories'=> $result['inventories'],
+            'clients'=>$result['clients']
+        ]);
     }
 
-    public function createWithClient(Client $client){
-        $selected_client = $client;
-        $inventories = Inventory::all();
-        $clients = Client::all();
-        return view('admin.orders.create',['inventories'=>$inventories,'clients'=>$clients,'selected_client'=>$selected_client]);
+    public function createWithClient(Client $client)
+    {
+        $result = $this->orders->create();
+        return view('admin.orders.create',[
+            'inventories'=>$result['inventories'],
+            'clients'=>$result['clients'],
+            'selected_client'=>$client
+        ]);
     }
 
     /**
@@ -174,7 +180,7 @@ class OrderController extends Controller
             'amt'=>$inv_amount
         ]);
         $result = $this->orders->store($request, $inventories[0]);
-        return redirect()->route('orders.show',$result['order_id']);
+        return redirect()->route('orders.show',$result['order']->id);
     }
 
     /**

@@ -45,15 +45,20 @@ class QuotationController extends Controller
      */
     public function create()
     {
-        $clients = $this->clients->all();
-        $inventories = $this->inventories->all();
-        return view('admin.quotations.create',['clients'=>$clients,'inventories'=>$inventories]);
+        $result = $this->quotations->create();
+        return view('admin.quotations.create',[
+            'clients'=>$result['clients'],
+            'inventories'=>$result['inventories']
+        ]);
     }
 
     public function createWithClient(Client $client){
-        $clients = $this->clients->all();
-        $inventories = $this->inventories->all();
-        return view('admin.quotations.create',['clients'=>$clients,'inventories'=>$inventories,'selected_client'=>$selected_client]);
+        $result = $this->quotations->create();
+        return view('admin.quotations.create',[
+            'clients'=>$result['clients'],
+            'inventories'=>$result['inventories'],
+            'selected_client'=>$client
+        ]);
     }
     /**
      * Store a newly created resource in storage.
