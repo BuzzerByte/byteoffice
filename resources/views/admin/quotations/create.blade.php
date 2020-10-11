@@ -213,29 +213,31 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    @if(isset($selected_client))
+                                    @isset($selected_client)
                                     <div class="row">
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label>Client <span class="required" aria-required="true">*</span></label>
                                                 <select class="form-control ls-select2" id="selected_client" style="width: 100%;"
                                                     name="client_id" required>
-                                                    @if (!$clients->isEmpty())
-                                                    <option value="">Please Select</option>
-                                                    @foreach($clients as $client)
-                                                    @if($client->id == $selected_client->id)
-                                                    <option value="{{ $client->id}}" selected>
-                                                        {{ $client->name }}</option>
-                                                    @else
-                                                    <option value="{{ $client->id}}">
-                                                        {{ $client->name }}</option>
-                                                    @endif
-
-                                                    @endforeach
-
-
-                                                    @endif
-
+                                                    @isset ($clients)
+                                                    <option value="">
+                                                        Please Selected</option>
+                                                        @foreach($clients as $client)
+                                                            
+                                                            @if($client->id == $selected_client->id)
+                                                            <option value={{ $client->id }} selected>
+                                                                {{ $client->name }}</option>
+                                                            @else
+                                                            <option value={{ $client->id }}>
+                                                                {{ $client->name }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    @endisset
+                                                    @empty($clients)
+                                                    <option value="">
+                                                        Please Selected</option>
+                                                    @endempty
                                                 </select>
                                             </div>
                                         </div>
@@ -244,7 +246,7 @@
                                             <!-- /.Start Date -->
                                             <div class="form-group form-group-bottom">
                                                 <label>Email</label>
-                                                <input type="email" id="email" name="email" class="form-control" value="{{ $selected_client->email }}">
+                                                <input type="email" id="email" name="email" class="form-control" value={{ $selected_client->email }}>
                                             </div>
                                         </div>
 
@@ -297,23 +299,26 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @else
+                                    @endisset
+                                    @empty($selected_client)
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                     <label>Client <span class="required" aria-required="true">*</span></label>
                                                     <select class="form-control ls-select2" id="selected_client" name="client_id"  style="width: 100%;"
                                                         required>
-                                                        @if (!$clients->isEmpty())
-                                                        <option value="">Please Select</option>
-                                                        @foreach($clients as $client)
-                                                        <option value="{{ $client->id}}">
-                                                            {{ $client->name }}</option>
-                                                        @endforeach
-                                                        @else
+                                                        @isset ($clients)
                                                         <option value="">
                                                             Please Selected</option>
-                                                        @endif
+                                                            @foreach($clients as $client)
+                                                                <option value={{ $client->id }}>
+                                                                    {{ $client->name }}</option>
+                                                            @endforeach
+                                                        @endisset
+                                                    @empty($clients)
+                                                    <option value="">
+                                                        Please Selected</option>
+                                                    @endempty
                                                     </select>
                                                 </div>
                                         </div>
@@ -374,7 +379,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @endif
+                                    @endempty
                                 </div>
 
                             </div>
@@ -407,15 +412,13 @@
                                                     <div class="form-group form-group-bottom">
                                                         <select class="inventory new_inventory form-control" style="width: 100%;"
                                                             name="inventory_id[]">
-                                                            @if (!$inventories->isEmpty())
+                                                            @isset($inventories)
                                                             <option value="">Please Select</option>
                                                             @foreach($inventories as $inventory)
-                                                            <option value="{{ $inventory->id}}">
+                                                            <option value={{ $inventory->id }}>
                                                                 {{ $inventory->name }}</option>
                                                             @endforeach
-                                                            @else
-
-                                                            @endif
+                                                            @endisset
                                                         </select>
                                                     </div>
                                                 </td>

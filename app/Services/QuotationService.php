@@ -32,6 +32,15 @@ class QuotationService{
         return $this->quotations->all();
     }
 
+    public function create(){
+        $inventories = $this->inventories->all();
+        $clients = $this->clients->all();
+        return [
+            'inventories' => $inventories,
+            'clients' => $clients
+        ];
+    }
+
     public function store(Request $request, $inventories){
         $quotation = $this->quotations->store($request);
         for($i=0;$i<$inventories['count'];$i++){
