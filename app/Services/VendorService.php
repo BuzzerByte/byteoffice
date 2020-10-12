@@ -13,12 +13,12 @@ class VendorService {
         $this->vendors = $vendors;
     }
 
-    public function all($auth_id){
-        return $this->vendors->all($auth_id);
+    public function all(){
+        return $this->vendors->all();
     }
 
-    public function store($auth_id, Request $request){
-        return $this->vendors->store($auth_id, $request);
+    public function store(Request $request){
+        return $this->vendors->store($request);
     }
 
     public function downloadVendorSample(){
@@ -30,8 +30,8 @@ class VendorService {
         return ['result'=>file_exists($file_path),'file_path'=>$file_path,'headers'=>$headers];
     }
 
-    public function import($auth_id, Request $request){
-        return $this->vendors->import($auth_id, $request);
+    public function import(Request $request){
+        return $this->vendors->import($request);
     }
 
     public function show(Vendor $vendor){

@@ -2,15 +2,13 @@
 
 namespace App\Repositories\Eloquents;
 
-use App\Vendor;
-use Illuminate\Http\Request;
-use Response;
-use File;
-use App\Imports\VendorsImport;
-use Session;
-use Excel;
-use DB;
 use App\Repositories\Interfaces\IVendorRepository;
+use Illuminate\Http\Request;
+use App\Imports\VendorsImport;
+use App\Vendor;
+use File;
+use Excel;
+use Auth;
 
 class VendorRepository implements IVendorRepository
 {
@@ -26,14 +24,14 @@ class VendorRepository implements IVendorRepository
      * @param  Vendor  $vendor
      * @return Collection
      */
-    public function all($user_id)
+    public function all()
     {
-        return $this->vendors->where('user_id', $user_id)
+        return $this->vendors->where('user_id', Auth::user()->id)
                     ->orderBy('created_at', 'asc')
                     ->get();
     }
 
-    public function store($auth_id, Request $request){
+    public function store(Request $request){
         $vendor = new Vendor;
         $vendor->company = $request->company_name;
         $vendor->name = $request->name;
@@ -43,7 +41,7 @@ class VendorRepository implements IVendorRepository
         $vendor->website = $request->website;
         $vendor->billing_address = $request->b_address;
         $vendor->note = $request->note;
-        $vendor->user_id = $auth_id;
+        $vendor->user_id = Auth::user()->id;
         return $vendor->save();
     }
 
@@ -56,7 +54,7 @@ class VendorRepository implements IVendorRepository
         return ['result'=>file_exists($file_path),'file_path'=>$file_path,'headers'=>$headers];
     }
 
-    public function import($auth_id, Request $request){
+    public function import(Request $request){
         $result = [];
         $vendor_name = [];
         if ($request->hasFile('import_file')) {

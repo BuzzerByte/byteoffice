@@ -57,7 +57,7 @@ class SaleProductRepository implements ISaleProductRepository
     }
 
     public function update($sale_id, $id, $desc, $qty, $rate, $amt, $order_id){
-        $saleProduct = $this->saleProducts->where('sale_id',$sale_id);
+        $saleProduct = $this->saleProducts->find($sale_id);
         $saleProduct->inventory_id = $id;
         $saleProduct->description = $desc;
         $saleProduct->quantity = (int)$qty;

@@ -50,7 +50,7 @@ class QuotationService{
                 $inventories['qty'][$i],
                 $inventories['rate'][$i],
                 $inventories['amt'][$i],
-                $quotation->id
+                $quotation['quotation']->id
             );
         }
         return [
@@ -80,6 +80,7 @@ class QuotationService{
 
     public function update(Request $request, Quotation $quotation, $inventories){
         $quotation = $this->quotations->update($request, $quotation);
+        //issue here
         for($i=0;$i<$inventories['count'];$i++){
             if(!array_key_exists($i, $inventories['id'])){
                 $this->quotationProducts->store(
@@ -88,7 +89,7 @@ class QuotationService{
                     $inventories['qty'][$i],
                     $inventories['rate'][$i],
                     $inventories['amt'][$i],
-                    $quotation->id
+                    $quotation['quotation']->id
                 );
             }else{
                 $this->quotationProducts->update(
@@ -97,17 +98,20 @@ class QuotationService{
                     $inventories['qty'][$i],
                     $inventories['rate'][$i],
                     $inventories['amt'][$i],
-                    $quotation->id
+                    $quotation['quotation']->id
                 );
             }
         }
-        $quotation_items = $this->quotationProducts->getByQuotationId($quotation_id);
+        //issue here
+        $quotation_items = $this->quotationProducts->getByQuotationId($quotation['quotation']->id);
         foreach($quotation_items as $item){
             if(!in_array($item->inventory_id,$inventories['id'])){
                 $this->quotationProducts->destroy($item->id);
             }
         }
-        return $this->quotationProducts->update($inventories, $quotation->id);
+        return [
+            'result' => true,
+        ];
     }
 
     public function destroy(Quotation $quotation){

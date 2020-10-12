@@ -37,7 +37,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Client <span class="required" aria-required="true">*</span></label>
-                                                <input type="text" class="form-control" value="{{ $clients['name'] }}"
+                                                <input type="text" class="form-control" value={{ $clients->name }}
                                                     readonly="">
                                             </div>
                                         </div>
@@ -47,21 +47,21 @@
                                             <div class="form-group form-group-bottom">
                                                 <label>Email</label>
                                                 <input type="email" id="email" name="email" class="form-control autocomplete_off"
-                                                    value="{{ $clients['email'] }}">
+                                                    value={{ $clients->email }}>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Billing Address</label>
-                                                <textarea class="form-control autocomplete_off" id="b_address" name="b_address">{{ $clients['billing_address'] }}</textarea>
+                                                <textarea class="form-control autocomplete_off" id="b_address" name="b_address">{{ $clients->billing_address }}</textarea>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Shipping Address</label>
-                                                <textarea class="form-control autocomplete_off" id="s_address" name="s_address">{{ $clients['shipping_address'] }}</textarea>
+                                                <textarea class="form-control autocomplete_off" id="s_address" name="s_address">{{ $clients->shipping_address }}</textarea>
                                             </div>
                                         </div>
 
@@ -146,15 +146,13 @@
                                                     
                                                         <select class="inventory new_inventory form-control" style="width: 100%;"
                                                             name="inventory_id[]">
-                                                            @if (!$inventories->isEmpty())
+                                                            @isset($inventories)
                                                             <option value="">Please Select</option>
                                                             @foreach($inventories as $inventory)
                                                             <option value="{{ $inventory->id}}">
                                                                 {{ $inventory->name }}</option>
                                                             @endforeach
-
-
-                                                            @endif
+                                                            @endisset
                                                         </select>
                                                     
                                                 </td>
@@ -196,18 +194,21 @@
                                                         
                                                             <select class="inventory form-control" style="width: 100%;"
                                                                 name="inventory_id[]" required>
-                                                                @if (!$inventories->isEmpty())
+
+
+
+                                                                @isset($inventories)
                                                                 <option value="">Please Select</option>
                                                                 @foreach($inventories as $inventory)
                                                                 @if($sale->inventory_id == $inventory->id)
-                                                                <option value="{{ $inventory->id}}" selected>
+                                                                <option value={{ $inventory->id}} selected>
                                                                     {{ $inventory->name }}</option>
                                                                 @else
-                                                                <option value="{{ $inventory->id}}">
+                                                                <option value={{ $inventory->id}}>
                                                                     {{ $inventory->name }}</option>
                                                                 @endif
                                                                 @endforeach
-                                                                @endif
+                                                                @endisset
                                                             </select>
                                                     
                                                     </td>
