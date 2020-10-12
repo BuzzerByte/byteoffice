@@ -33,10 +33,12 @@ class QuotationProductRepository implements IQuotationProductRepository{
 
     public function update($id, $desc, $qty, $rate, $amt, $quotation_id){
         // $quotationProduct = QuotationProduct::where('quotation_id',$quotation_id)->where('inventory_id',$id);
+        //issue here
         $quotationProductId = $this->quotationProducts->select('id')
                                     ->where('quotation_id',$quotation_id)
                                     ->where('inventory_id',$id)
                                     ->first();
+        //issue here
         $quotationProduct = $this->quotationProducts->find($quotationProductId);
         $quotationProduct->description = $desc;
         $quotationProduct->quantity = $qty;
