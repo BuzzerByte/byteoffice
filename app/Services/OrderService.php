@@ -8,12 +8,11 @@ use App\Repositories\Interfaces\IClientRepository;
 use App\Repositories\Interfaces\IPaymentRepository;
 use App\Repositories\Interfaces\IInventoryRepository;
 use Illuminate\Http\Request;
-use App\Order;
-use App\SaleProduct;
 use App\Exports\OrderExport;
 use App\Exports\ProcessExport;
 use App\Exports\PendingExport;
 use App\Exports\DeliverExport;
+use App\Order;
 
 class OrderService {
     protected $orders;
@@ -94,7 +93,7 @@ class OrderService {
                     $inventories['qty'][$i], 
                     $inventories['rate'][$i], 
                     $inventories['amt'][$i], 
-                    $order->id
+                    $order['order']->id
                 );
             }else{
                 $this->saleProducts->update(
@@ -104,11 +103,11 @@ class OrderService {
                     $inventories['qty'][$i], 
                     $inventories['rate'][$i], 
                     $inventories['amt'][$i], 
-                    $order->id
+                    $order['order']->id
                 );
             }
         }
-        $sale_items = $this->saleProducts->getByOrder($order->id);
+        $sale_items = $this->saleProducts->getByOrder($order['order']->id);
         foreach($sale_items as $item){
             if(!in_array($item->inventory_id,$inventories['id'])){
                 $this->saleProducts->destroy($item->id);

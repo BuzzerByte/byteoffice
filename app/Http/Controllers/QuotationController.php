@@ -2,30 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\QuotationService;
+use Illuminate\Http\Request;
 use App\Quotation;
 use App\Client;
-use App\Inventory;
-use App\QuotationProduct;
-use DB;
-use Carbon\Carbon;  
 use Session;
-use Illuminate\Http\Request;
-use App\Services\QuotationService;
-use App\Services\ClientService;
-use App\Services\InventoryService;
 
 class QuotationController extends Controller
 {
     protected $quotations;
 
     public function __construct(
-        QuotationService $quotations,
-        ClientService $clients,
-        InventoryService $inventories
+        QuotationService $quotations
     ){
         $this->quotations = $quotations;
-        $this->clients = $clients;
-        $this->inventories = $inventories;
     }
     /**
      * Display a listing of the resource.
@@ -159,8 +149,6 @@ class QuotationController extends Controller
      */
     public function update(Request $request, Quotation $quotation)
     {
-        $quotation_id = $request->quotation_id;
-
         $inv_id = $request->inventory_id;
         array_splice($inv_id,0,1);
         array_splice($inv_id,count($inv_id)-1,1);

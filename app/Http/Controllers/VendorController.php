@@ -2,28 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Vendor;
 use Illuminate\Http\Request;
-use Session;
-use Response;
-use Excel;
-use File;
-use DB;
-use App\Imports\VendorsImport;
-use Auth;
 use App\Services\VendorService;
-use App\Services\UserService;
+use App\Vendor;
+use Response;
 
 class VendorController extends Controller
 {
 
     protected $vendors;
-    protected $auth_user;
 
-    public function __construct(UserService $auth_user, VendorService $vendors)
+    public function __construct(VendorService $vendors)
     {
         $this->vendors = $vendors;
-        $this->auth_user = $auth_user;
     }
     /**
      * Display a listing of the resource.
@@ -32,8 +23,7 @@ class VendorController extends Controller
      */
     public function index()
     {
-        $auth_id = $this->auth_user->getAuthId();
-        $vendors =  $this->vendors->all($auth_id);
+        $vendors =  $this->vendors->all();
         if(empty($vendors)){
             return view('admin.vendors.index',['vendors'=>'No Vendor']);
         }else{
@@ -59,8 +49,7 @@ class VendorController extends Controller
      */
     public function store(Request $request)
     {
-        $auth_id = $this->auth_user->getAuthId();
-        $result = $this->vendors->store($auth_id, $request);
+        $result = $this->vendors->store($request);
         $result == true ? flash()->success('Vendor Inserted Successfully'):flash()->error('Something went wrong!');
         return redirect()->route('vendor.index');
     }
@@ -80,8 +69,7 @@ class VendorController extends Controller
         $this->validate($request, array(
             'import_file'      => 'required'
         ));
-        $auth_id = $this->auth_user->getAuthId();
-        $result = $this->vendors->import($auth_id, $request);
+        $result = $this->vendors->import($request);
         if($result['result'] && $result['status']=='success'){
             flash()->success($result['message']);
         }else if($result['result'] && $result['status']=='warning'){

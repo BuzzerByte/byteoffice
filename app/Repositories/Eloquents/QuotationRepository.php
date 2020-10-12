@@ -2,11 +2,11 @@
 
 namespace App\Repositories\Eloquents;
 
-use App\Quotation;
 use App\Repositories\Interfaces\IQuotationRepository;
+use Illuminate\Http\Request;
+use App\Quotation;
 use App\Client;
 use Auth;
-use Illuminate\Http\Request;
 
 class QuotationRepository implements IQuotationRepository{
     protected $quotations;
@@ -37,7 +37,10 @@ class QuotationRepository implements IQuotationRepository{
         $quotation->status = 'pending';
         $quotation->order_note = $request->order_note;
         $quotation->order_activities = $request->order_activities;
-        return ['result'=>$quotation->save(),'id'=>$quotation->id];
+        return [
+            'result'=>$quotation->save(),
+            'quotation'=>$quotation
+        ];
     }
 
     public function show(Quotation $quotation){
@@ -56,13 +59,16 @@ class QuotationRepository implements IQuotationRepository{
         $quotation->g_total = $request->g_total;
         $quotation->tax = $request->tax;
         $quotation->discount = $request->discount;
-        $quotation->order_note = $request->order_price;
+        $quotation->order_note = $request->order_note;
         $quotation->order_activities = $request->order_activities;
-        return $quotation->save();
+        return [
+            'result' => $quotation->save(),
+            'quotation' => $quotation
+        ];
     }
 
     public function destroy(Quotation $quotation){
-        $quotation = Quotation::find($quotation->id);
+        $quotation = $this->quotations->find($quotation->id);
         return $quotation->delete();
     }
 }
