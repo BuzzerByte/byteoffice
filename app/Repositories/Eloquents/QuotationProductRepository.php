@@ -34,7 +34,7 @@ class QuotationProductRepository implements IQuotationProductRepository{
     public function update($id, $desc, $qty, $rate, $amt, $quotation_id){
         // $quotationProduct = QuotationProduct::where('quotation_id',$quotation_id)->where('inventory_id',$id);
         //issue here
-        $quotationProductId = $this->quotationProducts->select('id')
+        $id = $this->quotationProducts->select('id')
                                     ->where('quotation_id',$quotation_id)
                                     ->where('inventory_id',$id)
                                     ->first();
@@ -48,6 +48,14 @@ class QuotationProductRepository implements IQuotationProductRepository{
             'result'=>$quotationProduct->save(),
             'quotationProduct'=>$quotationProduct
         ];
+    }
+
+    public function updateOrCreate($id, $desc, $qty, $rate, $amt, $quotation_id){
+        $this->quotationProducts->updateOrCreate(
+            ['quotation_id'=>$quotation_id, 'inventory_id'=> $id],
+            ['description'=> $desc , 'quantity'=>$qty, 'rate'=>$rate,'amount'=>$amt]
+        );
+        return true;
     }
 
     public function destroy($id){

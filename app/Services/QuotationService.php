@@ -44,7 +44,7 @@ class QuotationService{
     public function store(Request $request, $inventories){
         $quotation = $this->quotations->store($request);
         for($i=0;$i<$inventories['count'];$i++){
-            $this->quotationProducts->store(
+            $this->quotationProducts->updateOrCreate(
                 $inventories['id'][$i], 
                 $inventories['desc'][$i],
                 $inventories['qty'][$i],
@@ -82,25 +82,33 @@ class QuotationService{
         $quotation = $this->quotations->update($request, $quotation);
         //issue here
         for($i=0;$i<$inventories['count'];$i++){
-            if(!array_key_exists($i, $inventories['id'])){
-                $this->quotationProducts->store(
-                    $inventories['id'][$i], 
-                    $inventories['desc'][$i],
-                    $inventories['qty'][$i],
-                    $inventories['rate'][$i],
-                    $inventories['amt'][$i],
-                    $quotation['quotation']->id
-                );
-            }else{
-                $this->quotationProducts->update(
-                    $inventories['id'][$i], 
-                    $inventories['desc'][$i],
-                    $inventories['qty'][$i],
-                    $inventories['rate'][$i],
-                    $inventories['amt'][$i],
-                    $quotation['quotation']->id
-                );
-            }
+            $this->quotationProducts->updateOrCreate(
+                $inventories['id'][$i], 
+                $inventories['desc'][$i],
+                $inventories['qty'][$i],
+                $inventories['rate'][$i],
+                $inventories['amt'][$i],
+                $quotation['quotation']->id
+            );
+            // if(!array_key_exists($i, $inventories['id'])){
+            //     $this->quotationProducts->store(
+            //         $inventories['id'][$i], 
+            //         $inventories['desc'][$i],
+            //         $inventories['qty'][$i],
+            //         $inventories['rate'][$i],
+            //         $inventories['amt'][$i],
+            //         $quotation['quotation']->id
+            //     );
+            // }else{
+            //     $this->quotationProducts->update(
+            //         $inventories['id'][$i], 
+            //         $inventories['desc'][$i],
+            //         $inventories['qty'][$i],
+            //         $inventories['rate'][$i],
+            //         $inventories['amt'][$i],
+            //         $quotation['quotation']->id
+            //     );
+            // }
         }
         //issue here
         $quotation_items = $this->quotationProducts->getByQuotationId($quotation['quotation']->id);
