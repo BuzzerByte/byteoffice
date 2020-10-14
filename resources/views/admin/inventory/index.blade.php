@@ -46,7 +46,7 @@
     
         $('.delete').click(function () {
             var id = $(this).parents('li').siblings('.inventory_id').attr('id');
-            $('#form-d-inventory').attr('action', '/admin/inventory/' + id + '/delete');
+            $('#form-d-inventory').attr('action', '/admin/inventory/' + id);
         });
     
         $('.inventory').click(function () {
@@ -65,8 +65,8 @@
             var id = $(this).siblings('.inventory_id').attr('id');
             $('.inv_id').val(id);
             $.get("/admin/inventory/" + id, function (data) {
-                $('#w_quantity').attr('placeholder',data['inventory'][0]['quantity']);
-                $('#withdraw_name').val(data['inventory'][0]['name']);
+                $('#w_quantity').attr('placeholder',data['quantity']);
+                $('#withdraw_name').val(data['name']);
             });
         });
     

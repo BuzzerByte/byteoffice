@@ -89,4 +89,11 @@ class EmployeeRepository implements IEmployeeRepository{
     public function getById($id){
         return $this->employees->where('id',$id)->first();
     }
+
+    public function updateTerminationStatus($id){
+        $this->employees->where('id',$id)->update([
+            'terminate_status'=>1
+        ]);
+        return true;
+    }
 }

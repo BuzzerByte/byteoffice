@@ -17,15 +17,14 @@
                 $('#example1').DataTable()
             })
             $('.edit').click(function () {
-                var id = $(this).parents('button').siblings('.withdraw_id').attr('id');
+                var id = $(this).siblings('.withdraw_id').attr('id');
                 $('#form-witdraw-edit').attr('action', '/admin/withdrawals/' + id);
-                $('.withdraw_id').val(id);
                 $.get("/admin/withdrawals/" + id + "/edit", function (data) {
                     $w_quantity = data['w_quantity'];
                     $.get('/admin/inventory/' + data['inventory_id'], function (data) {
         
-                        $('#inv_name').val(data['inventory'][0]['name']);
-                        $('#w_quantity').attr('placeholder',parseInt(data['inventory'][0]['quantity'])+parseInt($w_quantity));
+                        $('#inv_name').val(data['name']);
+                        $('#w_quantity').attr('placeholder',parseInt(data['quantity'])+parseInt($w_quantity));
                     });
                     $('#ori_qty').val(data['w_quantity']);
                     $('#edit_inv_id').val(data['inventory_id']);
@@ -119,7 +118,7 @@
                                 <td>{{ $withdrawal->withdrawer }}</td>
                                 <td>
                                     <div class="btn-group mr-2" role="group" aria-label="First group">
-                                        <input type="hidden" class="withdraw_id" id="{{ $withdrawal->id }}">
+                                        <input type="hidden" class="withdraw_id" id={{ $withdrawal->id }}>
 
                                         <button type="button" class="btn btn-icon btn-outline-info edit" data-toggle="modal"
                                             data-target="#modal-withdraw-edit"><i class="icon-fa icon-fa-pencil"></i></button>

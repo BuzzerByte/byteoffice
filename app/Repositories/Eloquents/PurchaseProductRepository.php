@@ -46,7 +46,7 @@ class PurchaseProductRepository implements IPurchaseProductRepository
 
     public function updateReturn($purchaseId, $purchase_prod_id,$return,$purchaseQty){
         $purchaseProds = PurchaseProduct::where('purchase_id',$purchaseId)
-        ->where('id',$purchase_prod_id[$i])
+        ->where('id',$purchase_prod_id)
         ->update([
             'return' => $return +  $purchaseQty
         ]);
@@ -54,7 +54,6 @@ class PurchaseProductRepository implements IPurchaseProductRepository
     }
 
     public function all(){
-        //purchase_id -> vendor_id -> user_id
         return $this->purchaseProducts->leftjoin('purchases','purchase_products.purchase_id','purchases.id')
                                     ->leftjoin('vendors','purchases.vendor_id','vendors.id')
                                     ->where('vendors.user_id',Auth::user()->id)

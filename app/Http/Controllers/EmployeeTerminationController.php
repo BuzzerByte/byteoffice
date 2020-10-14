@@ -6,9 +6,15 @@ use App\EmployeeTermination;
 use App\Employee;
 use App\User;
 use Illuminate\Http\Request;
+use App\Services\EmployeeTerminationService;
 
 class EmployeeTerminationController extends Controller
 {
+    protected $employeeTerminations;
+
+    public function __construct(IEmployeeTerminationRepository $employeeTerminations){
+        $this->employeeTerminations = $employeeTerminations;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -37,18 +43,7 @@ class EmployeeTerminationController extends Controller
      */
     public function store(Request $request)
     {
-        $store = EmployeeTermination::updateOrCreate(
-            [
-                'employee_id'=>(int)$request->employee_id
-            ],[
-                'date'=>$request->termination_date,
-                'reason'=>$request->termination_reason,
-                'note'=>$request->termination_note
-            ]
-        );
-        Employee::where('id',$request->employee_id)->update([
-            'terminate_status'=>1
-        ]);
+        $result = $this->employeeTerminations->store($request);
         return redirect()->route('employees.show',$request->employee_id);
     }
 
@@ -56,6 +51,7 @@ class EmployeeTerminationController extends Controller
         Employee::where('id',$employeeTermination->employee_id)->update([
             'terminate_status'=>0
         ]);
+        // $result = $this->employeeTerminations->unterminate()
         return redirect()->route('employees.show',$employeeTermination->employee_id);
     }
 
