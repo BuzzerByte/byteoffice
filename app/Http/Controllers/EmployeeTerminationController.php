@@ -12,7 +12,7 @@ class EmployeeTerminationController extends Controller
 {
     protected $employeeTerminations;
 
-    public function __construct(IEmployeeTerminationRepository $employeeTerminations){
+    public function __construct(EmployeeTerminationService $employeeTerminations){
         $this->employeeTerminations = $employeeTerminations;
     }
     /**
@@ -48,10 +48,7 @@ class EmployeeTerminationController extends Controller
     }
 
     public function unterminate(EmployeeTermination $employeeTermination){
-        Employee::where('id',$employeeTermination->employee_id)->update([
-            'terminate_status'=>0
-        ]);
-        // $result = $this->employeeTerminations->unterminate()
+        $result = $this->employeeTerminations->unterminate($employeeTermination);
         return redirect()->route('employees.show',$employeeTermination->employee_id);
     }
 
@@ -63,7 +60,7 @@ class EmployeeTerminationController extends Controller
      */
     public function show(EmployeeTermination $employeeTermination)
     {
-        $employee = User::where('id',$employeeTermination->employee_id)->first();
+        $employee = $this->employeeTerminations->getEmployeeById($employeeTermination->employee_id);
         return view('admin.employeeTerminations.show',['employee'=>$employee, 'terminated'=>$employeeTermination]);
     }
 
@@ -87,11 +84,7 @@ class EmployeeTerminationController extends Controller
      */
     public function update(Request $request, EmployeeTermination $employeeTermination)
     {
-        $update = EmployeeTermination::where('id',$employeeTermination->id)->update([
-            'date'=>$request->termination_date,
-            'reason'=>$request->termination_reason,
-            'note'=>$request->termination_note
-        ]);
+        $resulst = $this->employeeTerminations->update($request, $employeeTermination);
         return redirect()->route('employeeTerminations.show',$employeeTermination->id);
     }
 
