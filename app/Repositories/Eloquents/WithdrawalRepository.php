@@ -3,9 +3,9 @@
 namespace App\Repositories\Eloquents;
 
 use App\Repositories\Interfaces\IWithdrawalRepository;
+use Illuminate\Http\Request;
 use Auth;
 use App\Withdrawal;
-use Illuminate\Http\Request;
 
 class WithdrawalRepository implements IWithdrawalRepository{
     protected $withdrawals;
@@ -15,7 +15,7 @@ class WithdrawalRepository implements IWithdrawalRepository{
     }
 
     public function all(){
-        return $this->withdrawals->leftjoin('inventories','withdrawals.inventory_id','inventories.id')
+        return $this->withdrawals->leftjoin('inventories','inventories.id','withdrawals.inventory_id')
                                 ->where('inventories.user_id',Auth::user()->id)
                                 ->orderBy('withdrawals.created_at','asc')
                                 ->get();
@@ -32,7 +32,7 @@ class WithdrawalRepository implements IWithdrawalRepository{
     }
 
     public function update(Request $request, $id){
-        $withdrawal = $this->withdrawals->find($withdrawal->id);
+        $withdrawal = $this->withdrawals->find($id);
         $withdrawal->w_quantity = $request->w_quantity;
         $withdrawal->project_id = $request->project_id;
         $withdrawal->withdrawer = Auth::user()->name;

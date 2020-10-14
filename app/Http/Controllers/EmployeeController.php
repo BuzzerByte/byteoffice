@@ -2,36 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Employee;
-use App\UserAttachment;
-use App\ContactDetail;
-use App\EmployeeDependent;
-use App\EmployeeCommencement;
-use App\JobHistory;
-use App\EmployeeSalary;
-use App\EmployeeSupervisor;
-use App\EmployeeSubordinate;
-use App\EmployeeDeposit;
-use App\EmployeeLogin;
-use App\Department;
-use App\EmployeeStatus;
-use App\JobCategory;
-use App\JobTitle;
-use App\WorkShift;
+use App\Services\EmployeeService;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
+use App\Employee;
 use Session;
 use Response;
-use Excel;
-use File;
-use DB;
 use Auth;
-use App\RoleEmployee;
-use App\Role;
-use App\Imports\EmployeeImport;
-use App\Exports\EmployeeExport;
-use App\User;
-use App\Services\EmployeeService;
 
 class EmployeeController extends Controller
 {
