@@ -91,6 +91,8 @@ use App\Repositories\Interfaces\IPermissionRepository;
 use App\Repositories\Eloquents\PermissionRepository;
 use App\Repositories\Interfaces\IPermissionRoleRepository;
 use App\Repositories\Eloquents\PermissionRoleRepository;
+use App\Repositories\Interfaces\IEmployeeTerminationRepository;
+use App\Repositories\Eloquents\EmployeeTerminationRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -145,6 +147,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ISalaryComponentRepository::class, SalaryComponentRepository::class);
         $this->app->bind(IPermissionRepository::class, PermissionRepository::class);
         $this->app->bind(IPermissionRoleRepository::class, PermissionRoleRepository::class);
+        $this->app->bind(IEmployeeTerminationRepository::class, EmployeeTerminationRepository::class);
     }
 
     /**

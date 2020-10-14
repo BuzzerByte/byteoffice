@@ -9,7 +9,7 @@ use App\Repositories\Interfaces\IEmployeeTerminationRepository;
 class EmployeeTerminationRepository implements IEmployeeTerminationRepository{
     protected $employeeTerminations;
 
-    public function __construct(IEmployeeTerminationRepository $employeeTerminations){
+    public function __construct(EmployeeTermination $employeeTerminations){
         $this->employeeTerminations = $employeeTerminations;
     }
 
