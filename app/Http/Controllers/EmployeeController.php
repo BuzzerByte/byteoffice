@@ -256,6 +256,9 @@ class EmployeeController extends Controller
         }else{
             $salary = $this->employees->storeSalaryById($employee->id);
         }
-        return view('admin.employeeSalaries.index',['employee'=>$employee,'salary'=>$salary['salary']]);
+        return view('admin.employeeSalaries.index',[
+            'employee'=>$employee,
+            'salary'=>$salary['salary']
+        ]);
     }
 }
