@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\EmployeeDependent;
 use Illuminate\Http\Request;
+use App\Services\EmployeeDependentService;
 
 class EmployeeDependentController extends Controller
 {
+    protected $employeeDependents;
+
+    public function __construct(
+        EmployeeDependentService $employeeDependents
+    ){
+        $this->employeeDependents = $employeeDependents;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -35,12 +43,7 @@ class EmployeeDependentController extends Controller
      */
     public function store(Request $request)
     {
-        $store = EmployeeDependent::create([
-            'name'=>$request->name,
-            'relationship'=>$request->relationship,
-            'dob'=>$request->date_of_birth,
-            'employee_id'=>$request->employee_id
-        ]);
+        $result = $this->employeeDependents->store($request);
         return redirect()->route('employees.employeeDependents',$request->employee_id);
     }
 
@@ -75,11 +78,7 @@ class EmployeeDependentController extends Controller
      */
     public function update(Request $request, EmployeeDependent $employeeDependent)
     {
-        $update = EmployeeDependent::where('id',$employeeDependent->id)->update([
-            'name'=>$request->name,
-            'relationship'=>$request->relationship,
-            'dob'=>$request->date_of_birth
-        ]);
+        $result = $this->employeeDependents->update($request, $employeeDependent);
         return redirect()->route('employees.employeeDependents',$employeeDependent->employee_id);
     }
 
@@ -95,17 +94,7 @@ class EmployeeDependentController extends Controller
     }
 
     public function delete(Request $request){
-        // return response()->json($request);
-        $dependentId_arr = $request->dependentId;
-        if($dependentId_arr!=null){
-            foreach($dependentId_arr as $id){
-                $dependent = EmployeeDependent::find((int)$id);
-                $dependent->delete();
-            }
-            return redirect()->route('employees.employeeDependents',$request->employee_id);
-        
-        }else{
-            return redirect()->route('employees.employeeDependents',$request->employee_id);
-        }
+        $result = $this->employeeDependents->destroy($request);
+        return redirect()->route('employees.employeeDependents',$request->employee_id);
     }
 }
