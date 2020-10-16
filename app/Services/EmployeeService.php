@@ -268,7 +268,7 @@ class EmployeeService{
         return $this->employeeStatuses->all();
     }
 
-    public function getJobTitle(){
+    public function getJobTitles(){
         return $this->jobTitles->all();
     }
 
