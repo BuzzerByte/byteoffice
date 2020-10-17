@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\EmployeeDeposit;
 use Illuminate\Http\Request;
+use App\Services\EmployeeDepositService;
 
 class EmployeeDepositController extends Controller
 {
+    protected $employeeDeposits;
+
+    public function __construct(
+        EmployeeDepositService $employeeDeposits
+    ){
+        $this->employeeDeposits = $employeeDeposits;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -35,15 +43,7 @@ class EmployeeDepositController extends Controller
      */
     public function store(Request $request)
     {
-        $update = EmployeeDeposit::where('employee_id',$request->employee_id)->updateOrCreate(
-            ['employee_id'=>$request->employee_id],
-            [
-                'account_name'=>$request->account_name,
-                'number'=>$request->account_number,
-                'bank_name'=>$request->bank_name,
-                'note'=>$request->note
-            ]
-        );
+        $result = $this->employeeDeposits->updateOrCreate($request);
         return redirect()->route('employees.directDeposit',$request->employee_id);
        
     }
@@ -79,13 +79,7 @@ class EmployeeDepositController extends Controller
      */
     public function update(Request $request, EmployeeDeposit $employeeDeposit)
     {
-        $update = EmployeeDeposit::where('id',$employeeDeposit->id)->update([
-            'account_name'=>$request->account_name,
-            'number'=>$request->account_number,
-            'bank_name'=>$request->bank_name,
-            'note'=>$request->note
-        ]);
-        
+        $result = $this->employeeDeposits->update($request,$employeeDeposit);
         return redirect()->route('employees.directDeposit',$employeeDeposit->employee_id);
     }
 
