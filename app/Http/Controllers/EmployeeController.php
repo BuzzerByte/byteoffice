@@ -104,13 +104,13 @@ class EmployeeController extends Controller
 
     public function reportTo(Employee $employee){
         if($this->employees->checkSupervisorsExists($employee->id)){
-            $this->employees->getSupervisoryById($employee->id);
+            $supervisors = $this->employees->getSupervisoryById($employee->id);
         }else{
             $supervisors = null;
         }
 
         if($this->employees->checkSubordinatesExists($employee->id)){
-            $this->employees->getSubordinateById($employee->id);
+            $subordinates = $this->employees->getSubordinateById($employee->id);
         }else{
             $subordinates = null;
         }

@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\EmployeeSupervisor;
 use Illuminate\Http\Request;
+use App\Services\EmployeeSupervisorService;
 
 class EmployeeSupervisorController extends Controller
 {
+    protected $employeeSupervisors;
+
+    public function __construct(
+        EmployeeSupervisorService $employeeSupervisors
+    ){
+        $this->employeeSupervisors = $employeeSupervisors;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -35,11 +43,7 @@ class EmployeeSupervisorController extends Controller
      */
     public function store(Request $request)
     { 
-        $store = EmployeeSupervisor::create([
-            'department_id'=>$request->department_id,
-            'supervisor_id'=>$request->supervisor_id,
-            'employee_id'=>$request->employee_id
-        ]);
+        $result = $this->employeeSupervisors->store($request);
         return redirect()->route('employees.reportTo',$request->employee_id);
     }
 
@@ -74,10 +78,7 @@ class EmployeeSupervisorController extends Controller
      */
     public function update(Request $request, EmployeeSupervisor $employeeSupervisor)
     {
-        $update = EmployeeSupervisor::where('id',$employeeSupervisor->id)->update([
-            'department_id'=>$request->department_id,
-            'supervisor_id'=>$request->supervisor_id,
-        ]);
+        $result = $this->employeeSupervisors->update($request, $employeeSupervisor);
         return redirect()->route('employees.reportTo',$employeeSupervisor->employee_id);
     }
 
@@ -93,15 +94,7 @@ class EmployeeSupervisorController extends Controller
     }
 
     public function delete(Request $request){
-        $supervisorId_arr = $request->supervisorId;
-        if($supervisorId_arr!=null){
-            foreach($supervisorId_arr as $id){
-                $supervisor = EmployeeSupervisor::find((int)$id);
-                $supervisor->delete();
-            }
-            return redirect()->route('employees.reportTo',$request->employee_id);
-        }else{
-            return redirect()->route('employees.reportTo',$request->employee_id);
-        }
+        $result = $this->employeeSupervisors->destroy($request);
+        return redirect()->route('employees.reportTo',$request->employee_id);
     }
 }
