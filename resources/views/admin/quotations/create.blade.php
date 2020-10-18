@@ -40,12 +40,8 @@
             var list = $(this);
             $.get("/admin/inventory/" + inventory_id, function (data) {
                 list.closest('td').siblings('td').find('.quantity').val(1);
-                list.closest('td').siblings('td').find('.rate').val(data[
-                    'p_price'
-                ]);
-                list.closest('td').siblings('td').find('.amount').val(data[
-                    'p_price'
-                ]);
+                list.closest('td').siblings('td').find('.rate').val(data['p_price']);
+                list.closest('td').siblings('td').find('.amount').val(data['p_price']);
             });
             $('#sales_list tr').each(function (i) {
                 $(this).find('.numbering').text(i + 1);
@@ -61,12 +57,8 @@
             list.attr('class', 'inventory added form-control select2');
             $.get("/admin/inventory/" + inventory_id, function (data) {
                 list.closest('td').siblings('td').find('.quantity').val(1);
-                list.closest('td').siblings('td').find('.rate').val(data[
-                    'p_price'
-                ]);
-                list.closest('td').siblings('td').find('.amount').val(data[
-                    'p_price'
-                ]);
+                list.closest('td').siblings('td').find('.rate').val(data['p_price']);
+                list.closest('td').siblings('td').find('.amount').val(data['p_price']);
             });
             setTimeout(function () {
                 sumTotal();

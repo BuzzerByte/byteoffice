@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquents;
 
 use App\Repositories\Interfaces\IEmployeeLoginRepository;
 use App\EmployeeLogin;
+use Illuminate\Http\Request;
 
 class EmployeeLoginRepository implements IEmployeeLoginRepository{
     protected $employeeLogins;
@@ -31,6 +32,16 @@ class EmployeeLoginRepository implements IEmployeeLoginRepository{
         return [
             'result' => $login->save(),
             'login' => $login
+        ];
+    }
+
+    public function update(Request $request, EmployeeLogin $employeeLogin){
+        $employeeLogin = $this->employeeLogins->find($employeeLogin->employee_id);
+        $employeeLogin->password = bcrypt($request->password);
+        return [
+            'result' => $employeeLogin->save() == true? 'Success':'Failure',
+            'message' => 'Password Updated!',
+            'employeeLogin' => $employeeLogin
         ];
     }
 }

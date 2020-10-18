@@ -2,16 +2,10 @@
 
 namespace App\Repositories\Eloquents;
 
+use App\Repositories\Interfaces\IOrderRepository;
+use Illuminate\Http\Request;
 use App\Order;
 use App\Client;
-use App\User;
-use Illuminate\Http\Request;
-use Response;
-use File;
-use Session;
-use Excel;
-use DB;
-use App\Repositories\Interfaces\IOrderRepository;
 use Auth;
 
 class OrderRepository implements IOrderRepository
@@ -71,7 +65,7 @@ class OrderRepository implements IOrderRepository
     }
 
     public function update(Request $request, Order $order, $paid){
-        $order = Order::find($order->id);
+        $order = $this->orders->find($order->id);
         $order->invoice_date = $request->invoice_date;
         $order->due_date = $request->due_date;
         $order->total = $request->total;
@@ -80,8 +74,11 @@ class OrderRepository implements IOrderRepository
         $order->balance = $request->g_tax - $paid;
         $order->discount = $request->discount;
         $order->order_note = $request->order_note;
-        $order->order_activities = $request->order_acitivites;
-        return ['result'=>$order->save(),'id'=>$order->id];
+        $order->order_activities = $request->order_activities;
+        return [
+            'result'=>$order->save(),
+            'order'=>$order
+        ];
     }
 
     public function destroy(Order $order){

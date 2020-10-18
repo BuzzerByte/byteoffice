@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquents;
 
 use App\Repositories\Interfaces\IEmployeeCommencementRepository;
 use App\EmployeeCommencement;
+use Illuminate\Http\Request;
 
 class EmployeeCommencementRepository implements IEmployeeCommencementRepository{
     protected $employeeCommencements;
@@ -28,6 +29,23 @@ class EmployeeCommencementRepository implements IEmployeeCommencementRepository{
         return [
             'result'=>$employeeCommencements->save(),
             'employeeCommencement' => $employeeCommencements
+        ];
+    }
+
+    public function updateOrCreate(Request $request){
+        $employeeCommencements = $this->employeeCommencements->updateOrCreate(
+            [
+                'employee_id'=>$request->employee_id
+            ],
+            [
+                'join_date'=>$request->joined_date,
+                'probation_end'=>$request->probation_end_date,
+                'dop'=>$request->date_of_permanency
+            ]
+        );
+        return [
+            'result' => true,
+            'employeeCommencements' => $employeeCommencements
         ];
     }
 }

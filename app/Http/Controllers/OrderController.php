@@ -2,46 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\OrderService;
+use Illuminate\Http\Request;
+use Session;
 use App\Order;
 use App\Client;
-use App\Inventory;
-use App\SaleProduct;
-use App\Payment;
-use App\Quotation;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Session;
-use Response;
-use Excel;
-use File;
-use DB;
-use App\Services\OrderService;
-use App\Services\PaymentService;
-use App\Services\InventoryService;
-use App\Services\ClientService;
-use App\Services\SaleProductService;
 
 class OrderController extends Controller
 {
     protected $orders;
-    protected $payments;
-    protected $inventories;
-    protected $clients;
 
     public function __construct(
-        OrderService $orders, 
-        PaymentService $payments,
-        ClientService $clients,
-        InventoryService $inventories,
-        SaleProductService $saleProducts
+        OrderService $orders
     )
     {
         $this->orders = $orders;
-        $this->payments = $payments;
-        $this->clients = $clients;
-        $this->inventories = $inventories;
-        $this->saleProducts = $saleProducts;
     }
     /**
      * Display a listing of the resource.
@@ -211,7 +186,7 @@ class OrderController extends Controller
         $invoice = $this->orders->edit($order);
         return view('admin.orders.edit',[
             'invoice'=>$invoice['invoice'],
-            'clients'=>$invoice['clients'],
+            'clients'=>$invoice['clients'][0],
             'sale_product'=>$invoice['sale_product'],
             'inventories'=>$invoice['inventories']
         ]);
@@ -226,9 +201,6 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        // return response()->json($request);
-        // $sale_id = $request->sale_id;
-
         $inv_id = $request->inventory_id;
         array_splice($inv_id,0,1);
         array_splice($inv_id,count($inv_id)-1,1);

@@ -3,18 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Purchase;
-use App\PurchaseProduct;
 use Illuminate\Http\Request;
-use DB;
-use Excel;
-use Carbon\Carbon;
-use File;   
-use App\Inventory;
 use App\Vendor;
-use App\Payment;
-use Session;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
 use App\Services\PurchaseService;
 
 class PurchaseController extends Controller

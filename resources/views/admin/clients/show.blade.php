@@ -6,10 +6,8 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-
         <div class="modal-body">
             <div class="row">
-
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Client Name<span class="required" aria-required="true">*</span></label>
@@ -86,10 +84,7 @@
                     </div>
                 </div>
             </div>
-
             <input type="hidden" name="id" value="">
-        </div>
-
-
+        </div>=
     </div>
 </div>

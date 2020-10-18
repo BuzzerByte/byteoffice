@@ -5,12 +5,8 @@ namespace App\Http\Controllers;
 use App\Reimbursement;
 use App\Employee;
 use App\Department;
-use Excel;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Auth;
-use App\User;
-use App\JobHistory;
 use App\Exports\ReimbursementExport;
 use App\Services\ReimbursementService;
 

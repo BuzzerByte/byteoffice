@@ -49,7 +49,7 @@ class PurchaseRepository implements IPurchaseRepository
     }
 
     public function store(Request $request){
-        $purchase = new Purchase;
+        $purchase = $this->purchases;
         $purchase->vendor_id = $request->vendorId;
         $purchase->b_reference = $request->b_reference;
         $purchase->status = 'pending_received';
@@ -72,7 +72,7 @@ class PurchaseRepository implements IPurchaseRepository
     }
 
     public function destroy(Purchase $purchase){
-        $purchase = Purchase::find($purchase->id);
+        $purchase = $this->purchases->find($purchase->id);
         return $purchase->delete();
     }
 

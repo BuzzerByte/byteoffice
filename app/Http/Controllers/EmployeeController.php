@@ -2,36 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Employee;
-use App\UserAttachment;
-use App\ContactDetail;
-use App\EmployeeDependent;
-use App\EmployeeCommencement;
-use App\JobHistory;
-use App\EmployeeSalary;
-use App\EmployeeSupervisor;
-use App\EmployeeSubordinate;
-use App\EmployeeDeposit;
-use App\EmployeeLogin;
-use App\Department;
-use App\EmployeeStatus;
-use App\JobCategory;
-use App\JobTitle;
-use App\WorkShift;
+use App\Services\EmployeeService;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
+use App\Employee;
 use Session;
 use Response;
-use Excel;
-use File;
-use DB;
 use Auth;
-use App\RoleEmployee;
-use App\Role;
-use App\Imports\EmployeeImport;
-use App\Exports\EmployeeExport;
-use App\User;
-use App\Services\EmployeeService;
 
 class EmployeeController extends Controller
 {
@@ -132,13 +108,13 @@ class EmployeeController extends Controller
 
     public function reportTo(Employee $employee){
         if($this->employees->checkSupervisorsExists($employee->id)){
-            $this->employees->getSupervisoryById($employee->id);
+            $supervisors = $this->employees->getSupervisoryById($employee->id);
         }else{
             $supervisors = null;
         }
 
         if($this->employees->checkSubordinatesExists($employee->id)){
-            $this->employees->getSubordinateById($employee->id);
+            $subordinates = $this->employees->getSubordinateById($employee->id);
         }else{
             $subordinates = null;
         }
@@ -284,6 +260,9 @@ class EmployeeController extends Controller
         }else{
             $salary = $this->employees->storeSalaryById($employee->id);
         }
-        return view('admin.employeeSalaries.index',['employee'=>$employee,'salary'=>$salary['salary']]);
+        return view('admin.employeeSalaries.index',[
+            'employee'=>$employee,
+            'salary'=>$salary['salary']
+        ]);
     }
 }
