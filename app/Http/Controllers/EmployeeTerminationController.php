@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\EmployeeTermination;
-use App\Employee;
-use App\User;
 use Illuminate\Http\Request;
 use App\Services\EmployeeTerminationService;
 
