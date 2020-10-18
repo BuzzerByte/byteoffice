@@ -6,9 +6,17 @@ use App\EmployeeLogin;
 use Session;
 use Illuminate\Http\Request;
 use App\Employee;
+use App\Services\EmployeeLoginService;
 
 class EmployeeLoginController extends Controller
 {
+    protected $employeeLogins;
+
+    public function __construct(
+        EmployeeLoginService $employeeLogins
+    ){
+        $this->employeeLogins = $employeeLogins;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -71,19 +79,9 @@ class EmployeeLoginController extends Controller
      */
     public function update(Request $request, EmployeeLogin $employeeLogin)
     {
-        $password = $request->password;
-        $re_password = $request->retype_password;
-        if($password == $re_password){
-            Session::flash('success', 'Password updated!');
-            $update = Employee::where('id',$employeeLogin->employee_id)->update([
-                'password' => bcrypt($password)
-            ]);
-
-            return redirect()->route('employees.employeeLogin',$employeeLogin->employee_id);
-        }else{
-            Session::flash('failure', 'Password and retype password does not matched!');
-            return redirect()->route('employees.employeeLogin',$employeeLogin->employee_id);
-        }
+        $result = $this->employeeLogins->update($request, $employeeLogin);
+        Session::flash($result['result'],$result['message']);
+        return redirect()->route('employees.employeeLogin',$employeeLogin->employee_id);
     }
 
     /**

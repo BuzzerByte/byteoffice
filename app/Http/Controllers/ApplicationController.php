@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Services\ApplicationService;
 use App\Application;
-use App\Leavetype;
 use App\Employee;
 use Illuminate\Http\Request;
 use Auth;
-use App\User;
 
 class ApplicationController extends Controller
 {

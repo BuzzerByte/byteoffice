@@ -2,17 +2,13 @@
 
 namespace App\Repositories\Eloquents;
 
-use App\Client;
-use Illuminate\Http\Request;
-use Response;
-use File;
-use App\Imports\ClientsImport;
-use Session;
-use Excel;
-use DB;
 use App\Repositories\Interfaces\IClientRepository;
+use Illuminate\Http\Request;
+use App\Imports\ClientsImport;
+use App\Client;
+use File;
+use Excel;
 use Auth;
-use App\Order;
 
 class ClientRepository extends BaseRepository implements IClientRepository
 {

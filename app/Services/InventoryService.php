@@ -8,7 +8,6 @@ use App\Repositories\Interfaces\ITaxRepository;
 use Illuminate\Http\Request;
 use App\Inventory;
 use App\Imports\InventoryImport;
-use Response;
 use File;
 use Excel;
 

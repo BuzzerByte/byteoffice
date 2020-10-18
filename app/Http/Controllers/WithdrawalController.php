@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Withdrawal;
-use App\Inventory;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Session;
 use App\Services\WithdrawalService;
+use Illuminate\Http\Request;
+use App\Withdrawal;
+use Session;
 
 class WithdrawalController extends Controller
 {

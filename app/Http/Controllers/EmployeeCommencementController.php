@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\EmployeeCommencement;
 use Illuminate\Http\Request;
+use App\Services\EmployeeCommencementService;
 
 class EmployeeCommencementController extends Controller
 {
+    protected $employeeCommencements;
+
+    public function __construct(
+        EmployeeCommencementService $employeeCommencements
+    ){
+        $this->employeeCommencements = $employeeCommencements;
+    }
 
     public function index()
     {
@@ -21,21 +29,7 @@ class EmployeeCommencementController extends Controller
 
     public function store(Request $request)
     {
-        $store = EmployeeCommencement::updateOrCreate(
-            [
-                'employee_id'=>$request->employee_id
-            ],
-            [
-                'join_date'=>$request->joined_date,
-                'probation_end'=>$request->probation_end_date,
-                'dop'=>$request->date_of_permanency
-            ]
-        );
-        if($store){
-
-        }else{
-
-        }
+        $result = $this->employeeCommencements->updateOrCreate($request);
         return redirect()->route('employees.employeeCommencements',$request->employee_id);
     }
 

@@ -2,12 +2,10 @@
 
 namespace App\Repositories\Eloquents;
 
-use App\Inventory;
-use App\User;
-use Auth;
 use App\Repositories\Interfaces\IInventoryRepository;
 use Illuminate\Http\Request;
-
+use App\Inventory;
+use Auth;
 
 class InventoryRepository implements IInventoryRepository
 {

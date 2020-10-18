@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\EmployeeSubordinate;
 use Illuminate\Http\Request;
+use App\Services\EmployeeSubordinateService;
 
 class EmployeeSubordinateController extends Controller
 {
+    protected $employeeSubordinates;
+
+    public function __construct(
+        EmployeeSubordinateService $employeeSubordinates
+    ){
+        $this->employeeSubordinates = $employeeSubordinates;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -35,11 +43,7 @@ class EmployeeSubordinateController extends Controller
      */
     public function store(Request $request)
     {
-        $store = EmployeeSubordinate::create([
-            'department_id'=>$request->department_id,
-            'subordinate_id'=>$request->subordinate_id,
-            'employee_id'=>$request->employee_id
-        ]);
+        $result = $this->employeeSubordinates->store($request);
         return redirect()->route('employees.reportTo',$request->employee_id);
     }
 
@@ -78,6 +82,7 @@ class EmployeeSubordinateController extends Controller
             'department_id'=>$request->department_id,
             'subordinate_id'=>$request->subordinate_id
         ]);
+        $result = $this->employeeSubordinates->store($request,$employeeSubordinate);
         return redirect()->route('employees.reportTo',$employeeSubordinate->employee_id);
  
     }
@@ -94,15 +99,7 @@ class EmployeeSubordinateController extends Controller
     }
 
     public function delete(Request $request){
-        $subordinateId_arr = $request->subordinateId;
-        if($subordinateId_arr!=null){
-            foreach($subordinateId_arr as $id){
-                $subordinate = EmployeeSubordinate::find((int)$id);
-                $subordinate->delete();
-            }
-            return redirect()->route('employees.reportTo',$request->employee_id);
-        }else{
-            return redirect()->route('employees.reportTo',$request->employee_id);
-        }
+        $result = $this->employeeSubordinates->destroy($request);
+        return redirect()->route('employees.reportTo',$request->employee_id);
     }
 }

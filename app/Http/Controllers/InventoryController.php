@@ -2,20 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Inventory;
-use App\Purchase;
-use App\Supplier;
-use App\Category;
-use App\Tax;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Session;
-use Response;
-
-
-use DB;
 use App\Services\InventoryService;
+use Illuminate\Http\Request;
+use App\Inventory;
+use Response;
 
 class InventoryController extends Controller
 {
@@ -81,12 +71,6 @@ class InventoryController extends Controller
         ]);
         
         $file_name = $this->inventories->getFileName($request);
-        
-        // if($request->input('inventory')==null){
-        //     $quantity = 0;
-        // }else{
-        //     $quantity = $request->input('inventory');
-        // }
         $result = $this->inventories->store($request, $file_name);
         
         if($result['result']){
@@ -107,7 +91,7 @@ class InventoryController extends Controller
     {   
         // $data = Inventory::where('id',$inventory->id)->get();
         $inventories = $this->inventories->getById($inventory->id);
-        return response()->json(['inventory'=>$inventories]);
+        return response()->json($inventories[0]);
     }
 
     /**

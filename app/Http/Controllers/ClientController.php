@@ -1,16 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use Session;
-use Response;
-use App\Client;
-use Excel;
-use File;
-use Illuminate\Http\Request;
-use DB;
-use App\Imports\ClientsImport;
-use App\Services\UserService;
+
 use App\Services\ClientService;
+use Illuminate\Http\Request;
+use App\Client;
+use Response;
 
 class ClientController extends Controller
 {

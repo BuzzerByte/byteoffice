@@ -4,20 +4,21 @@ namespace App\Http\Controllers;
 
 use App\EmergencyContact;
 use Illuminate\Http\Request;
+use App\Services\EmergencyContactService;
 
 class EmergencyContactController extends Controller
 {
-    
+    protected $emergencyContacts;
+
+    public function __construct(
+        EmergencyContactService $emergencyContacts
+    ){
+        $this->emergencyContacts = $emergencyContacts;
+    }
+
     public function store(Request $request)
     {
-        $store = EmergencyContact::create([
-            'name'=>$request->name,
-            'relationship'=>$request->relationship,
-            'home_tel'=>$request->home_telephone,
-            'mobile'=>$request->mobile,
-            'work_tel'=>$request->work_telephone,
-            'employee_id'=>$request->employee_id
-        ]);
+        $result = $this->emergencyContacts->store($request);
         return redirect()->route('employees.contactDetails',$request->employee_id);
     }
 
@@ -28,28 +29,12 @@ class EmergencyContactController extends Controller
 
     public function update(Request $request, EmergencyContact $emergencyContact)
     {
-        $update = EmergencyContact::where('id',$emergencyContact->id)->update([
-            'name'=>$request->name,
-            'relationship'=>$request->relationship,
-            'home_tel'=>$request->home_telephone,
-            'mobile'=>$request->mobile,
-            'work_tel'=>$request->work_telephone
-        ]);
+        $result = $this->emergencyContacts->update($request, $emergencyContact);
         return redirect()->route('employees.contactDetails',$emergencyContact->employee_id);
-        
     }
 
     public function delete(Request $request){
-        $emergencyContactId_array = $request->emergencyContact;
-        if($emergencyContactId_array!=null){
-            foreach($emergencyContactId_array as $id){
-                $contact = EmergencyContact::find((int)$id);
-                $contact->delete();
-            }
-            return redirect()->route('employees.contactDetails',$request->employee_id);
-        
-        }else{
-            return redirect()->route('employees.contactDetails',$request->employee_id);
-        }
+        $result = $this->emergencyContacts->destroy($request);
+        return redirect()->route('employees.contactDetails',$request->employee_id);
     }
 }

@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\EmployeeSalary;
 use Illuminate\Http\Request;
+use App\Services\EmployeeSalaryService;
 
 class EmployeeSalaryController extends Controller
 {
+    protected $employeeSalaries;
+
+    public function __construct(
+        EmployeeSalaryService $employeeSalaries
+    ){
+        $this->employeeSalaries = $employeeSalaries;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -69,23 +77,7 @@ class EmployeeSalaryController extends Controller
      */
     public function update(Request $request, EmployeeSalary $employeeSalary)
     {
-        $update = EmployeeSalary::where('id',$employeeSalary->id)->update([
-            'type'=>$request->type,
-            'pay_grade'=>$request->grade_id,
-            'comment'=>$request->comment,
-            'basic_payment'=>$request->basic_payment,
-            'car_allowance'=>$request->car_allowance,
-            'medical_allowance'=>$request->medical_allowance,
-            'living_allowance'=>$request->living_allowance,
-            'house_rent'=>$request->house_rent,
-            'gratuity'=>$request->gratuity,
-            'pension'=>$request->pension,
-            'insurance'=>$request->insurance,
-            'total_deduction'=>$request->total_deduction,
-            'total_payable'=>$request->total_payable,
-            'cost_to_company'=>$request->total_cost_company,
-            'hourly_salary'=>$request->hourly_salary
-        ]);
+        $result = $this->employeeSalaries->update($request, $employeeSalary);
         return redirect()->route('employees.employeeSalaries',$employeeSalary->employee_id);
     }
 

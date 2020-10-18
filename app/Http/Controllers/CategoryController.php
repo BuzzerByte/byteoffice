@@ -2,17 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use App\Inventory;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Auth;
-use Session;
-use Response;
-use Excel;
-use File;
-use DB;
 use App\Services\CategoryService;
+use Illuminate\Http\Request;
+use App\Category;
 
 class CategoryController extends Controller
 {

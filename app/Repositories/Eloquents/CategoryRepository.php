@@ -2,10 +2,10 @@
 
 namespace App\Repositories\Eloquents;
 
-use App\Category;
-use Auth;
 use App\Repositories\Interfaces\ICategoryRepository;
 use Illuminate\Http\Request;
+use App\Category;
+use Auth;
 
 class CategoryRepository implements ICategoryRepository{
     protected $categories;

@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\PurchaseProduct;
-use App\Inventory;
-use App\Purchase;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Session;
 use App\Services\PurchaseProductService;

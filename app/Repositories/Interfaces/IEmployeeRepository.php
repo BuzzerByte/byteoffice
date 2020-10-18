@@ -12,4 +12,5 @@ interface IEmployeeRepository {
     public function updatePassword($password, $id);
     public function destroy($id);
     public function getById($id);
+    public function updateTerminationStatus($id,$status);
 }

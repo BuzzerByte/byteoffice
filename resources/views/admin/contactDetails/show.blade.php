@@ -551,7 +551,6 @@
 
                             <form action="{{ route('emergencyContacts.delete') }}" method="post" accept-charset="utf-8">
                                 @csrf
-
                                 <a data-target="#addEmergencyContact" title="View" data-placement="top" data-toggle="modal"
                                     href="#" class="btn bg-info btn-md btn-flat">
                                     <i class="fa fa-plus"></i> Add Emergency </a>

@@ -3,19 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Attendance;
-use App\Department;
-use App\Employee;
-use App\JobHistory;
-use App\LeaveType;
-use App\User;
 use Carbon\Carbon;
 use Session;
 use Response;
-use File;
-use Excel;
 use Illuminate\Http\Request;
 use Auth;
-use App\Imports\AttendanceImport;
 use App\Exports\AttendanceExport;
 use App\Services\AttendanceService;
 
