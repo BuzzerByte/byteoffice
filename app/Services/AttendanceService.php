@@ -7,10 +7,9 @@ use App\Repositories\Interfaces\IDepartmentRepository;
 use App\Repositories\Interfaces\ILeaveTypeRepository;
 use App\Repositories\Interfaces\IEmployeeRepository;
 use App\Repositories\Interfaces\IJobHistoryRepository;
-use App\Attendance;
 use File;
+use Excel;
 use App\Imports\AttendanceImport;
-use App\Exports\AttendanceExport;
 
 class AttendanceService {
     protected $attendances;
