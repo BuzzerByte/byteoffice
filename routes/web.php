@@ -18,17 +18,10 @@ Route::group([
    'prefix' => 'admin',
    'middleware' => 'auth'
 ], function () {
-
-    // Dashboard
-    //----------------------------------
-
-    // Route::get('/', [
-    //     'as' => 'admin.dashboard', 'uses' => 'DashboardController@index'
-    // ]);
-
     Route::get('/', [
         'as' => 'admin.dashboard', 'uses' => 'DashboardController@basic'
     ]);
+    
     //Routes for role
     Route::resource('roles','RoleController');
 
