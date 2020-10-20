@@ -7,16 +7,15 @@ $('.view').click(function () {
     var id = $(this).siblings('.client_id').attr('id');
     
     $.get("/admin/client/" + id, function (data) {
-        console.log(data);
-        $('#inp_name').val(data['client'][0]['name']);
-        $('#inp_company').val(data['client'][0]['company']);
-        $('#inp_phone').val(data['client'][0]['phone']);
-        $('#inp_fax').val(data['client'][0]['fax']);
-        $('#inp_email').val(data['client'][0]['email']);
-        $('#inp_website').val(data['client'][0]['website']);
-        $('#inp_b_address').val(data['client'][0]['billing_address']);
-        $('#inp_s_address').val(data['client'][0]['shipping_address']);
-        $('#inp_note').val(data['client'][0]['note']);
+        $('#inp_name').val(data['name']);
+        $('#inp_company').val(data['company']);
+        $('#inp_phone').val(data['phone']);
+        $('#inp_fax').val(data['fax']);
+        $('#inp_email').val(data['email']);
+        $('#inp_website').val(data['website']);
+        $('#inp_b_address').val(data['billing_address']);
+        $('#inp_s_address').val(data['shipping_address']);
+        $('#inp_note').val(data['note']);
     });
 });
 Highcharts.chart('salesChart', {
@@ -222,7 +221,7 @@ Highcharts.chart('salesChart', {
                                     <td>{{ $client->created_at }}</td>
                                     <td>{{ $client->open_balance}}</td>
                                     <td>
-                                        <input type="hidden" class="client_id" id="{{ $client->id }}">
+                                        <input type="hidden" class="client_id" id={{ $client->id }}>
                                         <a class="btn btn-default btn-xs view" href="#" data-toggle="modal" data-target="#modal-view">View</a>
                                     </td>
                                     </tr>

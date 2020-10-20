@@ -40,6 +40,7 @@ class DashboardController extends Controller
 
     public function basic() 
     {
+        // return response()->json("helo");
         $employees = Employee::All();
         $totalEmployee = $employees->count();
 
@@ -55,15 +56,15 @@ class DashboardController extends Controller
         $clients = Client::All();
         $allOrders = Order::All();
        
-         return view('admin.dashboard.basic',
-         [   
-             "orders"=> $totalOrder,
-             "employees"=> $totalEmployee,
-             "products"=> $totalProduct,
-             "purchases"=> $totalPurchase,
-             "clients"=>$clients,
-             "AllOrder"=> $allOrders
-         ]);
+        return view('admin.dashboard.basic',
+        [   
+            "orders"=> $totalOrder,
+            "employees"=> $totalEmployee,
+            "products"=> $totalProduct,
+            "purchases"=> $totalPurchase,
+            "clients"=>$clients,
+            "AllOrder"=> $allOrders
+        ]);
     }
 
     public function ecommerce() 

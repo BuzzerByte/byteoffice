@@ -26,7 +26,7 @@
     <div class="page-header">
         <h3 class="page-title">Category <small class="text-muted">management</small></h3>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
+            <li class="breadcrumb-item"><a href={{route('admin.dashboard')}}>Home</a></li>
             <li class="breadcrumb-item active"><a href="{{ route('users.index') }}">Employee List</a></li>
         </ol>
     </div>

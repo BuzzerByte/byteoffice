@@ -22,22 +22,13 @@ Route::group([
     // Dashboard
     //----------------------------------
 
+    // Route::get('/', [
+    //     'as' => 'admin.dashboard', 'uses' => 'DashboardController@index'
+    // ]);
+
     Route::get('/', [
-        'as' => 'admin.dashboard', 'uses' => 'DashboardController@index'
+        'as' => 'admin.dashboard', 'uses' => 'DashboardController@basic'
     ]);
-
-    Route::get('/dashboard', [
-        'as' => 'admin.dashboard.basic', 'uses' => 'DashboardController@basic'
-    ]);
-
-    // Route::get('/dashboard/ecommerce', [
-    //     'as' => 'admin.dashboard.ecommerce', 'uses' => 'DashboardController@ecommerce'
-    // ]);
-
-    // Route::get('/dashboard/finance', [
-    //     'as' => 'admin.dashboard.finance', 'uses' => 'DashboardController@finance'
-    // ]);
-
     //Routes for role
     Route::resource('roles','RoleController');
 
