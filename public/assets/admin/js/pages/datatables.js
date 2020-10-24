@@ -5,6 +5,13 @@ var DataTables = (function () {
     $('#responsive-datatable').DataTable({
       responsive: true
     })
+
+    $('#dashboard-new-customers-datatable').DataTable({
+      responsive:true
+    })
+    $('#dashboard-new-orders-datatable').DataTable({
+      responsive:true
+    })
   }
 
   return {
