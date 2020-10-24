@@ -22,6 +22,7 @@ Route::group([
         'as' => 'admin.dashboard', 'uses' => 'DashboardController@basic'
     ]);
     Route::get('/chartSales','DashboardController@chartSales')->name('dashboards.chartSales');
+    Route::get('/chartClients','DashboardController@chartClients')->name('dashboards.chartClients');
     Route::resource('roles','RoleController');
 
     //Routes for permission

@@ -51,4 +51,9 @@ class DashboardController extends Controller
         $result = $this->dashboards->chartSales();
         return response()->json($result);
     }
+
+    public function chartClients(){
+        $result = $this->dashboards->chartClients();
+        return response()->json($result);
+    }
 }

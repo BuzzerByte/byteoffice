@@ -18,8 +18,38 @@ $('.view').click(function () {
     });
 });
 $(document).ready(function(){
-    $.get( "/admin/chartSales" ,function(data){
-        Highcharts.chart('saleChart', {
+    $.get('admin/chartClients',function(data){
+        Highcharts.chart('chartClients', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: 'Clients (Monthly)'
+            },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+            yAxis: {
+                title: {
+                    text: 'Numbers'
+                }
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: true
+                }
+            },
+            series: [{
+                name: 'Clients',
+                data: data//data format is array
+            }]
+        });
+    });
+    $.get('/admin/chartSales',function(data){
+        Highcharts.chart('chartSales', {
             chart: {
                 type: 'line'
             },
@@ -104,10 +134,11 @@ $(document).ready(function(){
             <div class="col-lg-12 col-xl-6 mt-2">
                 <div class="card">
                     <div class="card-header">
-                        <h6><i class="icon-fa icon-fa-line-chart text-warning"></i> Traffic Stats</h6>
+                        <h6><i class="icon-fa icon-fa-line-chart text-warning"></i>Clients Chart</h6>
                     </div>
                     <div class="card-body">
                         {{-- <line-chart :labels="['Jan','Feb','Mar','June']" :values="[20,30,40,60]"></line-chart> --}}
+                        <div id='chartClients'></div>
                     </div>
                 </div>
             </div>
@@ -118,7 +149,7 @@ $(document).ready(function(){
                     </div>
                     <div class="card-body">
                         {{-- <bar-chart :labels="['Jan','Feb','Mar','June']" :values="[20,30,40,60]"></bar-chart> --}}
-                        <div id='saleChart'></div>
+                        <div id='chartSales'></div>
                     </div>
                 </div>
             </div>
