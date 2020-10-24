@@ -22,7 +22,6 @@ Route::group([
         'as' => 'admin.dashboard', 'uses' => 'DashboardController@basic'
     ]);
     
-    //Routes for role
     Route::resource('roles','RoleController');
 
     //Routes for permission
