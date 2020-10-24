@@ -3,8 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Repositories\Interfaces\IBaseRepository;
-use App\Repositories\Eloquents\BaseRepository;
 use App\Repositories\Interfaces\IClientRepository;
 use App\Repositories\Eloquents\ClientRepository;
 use App\Repositories\Interfaces\IUserRepository;
@@ -105,7 +103,6 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(IBaseRepository::class, BaseRepository::class);
         $this->app->bind(IClientRepository::class, ClientRepository::class);
         $this->app->bind(IUserRepository::class, UserRepository::class);
         $this->app->bind(IVendorRepository::class, VendorRepository::class);

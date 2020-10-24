@@ -8,34 +8,14 @@ use App\Http\Requests;
 use App\Order;
 use App\User;
 use App\Employee;
+use App\Services\DashboardService;
 
 class DashboardController extends Controller
 {
-    public function index() 
-    {
-        $employees = Employee::All();
-        $totalEmployee = $employees->count();
+    protected $dashboards;
 
-        $orders = Order::All();
-        $totalOrder = $orders->count();
-
-        $products = Inventory::All();
-        $totalProduct = $products->count();
-
-        $purchases = Purchase::All();
-        $totalPurchase = $purchases->count();
-
-        $clients = Client::All();
-        $allOrders = Order::All();
-       
-        return redirect()->route('admin.dashboard.basic',
-            [   "orders"=> $totalOrder,
-                "employees"=> $totalEmployee,
-                "products"=> $totalProduct,
-                "purchases"=> $totalPurchase,
-                "clients"=>$clients,
-                "AllOrder"=> $allOrders
-            ]);
+    public function __construct(DashboardService $dashboards){
+        $this->dashboards = $dashboards;
     }
 
     public function basic() 
@@ -67,13 +47,13 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function ecommerce() 
-    {
-        return view('admin.dashboard.ecommerce');
+    public function chartSales(){
+        $result = $this->dashboards->chartSales();
+        return response()->json($result);
     }
 
-    public function finance() 
-    {
-        return view('admin.dashboard.finance');
+    public function chartClients(){
+        $result = $this->dashboards->chartClients();
+        return response()->json($result);
     }
 }

@@ -10,7 +10,7 @@ use File;
 use Excel;
 use Auth;
 
-class ClientRepository extends BaseRepository implements IClientRepository
+class ClientRepository implements IClientRepository
 {
     public function __construct(Client $clients)
     {
