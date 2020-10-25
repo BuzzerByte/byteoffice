@@ -12,6 +12,9 @@
 
     function init() {
         $('.autocomplete_off').attr('autocomplete', 'off');
+        totalDeduction();
+        totalEarning();
+        costToTheCompany();
     }
     $("#SalaryForm :input").attr("disabled", true);
     var contactForm = $("#SalaryForm");
@@ -42,6 +45,41 @@
     function show_hourly() {
         document.getElementById('hourly').style.display = 'block';
         document.getElementById('monthly').style.display = 'none';
+    }
+
+    $('.deduction').keyup(function(){
+        totalDeduction();
+        costToTheCompany();
+    });
+
+    $('.earning').keyup(function(){
+        totalEarning();
+        costToTheCompany();
+    });
+
+    function totalDeduction(){
+        let totalDeduction = 
+        parseInt($('#earn5').val())+
+        parseInt($('#earn6').val())+
+        parseInt($('#earn7').val());
+        $('#totalDeduction').val(totalDeduction);
+        $('#resultTotalDeduction').html(totalDeduction);
+    }
+
+    function totalEarning(){
+        let totalEarning = 
+        parseInt($('#earn1').val())+
+        parseInt($('#earn2').val())+
+        parseInt($('#earn3').val())+
+        parseInt($('#earn4').val())+
+        parseInt($('#earn8').val());
+        $('#totalPayable').val(totalEarning);
+        $('#resultTotalPayable').html(totalEarning);
+    }
+    function costToTheCompany(){
+        let result = $('#totalPayable').val() - $('#totalDeduction').val();
+        $('#totalCostCompany').val(result);
+        $('#resultCostToCompany').html(result);
     }
 </script>
 @stop
@@ -146,8 +184,6 @@
                                 </div>
                             </div>
 
-
-                            <!--All Earning-------------------------------------------------------------------------------------------->
                             <br>
                             <br>
                             <h4>Salary - All Earnings</h4>
@@ -219,15 +255,10 @@
                                 </div>
                             </div>
 
-
-
-                            <!--All Deduction-------------------------------------------------------------------------------------------->
                             <br>
                             <br>
                             <h4>Salary - All Deductions</h4>
                             <hr>
-
-
 
                             <div class="row">
                                 <div class="col-md-8">
@@ -235,24 +266,17 @@
                                         <div class="col-sm-6">Gratuity <strong>(Amount)</strong></div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-
                                                 <input type="text" name="gratuity" class="form-control key deduction autocomplete_off"
                                                     id="earn5" value="{{ $salary->gratuity }}">
                                             </div>
-
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">Pension Fund <strong>(Percentage)</strong></div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-
                                                 <input type="text" name="pension" class="form-control key deduction autocomplete_off"
                                                     id="earn6" value="{{ $salary->pension }}">
-
-
-
-
                                             </div>
 
                                         </div>
@@ -261,60 +285,38 @@
                                         <div class="col-sm-6">Insurance <strong>(Amount)</strong></div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-
                                                 <input type="text" name="insurance" class="form-control key deduction autocomplete_off"
                                                     id="earn7" value="{{ $salary->insurance }}">
-
-
-
-
                                             </div>
-
-
-
-                                            <!-- <input type="hidden" value="2" id="type7">
-                                                            <input type="hidden" value="" id="pay7">
-                                                            <input type="hidden" value="1" id="cost7">
-                                                            <input type="hidden" value="0" id="flag7">
-                                                            <input type="hidden" value="1" id="valueType7">
-                                                            <input type="hidden" name="deduction[]" value="7"> -->
-
                                         </div>
                                     </div>
 
                                 </div>
                             </div>
-
-
-
-                            <!--All Earning-------------------------------------------------------------------------------------------->
                             <br>
                             <br>
                             <h4>Salary Summary</h4>
                             <hr>
-
-
                             <div class="well well-sm">
                                 <div class="row">
                                     <div class="col-md-8">
 
                                         <div class="row" style="padding-bottom: 15px">
                                             <div class="col-sm-6">Total Deductions :</div>
-                                            <div class="col-sm-6" id="resultTotalDeduction"><strong>USD 950</strong></div>
-                                            <input type="hidden" name="total_deduction" id="totalDeduction" value="950">
+                                            <div class="col-sm-6" id="resultTotalDeduction"><strong></strong></div>
+                                            <input type="hidden" name="total_deduction" id="totalDeduction" value="">
                                         </div>
 
                                         <div class="row" style="padding-bottom: 15px">
                                             <div class="col-sm-6">Total Payable :</div>
-                                            <div class="col-sm-6" id="resultTotalPayable"><strong>USD 23250</strong></div>
-                                            <input type="hidden" name="total_payable" id="totalPayable" value="23250">
+                                            <div class="col-sm-6" id="resultTotalPayable"><strong></strong></div>
+                                            <input type="hidden" name="total_payable" id="totalPayable" value="">
                                         </div>
 
                                         <div class="row" style="padding-bottom: 15px">
                                             <div class="col-sm-6">Cost to the Company :</div>
-                                            <div class="col-sm-6" id="resultCostToCompany"><strong>USD
-                                                    24200</strong></div>
-                                            <input type="hidden" name="total_cost_company" id="totalCostCompany" value="24200">
+                                            <div class="col-sm-6" id="resultCostToCompany"><strong></strong></div>
+                                            <input type="hidden" name="total_cost_company" id="totalCostCompany" value="">
                                         </div>
 
 
@@ -338,10 +340,7 @@
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="addTerminationModal" style="display: none;">
     @include('admin.employeeTerminations.create')
 </div>
-
-
 @endsection
