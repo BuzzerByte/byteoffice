@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use App\Purchase;
 use App\Quotation;
 use Carbon\Carbon;
-
+use App\Http\Traits\UseUuid;
 class Purchase extends Model
 {
+    use UseUuid;
     /**
      * The attributes that are mass assignable.
      *

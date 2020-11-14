@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\User;
 
 class RoleUserTableSeeder extends Seeder
 {
@@ -14,11 +15,11 @@ class RoleUserTableSeeder extends Seeder
         //
         DB::table('role_user')->insert([
             [
-                'user_id' => 1,
+                'user_id' => User::all()->random()->id,
                 'role_id' => 1
             ],
             [
-                'user_id' => 2,
+                'user_id' => User::all()->random()->id,
                 'role_id' => 2
             ]
         ]);

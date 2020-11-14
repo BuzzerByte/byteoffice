@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
+use App\User;
+
 class LeaveTypeTableSeeder extends Seeder
 {
     /**
@@ -17,22 +19,22 @@ class LeaveTypeTableSeeder extends Seeder
                 'name' => 'Sick Leave',
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),
-                'user_id' => 1
+                'user_id' => User::all()->random()->id
             ],[
                 'name' => 'Earn Leave',
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),
-                'user_id' => 1
+                'user_id' => User::all()->random()->id
             ],[
                 'name' => 'Yearly Leave',
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),
-                'user_id' => 1
+                'user_id' => User::all()->random()->id
             ],[
                 'name' => 'Medical Leave',
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now(),
-                'user_id' => 1
+                'user_id' => User::all()->random()->id
             ]
 
         ]);

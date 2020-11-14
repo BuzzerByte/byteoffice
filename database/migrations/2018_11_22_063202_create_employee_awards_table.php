@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+use Illuminate\Http\Str;
 class CreateEmployeeAwardsTable extends Migration
 {
     /**
@@ -14,9 +14,9 @@ class CreateEmployeeAwardsTable extends Migration
     public function up()
     {
         Schema::create('employee_awards', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('department_id')->nullable();
-            $table->integer('employee_id')->unsigned();
+            $table->uuid('id');
+            $table->uuid('department_id')->nullable();
+            $table->uuid('employee_id');
             $table->string('award')->nullable();
             $table->string('gift')->nullable();
             $table->float('amount',15,2)->nullable();

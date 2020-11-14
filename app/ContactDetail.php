@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Traits\UseUuid;
 
 class ContactDetail extends Model
 {
+    use UseUuid;
+    
     protected $fillable = [
         'street1',
         'street2',

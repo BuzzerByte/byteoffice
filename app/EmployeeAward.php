@@ -4,9 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use App\Http\Traits\UseUuid;
 
 class EmployeeAward extends Model
 {
+    use UseUuid;
+    
     protected $fillable=[
         'employee_id',
         'award',

@@ -5,10 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\LeaveType;
 use Carbon\Carbon;
-
+use App\Http\Traits\UseUuid;
 class Application extends Model
 {
-    
+    use UseUuid;
     protected $fillable=[
         'employee_id',
         'start',

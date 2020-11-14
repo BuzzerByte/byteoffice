@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+use Illuminate\Http\Str;
 class CreateWithdrawalsTable extends Migration
 {
     /**
@@ -14,8 +14,8 @@ class CreateWithdrawalsTable extends Migration
     public function up()
     {
         Schema::create('withdrawals', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('inventory_id')->unsigned();
+            $table->uuid('id')->primary();
+            $table->uuid('inventory_id');
             $table->integer('w_quantity')->nullable();
             $table->string('withdrawer')->nullable();
             $table->foreign('inventory_id')->references('id')->on('inventories')->onDelete('cascade');

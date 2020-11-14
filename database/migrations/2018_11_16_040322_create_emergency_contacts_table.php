@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+use Illuminate\Http\Str;
 class CreateEmergencyContactsTable extends Migration
 {
     /**
@@ -14,13 +14,13 @@ class CreateEmergencyContactsTable extends Migration
     public function up()
     {
         Schema::create('emergency_contacts', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->primary();
             $table->string('name')->nullable();
             $table->string('relationship')->nullable();
             $table->string('home_tel')->nullable();
             $table->string('mobile')->nullable();
             $table->string('work_tel')->nullable();
-            $table->integer('employee_id')->unsigned();
+            $table->uuid('employee_id');
             $table->timestamps();
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });

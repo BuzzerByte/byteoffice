@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+use Illuminate\Http\Str;
 class CreateContactDetailsTable extends Migration
 {
     /**
@@ -14,7 +14,7 @@ class CreateContactDetailsTable extends Migration
     public function up()
     {
         Schema::create('contact_details', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->primary();
             $table->string('street1')->nullable();
             $table->string('street2')->nullable();
             $table->string('city')->nullable();
@@ -26,7 +26,7 @@ class CreateContactDetailsTable extends Migration
             $table->string('work_tel')->nullable();
             $table->string('other_email')->nullable();
             $table->string('mobile')->nullable();
-            $table->integer('employee_id')->unsigned();
+            $table->uuid('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->timestamps();
         });

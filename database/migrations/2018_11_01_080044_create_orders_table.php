@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+use Illuminate\Http\Str;
 class CreateOrdersTable extends Migration
 {
     /**
@@ -15,8 +15,8 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             //
-            $table->increments('id');
-            $table->integer('client_id')->unsigned();
+            $table->uuid('id')->primary();
+            $table->uuid('client_id');
             $table->date('invoice_date')->nullable();
             $table->date('due_date')->nullable();
             $table->float('total')->nullabl();

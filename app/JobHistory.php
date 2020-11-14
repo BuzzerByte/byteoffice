@@ -5,9 +5,10 @@ use App\User;
 use App\Department;
 use App\JobCategory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Http\Traits\UseUuid;
 class JobHistory extends Model
 {
+    use UseUuid;
     protected $fillable = [
         'effective_from',
         'department_id',
