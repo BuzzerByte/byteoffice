@@ -223,6 +223,7 @@ class OrderController extends Controller
 
         $paid = Order::select('paid')->where('id',$order->id)->first()->paid;
         $inventories = [];
+
         array_push($inventories,[
             'count'=>count($inv_id),
             'id'=>$inv_id,
@@ -232,7 +233,7 @@ class OrderController extends Controller
             'amt'=>$inv_amount,
             'sale_id'=>$request->sale_id
         ]);
-        // return response()->json($inventories[0]);
+        // return response()->json($request);
         $updateInvoice = $this->orders->update($request, $order, $paid, $inventories[0]);
         return redirect()->route('orders.show',$order->id);
     }
