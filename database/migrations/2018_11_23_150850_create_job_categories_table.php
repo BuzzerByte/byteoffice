@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+use Illuminate\Http\Str;
 class CreateJobCategoriesTable extends Migration
 {
     /**
@@ -14,10 +14,10 @@ class CreateJobCategoriesTable extends Migration
     public function up()
     {
         Schema::create('job_categories', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->string('category')->nullable();
             $table->timestamps();
-            $table->integer('user_id')->unsigned();
+            $table->uuid('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

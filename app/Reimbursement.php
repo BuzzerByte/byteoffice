@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use App\Department;
 use App\Employee;
+use App\Http\Traits\UseUuid;
 
 class Reimbursement extends Model
 {
+    use UseUuid;
     //
     protected $fillable = [
         'date',

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use Illuminate\Support\Str;
 
 class UsersTableSeeder extends Seeder
 {
@@ -14,7 +15,8 @@ class UsersTableSeeder extends Seeder
     {
         $users = [
             [
-                'email' => 'admin@buzzerbyte.com',
+                'id' => Str::uuid(),
+                'email' => 'adrian@gmail.com',
                 'name' => 'admin',
                 'f_name' => 'buzzer',
                 'l_name' => 'admin',
@@ -22,15 +24,6 @@ class UsersTableSeeder extends Seeder
                 'id_number' => 'b02321',
                 'password' => bcrypt('123qwe'),
                 'role'=>'admin'
-            ],[
-                'email' => 'user@buzzerbyte.com',
-                'name' => 'user',
-                'f_name' => 'buzzer',
-                'l_name' => 'user',
-                'terminate_status'=>false,
-                'id_number'=> 'b02032',
-                'password' => bcrypt('123qwe'),
-                'role'=> 'user'
             ]
         ];
         foreach($users as $key => $value){

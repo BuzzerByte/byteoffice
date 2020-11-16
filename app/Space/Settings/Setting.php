@@ -2,9 +2,12 @@
 namespace App\Space\Settings;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Traits\UseUuid;
 
 class Setting extends Model
 {
+    use UseUuid;
+    
     public static function setSetting($key, $setting)
     {
         $old = self::whereOption($key)->first();

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+use Illuminate\Http\Str;
 class CreateApplicationsTable extends Migration
 {
     /**
@@ -14,11 +14,11 @@ class CreateApplicationsTable extends Migration
     public function up()
     {
         Schema::create('applications', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('employee_id')->unsigned();
+            $table->uuid('id');
+            $table->uuid('employee_id');
             $table->date('start')->nullable();
             $table->date('end')->nullable();
-            $table->integer('type_id')->nullable();
+            $table->uuid('type_id')->nullable();
             $table->date('date')->nullable();
             $table->string('status')->nullable();
             $table->string('reason')->nullable();

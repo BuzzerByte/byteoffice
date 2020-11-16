@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+use Illuminate\Http\Str;
 class CreateReimbursementsTable extends Migration
 {
     /**
@@ -14,10 +14,10 @@ class CreateReimbursementsTable extends Migration
     public function up()
     {
         Schema::create('reimbursements', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->date('date')->nullable();
-            $table->integer('department_id')->nullable();
-            $table->integer('employee_id')->unsigned();
+            $table->uuid('department_id')->nullable();
+            $table->uuid('employee_id');
             $table->float('amount',15,2)->nullable();
             $table->string('description')->nullable();
             $table->boolean('m_approved')->nullable();

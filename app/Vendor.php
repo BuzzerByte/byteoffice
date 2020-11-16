@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Traits\UseUuid;
 
 class Vendor extends Model
 {
+    use UseUuid;
     /**
      * The attributes that are mass assignable.
      *

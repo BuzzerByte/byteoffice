@@ -4,9 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Http\Traits\UseUuid;
 
 class Quotation extends Model
 {
+    use UseUuid;
     protected $fillable = [
         'client_id',
         'estimate_date',

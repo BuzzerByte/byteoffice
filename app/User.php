@@ -3,10 +3,12 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Http\Traits\UseUuid;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    
+    use UseUuid;
     /**
      * The attributes that are mass assignable.
      *

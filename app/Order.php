@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use App\Client;
 use Carbon\Carbon;
 use App\Order;
-
+use App\Http\Traits\UseUuid;
 class Order extends Model
 {
+    use UseUuid;
     /**
      * The attributes that are mass assignable.
      *

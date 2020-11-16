@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+use Illuminate\Http\Str;
 class CreateEmployeeSalariesTable extends Migration
 {
     /**
@@ -14,7 +14,7 @@ class CreateEmployeeSalariesTable extends Migration
     public function up()
     {
         Schema::create('employee_salaries', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->string('type')->nullable();
             $table->string('pay_grade')->nullable();
             $table->string('comment')->nullable();
@@ -29,7 +29,7 @@ class CreateEmployeeSalariesTable extends Migration
             $table->float('total_deduction',15,2)->nullable();
             $table->float('total_payable',15,2)->nullable();
             $table->float('cost_to_company',15,2)->nullable();
-            $table->integer('employee_id')->unsigned();
+            $table->uuid('employee_id');
             $table->timestamps();
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });

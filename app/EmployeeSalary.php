@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\JobHistory;
 use App\JobTitle;
+use App\Http\Traits\UseUuid;
 
 class EmployeeSalary extends Model
 {
+    use UseUuid;
+    
     protected $fillable = [
         'type',
         'pay_grade',

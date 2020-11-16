@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+use Illuminate\Http\Str;
 class CreateEmployeeAttendancesTable extends Migration
 {
     /**
@@ -14,7 +14,7 @@ class CreateEmployeeAttendancesTable extends Migration
     public function up()
     {
         Schema::create('employee_attendances', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->timestamps();
         });
     }

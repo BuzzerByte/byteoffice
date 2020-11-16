@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+use Illuminate\Http\Str;
 class CreateEmployeeTerminationsTable extends Migration
 {
     /**
@@ -14,8 +14,8 @@ class CreateEmployeeTerminationsTable extends Migration
     public function up()
     {
         Schema::create('employee_terminations', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('employee_id')->unsigned();
+            $table->uuid('id')->primary();
+            $table->uuid('employee_id');
             $table->date('date')->nullable();
             $table->string('reason')->nullable();
             $table->string('note')->nullable();

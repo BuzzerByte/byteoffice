@@ -5,10 +5,12 @@ use App\Department;
 use App\Employee;
 use App\Leavetype;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Http\Traits\UseUuid;
 class Attendance extends Model
 {
     //
+    use UseUuid;
+    
     protected $fillable = [
         'date',
         'department_id',

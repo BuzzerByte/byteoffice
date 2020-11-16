@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+use Illuminate\Http\Str;
 class CreateEmployeeAttachmentsTable extends Migration
 {
     /**
@@ -14,11 +14,11 @@ class CreateEmployeeAttachmentsTable extends Migration
     public function up()
     {
         Schema::create('employee_attachments', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->primary();
             $table->string('name')->nullable();
             $table->string('description')->nullable();
             $table->string('added_by')->nullable();
-            $table->integer('employee_id')->unsigned();
+            $table->uuid('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->timestamps();
         });

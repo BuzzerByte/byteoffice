@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Http\Str;
 
 class CreatePurchaseTable extends Migration
 {
@@ -14,8 +15,8 @@ class CreatePurchaseTable extends Migration
     public function up()
     {
         Schema::create('purchases', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('vendor_id')->unsigned();
+            $table->uuid('id')->primary();
+            $table->uuid('vendor_id');
             $table->string('b_reference')->nullable();
             $table->string('status')->nullable();
             $table->string('note')->nullable();

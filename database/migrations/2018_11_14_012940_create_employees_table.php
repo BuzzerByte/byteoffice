@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+use Illuminate\Http\Str;
 class CreateEmployeesTable extends Migration
 {
     /**
@@ -14,7 +14,7 @@ class CreateEmployeesTable extends Migration
     public function up()
     {
         Schema::create('employees', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->primary();
             $table->string('name')->nullable();
             $table->string('email')->unique()->nullable();
             $table->string('password')->nullable();
@@ -30,7 +30,7 @@ class CreateEmployeesTable extends Migration
             $table->string('gender')->nullable();
             $table->string('photo')->nullable();
             $table->boolean('terminate_status')->nullable();
-            $table->integer('user_id')->unsigned();
+            $table->uuid('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+use Illuminate\Http\Str;
 class CreateEmployeeSupervisorsTable extends Migration
 {
     /**
@@ -14,10 +14,10 @@ class CreateEmployeeSupervisorsTable extends Migration
     public function up()
     {
         Schema::create('employee_supervisors', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('department_id')->nullable();
-            $table->integer('supervisor_id')->nullable();
-            $table->integer('employee_id')->unsigned();
+            $table->uuid('id');
+            $table->uuid('department_id')->nullable();
+            $table->uuid('supervisor_id')->nullable();
+            $table->uuid('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->timestamps();
         });

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Str;
 
 class CreateInventoriesTable extends Migration
 {
@@ -14,7 +15,7 @@ class CreateInventoriesTable extends Migration
     public function up()
     {
         Schema::create('inventories', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->primary();
             $table->string('name')->nullable();
             $table->string('model_no')->nullable();
             $table->string('in_house')->nullable();
@@ -25,9 +26,9 @@ class CreateInventoriesTable extends Migration
             $table->string('p_information')->nullable();
             $table->string('quantity')->nullable();
             $table->string('type')->nullable();
-            $table->integer('category_id')->unsigned()->nullable();
-            $table->integer('tax_id')->unsigned()->nullable();
-            $table->integer('user_id')->unsigned()->nullable();
+            $table->uuid('category_id')->nullable();
+            $table->uuid('tax_id')->nullable();
+            $table->uuid('user_id');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
