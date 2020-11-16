@@ -40,6 +40,7 @@ class OrderService {
     }
 
     public function store(Request $request, $inventories){
+        $request->invoice_number = $this->invoiceNumber();
         $result =  $this->orders->store($request);
         for($i = 0; $i < $inventories['count']; $i++){
             $this->saleProducts->storeByOrder(
@@ -156,5 +157,19 @@ class OrderService {
 
     public function updateStatus(Order $order, $status){
         return $this->orders->updateStatus($order, $status);
+    }
+
+    public function invoiceNumber()
+    {
+        $record = Order::latest()->first();
+        $expNum = explode('-', $record->invoiceno);
+        //check first day in a year
+        if ( date('l',strtotime(date('Y-01-01'))) ){
+            $nextInvoiceNumber = date('Y').'-0001';
+        } else {
+            //increase 1 with last invoice number
+            $nextInvoiceNumber = $expNum[0].'-'.($expNum[1]+1);
+        }
+        return $nextInvoiceNumber;
     }
 }

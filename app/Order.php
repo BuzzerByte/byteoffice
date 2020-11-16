@@ -17,6 +17,7 @@ class Order extends Model
      */
     protected $fillable = [
         'client_id',
+        'invoice_number',
         'invoice_date',
         'due_date',
         'total',

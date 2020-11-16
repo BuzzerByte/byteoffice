@@ -36,6 +36,7 @@ class OrderRepository implements IOrderRepository
 
     public function store(Request $request){
         $order = $this->orders;
+        $order->invoice_number = $request->invoice_number;
         $order->client_id = $request->client_id;
         $order->invoice_date = $request->invoice_date;
         $order->due_date = $request->due_date;

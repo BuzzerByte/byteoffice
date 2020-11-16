@@ -28,6 +28,7 @@
                 <form action="{{ route('orders.store') }}" id="from-invoice" enctype="multipart/form-data" method="post"
                     accept-charset="utf-8">
                     @csrf
+                    <input type="hidden" name='invoice_number' value="">
                     <div class="card-body">
 
                         <div class="row">
@@ -68,7 +69,7 @@
                                             <div class="form-group form-group-bottom">
                                                 <label>Email</label>
                                                 <input type="email" id="email" name="email" class="form-control inp_email"
-                                                    value="{{ $selected_client->email }}">
+                                                    value="{{ $selected_client->email }}" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -76,14 +77,14 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Billing Address</label>
-                                                <textarea class="form-control inp_b_address" id="b_address" name="b_address">{{ $selected_client->billing_address }}</textarea>
+                                                <textarea class="form-control inp_b_address" id="b_address" name="b_address" readonly>{{ $selected_client->billing_address }}</textarea>
                                             </div>
                                         </div>
 
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Shipping Address</label>
-                                                <textarea class="form-control inp_s_address" id="s_address" name="s_address">{{ $selected_client->shipping_address }}</textarea>
+                                                <textarea class="form-control inp_s_address" id="s_address" name="s_address" readonly>{{ $selected_client->shipping_address }}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -157,7 +158,7 @@
                                             <div class="form-group form-group-bottom">
                                                 <label>Email</label>
                                                 <input type="email" id="email" name="email" class="form-control inp_email"
-                                                    value="">
+                                                    value="" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -166,14 +167,14 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Billing Address</label>
-                                                <textarea class="form-control inp_b_address" id="b_address" name="b_address"></textarea>
+                                                <textarea class="form-control inp_b_address" id="b_address" name="b_address" readonly></textarea>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Shipping Address</label>
-                                                <textarea class="form-control inp_s_address" id="s_address" name="s_address"></textarea>
+                                                <textarea class="form-control inp_s_address" id="s_address" name="s_address" readonly></textarea>
                                             </div>
                                         </div>
                                     </div>

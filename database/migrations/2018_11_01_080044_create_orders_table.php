@@ -16,6 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             //
             $table->uuid('id')->primary();
+            $table->string('invoice_number');
             $table->uuid('client_id');
             $table->date('invoice_date')->nullable();
             $table->date('due_date')->nullable();
