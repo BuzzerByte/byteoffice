@@ -7,6 +7,7 @@ use App\Http\Traits\UseUuid;
 
 class User extends Authenticatable
 {
+    
     use UseUuid;
     /**
      * The attributes that are mass assignable.
