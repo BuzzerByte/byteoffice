@@ -13,26 +13,30 @@ use App\Exports\ProcessExport;
 use App\Exports\PendingExport;
 use App\Exports\DeliverExport;
 use App\Order;
+use App\Services\BaseService;
 
-class OrderService {
+class OrderService extends BaseService{
     protected $orders;
     protected $saleProducts;
     protected $clients;
     protected $payments;
     protected $inventories;
+    protected $bases;
 
     public function __construct(
         IOrderRepository $orders, 
         ISaleProductRepository $saleProducts, 
         IClientRepository $clients, 
         IPaymentRepository $payments,
-        IInventoryRepository $inventories
+        IInventoryRepository $inventories,
+        BaseService $bases
     ){
         $this->orders = $orders;
         $this->saleProducts = $saleProducts;
         $this->clients = $clients;
         $this->payments = $payments;
         $this->inventories = $inventories;
+        $this->bases = $bases;
     }
 
     public function all(){
@@ -40,7 +44,8 @@ class OrderService {
     }
 
     public function store(Request $request, $inventories){
-        $request->invoice_number = $this->invoiceNumber();
+        $latest = Order::latest()->first();
+        $request->invoice_number = $this->bases->invoiceNumber($latest, 'INV');
         $result =  $this->orders->store($request);
         for($i = 0; $i < $inventories['count']; $i++){
             $this->saleProducts->storeByOrder(
@@ -159,17 +164,5 @@ class OrderService {
         return $this->orders->updateStatus($order, $status);
     }
 
-    public function invoiceNumber()
-    {
-        $record = Order::latest()->first();
-        $expNum = explode('-', $record->invoiceno);
-        //check first day in a year
-        if ( date('l',strtotime(date('Y-01-01'))) ){
-            $nextInvoiceNumber = date('Y').'-0001';
-        } else {
-            //increase 1 with last invoice number
-            $nextInvoiceNumber = $expNum[0].'-'.($expNum[1]+1);
-        }
-        return $nextInvoiceNumber;
-    }
+    
 }

@@ -37,6 +37,7 @@ class QuotationRepository implements IQuotationRepository{
         $quotation->status = 'pending';
         $quotation->order_note = $request->order_note;
         $quotation->order_activities = $request->order_activities;
+        $quotation->invoice_number = $request->invoice_number;
         return [
             'result'=>$quotation->save(),
             'quotation'=>$quotation

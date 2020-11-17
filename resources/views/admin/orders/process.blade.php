@@ -85,7 +85,7 @@
                                     {{ Carbon\Carbon::parse( $order->created_at)->format('d M Y') }}
                                 </td>
                                 <td>
-                                    {{ $order->id }} </td>
+                                    {{ $order->invoice_number }} </td>
                                 <td>
                                     {{ \App\Client::where('id',$order->client_id)->first()->name }} </td>
                                 <td>

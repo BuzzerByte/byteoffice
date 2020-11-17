@@ -130,7 +130,7 @@
 
                         <div class="col-sm-4 quotation-col">
                             <input type="hidden" class="quotation_id" value="{{ $quotation[0]['id'] }}">
-                            <h4>Quotation #{{ $quotation[0]['id'] }}</h4>
+                            <h4>Quotation #{{ $quotation[0]['invoice_number'] }}</h4>
                             <b>Estimation Date:</b> {{ Carbon\Carbon::parse(
                             $quotation[0]['estimation_date'])->format('d M Y')
                             }} <br>

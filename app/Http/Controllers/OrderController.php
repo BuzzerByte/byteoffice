@@ -91,7 +91,7 @@ class OrderController extends Controller
      */
     public function deliver()
     {
-        $pending_order = $this->orders->getByStatus('delivery_done');
+        $delivered_order = $this->orders->getByStatus('delivery_done');
         return view('admin.orders.deliver',['invoice'=>$delivered_order]);
     }
 
