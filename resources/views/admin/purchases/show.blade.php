@@ -212,7 +212,7 @@
 
                         <div class="col-sm-4 invoice-col inv_ref">
                             <input type="hidden" class="purchase_id" value="{{ $purchase->id }}">
-                            <h4>Purchase #{{ $purchase->id }}</h4>
+                            <h4>Purchase #{{ $purchase->invoice_number }}</h4>
                             <b>Order Date:</b> {{ Carbon\Carbon::parse( $purchase->created_at)->format('d M
                             Y') }} <br>
                             <b>Billing Ref:</b> {{ $purchase->b_reference }}<br>

@@ -238,7 +238,7 @@
                                 <td>{{ $purchase->timeFormat($purchase->created_at) }}
                                     </td>
                                 <td>
-                                    {{ $purchase->id }} </td>
+                                    {{ $purchase->invoice_number }} </td>
                                 <td>
                                     {{ $purchase->vendor($purchase->id) }}
                                     </td>

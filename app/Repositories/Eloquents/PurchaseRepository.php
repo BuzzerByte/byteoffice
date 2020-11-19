@@ -50,6 +50,7 @@ class PurchaseRepository implements IPurchaseRepository
 
     public function store(Request $request){
         $purchase = $this->purchases;
+        $purchase->invoice_number = $request->invoice_number;
         $purchase->vendor_id = $request->vendorId;
         $purchase->b_reference = $request->b_reference;
         $purchase->status = 'pending_received';

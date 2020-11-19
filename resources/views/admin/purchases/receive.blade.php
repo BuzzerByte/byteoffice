@@ -68,13 +68,13 @@
                                 <td>
                                     {{ $product->created_at }} </td>
                                 <td>
-                                    {{ $product->purchase_id }} </td>
+                                    {{ $product->getPurchaseCode($product->purchase_id) }} </td>
                                 <td>
                                     {{
-                                    \App\Vendor::where('id',\App\Purchase::where('id',$product->purchase_id)->first()->vendor_id)->first()->name
+                                       $product->getVendor($product->purchase_id)
                                     }} </td>
                                 <td>
-                                    {{ \App\Inventory::where('id',$product->inventory_id)->first()->name }}</td>
+                                    {{ $product->inventory($product->inventory_id) }}</td>
                                 <td>
                                     {{ $product->quantity }} </td>
                                 <td>

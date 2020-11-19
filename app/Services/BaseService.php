@@ -5,6 +5,7 @@ namespace App\Services;
 use Carbon\Carbon;
 
 class BaseService {
+
     public function invoiceNumber($latest, $initial)
     {
         $date = Carbon::today()->format('Ymd');
