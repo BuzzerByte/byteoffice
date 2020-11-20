@@ -76,8 +76,10 @@ class EmployeeController extends Controller
 
     public function store(Request $request)
     {
+        // return response()->json($request);
         $file_name = $this->employees->avatar($request);
         $employee = $this->employees->store($request, $file_name);
+        // return response()->json($employee['employee']->id);
         $role_employee = $this->employees->role($request, $employee);
         return redirect()->route('employees.index');
     }
