@@ -9,12 +9,11 @@
 
         <form id="addSubordinate" action="{{ route('employeeAwards.store') }}" method="post">
             @csrf
-
             <div class="modal-body">
 
                 <div class="form-group">
                     <label>Department<span class="required">*</span></label>
-                    <select class="form-control select2" name="department_id" id="department" required>
+                    <select class="form-control select2" name="department_id" required>
                         @if(!$departments->isEmpty())
                         <option value="">Please Select..</option>
                         @foreach($departments as $department)
@@ -28,7 +27,7 @@
 
                 <div class="form-group">
                     <label>Employee<span class="required">*</span></label>
-                    <select class="form-control select2" name="employee_id" id="employee" required>
+                    <select class="form-control select2" name="employee_id" required>
                         @if(!$employees->isEmpty())
                         <option value="">Please Select</option>
                         @foreach($employees as $employee)
@@ -73,10 +72,8 @@
 
             <div class="modal-footer">
                 <span class="required">*</span> Required field
-                <button type="button" id="close" class="btn btn-danger btn-flat pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger btn-flat pull-left" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn bg-olive btn-flat" id="btn">Save</button>
-
-
             </div>
         </form>
     </div>

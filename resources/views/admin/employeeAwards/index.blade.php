@@ -118,7 +118,7 @@
                                 <td>{{ \Carbon\Carbon::parse($award->month)->format('M') }}</td>
                                 <td>
                                     <div class="btn-group mr-2" role="group" aria-label="First group">
-                                        <input type="hidden" value="{{ $award->id }}">
+                                        <input type="hidden" value={{ $award->id }}>
                                         <button type="button" class="btn btn-icon btn-outline-info editaward"
                                             data-target="#editAwardModel" title="View" data-placement="top" data-toggle="modal"
                                             href="#"><i class="icon-fa icon-fa-pencil"></i></button>

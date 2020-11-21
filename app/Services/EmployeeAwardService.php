@@ -6,6 +6,7 @@ use App\Repositories\Interfaces\IEmployeeAwardRepository;
 use App\Repositories\Interfaces\IEmployeeRepository;
 use App\Repositories\Interfaces\IDepartmentRepository;
 use App\EmployeeAward;
+use Illuminate\Http\Request;
 
 class EmployeeAwardService{
     protected $employeeAwards;
@@ -44,5 +45,9 @@ class EmployeeAwardService{
 
     public function destroy($id){
         return $this->employeeAwards->destroy($id);
+    }
+
+    public function getById($id){
+        return $this->employeeAwards->getById($id);
     }
 }

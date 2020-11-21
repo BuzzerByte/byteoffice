@@ -55,6 +55,7 @@ class ReimbursementController extends Controller
      */
     public function store(Request $request)
     {
+        return response()->json($request);
         //
         if(Auth::user()->hasRole('admin')){
             $reimbursement = $this->reimbursements->store($request);

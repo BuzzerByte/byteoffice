@@ -6,6 +6,7 @@ use App\Repositories\Interfaces\IReimbursementRepository;
 use App\Repositories\Interfaces\IEmployeeRepository;
 use App\Repositories\Interfaces\IDepartmentRepository;
 use App\Department;
+use Illuminate\Http\Request;
 
 class ReimbursementService{
     protected $reimbursements;
