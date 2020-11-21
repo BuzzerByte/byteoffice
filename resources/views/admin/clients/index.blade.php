@@ -2,8 +2,8 @@
 
 @section('styles')
 @endsection
+
 @section('scripts')
-{{asset('/assets/admin/js/core/app.js')}}
 <script src="/assets/admin/js/pages/notifications.js"></script>
 <script src="/assets/admin/js/pages/datatables.js"></script>
 <script>

@@ -11,8 +11,9 @@ use Illuminate\Http\Request;
 use App\Purchase;
 use Auth;
 use App\Exports\PurchasesExport;
+use App\Services\BaseService;
 
-class PurchaseService {
+class PurchaseService extends BaseService{
     protected $purchases;
     protected $payments;
     protected $vendors;
@@ -59,6 +60,8 @@ class PurchaseService {
     }
 
     public function store(Request $request, $inventories){
+        $latest = Purchase::latest()->first();
+        $request->invoice_number = $this->invoiceNumber($latest, 'PUR');
         $purchases = $this->purchases->store($request);
         for($i=0;$i<$inventories['count'];$i++){
             $purchaseProducts = $this->purchaseProducts->store(
@@ -76,7 +79,7 @@ class PurchaseService {
     public function show(Purchase $purchase){
         $purchases = $this->purchases->show($purchase);
         $purchase_products = $this->purchaseProducts->getByPurchaseId($purchase->id);
-        $vendor = $this->vendors->getById($purchase->id);
+        $vendor = $this->vendors->getById($purchase->vendor_id);
         $payments = $this->payments->getByPurchaseId($purchase->id);
         return [
             'purchases'=>$purchases,

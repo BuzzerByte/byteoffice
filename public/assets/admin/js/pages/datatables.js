@@ -3,14 +3,17 @@ var DataTables = (function () {
     $('#default-datatable').DataTable()
 
     $('#responsive-datatable').DataTable({
-      responsive: true
+      responsive: true,
+      order: [[ 1, "asc" ]]
     })
 
     $('#dashboard-new-customers-datatable').DataTable({
-      responsive:true
+      responsive:true,
+      order: [[ 1, "asc" ]]
     })
     $('#dashboard-new-orders-datatable').DataTable({
-      responsive:true
+      responsive:true,
+      order: [[ 1, "asc" ]]
     })
   }
 

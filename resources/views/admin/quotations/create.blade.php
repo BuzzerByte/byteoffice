@@ -200,6 +200,7 @@
                 <form action="{{ route('quotations.store') }}" id="from-invoice" enctype="multipart/form-data" method="post"
                     accept-charset="utf-8">
                     @csrf
+                    <input type="hidden" name='invoice_number'>
                     <div class="card-body">
 
                         <div class="row">
@@ -238,21 +239,21 @@
                                             <!-- /.Start Date -->
                                             <div class="form-group form-group-bottom">
                                                 <label>Email</label>
-                                                <input type="email" id="email" name="email" class="form-control" value={{ $selected_client->email }}>
+                                                <input type="email" id="email" name="email" class="form-control" value={{ $selected_client->email }} readonly>
                                             </div>
                                         </div>
 
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label>Billing Address</label>
-                                                <textarea class="form-control" id="b_address" name="b_address">{{ $selected_client->billing_address }}</textarea>
+                                                <textarea class="form-control" id="b_address" name="b_address" readonly>{{ $selected_client->billing_address }}</textarea>
                                             </div>
                                         </div>
 
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label>Shipping Address</label>
-                                                <textarea class="form-control" id="s_address" name="s_address">{{ $selected_client->shipping_address }}</textarea>
+                                                <textarea class="form-control" id="s_address" name="s_address" readonly>{{ $selected_client->shipping_address }}</textarea>
                                             </div>
                                         </div>
 
@@ -319,21 +320,21 @@
                                             <!-- /.Start Date -->
                                             <div class="form-group form-group-bottom">
                                                 <label>Email</label>
-                                                <input type="email" id="email" name="email" class="form-control" value="">
+                                                <input type="email" id="email" name="email" class="form-control" value="" readonly>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Billing Address</label>
-                                                <textarea class="form-control" id="b_address" name="b_address"></textarea>
+                                                <textarea class="form-control" id="b_address" name="b_address" readonly></textarea>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Shipping Address</label>
-                                                <textarea class="form-control" id="s_address" name="s_address"></textarea>
+                                                <textarea class="form-control" id="s_address" name="s_address" readonly></textarea>
                                             </div>
                                         </div>
 

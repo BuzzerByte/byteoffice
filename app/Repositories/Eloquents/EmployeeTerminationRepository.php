@@ -16,7 +16,7 @@ class EmployeeTerminationRepository implements IEmployeeTerminationRepository{
     public function updateOrCreate(Request $request){
         $result = $this->employeeTerminations->updateOrCreate(
             [
-                'employee_id'=>(int)$request->employee_id
+                'employee_id'=>$request->employee_id
             ],[
                 'date'=>$request->termination_date,
                 'reason'=>$request->termination_reason,

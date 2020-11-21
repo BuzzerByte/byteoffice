@@ -33,7 +33,7 @@ $(document.body).on('change', '#parentLeaveCheckbox', function () {
         <h3 class="page-title">Attendance <small class="text-muted">management</small></h3>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-            <li class="breadcrumb-item active"><a href="{{ route('client.index') }}">Attendance</a></li>
+            <li class="breadcrumb-item active"><a href="{{ route('attendances.index') }}">Attendance</a></li>
         </ol>
     </div>
     <div class="row">

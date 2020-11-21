@@ -26,6 +26,7 @@ class CreateQuotationsTable extends Migration
             $table->string('status')->nullable();
             $table->string('order_activities')->nullable();
             $table->string('order_note')->nullable();
+            $table->string('invoice_number');
             $table->timestamps();
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
         });

@@ -10,6 +10,8 @@ use App\Repositories\Interfaces\IJobHistoryRepository;
 use File;
 use Excel;
 use App\Imports\AttendanceImport;
+use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class AttendanceService {
     protected $attendances;
@@ -83,9 +85,9 @@ class AttendanceService {
         for($i = 0; $i< count($request->employee_id); $i++){
             $result = $this->attendances->updateByDateAndDepartment(
                 Carbon::parse($request->date)->format('Y-m-d'),
-                (int)$request->department,
-                (int)$request->employee_id[$i],
-                (int)$request->leave_category_id[$i],
+                $request->department,
+                $request->employee_id[$i],
+                $request->leave_category_id[$i],
                 Carbon::parse($request->in[$i])->format('H:i'),
                 Carbon::parse($request->out[$i])->format('H:i')
             );
@@ -108,10 +110,10 @@ class AttendanceService {
     }
 
     public function storeAttendance(Request $request){
-        $department_id_arr = $this->jobHitories->getJobHistoryByDepartmentId($request->department_id);
+        $department_id_arr = $this->jobHistories->getJobHistoryByDepartmentId($request->department_id);
         $employees = [];
         foreach($department_id_arr as $id){
-            $employee = $this->employees->getEmployees($id['employee_id']);
+            $employee = $this->employees->getById($id['employee_id']);
             // $employee = Employee::where('id',$id['employee_id'])->first();
             array_push($employees,$employee);
             $store = $this->attendances->updateOrCreate(

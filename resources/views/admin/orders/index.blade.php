@@ -132,7 +132,7 @@
 
                                 </td>
                                 <td>
-                                    {{ $order->id }} </td>
+                                    {{ $order->invoice_number }} </td>
                                 <td>{{ $order->client }}
                                 </td>
                                 <td>

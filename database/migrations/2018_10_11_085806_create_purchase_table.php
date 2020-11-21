@@ -16,6 +16,7 @@ class CreatePurchaseTable extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('invoice_number');
             $table->uuid('vendor_id');
             $table->string('b_reference')->nullable();
             $table->string('status')->nullable();

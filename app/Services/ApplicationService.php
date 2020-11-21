@@ -45,4 +45,8 @@ class ApplicationService{
     public function destroy($id){
         return $this->applications->destroy($id);
     }
+
+    public function getById($id){
+        return $this->applications->getById($id);
+    }
 }

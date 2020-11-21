@@ -52,7 +52,7 @@
                         <thead>
                             <tr>
                                 <th>Date(Y-M-D)</th>
-                                <th>Order ID</th>
+                                <th>Quotation No</th>
                                 <th>Client</th>
                                 <th>Expiry Date</th>
                                 <th>Grand Total</th>
@@ -86,7 +86,7 @@
                                     
                                 </td>
                                 <td>
-                                    {{ $quotation->id }} </td>
+                                    {{ $quotation->invoice_number }} </td>
                                 <td>
                                     {{ $quotation->client }} </td>
                                 <td>
@@ -131,7 +131,7 @@
                         <tfoot>
                             <tr>
                                 <th>Date(Y-M-D)</th>
-                                <th>Order ID</th>
+                                <th>Quotation No</th>
                                 <th>Client</th>
                                 <th>Expiry Date</th>
                                 <th>Grand Total</th>

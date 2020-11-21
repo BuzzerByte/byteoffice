@@ -17,6 +17,7 @@ class AttendanceController extends Controller
     public function __construct(AttendanceService $attendances){
         $this->attendances = $attendances;
     }
+
     public function index()
     {
         //
@@ -32,7 +33,7 @@ class AttendanceController extends Controller
     }
 
     public function setAttendance(Request $request){
-        $department_id = (int)$request->department;
+        $department_id = $request->department;
         $attendances = $this->attendances->getAttendances($request->department, $request->date);
         $departments = $this->attendances->getDepartments();
         $leave = $this->attendances->getLeaveTypes();
@@ -81,7 +82,7 @@ class AttendanceController extends Controller
         $leave = $this->attendances->getLeaveTypes();
         return redirect()->route('attendances.setAttendance',[
             'attendances'=>$attendances,
-            'department'=> (int)$request->department,
+            'department'=> $request->department,
             'date'=> Carbon::parse($request->date)->format('Y-m-d'),
             'departments'=>$departments,
             'leave' => $leave
@@ -91,10 +92,10 @@ class AttendanceController extends Controller
     public function store(Request $request)
     {
         if($this->attendances->checkJobHistoryExistByDepartmentId($request->department_id)){
-            $result = $this->attendances->storeAttendance($department_id_arr, $request);
+            $result = $this->attendances->storeAttendance($request);
             $departments = $this->attendances->getDepartments();
             $department = $this->attendances->getDepartmentById($request->department_id);
-            return redirect()->route('attendances.setAttendance',['department'=>$department,'date'=>$date]);
+            return redirect()->route('attendances.setAttendance',['department'=>$department,'date'=>$request->date]);
         }else{
             $department_id_arr = null;
             return redirect()->route('attendances.index');

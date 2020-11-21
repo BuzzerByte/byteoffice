@@ -25,7 +25,7 @@ class ClientRepository implements IClientRepository
     public function all()
     {
         return $this->clients->where('user_id', Auth::user()->id)
-                    ->orderBy('created_at', 'asc')
+                    ->orderBy('updated_at', 'desc')
                     ->get();
     }
 

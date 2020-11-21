@@ -142,7 +142,7 @@
 
                         <div class="col-sm-4 col-xs-4 col-lg-4">
                             <input type="hidden" class="invoice_id" value="{{ $invoice['id'] }}">
-                            <h4>Invoice #{{ $invoice['id'] }}</h4>
+                            <h4>Invoice #{{ $invoice['invoice_number'] }}</h4>
 
                             <b>Order Date:</b> {{ Carbon\Carbon::parse( $invoice['invoice_date'])->format('d M
                             Y') }} <br>

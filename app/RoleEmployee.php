@@ -8,7 +8,6 @@ use App\Http\Traits\UseUuid;
 class RoleEmployee extends Model
 {
     //
-    use UseUuid;
     public $timestamps = false;
     protected $table = 'role_employee';
 

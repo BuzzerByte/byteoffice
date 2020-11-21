@@ -91,7 +91,7 @@ class OrderController extends Controller
      */
     public function deliver()
     {
-        $pending_order = $this->orders->getByStatus('delivery_done');
+        $delivered_order = $this->orders->getByStatus('delivery_done');
         return view('admin.orders.deliver',['invoice'=>$delivered_order]);
     }
 
@@ -223,6 +223,7 @@ class OrderController extends Controller
 
         $paid = Order::select('paid')->where('id',$order->id)->first()->paid;
         $inventories = [];
+
         array_push($inventories,[
             'count'=>count($inv_id),
             'id'=>$inv_id,
@@ -232,7 +233,7 @@ class OrderController extends Controller
             'amt'=>$inv_amount,
             'sale_id'=>$request->sale_id
         ]);
-        // return response()->json($inventories[0]);
+        // return response()->json($request);
         $updateInvoice = $this->orders->update($request, $order, $paid, $inventories[0]);
         return redirect()->route('orders.show',$order->id);
     }

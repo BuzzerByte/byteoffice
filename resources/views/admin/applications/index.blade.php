@@ -40,7 +40,6 @@
         $('#form-application').attr('action', '/admin/applications/' + id);
         $.get("/admin/applications/" + id + "/edit", function (data) {
             $('#edit_employee > option').each(function(){
-                console.log($(this).val());
                 if(data['employee_id'] == $(this).val()){
                     $(this).attr('selected', 'selected');
                 }else{
@@ -52,7 +51,6 @@
             $('#edit_start').val(data['start']);
             $('#edit_end').val(data['end']);
             $('#edit_leave > option').each(function(){
-                console.log($(this).val());
                 if(data['type_id'] == $(this).val()){
                     $(this).attr('selected', 'selected');
                 }else{
@@ -61,7 +59,6 @@
             });
             $('#edit_apply').val(data['date']);
             $('#edit_status > option').each(function(){
-                console.log($(this).val());
                 if(data['status'] == $(this).val()){
                     $(this).attr('selected', 'selected');
                 }else{
@@ -153,8 +150,8 @@
                             @endif
                             @foreach($applications as $application)
                             <tr>
-                                <td>{{ \App\User::where('id',$application->employee_id)->first()->id_number }}</td>
-                                <td>{{ \App\User::where('id',$application->employee_id)->first()->f_name }} {{ \App\User::where('id',$application->employee_id)->first()->l_name }}</td>
+                                <td>{{ \App\Employee::where('id',$application->employee_id)->first()->id_number }}</td>
+                                <td>{{ \App\Employee::where('id',$application->employee_id)->first()->f_name }} {{ \App\Employee::where('id',$application->employee_id)->first()->l_name }}</td>
                                 <td>{{ Carbon\Carbon::parse( $application->start)->format('d M Y') }}</td>
                                 <td>{{ Carbon\Carbon::parse( $application->end)->format('d M Y') }}</td>
                                 <td>{{ \App\LeaveType::where('id',$application->type_id)->first()->name }}</td>

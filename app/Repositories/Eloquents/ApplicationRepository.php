@@ -14,7 +14,8 @@ class ApplicationRepository implements IApplicationRepository{
     }
 
     public function all(){
-        return $this->applications->leftjoin('employees','applications.employee_id','employees.id')
+        return $this->applications->select('applications.*')
+                                  ->leftjoin('employees','applications.employee_id','employees.id')
                                   ->leftjoin('users','employees.user_id','users.id')
                                   ->orderBy('applications.created_at','asc')
                                   ->get();
@@ -25,7 +26,7 @@ class ApplicationRepository implements IApplicationRepository{
         $application->employee_id = $request->employee;
         $application->start = $request->start;
         $application->end = $request->end;
-        $application->type_id =(int)$request->type;
+        $application->type_id = $request->type;
         $application->date = $request->apply;
         $application->status = 'pending';
         return [
@@ -39,7 +40,7 @@ class ApplicationRepository implements IApplicationRepository{
         $application->employee_id = $request->employee;
         $application->start = $request->start;
         $application->end = $request->end;
-        $application->type_id = (int)$request->type;
+        $application->type_id = $request->type;
         $application->date = $request->apply;
         $application->status = $request->status;
         return [
@@ -53,5 +54,9 @@ class ApplicationRepository implements IApplicationRepository{
         return [
             'result' => $application->delete()
         ];
+    }
+
+    public function getById($id){
+        return $this->applications->find($id);
     }
 }

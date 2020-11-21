@@ -9,49 +9,46 @@
     crossorigin="anonymous"></script>
 <script>
     $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $(function () {
+        $('#example1').DataTable()
+    })
+    $('.edit').click(function () {
+        var id = $(this).siblings('.withdraw_id').attr('id');
+        $('#form-witdraw-edit').attr('action', '/admin/withdrawals/' + id);
+        $.get("/admin/withdrawals/" + id + "/edit", function (data) {
+            $w_quantity = data['w_quantity'];
+            $.get('/admin/inventory/' + data['inventory_id'], function (data) {
+                $('#inv_name').val(data['name']);
+                $('#w_quantity').attr('placeholder',parseInt(data['quantity'])+parseInt($w_quantity));
             });
-            $(function () {
-                $('#example1').DataTable()
-            })
-            $('.edit').click(function () {
-                var id = $(this).siblings('.withdraw_id').attr('id');
-                $('#form-witdraw-edit').attr('action', '/admin/withdrawals/' + id);
-                $.get("/admin/withdrawals/" + id + "/edit", function (data) {
-                    $w_quantity = data['w_quantity'];
-                    $.get('/admin/inventory/' + data['inventory_id'], function (data) {
-        
-                        $('#inv_name').val(data['name']);
-                        $('#w_quantity').attr('placeholder',parseInt(data['quantity'])+parseInt($w_quantity));
-                    });
-                    $('#ori_qty').val(data['w_quantity']);
-                    $('#edit_inv_id').val(data['inventory_id']);
-                    $('#w_quantity').val(data['w_quantity']);
-                    $('#project_id').val(data['project_id']);
-                });
-            });
-        
-            $(document.body).on('keyup','#w_quantity',function(){
-                $limit = $('#w_quantity').attr('placeholder');
-                $inp = $(this).val();
-                if(parseInt($(this).val()) > parseInt($limit)){
-                    $('#exceed_edit_qty').attr('class','');
-                    $('#submit_edit_withdraw').attr('disabled','disabled');
-                }else{
-                    $('#exceed_edit_qty').attr('class','hidden');
-                    $('#submit_edit_withdraw').removeAttr('disabled');
-                }
-            });
-        
-            $('.delete').click(function () {
-                var id = $(this).parents('li').siblings('.withdraw_id').attr('id');
-                $('#form-d-withdraw').attr('action', '/admin/withdrawals/' + id);
-            });
-        
-            
-        </script>
+            $('#ori_qty').val(data['w_quantity']);
+            $('#edit_inv_id').val(data['inventory_id']);
+            $('#w_quantity').val(data['w_quantity']);
+            $('#project_id').val(data['project_id']);
+        });
+    });
+
+    $(document.body).on('keyup','#w_quantity',function(){
+        $limit = $('#w_quantity').attr('placeholder');
+        $inp = $(this).val();
+        if(parseInt($(this).val()) > parseInt($limit)){
+            $('#exceed_edit_qty').attr('class','');
+            $('#submit_edit_withdraw').attr('disabled','disabled');
+        }else{
+            $('#exceed_edit_qty').attr('class','hidden');
+            $('#submit_edit_withdraw').removeAttr('disabled');
+        }
+    });
+
+    $('.delete').click(function () {
+        var id = $(this).parents('li').siblings('.withdraw_id').attr('id');
+        $('#form-d-withdraw').attr('action', '/admin/withdrawals/' + id);
+    });
+</script>
 @stop
 @section('content')
 <div class="main-content">

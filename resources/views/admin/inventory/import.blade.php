@@ -79,9 +79,9 @@
                                         </thead>
                                         <tbody>
                                             @if (!$categories->isEmpty())
-                                            @foreach($categories as $category)
+                                            @foreach($categories as $index=>$category)
                                             <tr>
-                                                <td>{{ $category->id }}</td>
+                                                <td>{{ $index+1 }}</td>
                                                 <td>{{ $category->name }}</td>
                                             </tr>
                                             @endforeach
@@ -108,9 +108,9 @@
                                         </thead>
                                         <tbody>
                                             @if (!$taxes->isEmpty())
-                                            @foreach($taxes as $tax)
+                                            @foreach($taxes as $index=>$tax)
                                             <tr>
-                                                <td>{{ $tax->id }}</td>
+                                                <td>{{ $index+1 }}</td>
                                                 <td>{{ $tax->rate }}</td>
                                                 <td>{{ $tax->type }}</td>
                                             </tr>

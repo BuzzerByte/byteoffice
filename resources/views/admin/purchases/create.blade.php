@@ -223,6 +223,7 @@
                 <form action="{{ route('purchases.store') }}" id="from-purchase" enctype="multipart/form-data" method="post"
                     accept-charset="utf-8">
                     @csrf
+                    <input type="hidden" name="invoice_number">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12 ">
@@ -236,7 +237,7 @@
 
                                                     <label>Vendor <span class="required" aria-required="true">*</span></label>
                                                     <select class="form-control ls-select2" id="selected_vendor" name="vendorId"
-                                                        required style="width: 100%;">
+                                                        required style="width: 100%;" readonly>
                                                         @if (!$vendors->isEmpty())
                                                         <option value="">Please Select</option>
                                                         @foreach($vendors as $vendor)
@@ -253,7 +254,7 @@
                                                 <div class="form-group form-group-bottom">
                                                     <label>Email</label>
                                                     <input type="email" name="email" id="email" class="form-control autocomplete_off"
-                                                        value="{{ $selected_vendor->email }}" required>
+                                                        value="{{ $selected_vendor->email }}" required readonly>
                                                 </div>
                                             </div>
 
@@ -261,7 +262,7 @@
                                                 <div class="form-group">
                                                     <label>Billing Address</label>
                                                     <textarea class="form-control autocomplete_off" id="b_address" name="b_address"
-                                                        required>{{ $selected_vendor->billing_address }}</textarea>
+                                                        required readonly>{{ $selected_vendor->billing_address }}</textarea>
                                                 </div>
                                             </div>
 
@@ -281,7 +282,7 @@
                                                     <label>Vendor <span style="color:red;" class="required"
                                                             aria-required="true">*</span></label>
                                                     <select class="form-control ls-select2" id="selected_vendor" name="vendorId"
-                                                        required style="width: 100%;">
+                                                        required style="width: 100%;" readonly>
                                                         @if (!$vendors->isEmpty())
                                                         <option value="">Please Select</option>
                                                         @foreach($vendors as $vendor)
@@ -304,7 +305,7 @@
                                                 <div class="form-group form-group-bottom">
                                                     <label>Email</label>
                                                     <input type="email" name="email" id="email" class="form-control autocomplete_off"
-                                                        value="" required>
+                                                        value="" required readonly>
                                                 </div>
                                             </div>
 
@@ -312,7 +313,7 @@
                                                 <div class="form-group">
                                                     <label>Billing Address</label>
                                                     <textarea class="form-control autocomplete_off" id="b_address" name="b_address"
-                                                        required></textarea>
+                                                        required readonly></textarea>
                                                 </div>
                                             </div>
 

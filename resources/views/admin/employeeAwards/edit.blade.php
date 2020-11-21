@@ -12,7 +12,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label>Department<span class="required">*</span></label>
-                    <select class="form-control select2 select2-hidden-accessible edit_department_id" name="department_id"
+                    <select class="form-control select2 edit_department_id" name="department_id"
                         id="department" onchange="get_employee(this.value)" tabindex="-1" aria-hidden="true" style="width: 100%;"
                         required>
                         @if(!$departments->isEmpty())
@@ -28,7 +28,7 @@
 
                 <div class="form-group">
                     <label>Employee<span class="required">*</span></label>
-                    <select class="form-control select2 select2-hidden-accessible edit_employee_id" name="employee_id"
+                    <select class="form-control select2 edit_employee_id" name="employee_id"
                         id="employee" tabindex="-1" aria-hidden="true" style="width: 100%;" required>
                         @if(!$employees->isEmpty())
                         <option value="">Please Select</option>
@@ -75,7 +75,7 @@
             <div class="modal-footer">
                 <span class="required">*</span> Required field
                 <button type="button" id="close" class="btn btn-danger btn-flat pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn bg-olive btn-flat" id="btn">Save</button>
+                <button type="submit" class="btn bg-olive btn-flat">Save</button>
 
 
             </div>

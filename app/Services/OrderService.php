@@ -13,26 +13,30 @@ use App\Exports\ProcessExport;
 use App\Exports\PendingExport;
 use App\Exports\DeliverExport;
 use App\Order;
+use App\Services\BaseService;
 
-class OrderService {
+class OrderService extends BaseService{
     protected $orders;
     protected $saleProducts;
     protected $clients;
     protected $payments;
     protected $inventories;
+    protected $bases;
 
     public function __construct(
         IOrderRepository $orders, 
         ISaleProductRepository $saleProducts, 
         IClientRepository $clients, 
         IPaymentRepository $payments,
-        IInventoryRepository $inventories
+        IInventoryRepository $inventories,
+        BaseService $bases
     ){
         $this->orders = $orders;
         $this->saleProducts = $saleProducts;
         $this->clients = $clients;
         $this->payments = $payments;
         $this->inventories = $inventories;
+        $this->bases = $bases;
     }
 
     public function all(){
@@ -40,6 +44,8 @@ class OrderService {
     }
 
     public function store(Request $request, $inventories){
+        $latest = Order::latest()->first();
+        $request->invoice_number = $this->bases->invoiceNumber($latest, 'INV');
         $result =  $this->orders->store($request);
         for($i = 0; $i < $inventories['count']; $i++){
             $this->saleProducts->storeByOrder(
@@ -157,4 +163,6 @@ class OrderService {
     public function updateStatus(Order $order, $status){
         return $this->orders->updateStatus($order, $status);
     }
+
+    
 }

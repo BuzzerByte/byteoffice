@@ -26,10 +26,10 @@ class EmployeeAwardController extends Controller
             $departments = $this->employeeAwards->getDepartments();
             return view('admin.employeeAwards.index',['awards'=>$awards,'employees'=>$employees,'departments'=>$departments]);
         }else{
-            $awards = $this->employeeAwards->all();
-            $employees = $this->employeeAwards->getEmployees();
-            $departments = $this->employeeAwards->getDepartments();
-            return view('users.awards.index',['awards'=>$awards,'employees'=>$employees,'departments'=>$departments]);
+            // $awards = $this->employeeAwards->all();
+            // $employees = $this->employeeAwards->getEmployees();
+            // $departments = $this->employeeAwards->getDepartments();
+            // return view('users.awards.index',['awards'=>$awards,'employees'=>$employees,'departments'=>$departments]);
         }
     }
 
@@ -47,7 +47,7 @@ class EmployeeAwardController extends Controller
 
     public function edit(EmployeeAward $employeeAward)
     {
-        return response()->json($employeeAward);
+        return $this->employeeAwards->getById($employeeAward->id);
     }
 
     public function update(Request $request, EmployeeAward $employeeAward)

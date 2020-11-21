@@ -50,7 +50,7 @@
                         <thead>
                             <tr>
                                 <th>Date(Y-M-D)</th>
-                                <th>Order ID</th>
+                                <th>Order No</th>
                                 <th>Client</th>
                                 <th>Due Date</th>
                                 <th>Due Payment</th>
@@ -87,7 +87,7 @@
                                     {{ Carbon\Carbon::parse( $order->created_at)->format('d M Y') }}
                                 </td>
                                 <td>
-                                    {{ $order->id }} </td>
+                                    {{ $order->invoice_number }} </td>
                                 <td>
                                     {{ \App\Client::where('id',$order->client_id)->first()->name }} </td>
                                 <td>
@@ -134,7 +134,7 @@
                         <tfoot>
                             <tr>
                                 <th>Date(Y-M-D)</th>
-                                <th>Order ID</th>
+                                <th>Order No</th>
                                 <th>Client</th>
                                 <th>Due Date</th>
                                 <th>Due Payment</th>

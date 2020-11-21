@@ -51,7 +51,7 @@ class PaymentRepository implements IPaymentRepository
         $payment->cc_year = $request->cc_year;
         $payment->cvc = $request->cvc;
         $payment->payment_ref = $request->payment_ref;
-        $payment->order_id = (int)$request->invoiceId;
+        $payment->order_id = $request->invoiceId;
         return [
             'result'=>$payment->save(),
             'order_id'=>$payment->order_id
@@ -72,7 +72,7 @@ class PaymentRepository implements IPaymentRepository
         $payment->cc_year = $request->cc_year;
         $payment->cvc = $request->cvc;
         $payment->payment_ref = $request->payment_ref;
-        $payment->purchase_id = (int)$request->purchaseId;
+        $payment->purchase_id = $request->purchaseId;
         return [
             'result'=>$payment->save(),
             'purchase_id'=>$payment->purchase_id

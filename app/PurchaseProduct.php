@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Inventory;
 use App\Http\Traits\UseUuid;
+use App\Purchase;
+use App\Vendor;
 
 class PurchaseProduct extends Model
 {
@@ -31,5 +33,13 @@ class PurchaseProduct extends Model
 
     public function inventory($inventory_id){
         return Inventory::select('name')->where('id',$inventory_id)->first()->name;
+    }
+
+    public function getPurchaseCode($purchase_id){
+        return Purchase::select('invoice_number')->where('id',$purchase_id)->first()->invoice_number;
+    }
+
+    public function getVendor($purchase_id){
+        return Vendor::where('id',Purchase::where('id',$purchase_id)->first()->vendor_id)->first()->name;
     }
 }

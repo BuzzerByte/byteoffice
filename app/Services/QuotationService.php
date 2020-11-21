@@ -9,23 +9,27 @@ use App\Repositories\Interfaces\IClientRepository;
 use App\Repositories\Interfaces\IInventoryRepository;
 use App\Quotation;
 use App\Exports\QuotationExport;
+use App\Services\BaseService;
 
-class QuotationService{
+class QuotationService extends BaseService{
     protected $quotations;
     protected $quotationProducts;
     protected $clients;
     protected $inventories;
+    protected $bases;
 
     public function __construct(
         IQuotationRepository $quotations,
         IQuotationProductRepository $quotationProducts,
         IClientRepository $clients,
-        IInventoryRepository $inventories
+        IInventoryRepository $inventories,
+        BaseService $bases
     ){
         $this->quotations = $quotations;
         $this->quotationProducts = $quotationProducts;
         $this->clients = $clients;
         $this->inventories = $inventories;
+        $this->bases = $bases;
     }
 
     public function all(){
@@ -42,6 +46,8 @@ class QuotationService{
     }
 
     public function store(Request $request, $inventories){
+        $latest = Quotation::latest()->first();
+        $request->invoice_number = $this->bases->invoiceNumber($latest, 'QUO');
         $quotation = $this->quotations->store($request);
         for($i=0;$i<$inventories['count'];$i++){
             $this->quotationProducts->updateOrCreate(

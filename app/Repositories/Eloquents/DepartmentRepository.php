@@ -23,7 +23,7 @@ class DepartmentRepository implements IDepartmentRepository{
     }
 
     public function getDepartmentById($id){
-        return $this->departments->where('id',$department_id)->first();
+        return $this->departments->where('id',$id)->first();
     }
 
     public function store(Request $request){
