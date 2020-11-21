@@ -10,14 +10,15 @@ use Carbon\Carbon;
 class ReimbursementRepository implements IReimbursementRepository{
     protected $reimbursements;
 
-    public function __contruct(Reimbursement $reimbursements){
+    public function __construct(Reimbursement $reimbursements){
         $this->reimbursements = $reimbursements;
     }
 
     public function all(){
         $reimbursements = Reimbursement::all();
         if($reimbursements->isEmpty()) return [];
-        return $this->reimbursements->leftjoin('employees','reimbursements.employee_id','employees.id')
+        return $this->reimbursements->select('reimbursements.*')
+                                    ->leftjoin('employees','reimbursements.employee_id','employees.id')
                                     ->leftjoin('users','users.id','employees.user_id')
                                     ->orderBy('reimbursements.created_at','asc')
                                     ->get();
@@ -27,8 +28,8 @@ class ReimbursementRepository implements IReimbursementRepository{
         $reimbursement = $this->reimbursements;
         $reimbursement->date = Carbon::parse($request->date)->format('Y-m-d');
         $reimbursement->description = $request->memo;
-        $reimbursement->employee_id = (int)$request->employee_id;
-        $reimbursement->department_id = (int)$request->department_id;
+        $reimbursement->employee_id = $request->employee_id;
+        $reimbursement->department_id = $request->department_id;
         $reimbursement->amount = doubleval($request->amount);
         $reimbursement->m_approved = 0;
         $reimbursement->a_approved = 0;
@@ -43,8 +44,8 @@ class ReimbursementRepository implements IReimbursementRepository{
         $reimbursement = $this->reimbursements->find($id);
         $reimbursement->date = Carbon::parse($request->date)->format('Y-m-d');
         $reimbursement->description = $request->memo;
-        $reimbursement->employee_id = (int)$request->employee_id;
-        $reimbursement->department_id = (int)$request->department_id;
+        $reimbursement->employee_id = $request->employee_id;
+        $reimbursement->department_id = $request->department_id;
         $reimbursement->amount = doubleval($request->amount);
         $reimbursement->m_approved = 0;
         $reimbursement->m_comment  = $request->manager_comment;

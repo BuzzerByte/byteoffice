@@ -67,8 +67,8 @@ class InventoryRepository implements IInventoryRepository
         $inventory->s_information = $request->sales_info;
         $inventory->p_price = $request->buying_cost;
         $inventory->p_information = $request->buying_info;
-        $inventory->category_id = (int)$request->category;
-        $inventory->tax_id = (int)$request->tax;
+        $inventory->category_id = $request->category;
+        $inventory->tax_id = $request->tax;
         $inventory->quantity = $request->inventory;
         $inventory->type = $request->type;
         return [

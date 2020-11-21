@@ -40,7 +40,7 @@ class ApplicationController extends Controller
 
     public function edit(Application $application)
     {
-        return $application;
+        return $this->applications->getById($application->id);
     }
 
     public function update(Request $request, Application $application)
