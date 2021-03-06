@@ -26,7 +26,7 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: buzzeroffice
+      MYSQL_DATABASE: byteoffice
       MYSQL_USER: root
       MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root

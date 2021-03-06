@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
         $users = [
             [
                 'id' => Str::uuid(),
-                'email' => 'adrian@gmail.com',
+                'email' => 'admin@byteoffice.com',
                 'name' => 'admin',
                 'f_name' => 'buzzer',
                 'l_name' => 'admin',
