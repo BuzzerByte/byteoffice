@@ -38,7 +38,7 @@ The project is develop using Laravel 7.30.4
 # Docker Installation
 A pretty simplified docker-compose workflow that sets up a LEMP network of containers for local Laravel development. You can view the full article that inspired this repo [here](https://medium.com/@aschmelyun).
 
-1. git clone git@github.com:BuzzerByte/buzzeroffice.git
+1. git clone git@github.com:BuzzerByte/byteoffice.git
 2. docker-compose up -d —build
 3. composer install
 4. composer update
