@@ -1,11 +1,13 @@
 # App
-
+Byte Office 
 Office Management System
 
 ### Prerequisites
+Application Required
+- Docker
 
 Server Requirements
-- PHP >= 7.1.3
+- PHP >= 7.2.3
 - OpenSSL PHP Extension
 - PDO PHP Extension
 - Mbstring PHP Extension
@@ -16,32 +18,38 @@ OPTIONAL REQUIREMENTS:
 - Composer
 - NPM / YARN
 
-### Installing
+### Login Credentials
+Email: admin@byteoffice.com
+Password: 123qwe
 
-The project is develop using laravel.
+### Setup Local Development Environment
+
+The project is develop using Laravel 7.30.4
 
 1. First, setup typical laravel development environment on your local machine.
-
 2. Go to your development environment root directory, (e.g /var/www/html/ for apache).
-
-3. "git clone https://github.com/RuJyi/App.git < folder name >".
-
+3. "git clone https://github.com/BuzzerByte/byteoffice.git < folder name >".
 4. "cd < folder name >".
-
 5. "composer install".
-
 6. "php artisan key:generate".
-
 7. "php artisan migrate --seed".
-
 8. key in "localhost" in your web browser should see the login page
 
-
-# docker-compose-laravel
+# Docker Installation
 A pretty simplified docker-compose workflow that sets up a LEMP network of containers for local Laravel development. You can view the full article that inspired this repo [here](https://medium.com/@aschmelyun).
 
+1. git clone git@github.com:BuzzerByte/buzzeroffice.git
+2. docker-compose up -d —build
+3. composer install
+4. composer update
+5. npm install
+6. npm run dev/watch
+7. cp .env.example .env
+8. edit .env file
+1. docker-composer exec php php artisan migrate —seed
+2. php artisan key:generate
 
-## Usage
+## Docker Usage
 
 To get started, make sure you have [Docker installed](https://docs.docker.com/docker-for-mac/install/) on your system, and then clone this repository.
 
