@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\Interfaces\IDepartmentRepository;
+use Illuminate\Http\Request;
 
 class DepartmentService{
     protected $departments;
