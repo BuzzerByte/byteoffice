@@ -70,7 +70,7 @@ class PurchaseService extends BaseService{
                 $inventories['qty'][$i],
                 $inventories['rate'][$i],
                 $inventories['amt'][$i],
-                $purchases['id'],
+                $purchases['id']
             );
         }
         return ['result'=>true,'id'=>$purchases['id']];
