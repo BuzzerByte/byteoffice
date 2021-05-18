@@ -6,7 +6,7 @@
         "laraspace",
         "admin",
         "template"
-    ],
+    ], 
     "license": "MIT",
     "type": "project",
     "require": {
